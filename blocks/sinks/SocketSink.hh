@@ -1,0 +1,35 @@
+// (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
+// see LICENSE for license
+#ifndef iblocks_blocks_sink_SocketSink_hh
+#define iblocks_blocks_sink_SocketSink_hh
+
+#include "../../common/Port.hh"
+
+#include <memory>
+
+namespace SocketProgramming
+{
+  class ISocket;
+}
+
+namespace iblocks
+{
+  class SocketSink
+    : public Port<1, 0, unsigned char>
+  {
+  public:
+    SocketSink();
+    SocketSink(std::auto_ptr<SocketProgramming::ISocket> pIns);
+    void SetStreamSink(std::auto_ptr<SocketProgramming::ISocket> pIns);
+
+  public: // Port interface
+    void Process(int sourceIndex, const unsigned char& data, const TimeTick& startTime);
+    void Process(
+      int sourceIndex, MultiPtr<unsigned char> pData, int len, const TimeTick& startTime);
+
+  private:
+    std::auto_ptr<SocketProgramming::ISocket> mpSocket;
+  };
+}
+
+#endif // iblocks_blocks_sink_SocketSink_hh
