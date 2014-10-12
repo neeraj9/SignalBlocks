@@ -1,6 +1,6 @@
 # (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 # see LICENSE for license
-SUBDIRS = codec socket sound plugins
+SUBDIRS = codec socket plugins
 
 LDADD = $(LOCAL_LIBS)
 LOCAL_LIBS = \

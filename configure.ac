@@ -87,7 +87,6 @@ AC_CONFIG_FILES([
  common/codec/Makefile
  common/plugins/Makefile
  common/socket/Makefile
- common/sound/Makefile
  src/Makefile
 ])
 AC_OUTPUT
