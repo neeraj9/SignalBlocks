@@ -6,7 +6,6 @@ LOCAL_LIBS = \
  libsrc.la \
  ../blocks/libblocks.la \
  ../common/libcommon.la \
- ../common/ds/libdscommon.la \
  ../common/socket/libsocketcommon.la
 
 noinst_LTLIBRARIES = libsrc.la
