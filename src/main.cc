@@ -302,8 +302,6 @@ void test18()
   // XXX free to be used
 }
 
-// XXX removed Email related Source test 19 and 20
-
 void test21()
 {
   stack<int> s;
