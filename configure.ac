@@ -61,24 +61,9 @@ fi
 #AM_CONDITIONAL(USE_GSL, test $use_gsl = "yes")
 
 
-# --- check for sqlite3
-#PKG_CHECK_MODULES([SQLITE3], [sqlite3 >= 3.2], [use_sqlite3]="yes", [use_sqlite3]="no")
-#if test $use_sqlite3 = "yes"; then
-#  CXXFLAGS="$SQLITE3_CFLAGS $CXXFLAGS"
-#  LIBS="$SQLITE3_LIBS $LIBS"
-#  AC_DEFINE(HAVE_DATABASE,1,
-#            [Define if you have the Sqlite3 libraries and header files.])
-#else
-#  AC_MSG_ERROR(Sqlite3 library not found.)
-#fi
-
-
-# Works with python2.6 only
+# Works with python2.6 or python2.7
 CXXFLAGS="`python-config --cflags` -I\$(top_srcdir)/ext-gmock/gmock/include -I\$(top_srcdir)/ext-gmock/gmock/gtest/include $CXXFLAGS"
 LIBS="`python-config --libs` $LIBS"
-# Works with python2.4 only
-#CXXFLAGS="-I/usr/include/python2.4 -I/usr/lib64/python2.4/site-packages/numpy/core/include $CXXFLAGS"
-#LIBS="-L/usr/lib64/python2.4 $LIBS"
 
 # Checks for header files.
 
