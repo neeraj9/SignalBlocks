@@ -1,12 +1,12 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_common_plugins_PythonPluginExceptions_hh
-#define iblocks_common_plugins_PythonPluginExceptions_hh
+#ifndef sigblocks_common_plugins_PythonPluginExceptions_hh
+#define sigblocks_common_plugins_PythonPluginExceptions_hh
 
 #include <exception>
 #include <string>
 
-namespace iblocks
+namespace sigblocks
 {
   class PyPluginTypeException
     : public std::exception
@@ -22,4 +22,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_common_plugins_PythonPluginExceptions_hh
+#endif // sigblocks_common_plugins_PythonPluginExceptions_hh

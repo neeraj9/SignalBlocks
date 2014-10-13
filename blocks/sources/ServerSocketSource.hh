@@ -1,7 +1,7 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_blocks_source_ServerSocketSource_hh
-#define iblocks_blocks_source_ServerSocketSource_hh
+#ifndef sigblocks_blocks_source_ServerSocketSource_hh
+#define sigblocks_blocks_source_ServerSocketSource_hh
 
 #include "../../common/MultiPtr.hh"
 #include "../../common/Port.hh"
@@ -15,7 +15,7 @@ namespace SocketProgramming
   class IServerSocket;
 }
 
-namespace iblocks
+namespace sigblocks
 {
   class ServerSocketSource
     : public Port<0, 1, unsigned char>
@@ -43,4 +43,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_blocks_source_ServerSocketSource_hh
+#endif // sigblocks_blocks_source_ServerSocketSource_hh

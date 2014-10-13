@@ -1,7 +1,7 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_blocks_source_SocketSourceCreator_hh
-#define iblocks_blocks_source_SocketSourceCreator_hh
+#ifndef sigblocks_blocks_source_SocketSourceCreator_hh
+#define sigblocks_blocks_source_SocketSourceCreator_hh
 
 #include "SocketSource.hh"
 
@@ -12,7 +12,7 @@
 #include <memory>
 #include <string>
 
-namespace iblocks
+namespace sigblocks
 {
   template <class X>
   class SocketSourceCreator
@@ -55,4 +55,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_blocks_source_SocketSourceCreator_hh
+#endif // sigblocks_blocks_source_SocketSourceCreator_hh

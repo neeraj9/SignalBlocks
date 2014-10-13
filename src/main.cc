@@ -36,7 +36,7 @@
 #include <stack>
 #include <unistd.h> // for sleep
 
-using namespace iblocks;
+using namespace sigblocks;
 using namespace std;
 
 void test1()

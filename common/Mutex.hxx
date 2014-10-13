@@ -1,5 +1,5 @@
-#ifndef iblocks_common_Mutex_hxx
-#define iblocks_common_Mutex_hxx
+#ifndef sigblocks_common_Mutex_hxx
+#define sigblocks_common_Mutex_hxx
 
 #include "compat.hxx"
 #include "Lockable.hxx"
@@ -57,4 +57,4 @@ class Mutex : public Lockable
 
 }
 
-#endif // iblocks_common_Mutex_hxx
+#endif // sigblocks_common_Mutex_hxx

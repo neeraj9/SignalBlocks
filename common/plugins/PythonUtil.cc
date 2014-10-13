@@ -8,7 +8,7 @@
 #include <numpy/ndarrayobject.h> // required for Py_ssize_t
 #include <string>
 
-using namespace iblocks;
+using namespace sigblocks;
 
 std::auto_ptr<PythonBaseResult> 
 PythonUtil::ExtractBasicType(PyObject* pObj)

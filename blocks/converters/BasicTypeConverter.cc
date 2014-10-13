@@ -4,7 +4,7 @@
 
 #include "../../common/GenericCopy.hh"
 
-using namespace iblocks;
+using namespace sigblocks;
 
 template <class TFROM, class TTO>
 void

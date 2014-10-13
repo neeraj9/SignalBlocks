@@ -2,10 +2,10 @@
 // see LICENSE for license
 // copyright (c) 2010-12 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE.txt for license information
-#ifndef iblocks_common_signalprocessing_Conv_hh
-#define iblocks_common_signalprocessing_Conv_hh
+#ifndef sigblocks_common_signalprocessing_Conv_hh
+#define sigblocks_common_signalprocessing_Conv_hh
 
-namespace iblocks
+namespace sigblocks
 {
   template <class T>
   class Conv
@@ -15,4 +15,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_common_signalprocessing_Conv_hh
+#endif // sigblocks_common_signalprocessing_Conv_hh

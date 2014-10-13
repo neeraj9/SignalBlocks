@@ -1,14 +1,14 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_blocks_source_IstreamSource_hh
-#define iblocks_blocks_source_IstreamSource_hh
+#ifndef sigblocks_blocks_source_IstreamSource_hh
+#define sigblocks_blocks_source_IstreamSource_hh
 
 #include "../../common/Port.hh"
 #include "../../common/TimeTick.hh"
 
 #include <memory>
 
-namespace iblocks
+namespace sigblocks
 {
   template <class T>
   class IstreamSource
@@ -36,4 +36,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_blocks_source_IstreamSource_hh
+#endif // sigblocks_blocks_source_IstreamSource_hh

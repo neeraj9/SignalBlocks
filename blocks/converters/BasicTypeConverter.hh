@@ -1,11 +1,11 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_converters_BasicTypeConverter_hh
-#define iblocks_converters_BasicTypeConverter_hh
+#ifndef sigblocks_converters_BasicTypeConverter_hh
+#define sigblocks_converters_BasicTypeConverter_hh
 
 #include "../../common/MixedPort.hh"
 
-namespace iblocks
+namespace sigblocks
 {
   template <class TFROM, class TTO>
   class BasicTypeConverter
@@ -18,4 +18,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_converters_BasicTypeConverter_hh
+#endif // sigblocks_converters_BasicTypeConverter_hh

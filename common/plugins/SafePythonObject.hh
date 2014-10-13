@@ -1,12 +1,12 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_common_plugins_SafePythonObject_hh
-#define iblocks_common_plugins_SafePythonObject_hh
+#ifndef sigblocks_common_plugins_SafePythonObject_hh
+#define sigblocks_common_plugins_SafePythonObject_hh
 
 #include <Python.h> // Its present here only because of PyObject
                     // because its forward declaration is not possible.
 
-namespace iblocks
+namespace sigblocks
 {
   class SafePythonObject
   {
@@ -34,4 +34,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_common_plugins_SafePythonObject_hh
+#endif // sigblocks_common_plugins_SafePythonObject_hh

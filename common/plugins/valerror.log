@@ -752,9 +752,9 @@ Running inline source [print 'Hello World!'] : output {Hello World!
 ==9324==    at 0x42B1809: PyObject_Free (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x432D692: PyObject_GC_Del (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x42840D2: (within /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x805281D: iblocks::SafePythonObject::~SafePythonObject() (SafePythonObject.cc:20)
+==9324==    by 0x805281D: sigblocks::SafePythonObject::~SafePythonObject() (SafePythonObject.cc:20)
 ==9324==    by 0x804C0F9: (anonymous namespace)::Object::~Object() (PythonPlugin.cc:59)
-==9324==    by 0x804BD24: test_inline_source(iblocks::PythonPlugin*) (auto_ptr.h:173)
+==9324==    by 0x804BD24: test_inline_source(sigblocks::PythonPlugin*) (auto_ptr.h:173)
 ==9324==    by 0x804BF1B: main (PythonPluginTest.cc:24)
 ==9324==  Address 0x5e86010 is 4,256 bytes inside a block of size 6,016 free'd
 ==9324==    at 0x4022B8A: free (vg_replace_malloc.c:323)
@@ -762,8 +762,8 @@ Running inline source [print 'Hello World!'] : output {Hello World!
 ==9324==    by 0x426DE5F: (within /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x431F78B: PyParser_ASTFromString (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x431F8CA: Py_CompileStringFlags (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C289: iblocks::PythonPlugin::ParsePythonSource(std::string const&) (PythonPlugin.cc:233)
-==9324==    by 0x804BC28: test_inline_source(iblocks::PythonPlugin*) (PythonPluginTest.cc:86)
+==9324==    by 0x804C289: sigblocks::PythonPlugin::ParsePythonSource(std::string const&) (PythonPlugin.cc:233)
+==9324==    by 0x804BC28: test_inline_source(sigblocks::PythonPlugin*) (PythonPluginTest.cc:86)
 ==9324==    by 0x804BF1B: main (PythonPluginTest.cc:24)
 Running inline source [print 'Hello World!'] : output {Hello World!
 } No result returned!
@@ -1127,7 +1127,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x43156CA: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324==  Address 0x5e64010 is 8 bytes before a block of size 332 alloc'd
 ==9324==    at 0x4023D6E: malloc (vg_replace_malloc.c:207)
@@ -1140,8 +1140,8 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x4274A16: PyObject_Call (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x42F9C7B: PyEval_CallObjectWithKeywords (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4274BFB: PyObject_CallObject (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804CA3D: iblocks::PythonPlugin::RunPythonCode(std::string const&, std::string const&, std::string const&) (PythonPlugin.cc:181)
-==9324==    by 0x804B2EB: test_function_call(iblocks::PythonPlugin*) (PythonPluginTest.cc:39)
+==9324==    by 0x804CA3D: sigblocks::PythonPlugin::RunPythonCode(std::string const&, std::string const&, std::string const&) (PythonPlugin.cc:181)
+==9324==    by 0x804B2EB: test_function_call(sigblocks::PythonPlugin*) (PythonPluginTest.cc:39)
 ==9324== 
 ==9324== Invalid read of size 4
 ==9324==    at 0x42B1809: PyObject_Free (in /usr/lib/libpython2.5.so.1.0)
@@ -1152,7 +1152,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x43156CA: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324==  Address 0x5e20010 is not stack'd, malloc'd or (recently) free'd
 ==9324== 
@@ -1166,7 +1166,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x43156CA: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324==  Address 0x5e99010 is 2,800 bytes inside a block of size 6,016 free'd
 ==9324==    at 0x4022B8A: free (vg_replace_malloc.c:323)
@@ -1193,7 +1193,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x43156CA: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324==  Address 0x5e45010 is 8 bytes before a block of size 362 alloc'd
 ==9324==    at 0x4023D6E: malloc (vg_replace_malloc.c:207)
@@ -1219,7 +1219,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x43156CA: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324==  Address 0x5e45010 is 8 bytes before a block of size 362 free'd
 ==9324==    at 0x4022B8A: free (vg_replace_malloc.c:323)
@@ -1233,7 +1233,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x43156CA: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324== 
 ==9324== Conditional jump or move depends on uninitialised value(s)
 ==9324==    at 0x42B1812: PyObject_Free (in /usr/lib/libpython2.5.so.1.0)
@@ -1245,7 +1245,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x43156CA: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324== 
 ==9324== Use of uninitialised value of size 4
@@ -1258,7 +1258,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x43156CA: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324== 
 ==9324== Conditional jump or move depends on uninitialised value(s)
@@ -1286,7 +1286,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x43156CA: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324== 
 ==9324== Invalid read of size 4
@@ -1298,7 +1298,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE242: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324==  Address 0x6c48010 is 808 bytes inside a block of size 1,024 free'd
 ==9324==    at 0x4022B8A: free (vg_replace_malloc.c:323)
@@ -1324,7 +1324,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324== 
 ==9324== Use of uninitialised value of size 4
@@ -1337,7 +1337,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324== 
 ==9324== Invalid read of size 4
@@ -1348,7 +1348,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324==  Address 0x5f61010 is not stack'd, malloc'd or (recently) free'd
 ==9324== 
@@ -1362,7 +1362,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324==  Address 0x6311010 is 96 bytes inside a block of size 1,777 free'd
 ==9324==    at 0x4022B8A: free (vg_replace_malloc.c:323)
@@ -1375,7 +1375,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324== 
 ==9324== Invalid read of size 4
@@ -1390,7 +1390,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==  Address 0x5e5d010 is not stack'd, malloc'd or (recently) free'd
 ==9324== 
 ==9324== Conditional jump or move depends on uninitialised value(s)
@@ -1402,7 +1402,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324== 
 ==9324== Use of uninitialised value of size 4
@@ -1414,7 +1414,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324== 
 ==9324== Invalid read of size 4
@@ -1427,7 +1427,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324==  Address 0x636e010 is not stack'd, malloc'd or (recently) free'd
 ==9324== 
@@ -1441,7 +1441,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324== 
 ==9324== Invalid read of size 4
@@ -1451,7 +1451,7 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AB8F3: (within /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315AE4: _PyImport_Fini (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320648: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324==  Address 0x5cfa010 is 184 bytes inside a block of size 665 free'd
 ==9324==    at 0x4022B8A: free (vg_replace_malloc.c:323)
@@ -1463,14 +1463,14 @@ pObj->ob_type->tp_name = numpy.ndarray
 ==9324==    by 0x42AE2FE: _PyModule_Clear (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4315942: PyImport_Cleanup (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x4320643: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324== 
 ==9324== Invalid read of size 4
 ==9324==    at 0x42B1809: PyObject_Free (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x426C771: PyGrammar_RemoveAccelerators (in /usr/lib/libpython2.5.so.1.0)
 ==9324==    by 0x43206CA: Py_Finalize (in /usr/lib/libpython2.5.so.1.0)
-==9324==    by 0x804C021: iblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
+==9324==    by 0x804C021: sigblocks::PythonPlugin::~PythonPlugin() (PythonPlugin.cc:298)
 ==9324==    by 0x804BF6B: main (PythonPluginTest.cc:29)
 ==9324==  Address 0x5d56010 is not stack'd, malloc'd or (recently) free'd
 ==9324== 

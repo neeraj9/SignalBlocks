@@ -1,7 +1,7 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_blocks_sink_SocketSink_hh
-#define iblocks_blocks_sink_SocketSink_hh
+#ifndef sigblocks_blocks_sink_SocketSink_hh
+#define sigblocks_blocks_sink_SocketSink_hh
 
 #include "../../common/Port.hh"
 
@@ -12,7 +12,7 @@ namespace SocketProgramming
   class ISocket;
 }
 
-namespace iblocks
+namespace sigblocks
 {
   class SocketSink
     : public Port<1, 0, unsigned char>
@@ -32,4 +32,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_blocks_sink_SocketSink_hh
+#endif // sigblocks_blocks_sink_SocketSink_hh

@@ -1,11 +1,11 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_math_Product_hh
-#define iblocks_math_Product_hh
+#ifndef sigblocks_math_Product_hh
+#define sigblocks_math_Product_hh
 
 #include "NOperator.hh"
 
-namespace iblocks
+namespace sigblocks
 {
   template <int N, class T>
   class Product
@@ -37,4 +37,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_math_Product_hh
+#endif // sigblocks_math_Product_hh

@@ -6,7 +6,7 @@
 
 #include <stdint.h>
 
-using namespace iblocks;
+using namespace sigblocks;
 
 namespace
 {

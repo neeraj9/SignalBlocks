@@ -2,7 +2,7 @@
 // see LICENSE for license
 #include "ConstantSource.hh"
 
-using namespace iblocks;
+using namespace sigblocks;
 
 template <class T>
 ConstantSource<T>::ConstantSource(

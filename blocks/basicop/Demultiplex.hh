@@ -1,13 +1,13 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_math_Demultiplex_hh
-#define iblocks_math_Demultiplex_hh
+#ifndef sigblocks_math_Demultiplex_hh
+#define sigblocks_math_Demultiplex_hh
 
 #include "../../common/Port.hh"
 
 #include <list>
 
-namespace iblocks
+namespace sigblocks
 {
   template <int N, class T>
   class Demultiplex
@@ -27,4 +27,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_math_Demultiplex_hh
+#endif // sigblocks_math_Demultiplex_hh

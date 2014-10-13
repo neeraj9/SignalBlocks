@@ -1,9 +1,9 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_common_DataTypes_hh
-#define  iblocks_common_DataTypes_hh
+#ifndef sigblocks_common_DataTypes_hh
+#define  sigblocks_common_DataTypes_hh
 
-namespace iblocks
+namespace sigblocks
 {
   template <class T>
   struct ComplexType
@@ -40,5 +40,5 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_common_DataTypes_hh
+#endif // sigblocks_common_DataTypes_hh
 

@@ -1,12 +1,12 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_blocks_source_StepSource_hh
-#define iblocks_blocks_source_StepSource_hh
+#ifndef sigblocks_blocks_source_StepSource_hh
+#define sigblocks_blocks_source_StepSource_hh
 
 #include "../../common/Port.hh"
 #include "../../common/TimeTick.hh"
 
-namespace iblocks
+namespace sigblocks
 {
   template <class T>
   class StepSource
@@ -24,4 +24,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_blocks_source_StepSource_hh
+#endif // sigblocks_blocks_source_StepSource_hh

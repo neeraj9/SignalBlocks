@@ -53,7 +53,7 @@
 #include <Python.h>
 #include <iostream>
 
-using namespace iblocks;
+using namespace sigblocks;
 
 PythonPlugin::PythonPlugin()
   : mMutex()

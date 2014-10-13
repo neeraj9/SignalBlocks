@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-using namespace iblocks;
+using namespace sigblocks;
 
 template <int N, int M, class TN, class TM>
 MixedPort<N,M,TN,TM>::MixedPort()

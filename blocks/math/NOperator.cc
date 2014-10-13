@@ -2,7 +2,7 @@
 // see LICENSE for license
 #include "NOperator.hh"
 
-using namespace iblocks;
+using namespace sigblocks;
 using namespace std;
 
 template <int N, class T>
@@ -145,7 +145,7 @@ NOperator<2,T>::Process( \
 // This is somehow required by c++ otherwise
 // the compilers complain for specialization
 // and the definition in different namespaces.
-namespace iblocks
+namespace sigblocks
 {
   SPECIALIZE_SCALAR_PROCESS(long)
   SPECIALIZE_SCALAR_PROCESS(unsigned long)

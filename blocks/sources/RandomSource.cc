@@ -4,7 +4,7 @@
 
 #include <cstdlib>
 
-using namespace iblocks;
+using namespace sigblocks;
 
 RandomSource::RandomSource(const TimeTick& startTime, const TimeTick& increment)
   : mTime(startTime),

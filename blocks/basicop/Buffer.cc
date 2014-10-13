@@ -4,7 +4,7 @@
 
 #include <algorithm> // std::copy
 
-using namespace iblocks;
+using namespace sigblocks;
 using namespace std;
 
 template <class T>

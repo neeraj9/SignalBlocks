@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-using namespace iblocks;
+using namespace sigblocks;
 
 template <int N, int M, class T>
 Port<N,M,T>::Port()

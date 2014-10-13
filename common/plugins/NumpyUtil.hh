@@ -1,14 +1,14 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_common_plugins_NumpyUtil_hh
-#define iblocks_common_plugins_NumpyUtil_hh
+#ifndef sigblocks_common_plugins_NumpyUtil_hh
+#define sigblocks_common_plugins_NumpyUtil_hh
 
 #include "PythonResult.hh"
 
 #include <memory>
 #include <Python.h> // Needed for PyObject
 
-namespace iblocks
+namespace sigblocks
 {
   class NumpyUtil
   {
@@ -17,4 +17,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_common_plugins_NumpyUtil_hh
+#endif // sigblocks_common_plugins_NumpyUtil_hh

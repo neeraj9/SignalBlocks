@@ -1,11 +1,11 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_common_thread_Thread_hh
-#define iblocks_common_thread_Thread_hh
+#ifndef sigblocks_common_thread_Thread_hh
+#define sigblocks_common_thread_Thread_hh
 
 #include <pthread.h>
 
-namespace iblocks
+namespace sigblocks
 {
   class Thread
   {
@@ -25,4 +25,4 @@ namespace iblocks
     const bool mJoinable;
   };
 }
-#endif // iblocks_common_thread_Thread_hh
+#endif // sigblocks_common_thread_Thread_hh

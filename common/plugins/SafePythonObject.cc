@@ -2,7 +2,7 @@
 // see LICENSE for license
 #include "SafePythonObject.hh"
 
-using namespace iblocks;
+using namespace sigblocks;
 
 // Manage the reference counting automatically even when there
 // are exceptions.

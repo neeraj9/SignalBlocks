@@ -1,7 +1,7 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_blocks_sink_SocketTransceiver_hh
-#define iblocks_blocks_sink_SocketTransceiver_hh
+#ifndef sigblocks_blocks_sink_SocketTransceiver_hh
+#define sigblocks_blocks_sink_SocketTransceiver_hh
 
 #include "../../common/MultiPtr.hh"
 #include "../../common/Port.hh"
@@ -15,7 +15,7 @@ namespace SocketProgramming
   class ISocket;
 }
 
-namespace iblocks
+namespace sigblocks
 {
   class SocketTransceiver
     : public Port<1, 1, unsigned char>
@@ -49,4 +49,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_blocks_sink_SocketTransceiver_hh
+#endif // sigblocks_blocks_sink_SocketTransceiver_hh

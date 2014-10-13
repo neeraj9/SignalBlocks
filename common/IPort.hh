@@ -2,8 +2,8 @@
 // see LICENSE for license
 // copyright (c) 2010-12 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE.txt for license information
-#ifndef iblocks_common_IPort_hh
-#define iblocks_common_IPort_hh
+#ifndef sigblocks_common_IPort_hh
+#define sigblocks_common_IPort_hh
 
 #include "MultiPtr.hh"
 #include "SharedPtr.hxx"
@@ -12,7 +12,7 @@
 #include <iostream>
 using namespace std;
 
-namespace iblocks
+namespace sigblocks
 {
   template <class T = float>
   class IPort
@@ -36,4 +36,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_common_IPort_hh
+#endif // sigblocks_common_IPort_hh

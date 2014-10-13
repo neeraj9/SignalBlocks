@@ -1,5 +1,5 @@
-#ifndef iblocks_common_compat_hxx
-#define iblocks_common_compat_hxx
+#ifndef sigblocks_common_compat_hxx
+#define sigblocks_common_compat_hxx
 
 /**
    @file
@@ -164,4 +164,4 @@ typedef unsigned int   UInt32;
 #endif
 #endif
 
-#endif // iblocks_common_compat_hxx
+#endif // sigblocks_common_compat_hxx

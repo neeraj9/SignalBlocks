@@ -1,11 +1,11 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_math_Serialize_hh
-#define iblocks_math_Serialize_hh
+#ifndef sigblocks_math_Serialize_hh
+#define sigblocks_math_Serialize_hh
 
 #include "../../common/Port.hh"
 
-namespace iblocks
+namespace sigblocks
 {
   template <class T>
   class Serialize
@@ -29,4 +29,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_math_Serialize_hh
+#endif // sigblocks_math_Serialize_hh

@@ -1,5 +1,5 @@
-#ifndef iblocks_common_Lockable_hxx
-#define iblocks_common_Lockable_hxx
+#ifndef sigblocks_common_Lockable_hxx
+#define sigblocks_common_Lockable_hxx
 
 /** Infrastructure common to VOCAL.<br><br>
  */
@@ -24,4 +24,4 @@ class Lockable
 
 }
 
-#endif // iblocks_common_Lockable_hxx
+#endif // sigblocks_common_Lockable_hxx

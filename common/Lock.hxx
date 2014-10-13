@@ -1,5 +1,5 @@
-#ifndef iblocks_common_Lock_hxx
-#define iblocks_common_Lock_hxx
+#ifndef sigblocks_common_Lock_hxx
+#define sigblocks_common_Lock_hxx
 
 #include "Lockable.hxx"
 
@@ -47,4 +47,4 @@ class WriteLock : public Lock
 
 }
 
-#endif // iblocks_common_Lock_hxx
+#endif // sigblocks_common_Lock_hxx

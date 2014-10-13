@@ -1,5 +1,5 @@
-#ifndef iblocks_common_SharedPtr_hxx
-#define iblocks_common_SharedPtr_hxx
+#ifndef sigblocks_common_SharedPtr_hxx
+#define sigblocks_common_SharedPtr_hxx
 
 /**
    @file
@@ -377,7 +377,7 @@ template<class D, class T> D * get_deleter(SharedPtr<T> const & p)
 
 } // namespace BoostPort
 
-#endif // iblocks_common_SharedPtr_hxx
+#endif // sigblocks_common_SharedPtr_hxx
 
 // Note:  This implementation is a modified version of shared_ptr from
 // Boost.org

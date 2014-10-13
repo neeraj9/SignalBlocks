@@ -1,13 +1,13 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_common_codec_BitOperation_hh
-#define iblocks_common_codec_BitOperation_hh
+#ifndef sigblocks_common_codec_BitOperation_hh
+#define sigblocks_common_codec_BitOperation_hh
 
 #include "BitReadInfo.hh"
 
 #include <stdint.h>
 
-namespace iblocks
+namespace sigblocks
 {
   templace <typename Operation>
   class BitOperation
@@ -106,4 +106,4 @@ namespace iblocks
     return 0;
   }
 }
-#endif // iblocks_common_codec_BitOperation_hh
+#endif // sigblocks_common_codec_BitOperation_hh

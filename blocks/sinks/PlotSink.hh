@@ -1,7 +1,7 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_blocks_sink_PlotSink_hh
-#define iblocks_blocks_sink_PlotSink_hh
+#ifndef sigblocks_blocks_sink_PlotSink_hh
+#define sigblocks_blocks_sink_PlotSink_hh
 
 #ifdef HAVE_PLPLOT
 #include "../../common/PlPlot.hh"
@@ -9,7 +9,7 @@
 
 #include "../../common/Port.hh"
 
-namespace iblocks
+namespace sigblocks
 {
   template <class T>
   class PlotSink
@@ -34,4 +34,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_blocks_sink_PlotSink_hh
+#endif // sigblocks_blocks_sink_PlotSink_hh

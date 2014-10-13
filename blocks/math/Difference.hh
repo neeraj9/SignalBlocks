@@ -1,11 +1,11 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_math_Difference_hh
-#define iblocks_math_Difference_hh
+#ifndef sigblocks_math_Difference_hh
+#define sigblocks_math_Difference_hh
 
 #include "NOperator.hh"
 
-namespace iblocks
+namespace sigblocks
 {
   // implement a(n) - b(n) - c(n) - ...
   template <int N, class T>
@@ -39,4 +39,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_math_Difference_hh
+#endif // sigblocks_math_Difference_hh

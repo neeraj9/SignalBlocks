@@ -1,14 +1,14 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_common_plugins_PythonUtil_hh
-#define iblocks_common_plugins_PythonUtil_hh
+#ifndef sigblocks_common_plugins_PythonUtil_hh
+#define sigblocks_common_plugins_PythonUtil_hh
 
 #include "PythonResult.hh"
 
 #include <memory>
 #include <Python.h>
 
-namespace iblocks
+namespace sigblocks
 {
   class PythonUtil
   {
@@ -18,4 +18,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_common_plugins_PythonUtil_hh
+#endif // sigblocks_common_plugins_PythonUtil_hh

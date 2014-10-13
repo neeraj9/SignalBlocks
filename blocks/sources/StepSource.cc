@@ -2,7 +2,7 @@
 // see LICENSE for license
 #include "StepSource.hh"
 
-using namespace iblocks;
+using namespace sigblocks;
 
 template <class T>
 StepSource<T>::StepSource(

@@ -2,8 +2,8 @@
 // see LICENSE for license
 // copyright (c) 2010-12 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE.txt for license information
-#ifndef iblocks_common_GenericCopy_hh
-#define iblocks_common_GenericCopy_hh
+#ifndef sigblocks_common_GenericCopy_hh
+#define sigblocks_common_GenericCopy_hh
 
 #include <algorithm>
 #include <cmath>
@@ -11,7 +11,7 @@
 #include <string.h>  // memcpy
 #include <typeinfo> 
 
-namespace iblocks
+namespace sigblocks
 {
   /**
    * Copy arbitrary data-types
@@ -58,4 +58,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_common_GenericCopy_hh
+#endif // sigblocks_common_GenericCopy_hh

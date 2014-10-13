@@ -1,7 +1,7 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_blocks_sink_FileSinkCreator_hh
-#define iblocks_blocks_sink_FileSinkCreator_hh
+#ifndef sigblocks_blocks_sink_FileSinkCreator_hh
+#define sigblocks_blocks_sink_FileSinkCreator_hh
 
 #include "../common/IPort.hh"
 
@@ -9,7 +9,7 @@
 #include <memory>
 #include <string>
 
-namespace iblocks
+namespace sigblocks
 {
   template <template <class> class B, class T>
   class FileSinkCreator
@@ -27,4 +27,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_blocks_sink_FileSinkCreator_hh
+#endif // sigblocks_blocks_sink_FileSinkCreator_hh

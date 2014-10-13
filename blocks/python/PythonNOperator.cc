@@ -2,7 +2,7 @@
 // see LICENSE for license
 #include "PythonNOperator.hh"
 
-using namespace iblocks;
+using namespace sigblocks;
 using namespace std;
 
 template <int N, class T>

@@ -1,7 +1,7 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_common_PlPlot_hh
-#define iblocks_common_PlPlot_hh
+#ifndef sigblocks_common_PlPlot_hh
+#define sigblocks_common_PlPlot_hh
 
 #include "GenericCopy.hh"
 
@@ -10,7 +10,7 @@
 #include <iostream>
 #include <plstream.h>
 
-namespace iblocks
+namespace sigblocks
 {
   template <class X>
   void Plot1d(plstream* pPls, const X* src, size_t count)
@@ -82,4 +82,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_common_PlPlot_hh
+#endif // sigblocks_common_PlPlot_hh

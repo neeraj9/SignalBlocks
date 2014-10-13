@@ -4,7 +4,7 @@
 
 #include <cmath>
 
-using namespace iblocks;
+using namespace sigblocks;
 
 
 template <class T>

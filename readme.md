@@ -1,11 +1,35 @@
 # SigBlocks
 
-The Signal Blocks is a c++ framework to implement blocks of
+The SignalBlocks is a c++ framework to implement blocks of
 logic which can be tied together like digital signal processing
-(DSP) blocks (as in Matlab).
+(DSP) blocks (as in Matlab). This toolset aims to be fast, adaptable
+and free (GPLv3 license) for the student/research community.
+
+Please note that this is a humble attempt (no way complete) to
+give a framework which is (probably) useful to the scientific
+community.
+
+The c++ can appear daunting for newbies but I strive to make those
+as simple possible in the future. Additionally, there are so many
+opensource libraries available which I intend to reuse for much faster
+development.
 
 > (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 > see LICENSE for license
+
+## Roadmap
+
+
+1. c++ blocks for a fast yet easy to use software modules for a
+   generic processing. The idea is to have a basic framework
+   which will use a lot of opensource libariries to present
+   a blockset for mathematical (and probably more).
+2. graphical based approach where users will use blocks as
+   drag an drop, while the c++ engine is running in the
+   background (more like Matlab Simulink).
+3. Have some more thoughts but none mature enough to state
+   yet.
+
 
 ## Motivation
 
@@ -41,4 +65,26 @@ block for such requirement.
     nbuffer (convert serial data to a buffer of length N where N is within a given set and repeats over and over) - TODO
     serialize (convert buffer to serial data, or send one-by-one to the connected peer)
     downsample (filter data to down-sample input stream of data)
-    upsample (filter data to up-sample the input stream and insert 0's) - TODO
+    upsample (filter data to up-sample the input stream and insert 0s) - TODO
+
+## TODO
+
+* Make mutex optional, which will speedup single-threaded operations.
+  How about having a ifdef like DISABLE_MUTEX or something?
+* Enable Port vector operations
+* Think about removing the generic list operation (i.e. std::list)
+  in favour of vector
+* Include a bulk of Gnu Scientific Library vector operations
+* Enable Port matrix operations
+* Include matrix operations provided by GSL
+* Test all socket operations tcp, udp, udplite and sctp
+* Enhance bulk of functionality with unit tests
+
+## Thanks
+
+I have a lot of strategies to make this library even more useful to
+students/researchers, while this is one humble attempt to go
+one step closer towards the final goal.
+
+Please write comments / send me an email since a lot needs to be
+achieved and this is just the beginning.

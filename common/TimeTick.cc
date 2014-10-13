@@ -6,7 +6,7 @@
 
 #include <cmath>
 
-using namespace iblocks;
+using namespace sigblocks;
 
 const float EPSILON_THRESHOLD = 0.000000001; // XXX pick from global config
 

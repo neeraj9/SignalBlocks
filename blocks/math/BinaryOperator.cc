@@ -2,7 +2,7 @@
 // see LICENSE for license
 #include "BinaryOperator.hh"
 
-using namespace iblocks;
+using namespace sigblocks;
 using namespace std;
 
 template <class T>

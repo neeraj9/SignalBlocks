@@ -1,13 +1,13 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_math_Buffer_hh
-#define iblocks_math_Buffer_hh
+#ifndef sigblocks_math_Buffer_hh
+#define sigblocks_math_Buffer_hh
 
 #include "../../common/Port.hh"
 
 #include <vector>
 
-namespace iblocks
+namespace sigblocks
 {
   template <class T>
   class Buffer
@@ -29,4 +29,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_math_Buffer_hh
+#endif // sigblocks_math_Buffer_hh

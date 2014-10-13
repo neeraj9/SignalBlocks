@@ -1,5 +1,5 @@
-#ifndef iblocks_common_SharedCount_hxx
-#define iblocks_common_SharedCount_hxx
+#ifndef sigblocks_common_SharedCount_hxx
+#define sigblocks_common_SharedCount_hxx
 
 /**
    @file 
@@ -311,7 +311,7 @@ public:
 #endif
 
 
-#endif // iblocks_common_SharedCount_hxx
+#endif // sigblocks_common_SharedCount_hxx
 
 // Note:  This implementation is a modified version of shared_count from
 // Boost.org

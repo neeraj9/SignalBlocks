@@ -7,7 +7,7 @@
 #include <fstream>
 #include <iostream>
 
-using namespace iblocks;
+using namespace sigblocks;
 using namespace std;
 
 template <class T>

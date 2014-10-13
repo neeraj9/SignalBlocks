@@ -16,7 +16,7 @@
 
 #include <string>
 
-using namespace iblocks;
+using namespace sigblocks;
 
 // see http://www.scipy.org/Cookbook/C_Extensions/NumPy_arrays
 std::auto_ptr<PythonBaseResult> 

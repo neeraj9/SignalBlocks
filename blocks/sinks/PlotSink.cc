@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-using namespace iblocks;
+using namespace sigblocks;
 using namespace std;
 
 template <class T> const int PlotSink<T>::MAX_SAMPLES;

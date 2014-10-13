@@ -2,7 +2,7 @@
 // see LICENSE for license
 #include "PythonPluginExceptions.hh"
 
-using namespace iblocks;
+using namespace sigblocks;
 
 PyPluginTypeException::PyPluginTypeException(const std::string& error) throw()
   : mError(error)

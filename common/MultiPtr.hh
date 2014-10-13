@@ -2,10 +2,10 @@
 // see LICENSE for license
 // copyright (c) 2010-12 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE.txt for license information
-#ifndef iblocks_common_MultiPtr_hxx
-#define iblocks_common_MultiPtr_hxx
+#ifndef sigblocks_common_MultiPtr_hxx
+#define sigblocks_common_MultiPtr_hxx
 
-namespace iblocks
+namespace sigblocks
 {
   /**
    *  A wrapper class to provide MultiPtr with reference semantics.
@@ -255,4 +255,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_common_MultiPtr_hxx
+#endif // sigblocks_common_MultiPtr_hxx

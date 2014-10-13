@@ -2,7 +2,7 @@
 // see LICENSE for license
 #include "Thread.hh"
 
-using namespace iblocks;
+using namespace sigblocks;
 
 Thread::Thread()
   : mThread(pthread_self()),

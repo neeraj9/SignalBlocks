@@ -1,7 +1,7 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef iblocks_blocks_source_FileSourceCreator_hh
-#define iblocks_blocks_source_FileSourceCreator_hh
+#ifndef sigblocks_blocks_source_FileSourceCreator_hh
+#define sigblocks_blocks_source_FileSourceCreator_hh
 
 #include "../common/IPort.hh"
 #include "../common/TimeTick.hh"
@@ -10,7 +10,7 @@
 #include <memory>
 #include <string>
 
-namespace iblocks
+namespace sigblocks
 {
   template <template <class> class B, class T>
   class FileSourceCreator
@@ -31,4 +31,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_blocks_source_FileSourceCreator_hh
+#endif // sigblocks_blocks_source_FileSourceCreator_hh

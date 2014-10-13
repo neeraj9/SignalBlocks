@@ -2,8 +2,8 @@
 // see LICENSE for license
 // copyright (c) 2010-12 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE.txt for license information
-#ifndef iblocks_common_MixedPort_hh
-#define iblocks_common_MixedPort_hh
+#ifndef sigblocks_common_MixedPort_hh
+#define sigblocks_common_MixedPort_hh
 
 #include "IPort.hh"
 #include "MultiPtr.hh"
@@ -11,7 +11,7 @@
 #include "SharedPtr.hxx"
 #include "TimeTick.hh"
 
-namespace iblocks
+namespace sigblocks
 {
   // XXX specialze a case when N=1, M=1 and optimize it
   template <int N, int M, class TN, class TM>
@@ -65,4 +65,4 @@ namespace iblocks
   };
 }
 
-#endif // iblocks_common_MixedPort_hh
+#endif // sigblocks_common_MixedPort_hh

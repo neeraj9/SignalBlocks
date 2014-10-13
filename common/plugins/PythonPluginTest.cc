@@ -6,7 +6,7 @@
 #include <memory>
 #include <string>
 
-using namespace iblocks;
+using namespace sigblocks;
 using namespace std;
 
 void test_function_call(PythonPlugin* pPyplugin);
