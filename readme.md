@@ -14,6 +14,10 @@ as simple possible in the future. Additionally, there are so many
 opensource libraries available which I intend to reuse for much faster
 development.
 
+    I know that the sample code is a lot cryptic at present,
+    but I plan to change all that once I get free time.
+
+
 > (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 > see LICENSE for license
 
