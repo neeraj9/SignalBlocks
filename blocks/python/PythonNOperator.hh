@@ -3,10 +3,10 @@
 #ifndef sigblocks_math_PythonNOperator_hh
 #define sigblocks_math_PythonNOperator_hh
 
-#include "../common/SharedPtr.hxx"
-#include "../common/plugins/PythonPlugin.hh"
+#include "../plugins/PythonPlugin.hh"
 #include "../common/Port.hh"
 
+#include <memory>
 #include <list>
 #include <vector>
 
@@ -17,12 +17,12 @@ namespace sigblocks
     : public Port<N,1,T>
   {
   public:
-    PythonNOperator(BoostPort::SharedPtr<PythonPlugin>& plugin,
+    PythonNOperator(std::shared_ptr<PythonPlugin>& plugin,
                     const std::string& path,
                     const std::string& moduleName,
                     const std::string& functionName);
 
-    PythonNOperator(BoostPort::SharedPtr<PythonPlugin>& plugin,
+    PythonNOperator(std::shared_ptr<PythonPlugin>& plugin,
                     const std::string& path,
                     const std::string& pysource);
 
@@ -35,7 +35,7 @@ namespace sigblocks
       int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime);
 
   private:
-    BoostPort::SharedPtr<PythonPlugin> mPlugin;
+    std::shared_ptr<PythonPlugin> mPlugin;
     // The following can be const but its better that we make them
     // modifiable for later change by GUI/etc.
     std::string mPath;

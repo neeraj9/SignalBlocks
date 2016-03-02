@@ -16,7 +16,7 @@ ComplexStreamSource<T>::ComplexStreamSource(
   int blockSize)
   : mTime(startTime),
     mIncrement(increment),
-    mpComplexStream(0),
+    mpComplexStream(nullptr),
     mLoopOver(true),
     mBlockSize(blockSize)
 {
@@ -25,10 +25,10 @@ ComplexStreamSource<T>::ComplexStreamSource(
 template<class T>
 ComplexStreamSource<T>::ComplexStreamSource(
   const TimeTick& startTime, TimeTick& increment,
-  std::auto_ptr<std::istream> pIns, int blockSize)
+  std::unique_ptr<std::istream> pIns, int blockSize)
   : mTime(startTime),
     mIncrement(increment),
-    mpComplexStream(pIns),
+    mpComplexStream(std::move(pIns)),
     mLoopOver(true),
     mBlockSize(blockSize)
 {
@@ -36,9 +36,9 @@ ComplexStreamSource<T>::ComplexStreamSource(
 
 template<class T>
 void
-ComplexStreamSource<T>::SetStreamSource(std::auto_ptr<std::istream> pIns)
+ComplexStreamSource<T>::SetStreamSource(std::unique_ptr<std::istream> pIns)
 {
-  mpComplexStream = pIns;
+  mpComplexStream.swap(pIns);
 }
 
 template<class T>

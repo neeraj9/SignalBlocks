@@ -6,9 +6,9 @@
 #define sigblocks_common_IPort_hh
 
 #include "MultiPtr.hh"
-#include "SharedPtr.hxx"
 #include "TimeTick.hh"
 
+#include <memory>
 #include <iostream>
 using namespace std;
 
@@ -23,7 +23,7 @@ namespace sigblocks
     }
 
     virtual void SetSource(IPort<T>* peer, int index) = 0;
-    virtual void SetSink(BoostPort::SharedPtr<IPort<T> >& peer, int index) = 0;
+    virtual void SetSink(std::shared_ptr<IPort<T> >& peer, int index) = 0;
 
     virtual void DisconnectSource(IPort<T>* peer) = 0;
 

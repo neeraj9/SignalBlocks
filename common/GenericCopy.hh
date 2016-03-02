@@ -45,12 +45,12 @@ namespace sigblocks
              current != srcEnd;
              ++current, ++dest)
         {
-#if defined __APPLE__ && defined __MACH__
+//#if defined __APPLE__ && defined __MACH__
           *dest = static_cast<Y>(::sqrt((current->real() * current->real()) +
                                         (current->imag() * current->imag())));
-#else
-          *dest = static_cast<Y>(std::abs(current));
-#endif
+//#else
+//          *dest = static_cast<Y>(std::abs(current));
+//#endif
           //*dest = static_cast<Y>(current->real());
         }
       }

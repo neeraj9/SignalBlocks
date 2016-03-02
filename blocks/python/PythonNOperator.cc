@@ -6,7 +6,7 @@ using namespace sigblocks;
 using namespace std;
 
 template <int N, class T>
-PythonNOperator<N,T>::PythonNOperator(BoostPort::SharedPtr<PythonPlugin>& plugin,
+PythonNOperator<N,T>::PythonNOperator(std::shared_ptr<PythonPlugin>& plugin,
                                       const std::string& path,
                                       const std::string& moduleName,
                                       const std::string& functionName)
@@ -20,7 +20,7 @@ PythonNOperator<N,T>::PythonNOperator(BoostPort::SharedPtr<PythonPlugin>& plugin
 
 template <int N, class T>
 PythonNOperator<N,T>::PythonNOperator(
-  BoostPort::SharedPtr<PythonPlugin>& plugin,
+  std::shared_ptr<PythonPlugin>& plugin,
   const std::string& path,
   const std::string& pysource)
   : mPlugin(plugin),

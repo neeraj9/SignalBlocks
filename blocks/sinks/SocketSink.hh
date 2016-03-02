@@ -19,8 +19,8 @@ namespace sigblocks
   {
   public:
     SocketSink();
-    SocketSink(std::auto_ptr<SocketProgramming::ISocket> pIns);
-    void SetStreamSink(std::auto_ptr<SocketProgramming::ISocket> pIns);
+    SocketSink(std::unique_ptr<SocketProgramming::ISocket> pIns);
+    void SetStreamSink(std::unique_ptr<SocketProgramming::ISocket> pIns);
 
   public: // Port interface
     void Process(int sourceIndex, const unsigned char& data, const TimeTick& startTime);
@@ -28,7 +28,7 @@ namespace sigblocks
       int sourceIndex, MultiPtr<unsigned char> pData, int len, const TimeTick& startTime);
 
   private:
-    std::auto_ptr<SocketProgramming::ISocket> mpSocket;
+    std::unique_ptr<SocketProgramming::ISocket> mpSocket;
   };
 }
 

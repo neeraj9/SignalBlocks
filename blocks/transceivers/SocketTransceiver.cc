@@ -3,9 +3,11 @@
 #include "SocketTransceiver.hh"
 
 #include "../../common/MultiPtr.hh"
-#include "../../common/socket/ISocket.hh"
+#include "../../socket/ISocket.hh"
 
 #include <iostream>
+#include <assert.h>
+#include <string.h>
 
 using namespace sigblocks;
 using namespace std;
@@ -20,7 +22,7 @@ SocketTransceiver::SocketTransceiver(
   int blockSize)
   : mTime(startTime),
     mIncrement(increment),
-    mpSocket(0),
+    mpSocket(nullptr),
     mBlockSize(blockSize),
     mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
     mBytesRead(0),
@@ -32,10 +34,10 @@ SocketTransceiver::SocketTransceiver(
 SocketTransceiver::SocketTransceiver(
   const TimeTick& startTime, TimeTick& increment,
   int blockSize,
-  std::auto_ptr<SocketProgramming::ISocket> pIns)
+  std::unique_ptr<SocketProgramming::ISocket> pIns)
   : mTime(startTime),
     mIncrement(increment),
-    mpSocket(pIns),
+    mpSocket(std::move(pIns)),
     mBlockSize(blockSize),
     mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
     mBytesRead(0),
@@ -45,9 +47,9 @@ SocketTransceiver::SocketTransceiver(
 }
 
 void
-SocketTransceiver::SetStreamTransceiver(std::auto_ptr<SocketProgramming::ISocket> pOuts)
+SocketTransceiver::SetStreamTransceiver(std::unique_ptr<SocketProgramming::ISocket> pOuts)
 {
-  mpSocket = pOuts;
+  mpSocket.swap(pOuts);
 }
 
 // Needed by the Source

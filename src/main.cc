@@ -24,17 +24,17 @@
 #include "../common/IPort.hh"
 #include "../common/MultiPtr.hh"
 #include "../common/Port.hh"
-#include "../common/SharedPtr.hxx"
 #include "../common/TimeTick.hh"
-#include "../common/socket/TcpSocket.hh"
-#include "../common/socket/UdpLiteSocket.hh"
-#include "../common/socket/UdpSocket.hh"
+#include "../socket/TcpSocket.hh"
+#include "../socket/UdpLiteSocket.hh"
+#include "../socket/UdpSocket.hh"
 
 #include <fstream>
 #include <iostream>
 #include <bitset>
 #include <stack>
 #include <unistd.h> // for sleep
+#include "../plugins/PythonPlugin.hh"
 
 using namespace sigblocks;
 using namespace std;
@@ -42,8 +42,8 @@ using namespace std;
 void test1()
 {
   // sample instantation
-  BoostPort::SharedPtr<IPort<float> > port1(new Port<2,2,float>());
-  BoostPort::SharedPtr<IPort<float> > port2(new Port<2,2,float>());
+  std::shared_ptr<IPort<float> > port1(new Port<2,2,float>());
+  std::shared_ptr<IPort<float> > port2(new Port<2,2,float>());
   dynamic_cast<Port<2,2,float>*>(port1.get())->SetSink(port2, 0);
   dynamic_cast<Port<2,2,float>*>(port2.get())->SetSource(port1.get(), 1);
 }
@@ -70,8 +70,8 @@ void test4()
   TimeTick increment(1.0f);
   RandomSource* pRandom_source = new RandomSource(start_time, increment);
   StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
-  BoostPort::SharedPtr<IPort<int> > pSource(pRandom_source);
-  BoostPort::SharedPtr<IPort<int> > pSink(pStdout_sink);
+  std::shared_ptr<IPort<int> > pSource(pRandom_source);
+  std::shared_ptr<IPort<int> > pSink(pStdout_sink);
   pRandom_source->SetSink(pSink, 0);
   pStdout_sink->SetSource(pSource.get(), 0);
   for (int i = 0; i < 10; ++i)
@@ -89,12 +89,12 @@ void test5()
   IstreamSource<unsigned char>* pStream_source =
     new IstreamSource<unsigned char>(start_time, increment, block_size);
   OstreamSink<unsigned char>* pStream_sink = new OstreamSink<unsigned char>();
-  BoostPort::SharedPtr<IPort<unsigned char> > pSource(pStream_source);
-  BoostPort::SharedPtr<IPort<unsigned char> > pSink(pStream_sink);
-  std::auto_ptr<istream> pIns(new ifstream("input.txt", ifstream::in | ifstream::binary));
-  std::auto_ptr<ostream> pOuts(new ofstream("output.txt", ofstream::out | ofstream::binary));
-  pStream_source->SetStreamSource(pIns);
-  pStream_sink->SetStreamSink(pOuts);
+  std::shared_ptr<IPort<unsigned char> > pSource(pStream_source);
+  std::shared_ptr<IPort<unsigned char> > pSink(pStream_sink);
+  std::unique_ptr<istream> pIns(new ifstream("input.txt", ifstream::in | ifstream::binary));
+  std::unique_ptr<ostream> pOuts(new ofstream("output.txt", ofstream::out | ofstream::binary));
+  pStream_source->SetStreamSource(std::move(pIns));
+  pStream_sink->SetStreamSink(std::move(pOuts));
   pStream_source->SetSink(pSink, 0);
   pStream_sink->SetSource(pSource.get(), 0);
   for (int i = 0; i < 10; ++i)
@@ -112,12 +112,12 @@ void test6()
   int block_size = 1;
   ComplexStreamSource<short>* pStream_source = new ComplexStreamSource<short int>(start_time, increment, block_size);
   OstreamSink<short>* pStream_sink = new OstreamSink<short>();
-  BoostPort::SharedPtr<IPort<short> > pSource(pStream_source);
-  BoostPort::SharedPtr<IPort<short> > pSink(pStream_sink);
-  std::auto_ptr<istream> pIns(new ifstream("input.rf", ifstream::in | ifstream::binary));
-  std::auto_ptr<ostream> pOuts(new ofstream("output.rf", ofstream::out | ofstream::binary));
-  pStream_source->SetStreamSource(pIns);
-  pStream_sink->SetStreamSink(pOuts);
+  std::shared_ptr<IPort<short> > pSource(pStream_source);
+  std::shared_ptr<IPort<short> > pSink(pStream_sink);
+  std::unique_ptr<istream> pIns(new ifstream("input.rf", ifstream::in | ifstream::binary));
+  std::unique_ptr<ostream> pOuts(new ofstream("output.rf", ofstream::out | ofstream::binary));
+  pStream_source->SetStreamSource(std::move(pIns));
+  pStream_sink->SetStreamSink(std::move(pOuts));
   pStream_source->SetSink(pSink, 0);
   pStream_sink->SetSource(pSource.get(), 0);
   for (int i = 0; i < 10; ++i)
@@ -133,10 +133,10 @@ void test7()
   TimeTick start_time(0.0f);
   TimeTick increment(1.0f);
   int block_size = 1;
-  BoostPort::SharedPtr<IPort<short> > pSource(
+  std::shared_ptr<IPort<short> > pSource(
     FileSourceCreator<ComplexStreamSource, short>::Create(
       start_time, increment, "input.rf", block_size));
-  BoostPort::SharedPtr<IPort<short> > pSink(
+  std::shared_ptr<IPort<short> > pSink(
     FileSinkCreator<OstreamSink, short>::Create("output.rf"));
   pSource->SetSink(pSink, 0);
   pSink->SetSource(pSource.get(), 0);
@@ -152,10 +152,10 @@ void SocketSourceTest(const string& outputFilename)
   TimeTick start_time(0.0f);
   TimeTick increment(1.0f);
   int block_size = 1;
-  BoostPort::SharedPtr<IPort<unsigned char> > pSource(
+  std::shared_ptr<IPort<unsigned char> > pSource(
     SocketSourceCreator<T>::Create(
       start_time, increment, block_size, "127.0.0.1", 0, 12000));
-  BoostPort::SharedPtr<IPort<unsigned char> > pSink(
+  std::shared_ptr<IPort<unsigned char> > pSink(
     FileSinkCreator<OstreamSink, unsigned char>::Create(outputFilename));
   pSource->SetSink(pSink, 0);
   pSink->SetSource(pSource.get(), 0);
@@ -174,11 +174,11 @@ void SocketSinkTest()
   TimeTick start_time(0.0f);
   TimeTick increment(1.0f);
   int block_size = 1;
-  BoostPort::SharedPtr<IPort<unsigned char> > pSource(
+  std::shared_ptr<IPort<unsigned char> > pSource(
     FileSourceCreator<IstreamSource, unsigned char>::Create(
       start_time, increment, "input.txt", block_size));
   // localPort is optional for udp
-  BoostPort::SharedPtr<IPort<unsigned char> > pSink(
+  std::shared_ptr<IPort<unsigned char> > pSink(
     SocketSinkCreator<T>::Create("127.0.0.1", 12002, 12020));
   pSource->SetSink(pSink, 0);
   pSink->SetSource(pSource.get(), 0);
@@ -200,15 +200,15 @@ void SocketTransceiverTest(const string& inputFilename,
   TimeTick start_time(0.0f);
   TimeTick increment(1.0f);
   int block_size = 1;
-  BoostPort::SharedPtr<IPort<unsigned char> > pSource(
+  std::shared_ptr<IPort<unsigned char> > pSource(
     FileSourceCreator<IstreamSource, unsigned char>::Create(
       start_time, increment, inputFilename, block_size));
 
-  BoostPort::SharedPtr<IPort<unsigned char> > pTransceiver(
+  std::shared_ptr<IPort<unsigned char> > pTransceiver(
     SocketSourceCreator<T>::Create(
       start_time, increment, block_size, "127.0.0.1", 12002, 12020));
 
-  BoostPort::SharedPtr<IPort<unsigned char> > pSink(
+  std::shared_ptr<IPort<unsigned char> > pSink(
     FileSinkCreator<OstreamSink, unsigned char>::Create(outputFilename));
 
   pSource->SetSink(pTransceiver, 0);
@@ -283,9 +283,9 @@ void test17()
   BasicTypeConverter<int,float>* converter = new BasicTypeConverter<int,float>();
   StdoutSink<float>* pStdout_sink = new StdoutSink<float>();
 
-  BoostPort::SharedPtr<IPort<int> > pSource(pRandom_source);
-  BoostPort::SharedPtr<IPort<int> > pConverter_sink(converter);
-  BoostPort::SharedPtr<IPort<float> > pSink(pStdout_sink);
+  std::shared_ptr<IPort<int> > pSource(pRandom_source);
+  std::shared_ptr<IPort<int> > pConverter_sink(converter);
+  std::shared_ptr<IPort<float> > pSink(pStdout_sink);
 
   pRandom_source->SetSink(pConverter_sink, 0);
   converter->SetSource(pSource.get(), 0);
@@ -326,8 +326,8 @@ void test22()
   ConstantSource<int>* pConstant_source =
     new ConstantSource<int>(start_time, increment, 10);
   StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
-  BoostPort::SharedPtr<IPort<int> > pSource(pConstant_source);
-  BoostPort::SharedPtr<IPort<int> > pSink(pStdout_sink);
+  std::shared_ptr<IPort<int> > pSource(pConstant_source);
+  std::shared_ptr<IPort<int> > pSink(pStdout_sink);
   pConstant_source->SetSink(pSink, 0);
   pStdout_sink->SetSource(pSource.get(), 0);
   for (int i = 0; i < 10; ++i)
@@ -347,10 +347,10 @@ void test23()
   Sum<2, int>* pS1 = new Sum<2, int>();
   StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
 
-  BoostPort::SharedPtr<IPort<int> > pSource1(pC1);
-  BoostPort::SharedPtr<IPort<int> > pSource2(pC2);
-  BoostPort::SharedPtr<IPort<int> > pSum(pS1);
-  BoostPort::SharedPtr<IPort<int> > pSink(pStdout_sink);
+  std::shared_ptr<IPort<int> > pSource1(pC1);
+  std::shared_ptr<IPort<int> > pSource2(pC2);
+  std::shared_ptr<IPort<int> > pSum(pS1);
+  std::shared_ptr<IPort<int> > pSink(pStdout_sink);
   pSource1->SetSink(pSum, 0);
   pSource2->SetSink(pSum, 0);
   pSum->SetSource(pSource1.get(), 0);
@@ -375,10 +375,10 @@ void test24()
   Difference<2, int>* pS1 = new Difference<2, int>();
   StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
 
-  BoostPort::SharedPtr<IPort<int> > pSource1(pC1);
-  BoostPort::SharedPtr<IPort<int> > pSource2(pC2);
-  BoostPort::SharedPtr<IPort<int> > pD(pS1);
-  BoostPort::SharedPtr<IPort<int> > pSink(pStdout_sink);
+  std::shared_ptr<IPort<int> > pSource1(pC1);
+  std::shared_ptr<IPort<int> > pSource2(pC2);
+  std::shared_ptr<IPort<int> > pD(pS1);
+  std::shared_ptr<IPort<int> > pSink(pStdout_sink);
   pSource1->SetSink(pD, 0);
   pSource2->SetSink(pD, 0);
   pD->SetSource(pSource1.get(), 0);
@@ -401,9 +401,9 @@ void test25()
   Gain<int>* pS1 = new Gain<int>(10);
   StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
 
-  BoostPort::SharedPtr<IPort<int> > pSource1(pC1);
-  BoostPort::SharedPtr<IPort<int> > pD(pS1);
-  BoostPort::SharedPtr<IPort<int> > pSink(pStdout_sink);
+  std::shared_ptr<IPort<int> > pSource1(pC1);
+  std::shared_ptr<IPort<int> > pD(pS1);
+  std::shared_ptr<IPort<int> > pSink(pStdout_sink);
   pSource1->SetSink(pD, 0);
   pD->SetSource(pSource1.get(), 0);
   pD->SetSink(pSink, 0);
@@ -425,10 +425,10 @@ void test26()
   Product<2, int>* pS1 = new Product<2, int>();
   StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
 
-  BoostPort::SharedPtr<IPort<int> > pSource1(pC1);
-  BoostPort::SharedPtr<IPort<int> > pSource2(pC2);
-  BoostPort::SharedPtr<IPort<int> > pP(pS1);
-  BoostPort::SharedPtr<IPort<int> > pSink(pStdout_sink);
+  std::shared_ptr<IPort<int> > pSource1(pC1);
+  std::shared_ptr<IPort<int> > pSource2(pC2);
+  std::shared_ptr<IPort<int> > pP(pS1);
+  std::shared_ptr<IPort<int> > pSink(pStdout_sink);
   pSource1->SetSink(pP, 0);
   pSource2->SetSink(pP, 0);
   pP->SetSource(pSource1.get(), 0);
@@ -449,8 +449,8 @@ void test27()
   StepSource<int>* pStep_source =
     new StepSource<int>(start_time, increment, 0);
   PlotSink<int>* pPlot_sink = new PlotSink<int>();
-  BoostPort::SharedPtr<IPort<int> > pSource(pStep_source);
-  BoostPort::SharedPtr<IPort<int> > pSink(pPlot_sink);
+  std::shared_ptr<IPort<int> > pSource(pStep_source);
+  std::shared_ptr<IPort<int> > pSink(pPlot_sink);
   pStep_source->SetSink(pSink, 0);
   pPlot_sink->SetSource(pSource.get(), 0);
   for (int i = 0; i < 10000; ++i)
@@ -491,9 +491,43 @@ void test32()
   printf("real = %g, imag = %g\n", p->GetReal(), p->GetImag());
 }
 
+// TODO this is a raw test and instead use PythonNOperator
+void test34()
+{
+    PythonPlugin* pPyplugin = new PythonPlugin;
+  try
+  {
+    std::string source("print 'Hello World!'");
+    std::unique_ptr<PythonRunnableCode> runnable(
+            pPyplugin->ParsePythonSource(source));
+    if (runnable.get() == 0)
+    {
+      return; // XXX error!
+    }
+
+    std::cout << "Running inline source [" << source << "] : output {";
+    std::unique_ptr<PythonBaseResult> result(
+            pPyplugin->RunPythonRunnableCode(runnable.get()));
+    std::cout << "} ";
+    if (result.get() != 0)
+    {
+      std::cout << result->ToString() << std::endl;
+    }
+    else
+    {
+      std::cout << "No result returned!" << std::endl;
+    }
+  }
+  catch (PyPluginTypeException& e)
+  {
+    std::cerr << e.what() << std::endl;
+  }
+}
+
 int main()
 {
-  test32();
+    test34();
+  //test32();
   //test27();
   return 0;
 }

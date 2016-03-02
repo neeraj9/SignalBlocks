@@ -16,8 +16,8 @@ namespace sigblocks
   {
   public:
     OstreamSink();
-    OstreamSink(std::auto_ptr<std::ostream> pIns);
-    void SetStreamSink(std::auto_ptr<std::ostream> pIns);
+    OstreamSink(std::unique_ptr<std::ostream> pIns);
+    void SetStreamSink(std::unique_ptr<std::ostream> pIns);
 
   public: // Port interface
     void Process(int sourceIndex, const T& data, const TimeTick& startTime);
@@ -25,7 +25,7 @@ namespace sigblocks
       int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime);
 
   private:
-    std::auto_ptr<std::ostream> mpOstream;
+    std::unique_ptr<std::ostream> mpOstream;
   };
 }
 

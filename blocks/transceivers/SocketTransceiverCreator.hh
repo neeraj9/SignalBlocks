@@ -7,7 +7,7 @@
 
 #include "../../common/IPort.hh"
 #include "../../common/TimeTick.hh"
-#include "../../common/socket/ISocket.hh"
+#include "../../socket/ISocket.hh"
 
 #include <memory>
 #include <string>
@@ -28,7 +28,7 @@ namespace sigblocks
     {
       SocketTransceiver* socket_transceiver =
         new SocketTransceiver(startTime, increment, blockSize);
-      std::auto_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
+      std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
       if (pIns->Bind(localPort))
       {
         if (pIns->Connect()) // XXX We could have acted as server as well, but

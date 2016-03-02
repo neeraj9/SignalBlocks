@@ -20,17 +20,17 @@ namespace sigblocks
                   int blockSize);
     IstreamSource(const TimeTick& startTime,
                   TimeTick& increment,
-                  std::auto_ptr<std::istream> pIns,
+                  std::unique_ptr<std::istream> pIns,
                   int blockSize);
 
     void Generate();
-    void SetStreamSource(std::auto_ptr<std::istream> pIns);
+    void SetStreamSource(std::unique_ptr<std::istream> pIns);
     void Loop(bool loopOver);
 
   private:
     TimeTick mTime;
     const TimeTick mIncrement;
-    std::auto_ptr<std::istream> mpIstream;
+    std::unique_ptr<std::istream> mpIstream;
     bool mLoopOver;
     int mBlockSize;
   };

@@ -16,7 +16,7 @@ IstreamSource<T>::IstreamSource(
   int blockSize)
   : mTime(startTime),
     mIncrement(increment),
-    mpIstream(0),
+    mpIstream(nullptr),
     mLoopOver(true),
     mBlockSize(blockSize)
 {
@@ -25,10 +25,10 @@ IstreamSource<T>::IstreamSource(
 template <class T>
 IstreamSource<T>::IstreamSource(
   const TimeTick& startTime, TimeTick& increment,
-  std::auto_ptr<std::istream> pIns, int blockSize)
+  std::unique_ptr<std::istream> pIns, int blockSize)
   : mTime(startTime),
     mIncrement(increment),
-    mpIstream(pIns),
+    mpIstream(std::move(pIns)),
     mLoopOver(true),
     mBlockSize(blockSize)
 {
@@ -36,9 +36,9 @@ IstreamSource<T>::IstreamSource(
 
 template <class T>
 void
-IstreamSource<T>::SetStreamSource(std::auto_ptr<std::istream> pIns)
+IstreamSource<T>::SetStreamSource(std::unique_ptr<std::istream> pIns)
 {
-  mpIstream = pIns;
+  mpIstream.swap(pIns);
 }
 
 template <class T>

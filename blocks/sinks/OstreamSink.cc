@@ -12,21 +12,21 @@ using namespace std;
 
 template <class T>
 OstreamSink<T>::OstreamSink()
-  : mpOstream(0)
+  : mpOstream(nullptr)
 {
 }
 
 template <class T>
-OstreamSink<T>::OstreamSink(std::auto_ptr<std::ostream> pOuts)
-  : mpOstream(pOuts)
+OstreamSink<T>::OstreamSink(std::unique_ptr<std::ostream> pOuts)
+  : mpOstream(std::move(pOuts))
 {
 }
 
 template <class T>
 void
-OstreamSink<T>::SetStreamSink(std::auto_ptr<std::ostream> pOuts)
+OstreamSink<T>::SetStreamSink(std::unique_ptr<std::ostream> pOuts)
 {
-  mpOstream = pOuts;
+  mpOstream.swap(pOuts);
 }
 
 template <class T>

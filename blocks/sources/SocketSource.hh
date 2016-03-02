@@ -26,16 +26,16 @@ namespace sigblocks
                int blockSize);
     SocketSource(const TimeTick& startTime,
                TimeTick& increment,
-               std::auto_ptr<SocketProgramming::ISocket> pIns,
+               std::unique_ptr<SocketProgramming::ISocket> pIns,
                int blockSize);
 
     void Generate();
-    void SetStreamSource(std::auto_ptr<SocketProgramming::ISocket> pIns);
+    void SetStreamSource(std::unique_ptr<SocketProgramming::ISocket> pIns);
 
   private:
     TimeTick mTime;
     const TimeTick mIncrement;
-    std::auto_ptr<SocketProgramming::ISocket> mpSocket;
+    std::unique_ptr<SocketProgramming::ISocket> mpSocket;
     const int mBlockSize;
     MultiPtr<uint8_t> mpBuffer;
     int mBytesRead;

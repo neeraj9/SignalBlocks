@@ -2,9 +2,12 @@
 // see LICENSE for license
 #include "ServerSocketSource.hh"
 
-#include "../../common/socket/IServerSocket.hh"
+#include "../../socket/IServerSocket.hh"
 
+#include <netinet/in.h>
 #include <iostream>
+#include <assert.h>
+#include <string.h>
 
 using namespace sigblocks;
 using namespace std;
@@ -23,7 +26,7 @@ ServerSocketSource::ServerSocketSource(
   int blockSize)
   : mTime(startTime),
     mIncrement(increment),
-    mpSocket(0),
+    mpSocket(nullptr),
     mBlockSize(blockSize),
     mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
     mBytesRead(0),
@@ -34,10 +37,10 @@ ServerSocketSource::ServerSocketSource(
 
 ServerSocketSource::ServerSocketSource(
   const TimeTick& startTime, TimeTick& increment,
-  std::auto_ptr<SocketProgramming::IServerSocket> pIns, int blockSize)
+  std::unique_ptr<SocketProgramming::IServerSocket> pIns, int blockSize)
   : mTime(startTime),
     mIncrement(increment),
-    mpSocket(pIns),
+    mpSocket(std::move(pIns)),
     mBlockSize(blockSize),
     mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
     mBytesRead(0),
@@ -48,9 +51,9 @@ ServerSocketSource::ServerSocketSource(
 
 void
 ServerSocketSource::SetStreamSource(
-  std::auto_ptr<SocketProgramming::IServerSocket> pIns)
+  std::unique_ptr<SocketProgramming::IServerSocket> pIns)
 {
-  mpSocket = pIns;
+  mpSocket.swap(pIns);
 }
 
 void
@@ -72,13 +75,13 @@ ServerSocketSource::Generate()
     FD_ZERO(&readfd);
     FD_SET(mpSocket->GetFd(), &readfd);
     struct timeval timeout = { TIMEOUT_SEC, TIMEOUT_USEC };
-    int numfd_set = select(nfds, readfd, 0, 0, &timeout);
+    int numfd_set = select(nfds, &readfd, 0, 0, &timeout);
     if (numfd_set != 1)
     {
       return; // dont do anything
     }
     // else accept new connection
-    mpSocket->Accept(&from, &fromlen);
+    mpSocket->Accept((struct sockaddr*)&from, (socklen_t*)&fromlen);
     // and now start reading as done below.
   }
 
@@ -88,8 +91,8 @@ ServerSocketSource::Generate()
     int bytes_read = 
       mpSocket->Receive(mpBuffer.get() + mBytesRead,
         (MAX_BUFFER_SIZE - (mBufferSize - mBytesRead)) * sizeof(uint8_t),
-        &from,
-        &fromlen);
+                        (sockaddr*)&from,
+                        (socklen_t*)&fromlen);
     if (bytes_read > 0)
     {
       mBufferSize += bytes_read;

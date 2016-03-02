@@ -5,14 +5,15 @@
 #include "MixedPort.hh"
 
 #include <iostream>
+#include <assert.h>
+
 using namespace std;
 
 using namespace sigblocks;
 
 template <int N, int M, class TN, class TM>
 MixedPort<N,M,TN,TM>::MixedPort()
-  : mMutex(),
-    mpSource(),
+  : mpSource(),
     mpSink()
 {
 }
@@ -33,16 +34,14 @@ template <int N, int M, class TN, class TM>
 void
 MixedPort<N,M,TN,TM>::SetSource(IPort<TN>* peer, int index)
 {
-  BoostPort::Lock lock(mMutex); (void)lock;
   assert(index < N); // XXX replace assert with better error handling
   mpSource[index] = peer;
 }
 
 template <int N, int M, class TN, class TM>
 void
-MixedPort<N,M,TN,TM>::SetSink(BoostPort::SharedPtr<IPort<TM> >& peer, int index)
+MixedPort<N,M,TN,TM>::SetSink(std::shared_ptr<IPort<TM> >& peer, int index)
 {
-  BoostPort::Lock lock(mMutex); (void)lock;
   assert(index < M);
   mpSink[index] = peer;
 }
@@ -153,7 +152,7 @@ MixedPort<N,M,TN,TM>::SetSource(IPort<TM>* peer, int index)
 
 template <int N, int M, class TN, class TM>
 void
-MixedPort<N,M,TN,TM>::SetSink(BoostPort::SharedPtr<IPort<TN> >& peer, int index)
+MixedPort<N,M,TN,TM>::SetSink(std::shared_ptr<IPort<TN> >& peer, int index)
 {
 }
 
@@ -183,7 +182,7 @@ MixedPort<N,M,TN,TM>::ConsumeData(const IPort<TM> * pSender,
 ////////////////////////////////////////////////////////////
 
 #define INSTANTIATE_TEMPLATE(fromtype, totype) \
-  template class MixedPort<1, 1, fromtype, totype>;
+  template class sigblocks::MixedPort<1, 1, fromtype, totype>;
 
 // Instantiate so that they can be used elsewhere
 //INSTANTIATE_TEMPLATE(char, short)

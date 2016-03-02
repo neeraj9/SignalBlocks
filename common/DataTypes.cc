@@ -8,14 +8,16 @@ using namespace sigblocks;
 
 template <class T>
 ComplexType<T>::ComplexType()
-  : value({0.0})
 {
+  value[0] = 0.0;
+  value[1] = 0.0;
 }
 
 template <class T>
 ComplexType<T>::ComplexType(T real, T imag)
-  : value({real, imag})
 {
+  value[0] = real;
+  value[1] = imag;
 }
 
 template <class T>
@@ -56,10 +58,10 @@ inline T ComplexType<T>::GetArg() const
   return atan2(value[1], value[0]);
 }
 
-template class ComplexType<double>;
-template class ComplexType<float>;
-template class ComplexType<long long int>;
-template class ComplexType<long int>;
-template class ComplexType<int>;
-template class ComplexType<short int>;
-template class ComplexType<char>;
+template class sigblocks::ComplexType<double>;
+template class sigblocks::ComplexType<float>;
+template class sigblocks::ComplexType<long long int>;
+template class sigblocks::ComplexType<long int>;
+template class sigblocks::ComplexType<int>;
+template class sigblocks::ComplexType<short int>;
+template class sigblocks::ComplexType<char>;

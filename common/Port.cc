@@ -5,14 +5,15 @@
 #include "Port.hh"
 
 #include <iostream>
+#include <assert.h>
+
 using namespace std;
 
 using namespace sigblocks;
 
 template <int N, int M, class T>
 Port<N,M,T>::Port()
-  : mMutex(),
-    mpSource(),
+  : mpSource(),
     mpSink()
 {
 }
@@ -33,16 +34,14 @@ template <int N, int M, class T>
 void
 Port<N,M,T>::SetSource(IPort<T>* peer, int index)
 {
-  BoostPort::Lock lock(mMutex); (void)lock;
   assert(index < N); // XXX replace assert with better error handling
   mpSource[index] = peer;
 }
 
 template <int N, int M, class T>
 void
-Port<N,M,T>::SetSink(BoostPort::SharedPtr<IPort<T> >& peer, int index)
+Port<N,M,T>::SetSink(std::shared_ptr<IPort<T> >& peer, int index)
 {
-  BoostPort::Lock lock(mMutex); (void)lock;
   assert(index < M);
   mpSink[index] = peer;
 }
@@ -147,8 +146,7 @@ Port<N,M,T>::Process(int sourceIndex,
 
 template <int M, class T>
 Port<0,M,T>::Port()
-  : mMutex(),
-    mpSink()
+  : mpSink()
 {
 }
 
@@ -172,9 +170,8 @@ Port<0,M,T>::SetSource(IPort<T>* peer, int index)
 
 template <int M, class T>
 void
-Port<0,M,T>::SetSink(BoostPort::SharedPtr<IPort<T> >& peer, int index)
+Port<0,M,T>::SetSink(std::shared_ptr<IPort<T> >& peer, int index)
 {
-  BoostPort::Lock lock(mMutex); (void)lock;
   assert(index < M);
   mpSink[index] = peer;
 }
@@ -237,8 +234,7 @@ Port<0,M,T>::LeakData(int index,
 
 template <int N,class T>
 Port<N,0,T>::Port()
-  : mMutex(),
-    mpSource()
+  : mpSource()
 {
 }
 
@@ -251,14 +247,13 @@ template <int N,class T>
 void
 Port<N,0,T>::SetSource(IPort<T>* peer, int index)
 {
-  BoostPort::Lock lock(mMutex); (void)lock;
   assert(index < N); // XXX replace assert with better error handling
   mpSource[index] = peer;
 }
 
 template <int N,class T>
 void
-Port<N,0,T>::SetSink(BoostPort::SharedPtr<IPort<T> >& peer, int index)
+Port<N,0,T>::SetSink(std::shared_ptr<IPort<T> >& peer, int index)
 {
 }
 
@@ -345,7 +340,7 @@ Port<0,0,T>::SetSource(IPort<T>* peer, int index)
 
 template <class T>
 void
-Port<0,0,T>::SetSink(BoostPort::SharedPtr<IPort<T> >& peer, int index)
+Port<0,0,T>::SetSink(std::shared_ptr<IPort<T> >& peer, int index)
 {
 }
 
@@ -376,7 +371,7 @@ Port<0,0,T>::ConsumeData(const IPort<T> * pSender,
 
 
 #define INSTANTIATE_TEMPLATE_N_M(n, m, type) \
-  template class Port<n, m, type>;
+  template class sigblocks::Port<n, m, type>;
 
 #define INSTANTIATE_TEMPLATE_N(n, type) \
   INSTANTIATE_TEMPLATE_N_M(n, 0, type) \

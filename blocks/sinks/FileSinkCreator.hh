@@ -19,9 +19,9 @@ namespace sigblocks
       const std::string& filename)
     {
       B<T>* pStream_sink = new B<T>();
-      std::auto_ptr<std::ostream> pOuts(new std::ofstream(
+      std::unique_ptr<std::ostream> pOuts(new std::ofstream(
         filename.c_str(), std::ofstream::out | std::ofstream::binary));
-      pStream_sink->SetStreamSink(pOuts);
+      pStream_sink->SetStreamSink(std::move(pOuts));
       return pStream_sink;
     }
   };

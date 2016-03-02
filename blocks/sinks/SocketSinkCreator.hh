@@ -7,7 +7,7 @@
 
 #include "../../common/IPort.hh"
 #include "../../common/TimeTick.hh"
-#include "../../common/socket/ISocket.hh"
+#include "../../socket/ISocket.hh"
 
 #include <memory>
 #include <string>
@@ -23,7 +23,7 @@ namespace sigblocks
       int destPort)
     {
       SocketSink* socket_sink = new SocketSink();
-      std::auto_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
+      std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
       socket_sink->SetStreamSink(pIns);
       return socket_sink;
     }
@@ -34,13 +34,13 @@ namespace sigblocks
       int localPort)
     {
       SocketSink* socket_sink = new SocketSink();
-      std::auto_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
+      std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
       if (pIns->Bind(localPort))
       {
         if (pIns->Connect())
         {
           // save only if successful
-          socket_sink->SetStreamSink(pIns);
+          socket_sink->SetStreamSink(std::move(pIns));
         }
       }
       else

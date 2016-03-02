@@ -2,9 +2,11 @@
 // see LICENSE for license
 #include "SocketSource.hh"
 
-#include "../../common/socket/ISocket.hh"
+#include "../../socket/ISocket.hh"
 
 #include <iostream>
+#include <assert.h>
+#include <string.h>
 
 using namespace sigblocks;
 using namespace std;
@@ -19,7 +21,7 @@ SocketSource::SocketSource(
   int blockSize)
   : mTime(startTime),
     mIncrement(increment),
-    mpSocket(0),
+    mpSocket(nullptr),
     mBlockSize(blockSize),
     mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
     mBytesRead(0),
@@ -30,10 +32,10 @@ SocketSource::SocketSource(
 
 SocketSource::SocketSource(
   const TimeTick& startTime, TimeTick& increment,
-  std::auto_ptr<SocketProgramming::ISocket> pIns, int blockSize)
+  std::unique_ptr<SocketProgramming::ISocket> pIns, int blockSize)
   : mTime(startTime),
     mIncrement(increment),
-    mpSocket(pIns),
+    mpSocket(std::move(pIns)),
     mBlockSize(blockSize),
     mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
     mBytesRead(0),
@@ -43,9 +45,9 @@ SocketSource::SocketSource(
 }
 
 void
-SocketSource::SetStreamSource(std::auto_ptr<SocketProgramming::ISocket> pIns)
+SocketSource::SetStreamSource(std::unique_ptr<SocketProgramming::ISocket> pIns)
 {
-  mpSocket = pIns;
+  mpSocket.swap(pIns);
 }
 
 void

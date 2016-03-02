@@ -1,5 +1,6 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
+#include <assert.h>
 #include "Demultiplex.hh"
 
 using namespace sigblocks;
@@ -43,13 +44,13 @@ Demultiplex<N,T>::Process(
 }
 
 #define INSTANTIATE_TYPES_FOR_N_INPUTS(NUM) \
-  template class Demultiplex<NUM, long>; \
-  template class Demultiplex<NUM, unsigned long>; \
-  template class Demultiplex<NUM, int>; \
-  template class Demultiplex<NUM, unsigned int>; \
-  template class Demultiplex<NUM, unsigned char>; \
-  template class Demultiplex<NUM, float>; \
-  template class Demultiplex<NUM, double>;
+  template class sigblocks::Demultiplex<NUM, long>; \
+  template class sigblocks::Demultiplex<NUM, unsigned long>; \
+  template class sigblocks::Demultiplex<NUM, int>; \
+  template class sigblocks::Demultiplex<NUM, unsigned int>; \
+  template class sigblocks::Demultiplex<NUM, unsigned char>; \
+  template class sigblocks::Demultiplex<NUM, float>; \
+  template class sigblocks::Demultiplex<NUM, double>;
 
 // XXX allow max of two inputs for now.
 INSTANTIATE_TYPES_FOR_N_INPUTS(1)

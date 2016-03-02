@@ -7,7 +7,7 @@
 
 #include "../../common/IPort.hh"
 #include "../../common/TimeTick.hh"
-#include "../../common/socket/ISocket.hh"
+#include "../../socket/ISocket.hh"
 
 #include <memory>
 #include <string>
@@ -28,7 +28,7 @@ namespace sigblocks
     {
       SocketSource* socket_source =
         new SocketSource(startTime, increment, blockSize);
-      std::auto_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
+      std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
       if (pIns->Bind(localPort))
       {
         if (pIns->Listen(1)) // TODO: Note for TCP of connection oriented
@@ -38,7 +38,7 @@ namespace sigblocks
                             // while listens)!
         {
           // save only if successful
-          socket_source->SetStreamSource(pIns);
+          socket_source->SetStreamSource(std::move(pIns));
         }
         else
         {

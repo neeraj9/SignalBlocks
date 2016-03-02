@@ -71,10 +71,10 @@ inline bool ComplexType<T>::operator!=(const ComplexType<T>& rhs)
   return ((value[0] != rhs.value[0]) || (value[1] != rhs.value[1]));
 }
 
-template class ComplexType<double>;
-template class ComplexType<float>;
-template class ComplexType<long long int>;
-template class ComplexType<long int>;
-template class ComplexType<int>;
-template class ComplexType<short int>;
-template class ComplexType<char>;
+template class sigblocks::ComplexType<double>;
+template class sigblocks::ComplexType<float>;
+template class sigblocks::ComplexType<long long int>;
+template class sigblocks::ComplexType<long int>;
+template class sigblocks::ComplexType<int>;
+template class sigblocks::ComplexType<short int>;
+template class sigblocks::ComplexType<char>;

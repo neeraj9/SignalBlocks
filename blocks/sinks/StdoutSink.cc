@@ -3,6 +3,7 @@
 #include "StdoutSink.hh"
 
 #include <iostream>
+#include <assert.h>
 
 using namespace sigblocks;
 using namespace std;

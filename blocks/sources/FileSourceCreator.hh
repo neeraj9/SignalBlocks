@@ -23,9 +23,9 @@ namespace sigblocks
       int blockSize)
     {
       B<T>* pStream_source = new B<T>(startTime, increment, blockSize);
-      std::auto_ptr<std::istream> pIns(new std::ifstream(
+      std::unique_ptr<std::istream> pIns(new std::ifstream(
         filename.c_str(), std::ifstream::in | std::ifstream::binary));
-      pStream_source->SetStreamSource(pIns);
+      pStream_source->SetStreamSource(std::move(pIns));
       return pStream_source;
     }
   };

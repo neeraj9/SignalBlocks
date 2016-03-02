@@ -3,7 +3,7 @@
 #include "SocketSink.hh"
 
 #include "../../common/MultiPtr.hh"
-#include "../../common/socket/ISocket.hh"
+#include "../../socket/ISocket.hh"
 
 #include <iostream>
 
@@ -11,19 +11,19 @@ using namespace sigblocks;
 using namespace std;
 
 SocketSink::SocketSink()
-  : mpSocket(0)
+  : mpSocket(nullptr)
 {
 }
 
-SocketSink::SocketSink(std::auto_ptr<SocketProgramming::ISocket> pOuts)
-  : mpSocket(pOuts)
+SocketSink::SocketSink(std::unique_ptr<SocketProgramming::ISocket> pOuts)
+  : mpSocket(std::move(pOuts))
 {
 }
 
 void
-SocketSink::SetStreamSink(std::auto_ptr<SocketProgramming::ISocket> pOuts)
+SocketSink::SetStreamSink(std::unique_ptr<SocketProgramming::ISocket> pOuts)
 {
-  mpSocket = pOuts;
+  mpSocket.swap(pOuts);
 }
 
 void

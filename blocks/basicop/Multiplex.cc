@@ -1,5 +1,6 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
+#include <assert.h>
 #include "Multiplex.hh"
 
 using namespace sigblocks;
@@ -161,13 +162,13 @@ namespace sigblocks
 }
 
 #define INSTANTIATE_TYPES_FOR_N_INPUTS(NUM) \
-  template class Multiplex<NUM, long>; \
-  template class Multiplex<NUM, unsigned long>; \
-  template class Multiplex<NUM, int>; \
-  template class Multiplex<NUM, unsigned int>; \
-  template class Multiplex<NUM, unsigned char>; \
-  template class Multiplex<NUM, float>; \
-  template class Multiplex<NUM, double>;
+  template class sigblocks::Multiplex<NUM, long>; \
+  template class sigblocks::Multiplex<NUM, unsigned long>; \
+  template class sigblocks::Multiplex<NUM, int>; \
+  template class sigblocks::Multiplex<NUM, unsigned int>; \
+  template class sigblocks::Multiplex<NUM, unsigned char>; \
+  template class sigblocks::Multiplex<NUM, float>; \
+  template class sigblocks::Multiplex<NUM, double>;
 
 // XXX allow max of two inputs for now.
 INSTANTIATE_TYPES_FOR_N_INPUTS(1)

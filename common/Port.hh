@@ -1,14 +1,10 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-// copyright (c) 2010-12 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
-// see LICENSE.txt for license information
 #ifndef sigblocks_common_Port_hh
 #define sigblocks_common_Port_hh
 
 #include "IPort.hh"
 #include "MultiPtr.hh"
-#include "Mutex.hxx"
-#include "SharedPtr.hxx"
 #include "TimeTick.hh"
 
 namespace sigblocks
@@ -24,7 +20,7 @@ namespace sigblocks
 
   public: // IPort interface
     void SetSource(IPort<T>* peer, int index);
-    void SetSink(BoostPort::SharedPtr<IPort<T> >& peer, int index);
+    void SetSink(std::shared_ptr<IPort<T> >& peer, int index);
 
     void DisconnectSource(IPort<T>* peer);
 
@@ -48,9 +44,9 @@ namespace sigblocks
       int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime);
 
   private:
-    mutable BoostPort::Mutex mMutex;
+    //mutable BoostPort::Mutex mMutex;
     IPort<T>* mpSource[N];
-    BoostPort::SharedPtr<IPort<T> > mpSink[M];
+    std::shared_ptr<IPort<T> > mpSink[M];
   };
 
   /// Partial Template Specialization for a information source
@@ -73,7 +69,7 @@ namespace sigblocks
       const IPort<T>* pSender, MultiPtr<T> pData, int len, const TimeTick& startTime);
 
   public: // IPort interface
-    void SetSink(BoostPort::SharedPtr<IPort<T> >& peer, int index);
+    void SetSink(std::shared_ptr<IPort<T> >& peer, int index);
 
   protected:
     /// use this interface when T is a primitive data type, ex. int, float, etc
@@ -84,8 +80,8 @@ namespace sigblocks
       int index, MultiPtr<T> pData, int len, const TimeTick& startTime);
 
   private:
-    mutable BoostPort::Mutex mMutex;
-    BoostPort::SharedPtr<IPort<T> > mpSink[M];
+    //mutable BoostPort::Mutex mMutex;
+    std::shared_ptr<IPort<T> > mpSink[M];
   };
 
   /// Partial Template Specialization for a information sink
@@ -98,7 +94,7 @@ namespace sigblocks
     virtual ~Port();
 
   private: // IPort interface which is not allowed
-    void SetSink(BoostPort::SharedPtr<IPort<T> >& peer, int index);
+    void SetSink(std::shared_ptr<IPort<T> >& peer, int index);
 
   public: // IPort interface
     void SetSource(IPort<T>* peer, int index);
@@ -118,7 +114,7 @@ namespace sigblocks
       int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime);
 
   private:
-    mutable BoostPort::Mutex mMutex;
+    //mutable BoostPort::Mutex mMutex;
     IPort<T>* mpSource[N];
   };
 
@@ -132,7 +128,7 @@ namespace sigblocks
 
   private: // IPort interface not allowed
     void SetSource(IPort<T>* peer, int index);
-    void SetSink(BoostPort::SharedPtr<IPort<T> >& peer, int index);
+    void SetSink(std::shared_ptr<IPort<T> >& peer, int index);
 
     void DisconnectSource(IPort<T>* peer);
 

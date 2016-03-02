@@ -7,8 +7,6 @@
 
 #include "IPort.hh"
 #include "MultiPtr.hh"
-#include "Mutex.hxx"
-#include "SharedPtr.hxx"
 #include "TimeTick.hh"
 
 namespace sigblocks
@@ -25,7 +23,7 @@ namespace sigblocks
 
   public: // IPort interface
     void SetSource(IPort<TN>* peer, int index);
-    void SetSink(BoostPort::SharedPtr<IPort<TM> >& peer, int index);
+    void SetSink(std::shared_ptr<IPort<TM> >& peer, int index);
 
     void DisconnectSource(IPort<TN>* peer);
 
@@ -39,7 +37,7 @@ namespace sigblocks
   private: // IPort interface (which should not be used)
     // NOT TO BE USED
     void SetSource(IPort<TM>* peer, int index);
-    void SetSink(BoostPort::SharedPtr<IPort<TN> >& peer, int index);
+    void SetSink(std::shared_ptr<IPort<TN> >& peer, int index);
     void DisconnectSource(IPort<TM>* peer);
     void ConsumeData(
       const IPort<TM>* pSender, const TM& data, const TimeTick& startTime);
@@ -59,9 +57,9 @@ namespace sigblocks
       int sourceIndex, MultiPtr<TN> pData, int len, const TimeTick& startTime);
 
   private:
-    mutable BoostPort::Mutex mMutex;
+    //mutable BoostPort::Mutex mMutex;
     IPort<TN>* mpSource[N];
-    BoostPort::SharedPtr<IPort<TM> > mpSink[M];
+    std::shared_ptr<IPort<TM> > mpSink[M];
   };
 }
 

@@ -1,5 +1,6 @@
 // (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
+#include <assert.h>
 #include "BasicTypeConverter.hh"
 
 #include "../../common/GenericCopy.hh"
