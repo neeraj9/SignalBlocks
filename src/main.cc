@@ -522,6 +522,56 @@ void test34()
   {
     std::cerr << e.what() << std::endl;
   }
+
+
+    // test numpy code
+    try {
+#if 0
+        std::string source(
+                "\nimport numpy\n"
+                "\n"
+                "def myrange():\n"
+                "    x = numpy.arange(0, 10, numpy.float(1.0)).reshape(5,2)\n"
+                "    return x\n"
+                "    #return numpy.bool_(0)\n"
+                "    c = numpy.longdouble(10)\n"
+                "    print type(c)\n"
+                "    return c\n"
+                "\n"
+                "print \"myrange = \", myrange()");
+#else
+        std::string source(
+                "\nmoduleNames = ['os']\n"
+                        "modules = map(__import__, moduleNames)"
+                        "\n"
+                        "def myrange():\n"
+                        "    global modules\n"
+                        "    return modules[0].path.exists(\"/tmp\")\n"
+                        "\n"
+                        "print \"myrange = \", myrange()");
+#endif
+        std::unique_ptr<PythonRunnableCode> runnable(
+                pPyplugin->ParsePythonSource(source));
+        if (runnable.get() == 0)
+        {
+            return; // XXX error!
+        }
+
+        std::cout << "Running inline source [" << source << "] : output {";
+        std::unique_ptr<PythonBaseResult> result(
+                pPyplugin->RunPythonRunnableCode(runnable.get()));
+        std::cout << "} ";
+        if (result.get() != 0)
+        {
+            std::cout << result->ToString() << std::endl;
+        }
+        else
+        {
+            std::cout << "No result returned!" << std::endl;
+        }
+    } catch (PyPluginTypeException& e) {
+        std::cerr << e.what() << std::endl;
+    }
 }
 
 int main()
