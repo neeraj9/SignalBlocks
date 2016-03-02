@@ -526,40 +526,12 @@ void test34()
 
     // test numpy code
     try {
-#if 0
-        std::string source(
-                "\nimport numpy\n"
-                "\n"
-                "def myrange():\n"
-                "    x = numpy.arange(0, 10, numpy.float(1.0)).reshape(5,2)\n"
-                "    return x\n"
-                "    #return numpy.bool_(0)\n"
-                "    c = numpy.longdouble(10)\n"
-                "    print type(c)\n"
-                "    return c\n"
-                "\n"
-                "print \"myrange = \", myrange()");
-#else
-        std::string source(
-                "\nmoduleNames = ['os']\n"
-                        "modules = map(__import__, moduleNames)"
-                        "\n"
-                        "def myrange():\n"
-                        "    global modules\n"
-                        "    return modules[0].path.exists(\"/tmp\")\n"
-                        "\n"
-                        "print \"myrange = \", myrange()");
-#endif
-        std::unique_ptr<PythonRunnableCode> runnable(
-                pPyplugin->ParsePythonSource(source));
-        if (runnable.get() == 0)
-        {
-            return; // XXX error!
-        }
-
-        std::cout << "Running inline source [" << source << "] : output {";
+        std::cout << "Running numpy_test.myrange : output {";
+        // TODO the path needs to be where the numpy_test.py exists
+        // TODO this is hackish and need to instead use other mechanism
+        //      to get the correct source path to search for numpy_test.py
         std::unique_ptr<PythonBaseResult> result(
-                pPyplugin->RunPythonRunnableCode(runnable.get()));
+                pPyplugin->RunPythonCode("./", "numpy_test", "myrange"));
         std::cout << "} ";
         if (result.get() != 0)
         {
