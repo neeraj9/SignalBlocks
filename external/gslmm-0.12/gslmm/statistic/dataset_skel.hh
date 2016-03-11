@@ -35,6 +35,9 @@
 #ifndef __VECTOR__
 # include <vector>
 #endif
+
+#include <algorithm>  // sort
+
 /** @file   statistic/dataset@name@.hh
     @author Christian Holm
     @date   Wed Mar 12 14:11:20 2003

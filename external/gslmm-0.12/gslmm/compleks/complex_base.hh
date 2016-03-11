@@ -40,6 +40,8 @@
 # include <cmath>
 #endif
 
+#include <cstdlib>  // abs
+
 namespace gslmm
 {
   /** @class complex complex_base.hh <gslmm/compleks/complex_base.hh>

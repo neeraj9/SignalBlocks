@@ -45,6 +45,8 @@
 # include <gslmm/math/type_trait.hh>
 #endif
 
+#include <memory>  // auto_ptr
+
 namespace gslmm
 {
   /** @defgroup vector Vectors 

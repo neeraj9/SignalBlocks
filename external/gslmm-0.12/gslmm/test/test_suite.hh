@@ -54,6 +54,8 @@
 # define VERSION "?.?"
 #endif
 
+#include <cstdlib>  // exit
+
 /** @file   test_suite.hh
     @author Christian Holm
     @date   Fri Sep 20 13:40:23 2002 

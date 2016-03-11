@@ -42,6 +42,8 @@
 #include <gslmm/gslmm-util.hh>
 #endif
 
+#include <cstdlib>  // abort
+
 /**  @file   error/error_handler.hh
      @author Christian Holm
      @date   Fri Sep 20 13:39:10 2002
