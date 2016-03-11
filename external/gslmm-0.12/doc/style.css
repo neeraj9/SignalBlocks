@@ -1,0 +1,240 @@
+/*
+ * $Id: style.css,v 1.8 2006-05-09 07:40:34 cholm Exp $
+ *
+ * style.css
+ * Copyright (C) 2003  Christian Holm <cholm@linux.HAL3000>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ */
+body			{ background		: white;
+                          color                 : black; 
+                          font-family           : helvetica, sans-serif }
+h1			{ text-align		: center; 
+                          border-bottom		: solid gray thin; }
+caption			{ font-weight		: bold }
+address			{ font-size  		: small; 
+                          padding-left 		: 1cm; 
+                          padding-right		: 1cm; 
+                          border-top  		: solid gray thin; }
+hr                      { color			: gray }
+a:hover			{ text-decoration	: none; 
+                          color			: #1A419D;
+                          background-color	: #f2f2ff }
+a:link			{ text-decoration	: none; 
+                          color      		: #1A419D }
+a:visited		{ text-decoration	: none; 
+                          color      		: #1A419D }
+p.formulaDsp		{ padding-left		: 3em; }
+
+/* Links in the nav bar, and */
+/* a.qindex		{} */
+/* a.qindexRef		{} */
+/* Element in Group index, Group listing, Class in Member list, */ 
+/* Member in class listing,  Group in class listing, File in class */
+/* listing, reference in member documentation, full member listing */
+a.el			{ text-decoration	: none; 
+                          font-size		: normal;
+			  font-family           : monospace;  }
+                          /* font-weight		: bold } */
+a.elRef			{ font-family          : monospace;
+                          font-size		: small;
+                          /* font-weight		: bold  */ }
+/* Links in code listing to docs */
+a.code			{ text-decoration	: none; 
+                          font-family           : monospace;
+                          font-size		: normal;
+                          /* font-weight		: normal;*/ 
+                          color			: #1A419D }
+a.codeRef		{ font-weight		: normal; 
+                          color			: #1A419D }
+/* Element in Alpabetic index, Annotated index,  */
+dl.el			{ margin-left		: -1cm }
+/* witin @code, source file listing, header file listing */ 
+div.fragment		{ width			: 100%; 
+                          padding               : 3pt 3pt 3pt 3pt;
+                          margin                : 3pt; 
+                          border                : thin solid gray; 
+                          /* border		: none; */
+                          /* background-color	: #eeeeee; */ }
+/** Tabs  */ 
+div.tabs		{ float			: left;
+                          width			: 100%; 
+                          margin-bottom		: 4px; }
+div.tabs ul		{ margin		: 0px;
+                          padding-left		: 10px; 
+                          list-style		: none; }
+div.tabs li		{ display		: inline;
+                          margin		: 0px; 
+                          padding		: 0px; } 
+div.tabs form		{ display		: inline;
+                          margin		: 0px; 
+                          padding		: 0px; }
+div.tabs form 		{ float			: right; }
+div.tabs a		{ float			: left;
+                          border-bottom		: 1px solid #84B0C7;
+                          font-size		: small;
+                          font-weight		: bold;
+                          text-decoration	: none;}
+div.tabs a:hover	{ color			: #1A419D; }
+div.tabs a:link		{ color			: #1A419D; }
+div.tabs a:visited	{ color			: #1A419D; }
+div.tabs a:active	{ color			: #1A419D; }
+div.tabs span		{ float			: left;
+                          display		: block;
+                          padding		: 5px 9px; 
+                          white-space		: nowrap; }
+div.tabs input		{ float			: right;
+                          display		: inline; 
+                          font-size		: 1em; }
+div.tabs td		{ font-size		: small;
+                          font-weight		: bold; 
+                          text-decoration	: none; }
+div.tabs li#current a	{ font-weight		: normal; }
+div.tabs li#current span { font-weight		: normal; }
+
+/* Alphabetic index letter markers */
+div.ah			{ background-color	: black; 
+                          font-family           : monospace;
+                          font-family           : monospace;
+                          font-size		: small;
+                          /* font-weight		: bold; */
+                          color			: #ffffff; 
+                          margin-bottom		: 3px; 
+                          margin-top		: 3px }
+
+/* Member description table */
+table.mdTable           { border-top            : solid thin gray;
+                          background-color	: #f2f2ff; 
+                          font-size		: normal;
+                          font-family           : monospace;
+                          /* font-weight		: bold; */ }
+/* Member description table */
+td.mdRow                { background-color	: #f2f2ff; 
+                          font-size		: normal;
+                          font-family           : monospace;
+                          /* font-weight		: bold; */ }
+/* Cell in member description - not arguments */
+td.md			{ background-color	: #f2f2ff; 
+                          font-size		: normal;
+                          font-family           : monospace;
+                          /* font-weight		: bold; */ }
+/* Cell in member description - 1st argument */
+td.mdname1		{ background-color	: #f2f2ff; 
+                          font-family           : monospace;
+                          font-style		: italic; 
+                          font-size		: normal;
+                          /* font-weight		: bold;*/ 
+                          color			: #602020; }
+/* Cell in member description - subsequent arguments */
+td.mdname		{ background-color	: #f2f2ff; 
+                          font-family           : monospace;
+                          font-size		: normal;
+                          font-style		: italic; 
+                          /* font-weight		: bold;*/
+                          color			: #602020; 
+                          width			: 600px; }
+/* Member (function) type */
+td.memItemLeft          { font-family           : monospace;
+                          font-size             : normal; }
+/* Member (function) name and parameters */
+td.memItemRight         { font-family           : monospace;
+                          font-size             : normal; }
+
+/* Grou headings and text */
+div.groupHeader		{ margin-left		: 16px; 
+                          margin-top		: 12px; 
+                          margin-bottom		: 6px; 
+                          font-weight		: bold }
+div.groupText		{ margin-left		: 16px; 
+                          font-style		: italic; 
+                          font-size		: smaller }
+/* Cell in Annotated index, File list - key */
+td.indexkey		{ background-color	: #eeeeff; 
+                          color			: white; 
+                          font-weight		: bold; 
+                          padding-right		: 10px; 
+                          padding-top		: 2px; 
+                          padding-left		: 10px; 
+                          padding-bottom	: 2px; 
+                          margin-left		: 0px; 
+                          margin-right		: 0px; 
+                          margin-top		: 2px; 
+                          margin-bottom		: 2px  }
+/* Cell in Annotated index, File list - value */
+td.indexvalue		{ background-color	: #eeeeff; 
+                          font-style		: italic; 
+                          padding-right		: 10px; 
+                          padding-top		: 2px; 
+                          padding-left		: 10px; 
+                          padding-bottom	: 2px; 
+                          margin-left		: 0px; 
+                          margin-right		: 0px; 
+                          margin-top		: 2px; 
+                          margin-bottom		: 2px  }
+
+/* These are for the source listings */ 
+font.comment		{ color			: #b22222; }
+font.preprocessor	{ color			: #da70d6; }
+font.keyword		{ color			: #a020f0; font-weight: bold }
+font.keywordtype	{ color			: #228b22; }
+font.keywordflow	{ color			: #a020f0; font-weight: bold }
+font.stringliteral	{ color			: #bc8f8f; }
+font.charliteral	{ color			: #bc8f8f; }
+font.variable		{ color			: #b8860b; }
+
+span.comment		{ color			: #b22222; }
+span.preprocessor	{ color			: #da70d6; }
+span.keyword		{ color			: #a020f0; font-weight: bold }
+span.keywordtype	{ color			: #228b22; }
+span.keywordflow	{ color			: #a020f0; font-weight: bold }
+span.stringliteral	{ color			: #bc8f8f; }
+span.charliteral	{ color			: #bc8f8f; }
+span.variable		{ color			: #b8860b; }
+
+
+/* My stuff */
+table.top               { width                 : 100%; 
+                          vertical-align        : top; }
+table.nav               { height                : 100%;  }
+span.seperator          { width                 : 100%;
+                          background-color      : #d2d2dd; 
+                          border-top            : thin solid gray; }
+td.documentation        { width                 : 100%; 
+                          padding               : 5pt 5pt 5pt 5pt; 
+                          margin                : 0 0 0 0; 
+                          vertical-align        : top; }
+td.nav                  { padding               : 5pt 5pt 5pt 5pt; 
+                          margin                : 0 0 0 0;
+                          white-space           : nowrap; 
+                          background-color	: #f2f2ff;
+                          vertical-align        : top; }
+td.navel                { padding               : 2pt 2pt 2pt 2pt;
+                          margin                : 0 0 0 0; }
+a.qindex:hover		{ text-decoration	: none; 
+                          font-weight           : bold;
+                          color			: #0000ff;
+                          background-color	: #f2f2ff; }
+a.qindex:link		{ text-decoration	: none; 
+                          color      		: #1A419D;
+                          background-color      : #f2f2ff;
+a.qindex:visited	{ text-decoration	: none; 
+                          color      		: #1A419D }
+tt                      { font-size             : smaller;   
+                          font-family           : monospace, fixed, courier }
+
+/*
+ * EOF
+ */
