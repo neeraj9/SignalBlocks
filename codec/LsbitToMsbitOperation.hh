@@ -1,4 +1,4 @@
-// (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
+// (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
 #ifndef sigblocks_common_codec_LsbitToMsbitOperation_hh
 #define sigblocks_common_codec_LsbitToMsbitOperation_hh

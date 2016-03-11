@@ -1,4 +1,4 @@
-// (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
+// (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
 #ifndef CURLPP_GLOBAL_H // hack to avoid searching for curlpp/config.h
 #define CURLPP_GLOBAL_H 1

@@ -18,7 +18,7 @@ development.
     but I plan to change all that once I get free time.
 
 
-> (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
+> (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 > see LICENSE for license
 
 ## Roadmap

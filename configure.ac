@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-# (c) 2014 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
+# (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 # see LICENSE for license
 
 AC_PREREQ(2.59)
