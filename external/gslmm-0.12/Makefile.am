@@ -23,7 +23,9 @@
 AUTOMAKE_OPTIONS	= gnu
 ACLOCAL_AMFLAGS		= -I .
 
-SUBDIRS			= gslmm doc debian
+SUBDIRS			= gslmm debian
+# disable build for documentation
+#SUBDIRS			= gslmm doc debian
 EXTRA_DIST		= autogen.sh acinclude.m4 README
 CLEANFILES		= configure-stamp build-stamp
 
