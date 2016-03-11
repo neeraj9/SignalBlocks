@@ -6,80 +6,69 @@
 using namespace sigblocks;
 using namespace std;
 
-template <int N, class T>
-NOperator<N,T>::NOperator()
-  : mIsVectorEnabled(false)
-{
+template<int N, class T>
+NOperator<N, T>::NOperator()
+        : mIsVectorEnabled(false) {
 }
 
-template <int N, class T>
-NOperator<N,T>::~NOperator()
-{
+template<int N, class T>
+NOperator<N, T>::~NOperator() {
 }
 
-template <int N, class T>
+template<int N, class T>
 void
-NOperator<N,T>::Process(int sourceIndex, const T& data, const TimeTick& startTime)
-{
-  assert(sourceIndex >= 0 || sourceIndex <= N); // XXX change to an assertion library.
-  mDataPort[sourceIndex].push_back(data);
-  mDataPortTime[sourceIndex].push_back(startTime);
+NOperator<N, T>::Process(int sourceIndex, const T& data, const TimeTick& startTime) {
+    assert(sourceIndex >= 0 || sourceIndex <= N); // XXX change to an assertion library.
+    mDataPort[sourceIndex].push_back(data);
+    mDataPortTime[sourceIndex].push_back(startTime);
 
-  size_t min_elements = mDataPort[0].size();
-  for (int i = 1; i < N; ++i)
-  {
-    const size_t new_min_elements = mDataPort[i].size();
-    if (new_min_elements < min_elements)
-    {
-      min_elements = new_min_elements;
+    size_t min_elements = mDataPort[0].size();
+    for (int i = 1; i < N; ++i) {
+        const size_t new_min_elements = mDataPort[i].size();
+        if (new_min_elements < min_elements) {
+            min_elements = new_min_elements;
+        }
     }
-  }
 
-  if (min_elements <= 0)
-  {
-    return;
-  }
+    if (min_elements <= 0) {
+        return;
+    }
 
-  TimeTick min_time = mDataPortTime[0].front();
-  for (int i = 1; i < N; ++i)
-  {
-    // We are sure that min_elements > 0 so no need to check for
-    // the size of list before getting its front value.
-    const TimeTick new_min_time = mDataPortTime[i].front();
-    if (new_min_time < min_time) // operator< is better than operator>
-                                 // see TimeTick for details
-    {
-      min_time = new_min_time;
+    TimeTick min_time = mDataPortTime[0].front();
+    for (int i = 1; i < N; ++i) {
+        // We are sure that min_elements > 0 so no need to check for
+        // the size of list before getting its front value.
+        const TimeTick new_min_time = mDataPortTime[i].front();
+        if (new_min_time < min_time) // operator< is better than operator>
+            // see TimeTick for details
+        {
+            min_time = new_min_time;
+        }
     }
-  }
 
-  // assert(min_elements > 0);
-  std::list<T> arguments;
-  for (int i = 0; i < N; ++i)
-  {
-    if (mDataPortTime[i].front() == min_time)
-    {
-      arguments.push_back(mDataPort[i].front());
-      mDataPort[i].pop_front();
-      mDataPortTime[i].pop_front();
+    // assert(min_elements > 0);
+    std::list<T> arguments;
+    for (int i = 0; i < N; ++i) {
+        if (mDataPortTime[i].front() == min_time) {
+            arguments.push_back(mDataPort[i].front());
+            mDataPort[i].pop_front();
+            mDataPortTime[i].pop_front();
+        }
+        else {
+            arguments.push_back(0); // insert zero for unmatched-rate (XXX)
+            // unmatched rate is a big topic and should be carefully thought
+            // and documented. XXX
+        }
     }
-    else
-    {
-      arguments.push_back(0); // insert zero for unmatched-rate (XXX)
-      // unmatched rate is a big topic and should be carefully thought
-      // and documented. XXX
-    }
-  }
-  T result = Compute(arguments);
-  this->LeakData(0, result, min_time);
+    T result = Compute(arguments);
+    this->LeakData(0, result, min_time);
 }
 
-template <int N, class T>
+template<int N, class T>
 void
-NOperator<N,T>::Process(
-  int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime)
-{
-  assert(0); // FIXME
+NOperator<N, T>::Process(
+        int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
+    assert(0); // FIXME
 }
 
 // have some template specialization for optimization
@@ -146,15 +135,20 @@ NOperator<2,T>::Process( \
 // This is somehow required by c++ otherwise
 // the compilers complain for specialization
 // and the definition in different namespaces.
-namespace sigblocks
-{
-  SPECIALIZE_SCALAR_PROCESS(long)
-  SPECIALIZE_SCALAR_PROCESS(unsigned long)
-  SPECIALIZE_SCALAR_PROCESS(int)
-  SPECIALIZE_SCALAR_PROCESS(unsigned int)
-  SPECIALIZE_SCALAR_PROCESS(unsigned char)
-  SPECIALIZE_SCALAR_PROCESS(float)
-  SPECIALIZE_SCALAR_PROCESS(double)
+namespace sigblocks {
+    SPECIALIZE_SCALAR_PROCESS(long)
+
+    SPECIALIZE_SCALAR_PROCESS(unsigned long)
+
+    SPECIALIZE_SCALAR_PROCESS(int)
+
+    SPECIALIZE_SCALAR_PROCESS(unsigned int)
+
+    SPECIALIZE_SCALAR_PROCESS(unsigned char)
+
+    SPECIALIZE_SCALAR_PROCESS(float)
+
+    SPECIALIZE_SCALAR_PROCESS(double)
 }
 
 #define INSTANTIATE_TYPES_FOR_N_INPUTS(NUM) \
@@ -168,5 +162,7 @@ namespace sigblocks
 
 // XXX allow max of two inputs for now.
 INSTANTIATE_TYPES_FOR_N_INPUTS(1)
+
 INSTANTIATE_TYPES_FOR_N_INPUTS(2)
+
 INSTANTIATE_TYPES_FOR_N_INPUTS(3)

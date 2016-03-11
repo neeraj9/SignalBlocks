@@ -5,16 +5,13 @@
 using namespace sigblocks;
 
 PyPluginTypeException::PyPluginTypeException(const std::string& error) throw()
-  : mError(error)
-{
+        : mError(error) {
 }
 
-PyPluginTypeException::~PyPluginTypeException() throw()
-{
+PyPluginTypeException::~PyPluginTypeException() throw() {
 }
 
 const char*
-PyPluginTypeException::what() const throw()
-{
-  return mError.c_str();
+PyPluginTypeException::what() const throw() {
+    return mError.c_str();
 }

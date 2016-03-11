@@ -4,29 +4,42 @@
 
 using namespace sigblocks;
 
-template <class T>
+template<class T>
 StepSource<T>::StepSource(
-  const TimeTick& startTime, const TimeTick& increment, const T& value)
-  : mTime(startTime),
-    mIncrement(increment),
-    mValue(value)
-{
+        const TimeTick& startTime, const TimeTick& increment, const T& value)
+        : mTime(startTime),
+          mIncrement(increment),
+          mValue(value) {
 }
 
-template <class T>
+template<class T>
 void
-StepSource<T>::Generate()
-{
-  this->LeakData(0, mValue, mTime);
-  mTime += mIncrement;
-  ++mValue;
+StepSource<T>::Generate() {
+    this->LeakData(0, mValue, mTime);
+    mTime += mIncrement;
+    ++mValue;
 }
 
-template class StepSource<long>;
-template class StepSource<unsigned long>;
-template class StepSource<int>;
-template class StepSource<unsigned int>;
-template class StepSource<char>;
-template class StepSource<unsigned char>;
-template class StepSource<float>;
-template class StepSource<double>;
+template
+class StepSource<long>;
+
+template
+class StepSource<unsigned long>;
+
+template
+class StepSource<int>;
+
+template
+class StepSource<unsigned int>;
+
+template
+class StepSource<char>;
+
+template
+class StepSource<unsigned char>;
+
+template
+class StepSource<float>;
+
+template
+class StepSource<double>;
