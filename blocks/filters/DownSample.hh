@@ -33,7 +33,7 @@ namespace sigblocks
     }
 
     virtual void Process(
-      int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime)
+      int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime)
     {
       assert(sourceIndex == 0); // XXX
       if (len < 0)
@@ -44,7 +44,7 @@ namespace sigblocks
       int count = 0;
       if (mCurrentCount == 0)
       {
-        LeakData(0, pData.get()[0], startTime);
+        LeakData(0, data.get()[0], startTime);
         mCurrentCount = (mCurrentCount + 1) % mDownSampleFactor;
         --rem_len;
         ++count;
@@ -52,7 +52,7 @@ namespace sigblocks
       const int max_count = ((mCurrentCount + rem_len) / mDownSampleFactor);
       for (; count < max_count; ++count)
       {
-        LeakData(0, pData.get()[count * mDownSampleFactor], startTime);
+        LeakData(0, data.get()[count * mDownSampleFactor], startTime);
       }
       mCurrentCount = (mCurrentCount + rem_len) % mDownSampleFactor;
     }

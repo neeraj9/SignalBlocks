@@ -24,13 +24,13 @@ namespace sigblocks
     }
 
     virtual void Process(
-      int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime)
+      int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime)
     {
       for (int i = 0; i < len; ++i)
       {
-        pData.get()[i] *= mScale;
+        data.get()[i] *= mScale;
       }
-      this->LeakData(0, pData, len, startTime);
+      this->LeakData(0, std::move(data), len, startTime);
     }
 
   private:

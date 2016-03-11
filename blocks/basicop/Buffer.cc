@@ -12,7 +12,7 @@ template <class T>
 Buffer<T>::Buffer(int fieldsToBuffer)
   : mFieldsToBuffer(fieldsToBuffer),
     mNumFields(0),
-    mpData(new T[fieldsToBuffer]) // pre-allocate space
+    mData(new T[fieldsToBuffer]) // pre-allocate space
 {
 }
 
@@ -27,13 +27,13 @@ Buffer<T>::Process(int sourceIndex, const T& data, const TimeTick& startTime)
 {
   assert(sourceIndex == 0); // XXX change to an assertion library.
 
-  mpData.get()[mNumFields++] = data;
+  mData.get()[mNumFields++] = data;
   if (mNumFields >= mFieldsToBuffer)
   {
-    this->LeakData(0, mpData, mNumFields, startTime);
-    if (mpData.get() == 0) // this is always true at present
+    this->LeakData(0, std::move(mData), mNumFields, startTime);
+    if (mData.get() == 0) // this is always true at present
     {
-      mpData.reset(new T[mFieldsToBuffer]);
+      mData.reset(new T[mFieldsToBuffer]);
     }
     mNumFields = 0;
   }
@@ -45,7 +45,7 @@ Buffer<T>::Process(int sourceIndex, const T& data, const TimeTick& startTime)
 template <class T>
 void
 Buffer<T>::Process(
-  int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime)
+  int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime)
 {
   assert(sourceIndex == 0); // XXX change to an assertion library.
 
@@ -53,17 +53,17 @@ Buffer<T>::Process(
   int fields_to_copy = ((mNumFields + len - mFieldsToBuffer) >= 0) ? (mFieldsToBuffer - mNumFields) : len;
   while (fields_to_copy > 0)
   {
-    // fill mpData with rest of the contents
-    std::copy(pData.get() + offset,
-              pData.get() + fields_to_copy,
-              mpData.get() + mNumFields);
+    // fill mData with rest of the contents
+    std::copy(data.get() + offset,
+              data.get() + fields_to_copy,
+              mData.get() + mNumFields);
     mNumFields += fields_to_copy;
     if (mNumFields >= mFieldsToBuffer)
     {
-      this->LeakData(0, mpData, mNumFields, startTime);
-      if (mpData.get() == 0) // this is always true at present
+      this->LeakData(0, std::move(mData), mNumFields, startTime);
+      if (mData.get() == 0) // this is always true at present
       {
-        mpData.reset(new T[mFieldsToBuffer]);
+        mData.reset(new T[mFieldsToBuffer]);
       }
       mNumFields = 0;
     }

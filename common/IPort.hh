@@ -5,7 +5,6 @@
 #ifndef sigblocks_common_IPort_hh
 #define sigblocks_common_IPort_hh
 
-#include "MultiPtr.hh"
 #include "TimeTick.hh"
 
 #include <memory>
@@ -30,7 +29,7 @@ namespace sigblocks
     virtual void ConsumeData(
       const IPort<T>* pSender, const T& data, const TimeTick& startTime) = 0;
     virtual void ConsumeData(
-      const IPort<T>* pSender, MultiPtr<T> pData,
+      const IPort<T>* pSender, std::unique_ptr<T[]> data,
       int len, const TimeTick& startTime) = 0;
 
   };

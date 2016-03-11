@@ -22,12 +22,12 @@ BasicTypeConverter<TFROM,TTO>::Process(
 template <class TFROM, class TTO>
 void
 BasicTypeConverter<TFROM,TTO>::Process(
-  int sourceIndex, MultiPtr<TFROM> pData, int len, const TimeTick& startTime)
+  int sourceIndex, std::unique_ptr<TFROM[]> data, int len, const TimeTick& startTime)
 {
   assert(sourceIndex == 0);
-  MultiPtr<TTO> todata(new TTO[len]);
-  GenericCopy<TFROM, TTO>::Copy(pData.get(), pData.get() + len, todata.get());
-  this->LeakData(0, todata, len, startTime);
+  std::unique_ptr<TTO[]> todata(new TTO[len]);
+  GenericCopy<TFROM, TTO>::Copy(data.get(), data.get() + len, todata.get());
+  this->LeakData(0, std::move(todata), len, startTime);
 }
 
 template class BasicTypeConverter<int, float>;

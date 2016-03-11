@@ -109,9 +109,9 @@ ServerSocketSource::Generate()
   // TODO: Do we care?
   if ((mBufferSize - mBytesRead) >= mBlockSize)
   {
-    MultiPtr<uint8_t> data(new uint8_t[mBlockSize]);
+    std::unique_ptr<uint8_t[]> data(new uint8_t[mBlockSize]);
     memcpy(data.get(), mpBuffer.get() + mBytesRead, mBlockSize);
-    LeakData(0, data, mBlockSize, mTime);
+    LeakData(0, std::move(data), mBlockSize, mTime);
     mBytesRead += mBlockSize;
     if (mBytesRead == mBufferSize)
     {

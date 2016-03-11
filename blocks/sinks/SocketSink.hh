@@ -25,7 +25,7 @@ namespace sigblocks
   public: // Port interface
     void Process(int sourceIndex, const unsigned char& data, const TimeTick& startTime);
     void Process(
-      int sourceIndex, MultiPtr<unsigned char> pData, int len, const TimeTick& startTime);
+      int sourceIndex, std::unique_ptr<unsigned char[]> data, int len, const TimeTick& startTime);
 
   private:
     std::unique_ptr<SocketProgramming::ISocket> mpSocket;

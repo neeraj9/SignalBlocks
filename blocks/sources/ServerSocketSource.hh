@@ -3,7 +3,6 @@
 #ifndef sigblocks_blocks_source_ServerSocketSource_hh
 #define sigblocks_blocks_source_ServerSocketSource_hh
 
-#include "../../common/MultiPtr.hh"
 #include "../../common/Port.hh"
 #include "../../common/TimeTick.hh"
 
@@ -37,7 +36,7 @@ namespace sigblocks
     const TimeTick mIncrement;
     std::unique_ptr<SocketProgramming::IServerSocket> mpSocket;
     const int mBlockSize;
-    MultiPtr<uint8_t> mpBuffer;
+    std::unique_ptr<uint8_t[]> mpBuffer;
     int mBytesRead;
     int mBufferSize;
   };

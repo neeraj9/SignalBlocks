@@ -12,7 +12,6 @@ set(COMMON_SOURCES
         MixedPort.cc
         GenericCopy.hh
         DataTypes.cc
-        MultiPtr.hh
         MixedPort.hh
         IPort.hh)
 

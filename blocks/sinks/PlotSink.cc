@@ -48,14 +48,14 @@ PlotSink<T>::Process(int sourceIndex, const T& data, const TimeTick& startTime)
 template <class T>
 void
 PlotSink<T>::Process(
-      int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime)
+      int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime)
 {
   assert(sourceIndex == 0);
   cout << &dec << startTime.GetValue() << ": " << &hex;
   for (int i = 0; i < len; ++i)
   {
-    cout << (pData.get()[i]) << ", ";
-    //cout << static_cast<unsigned long>(pData.get()[i]) << ", ";
+    cout << (data.get()[i]) << ", ";
+    //cout << static_cast<unsigned long>(data.get()[i]) << ", ";
   }
   cout << &dec << endl;
 }

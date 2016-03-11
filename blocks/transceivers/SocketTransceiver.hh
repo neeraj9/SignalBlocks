@@ -3,7 +3,6 @@
 #ifndef sigblocks_blocks_sink_SocketTransceiver_hh
 #define sigblocks_blocks_sink_SocketTransceiver_hh
 
-#include "../../common/MultiPtr.hh"
 #include "../../common/Port.hh"
 #include "../../common/TimeTick.hh"
 
@@ -36,14 +35,14 @@ namespace sigblocks
   public: // Port interface needed to be overridden only by the Sink
     void Process(int sourceIndex, const unsigned char& data, const TimeTick& startTime);
     void Process(
-      int sourceIndex, MultiPtr<unsigned char> pData, int len, const TimeTick& startTime);
+      int sourceIndex, std::unique_ptr<unsigned char[]> data, int len, const TimeTick& startTime);
 
   private:
     TimeTick mTime; // only for source
     const TimeTick mIncrement; // only for source
     std::unique_ptr<SocketProgramming::ISocket> mpSocket;
     const int mBlockSize; // only for source
-    MultiPtr<uint8_t> mpBuffer; // only for source
+    std::unique_ptr<uint8_t[]> mpBuffer; // only for source
     int mBytesRead; // only for source
     int mBufferSize; // only for source
   };

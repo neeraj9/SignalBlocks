@@ -2,8 +2,6 @@
 // see LICENSE for license
 #include "IstreamSource.hh"
 
-#include "../../common/MultiPtr.hh"
-
 #include <fstream>
 #include <iostream>
 
@@ -58,10 +56,10 @@ IstreamSource<T>::Generate()
     return; // dont do anything
   }
 
-  MultiPtr<T> pData(new T[mBlockSize]);
-  mpIstream->read(reinterpret_cast<char*>(pData.get()), mBlockSize * sizeof(T));
+  std::unique_ptr<T[]> data(new T[mBlockSize]);
+  mpIstream->read(reinterpret_cast<char*>(data.get()), mBlockSize * sizeof(T));
   int bytes_read = mpIstream->gcount() / sizeof(char);
-  this->LeakData(0, pData, bytes_read, mTime);
+  this->LeakData(0, std::move(data), bytes_read, mTime);
   mTime += mIncrement;
   if (mpIstream->eof() && mLoopOver)
   {

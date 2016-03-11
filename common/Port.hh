@@ -4,7 +4,6 @@
 #define sigblocks_common_Port_hh
 
 #include "IPort.hh"
-#include "MultiPtr.hh"
 #include "TimeTick.hh"
 
 namespace sigblocks
@@ -29,7 +28,7 @@ namespace sigblocks
       const IPort<T>* pSender, const T& data, const TimeTick& startTime);
 
     void ConsumeData(
-      const IPort<T>* pSender, MultiPtr<T> pData, int len, const TimeTick& startTime);
+      const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
   protected:
     /// use this interface when T is a primitive data type, ex. int, float, etc
@@ -37,11 +36,11 @@ namespace sigblocks
       int index, const T& data, const TimeTick& startTime);
 
     void LeakData(
-      int index, MultiPtr<T> pData, int len, const TimeTick& startTime);
+      int index, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
     virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime);
     virtual void Process(
-      int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime);
+      int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
   private:
     //mutable BoostPort::Mutex mMutex;
@@ -66,7 +65,7 @@ namespace sigblocks
     void ConsumeData(
       const IPort<T>* pSender, const T& data, const TimeTick& startTime);
     void ConsumeData(
-      const IPort<T>* pSender, MultiPtr<T> pData, int len, const TimeTick& startTime);
+      const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
   public: // IPort interface
     void SetSink(std::shared_ptr<IPort<T> >& peer, int index);
@@ -77,7 +76,7 @@ namespace sigblocks
       int index, const T& data, const TimeTick& startTime);
 
     void LeakData(
-      int index, MultiPtr<T> pData, int len, const TimeTick& startTime);
+      int index, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
   private:
     //mutable BoostPort::Mutex mMutex;
@@ -106,12 +105,12 @@ namespace sigblocks
       const IPort<T>* pSender, const T& data, const TimeTick& startTime);
 
     void ConsumeData(
-      const IPort<T>* pSender, MultiPtr<T> pData, int len, const TimeTick& startTime);
+      const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
   protected:
     virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime);
     virtual void Process(
-      int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime);
+      int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
   private:
     //mutable BoostPort::Mutex mMutex;
@@ -138,7 +137,7 @@ namespace sigblocks
       const IPort<T>* pSender, const T& data, const TimeTick& startTime);
 
     void ConsumeData(
-      const IPort<T>* pSender, MultiPtr<T> pData, int len, const TimeTick& startTime);
+      const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
   };
 }
 

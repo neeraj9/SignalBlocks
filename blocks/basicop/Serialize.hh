@@ -18,12 +18,12 @@ namespace sigblocks
     }
 
     virtual void Process(
-      int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime)
+      int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime)
     {
       assert(sourceIndex == 0); // XXX change to an assertion library.
       for (int i = 0; i < len; ++i)
       {
-        LeakData(0, pData.get()[i], startTime);
+        LeakData(0, data.get()[i], startTime);
       }
     }
   };

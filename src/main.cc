@@ -22,7 +22,6 @@
 #include "../blocks/transceivers/SocketTransceiverCreator.hh"
 #include "../common/ComplexType.hh"
 #include "../common/IPort.hh"
-#include "../common/MultiPtr.hh"
 #include "../common/Port.hh"
 #include "../common/TimeTick.hh"
 #include "../socket/TcpSocket.hh"
@@ -51,9 +50,9 @@ void test1()
 void test2()
 {
   // lets do some data transfer
-  MultiPtr<int> x(new int[10]);
+  std::unique_ptr<int[]> x(new int[10]);
   cout << "x = " << x.get() << endl;
-  MultiPtr<int> y(x);
+  std::unique_ptr<int[]> y(std::move(x));
   cout << "x = " << x.get() << ", y = " << y.get() << endl;
 }
 
@@ -479,8 +478,8 @@ void test32()
 {
   // wow! this works like c structure.
   // TODO: Will this work all the time, for all optimization flag?
-  printf("sizeof(double) = %d\n", sizeof(double));
-  printf("sizeof(ComplexType<double> = %d\n", sizeof(ComplexType<double>));
+  printf("sizeof(double) = %lu\n", sizeof(double));
+  printf("sizeof(ComplexType<double> = %lu\n", sizeof(ComplexType<double>));
 
   double v[2] = {1.0, 2.0};
   ComplexType<double>* p = reinterpret_cast<ComplexType<double>*>(&v[0]);

@@ -82,7 +82,7 @@ Multiplex<N,T>::Process(int sourceIndex, const T& data, const TimeTick& startTim
 template <int N, class T>
 void
 Multiplex<N,T>::Process(
-  int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime)
+  int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime)
 {
   assert(0); // FIXME
 }

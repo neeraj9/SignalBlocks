@@ -2,7 +2,6 @@
 // see LICENSE for license
 #include "SocketTransceiver.hh"
 
-#include "../../common/MultiPtr.hh"
 #include "../../socket/ISocket.hh"
 
 #include <iostream>
@@ -79,9 +78,9 @@ SocketTransceiver::Generate()
   // TODO: Do we care?
   if ((mBufferSize - mBytesRead) >= mBlockSize)
   {
-    MultiPtr<uint8_t> data(new uint8_t[mBlockSize]);
+    std::unique_ptr<uint8_t[]> data(new uint8_t[mBlockSize]);
     memcpy(data.get(), mpBuffer.get() + mBytesRead, mBlockSize);
-    LeakData(0, data, mBlockSize, mTime);
+    LeakData(0, std::move(data), mBlockSize, mTime);
     mBytesRead += mBlockSize;
     if (mBytesRead == mBufferSize)
     {
@@ -101,10 +100,10 @@ SocketTransceiver::Process(int sourceIndex, const unsigned char& data, const Tim
 // Needed by the Sink
 void
 SocketTransceiver::Process(
-  int sourceIndex, MultiPtr<unsigned char> pData, int len, const TimeTick& startTime)
+  int sourceIndex, std::unique_ptr<unsigned char[]> data, int len, const TimeTick& startTime)
 {
   int bytes_sent =
-    mpSocket->Send(pData.get(), len * sizeof(unsigned char));
+    mpSocket->Send(data.get(), len * sizeof(unsigned char));
   if (bytes_sent < len)
   {
     cerr << "Sent " << bytes_sent << ", but wanted to send " << len << " bytes" << endl;

@@ -2,8 +2,6 @@
 // see LICENSE for license
 #include "OstreamSink.hh"
 
-#include "../../common/MultiPtr.hh"
-
 #include <fstream>
 #include <iostream>
 
@@ -39,9 +37,9 @@ OstreamSink<T>::Process(int sourceIndex, const T& data, const TimeTick& startTim
 template <class T>
 void
 OstreamSink<T>::Process(
-  int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime)
+  int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime)
 {
-  mpOstream->write(reinterpret_cast<const char*>(pData.get()), len * sizeof(T));
+  mpOstream->write(reinterpret_cast<const char*>(data.get()), len * sizeof(T));
 }
 
 template class OstreamSink<unsigned char>;

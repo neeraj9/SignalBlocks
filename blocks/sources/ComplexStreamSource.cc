@@ -2,8 +2,6 @@
 // see LICENSE for license
 #include "ComplexStreamSource.hh"
 
-#include "../../common/MultiPtr.hh"
-
 #include <fstream>
 #include <iostream>
 
@@ -58,11 +56,11 @@ ComplexStreamSource<T>::Generate()
     return; // dont do anything
   }
 
-  MultiPtr<T> pData(new T[2 * mBlockSize]);
+  std::unique_ptr<T[]> data(new T[2 * mBlockSize]);
   // There are two values per sample, RF Sample = {I,Q}.
-  mpComplexStream->read(reinterpret_cast<char*>(pData.get()), mBlockSize * 2 * sizeof(T));
+  mpComplexStream->read(reinterpret_cast<char*>(data.get()), mBlockSize * 2 * sizeof(T));
   int bytes_read = mpComplexStream->gcount() / sizeof(char);
-  this->LeakData(0, pData, bytes_read, mTime);
+  this->LeakData(0, std::move(data), bytes_read, mTime);
   mTime += mIncrement;
   if (mpComplexStream->eof() && mLoopOver)
   {

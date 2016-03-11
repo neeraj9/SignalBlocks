@@ -31,14 +31,14 @@ Demultiplex<N,T>::Process(int sourceIndex, const T& data, const TimeTick& startT
 template <int N, class T>
 void
 Demultiplex<N,T>::Process(
-  int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime)
+  int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime)
 {
   assert(sourceIndex >= 0 || sourceIndex < N); // XXX change to an assertion library.
 
   // Mutiple inputs are treated as one when passing downstream
   // use some other class to split such a data into individual data
   // items if those need to be demultiplexed and then apply this module.
-  this->LeakData(mNextOutputPort, pData, len, startTime);
+  this->LeakData(mNextOutputPort, std::move(data), len, startTime);
 
   mNextOutputPort = (mNextOutputPort + 1) % N;
 }

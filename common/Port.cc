@@ -78,7 +78,7 @@ Port<N,M,T>::ConsumeData(const IPort<T> * pSender,
 template <int N, int M, class T>
 void
 Port<N,M,T>::ConsumeData(const IPort<T> * pSender,
-                         MultiPtr<T> pData,
+                         std::unique_ptr<T[]> data,
                          int len,
                          const TimeTick& startTime)
 {
@@ -86,7 +86,7 @@ Port<N,M,T>::ConsumeData(const IPort<T> * pSender,
   {
     if (mpSource[i] == pSender)
     {
-      Process(i, pData, len, startTime);
+      Process(i, std::move(data), len, startTime);
       break;
     }
   }
@@ -109,7 +109,7 @@ Port<N,M,T>::LeakData(int index,
 template <int N, int M, class T>
 void
 Port<N,M,T>::LeakData(int index,
-                      MultiPtr<T> pData,
+                      std::unique_ptr<T[]> data,
                       int len,
                       const TimeTick& startTime)
 {
@@ -117,7 +117,7 @@ Port<N,M,T>::LeakData(int index,
   assert(0 <= index);
   if (mpSink[index])
   {
-    mpSink[index]->ConsumeData(this, pData, len, startTime);
+    mpSink[index]->ConsumeData(this, std::move(data), len, startTime);
   }
 }
 
@@ -133,7 +133,7 @@ Port<N,M,T>::Process(int sourceIndex,
 template <int N, int M, class T>
 void
 Port<N,M,T>::Process(int sourceIndex,
-                     MultiPtr<T> pData,
+                     std::unique_ptr<T[]> data,
                      int len,
                      const TimeTick& startTime)
 {
@@ -193,7 +193,7 @@ Port<0,M,T>::ConsumeData(const IPort<T> * pSender,
 template <int M, class T>
 void
 Port<0,M,T>::ConsumeData(const IPort<T> * pSender,
-                         MultiPtr<T> pData,
+                         std::unique_ptr<T[]> data,
                          int len,
                          const TimeTick& startTime)
 {
@@ -216,7 +216,7 @@ Port<0,M,T>::LeakData(int index,
 template <int M, class T>
 void
 Port<0,M,T>::LeakData(int index,
-                      MultiPtr<T> pData,
+                      std::unique_ptr<T[]> data,
                       int len,
                       const TimeTick& startTime)
 {
@@ -224,7 +224,7 @@ Port<0,M,T>::LeakData(int index,
   assert(0 <= index);
   if (mpSink[index])
   {
-    mpSink[index]->ConsumeData(this, pData, len, startTime);
+    mpSink[index]->ConsumeData(this, std::move(data), len, startTime);
   }
 }
 
@@ -289,7 +289,7 @@ Port<N,0,T>::ConsumeData(const IPort<T> * pSender,
 template <int N,class T>
 void
 Port<N,0,T>::ConsumeData(const IPort<T> * pSender,
-                         MultiPtr<T> pData,
+                         std::unique_ptr<T[]> data,
                          int len,
                          const TimeTick& startTime)
 {
@@ -297,7 +297,7 @@ Port<N,0,T>::ConsumeData(const IPort<T> * pSender,
   {
     if (mpSource[i] == pSender)
     {
-      Process(i, pData, len, startTime);
+      Process(i, std::move(data), len, startTime);
       break;
     }
   }
@@ -315,7 +315,7 @@ Port<N,0,T>::Process(int sourceIndex,
 template <int N,class T>
 void
 Port<N,0,T>::Process(int sourceIndex,
-                     MultiPtr<T> pData,
+                     std::unique_ptr<T[]> data,
                      int len,
                      const TimeTick& startTime)
 {
@@ -361,7 +361,7 @@ Port<0,0,T>::ConsumeData(const IPort<T> * pSender,
 template <class T>
 void
 Port<0,0,T>::ConsumeData(const IPort<T> * pSender,
-                         MultiPtr<T> pData,
+                         std::unique_ptr<T[]> data,
                          int len,
                          const TimeTick& startTime)
 {

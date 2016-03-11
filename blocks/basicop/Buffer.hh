@@ -20,12 +20,12 @@ namespace sigblocks
   protected: // Port interface
     virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime);
     virtual void Process(
-      int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime);
+      int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
   private:
     int mFieldsToBuffer; // avoid const so that it can be changed dynamically
     int mNumFields; // fields buffered so far
-    MultiPtr<T> mpData;
+    std::unique_ptr<T[]> mData;
   };
 }
 

@@ -14,7 +14,7 @@ namespace sigblocks
   public: // Port interface
     void Process(int sourceIndex, const T& data, const TimeTick& startTime);
     void Process(
-      int sourceIndex, MultiPtr<T> pData, int len, const TimeTick& startTime);
+      int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
   };
 }
 

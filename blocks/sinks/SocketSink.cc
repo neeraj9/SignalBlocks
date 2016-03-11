@@ -2,7 +2,6 @@
 // see LICENSE for license
 #include "SocketSink.hh"
 
-#include "../../common/MultiPtr.hh"
 #include "../../socket/ISocket.hh"
 
 #include <iostream>
@@ -34,10 +33,10 @@ SocketSink::Process(int sourceIndex, const unsigned char& data, const TimeTick& 
   
 void
 SocketSink::Process(
-  int sourceIndex, MultiPtr<unsigned char> pData, int len, const TimeTick& startTime)
+  int sourceIndex, std::unique_ptr<unsigned char[]> data, int len, const TimeTick& startTime)
 {
   int bytes_sent =
-    mpSocket->Send(pData.get(), len * sizeof(unsigned char));
+    mpSocket->Send(data.get(), len * sizeof(unsigned char));
   if (bytes_sent < len)
   {
     cerr << "Sent " << bytes_sent << ", but wanted to send " << len << " bytes" << endl;

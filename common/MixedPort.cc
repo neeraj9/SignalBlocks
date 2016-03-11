@@ -78,7 +78,7 @@ MixedPort<N,M,TN,TM>::ConsumeData(const IPort<TN> * pSender,
 template <int N, int M, class TN, class TM>
 void
 MixedPort<N,M,TN,TM>::ConsumeData(const IPort<TN> * pSender,
-                                  MultiPtr<TN> pData,
+                                  std::unique_ptr<TN[]> data,
                                   int len,
                                   const TimeTick& startTime)
 {
@@ -86,7 +86,7 @@ MixedPort<N,M,TN,TM>::ConsumeData(const IPort<TN> * pSender,
   {
     if (mpSource[i] == pSender)
     {
-      Process(i, pData, len, startTime);
+      Process(i, std::move(data), len, startTime);
       break;
     }
   }
@@ -109,7 +109,7 @@ MixedPort<N,M,TN,TM>::LeakData(int index,
 template <int N, int M, class TN, class TM>
 void
 MixedPort<N,M,TN,TM>::LeakData(int index,
-                               MultiPtr<TM> pData,
+                               std::unique_ptr<TM[]> data,
                                int len,
                                const TimeTick& startTime)
 {
@@ -117,7 +117,7 @@ MixedPort<N,M,TN,TM>::LeakData(int index,
   assert(0 <= index);
   if (mpSink[index])
   {
-    mpSink[index]->ConsumeData(this, pData, len, startTime);
+    mpSink[index]->ConsumeData(this, std::move(data), len, startTime);
   }
 }
 
@@ -133,7 +133,7 @@ MixedPort<N,M,TN,TM>::Process(int sourceIndex,
 template <int N, int M, class TN, class TM>
 void
 MixedPort<N,M,TN,TM>::Process(int sourceIndex,
-                              MultiPtr<TN> pData,
+                              std::unique_ptr<TN[]> data,
                               int len,
                               const TimeTick& startTime)
 {
@@ -173,7 +173,7 @@ MixedPort<N,M,TN,TM>::ConsumeData(const IPort<TM> * pSender,
 template <int N, int M, class TN, class TM>
 void
 MixedPort<N,M,TN,TM>::ConsumeData(const IPort<TM> * pSender,
-                                  MultiPtr<TM> pData,
+                                  std::unique_ptr<TM[]> data,
                                   int len,
                                   const TimeTick& startTime)
 {
