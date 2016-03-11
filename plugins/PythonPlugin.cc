@@ -54,11 +54,20 @@
 
 using namespace sigblocks;
 
+namespace {
+    inline void ImportUsualPythonModules() {
+        PyRun_SimpleString("import sys, os, re, struct");
+        PyRun_SimpleString("import numpy");
+    }
+}
+
 PythonPlugin::PythonPlugin()
 {
   Py_Initialize();
   // Dont do it all the time because its expensive!
   // So have only one instance of the PythonPlugin.
+
+    ImportUsualPythonModules();
 }
 
 PythonPlugin::PythonPlugin(const std::string& includePath)
@@ -67,12 +76,14 @@ PythonPlugin::PythonPlugin(const std::string& includePath)
   // Dont do it all the time because its expensive!
   // So have only one instance of the PythonPlugin.
 
+    ImportUsualPythonModules();
+
   // This is better than passing modulePath all the time.
   // So instead use this ctor and pass empty string as
   // modulePath in RunPythonCode wherever possible.
   if (includePath.size() > 0)
   {
-    PyRun_SimpleString("import sys");
+    // PyRun_SimpleString("import sys"); done already
     std::string sys_path_append_cmd =
       "sys.path.append(\"" + includePath + "\")";
     PyRun_SimpleString(sys_path_append_cmd.c_str());
