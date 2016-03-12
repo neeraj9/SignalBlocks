@@ -5,15 +5,15 @@ set(COMMON_SOURCES
         TimeTick.h
         ComplexType.h
         DataTypes.h
-        Port.cpp
         ComplexType.cpp
         TimeTick.cpp
         Port.h
-        MixedPort.cpp
         GenericCopy.h
         DataTypes.cpp
         MixedPort.h
-        IPort.h)
+        IPort.h
+        CsvParser.cpp
+        CsvParser.h)
 
 add_library(common STATIC ${COMMON_SOURCES})
 
