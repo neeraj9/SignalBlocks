@@ -60,7 +60,7 @@ set(BLOCKS_SOURCES
         sources/StepSource.hh
         transceivers/SocketTransceiver.cc
         transceivers/SocketTransceiver.hh
-        transceivers/SocketTransceiverCreator.hh)
+        transceivers/SocketTransceiverCreator.hh basicop/TransparentForwarder.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 
