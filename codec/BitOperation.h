@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_common_codec_BitOperation_hh
-#define sigblocks_common_codec_BitOperation_hh
+#ifndef SIGBLOCKS_BITOPERATION_H
+#define SIGBLOCKS_BITOPERATION_H
 
 #include "BitReadInfo.h"
 
@@ -90,4 +90,4 @@ namespace sigblocks {
         return 0;
     }
 }
-#endif // sigblocks_common_codec_BitOperation_hh
+#endif // SIGBLOCKS_BITOPERATION_H

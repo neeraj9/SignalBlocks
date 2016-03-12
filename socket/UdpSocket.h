@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef UdpSocket_hh
-#define UdpSocket_hh
+#ifndef SIGBLOCKS_UDPSOCKET_H
+#define SIGBLOCKS_UDPSOCKET_H
 
 #include "ISocket.h"
 
@@ -41,4 +41,4 @@ namespace SocketProgramming {
     };
 }
 
-#endif // UdpSocket_hh
+#endif // SIGBLOCKS_UDPSOCKET_H

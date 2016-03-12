@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_blocks_source_SocketSourceCreator_hh
-#define sigblocks_blocks_source_SocketSourceCreator_hh
+#ifndef SIGBLOCKS_SOCKETSOURCECREATOR_H
+#define SIGBLOCKS_SOCKETSOURCECREATOR_H
 
 #include "SocketSource.h"
 
@@ -47,4 +47,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_blocks_source_SocketSourceCreator_hh
+#endif // SIGBLOCKS_SOCKETSOURCECREATOR_H

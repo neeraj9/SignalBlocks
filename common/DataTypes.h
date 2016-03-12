@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_common_DataTypes_hh
-#define  sigblocks_common_DataTypes_hh
+#ifndef SIGBLOCKS_DATATYPES_H
+#define  SIGBLOCKS_DATATYPES_H
 
 namespace sigblocks {
     template<class T>
@@ -60,5 +60,5 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_common_DataTypes_hh
+#endif // SIGBLOCKS_DATATYPES_H
 

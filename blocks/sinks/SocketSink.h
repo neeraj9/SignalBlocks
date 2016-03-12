@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_blocks_sink_SocketSink_hh
-#define sigblocks_blocks_sink_SocketSink_hh
+#ifndef SIGBLOCKS_SOCKETSINK_H
+#define SIGBLOCKS_SOCKETSINK_H
 
 #include "../../common/Port.h"
 
@@ -32,4 +32,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_blocks_sink_SocketSink_hh
+#endif // SIGBLOCKS_SOCKETSINK_H

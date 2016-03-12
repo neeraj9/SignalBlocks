@@ -1,8 +1,8 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
 
-#ifndef SIGNALBLOCKS_TRANSPARENTFORWARDER_H
-#define SIGNALBLOCKS_TRANSPARENTFORWARDER_H
+#ifndef SIGBLOCKS_TRANSPARENTFORWARDER_H
+#define SIGBLOCKS_TRANSPARENTFORWARDER_H
 
 #include "../../common/Port.h"
 
@@ -26,4 +26,4 @@ namespace sigblocks {
     };
 }
 
-#endif //SIGNALBLOCKS_TRANSPARENTFORWARDER_H
+#endif //SIGBLOCKS_TRANSPARENTFORWARDER_H

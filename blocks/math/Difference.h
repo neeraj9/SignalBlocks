@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_math_Difference_hh
-#define sigblocks_math_Difference_hh
+#ifndef SIGBLOCKS_DIFFERENCE_H
+#define SIGBLOCKS_DIFFERENCE_H
 
 #include "NOperator.h"
 
@@ -33,4 +33,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_math_Difference_hh
+#endif // SIGBLOCKS_DIFFERENCE_H

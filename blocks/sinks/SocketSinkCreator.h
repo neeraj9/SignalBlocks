@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_blocks_sink_SocketSinkCreator_hh
-#define sigblocks_blocks_sink_SocketSinkCreator_hh
+#ifndef SIGBLOCKS_SOCKETSINKCREATOR_H
+#define SIGBLOCKS_SOCKETSINKCREATOR_H
 
 #include "SocketSink.h"
 
@@ -45,4 +45,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_blocks_sink_SocketSinkCreator_hh
+#endif // SIGBLOCKS_SOCKETSINKCREATOR_H

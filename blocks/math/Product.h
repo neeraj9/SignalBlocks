@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_math_Product_hh
-#define sigblocks_math_Product_hh
+#ifndef SIGBLOCKS_PRODUCT_H
+#define SIGBLOCKS_PRODUCT_H
 
 #include "NOperator.h"
 
@@ -31,4 +31,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_math_Product_hh
+#endif // SIGBLOCKS_PRODUCT_H

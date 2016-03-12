@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_blocks_source_FileSourceCreator_hh
-#define sigblocks_blocks_source_FileSourceCreator_hh
+#ifndef SIGBLOCKS_FILESOURCECREATOR_H
+#define SIGBLOCKS_FILESOURCECREATOR_H
 
 #include "../common/IPort.h"
 #include "../common/TimeTick.h"
@@ -26,4 +26,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_blocks_source_FileSourceCreator_hh
+#endif // SIGBLOCKS_FILESOURCECREATOR_H

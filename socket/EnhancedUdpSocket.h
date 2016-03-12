@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef EnhancedUdpSocket_hh
-#define EnhancedUdpSocket_hh
+#ifndef SIGBLOCKS_ENHANCEDUDPSOCKET_H
+#define SIGBLOCKS_ENHANCEDUDPSOCKET_H
 
 #include "UdpSocket.h"
 
@@ -23,4 +23,4 @@ namespace SocketProgramming {
     };
 }
 
-#endif // EnhancedUdpSocket_hh
+#endif // SIGBLOCKS_ENHANCEDUDPSOCKET_H

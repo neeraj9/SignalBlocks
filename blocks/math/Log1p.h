@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_math_Log1p_hh
-#define sigblocks_math_Log1p_hh
+#ifndef SIGBLOCKS_LOG1P_H
+#define SIGBLOCKS_LOG1P_H
 
 #include "BinaryOperator.h"
 
@@ -20,4 +20,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_math_Log1p_hh
+#endif // SIGBLOCKS_LOG1P_H

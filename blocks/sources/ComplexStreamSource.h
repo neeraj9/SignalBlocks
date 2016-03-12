@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_blocks_source_ComplexStreamSource_hh
-#define sigblocks_blocks_source_ComplexStreamSource_hh
+#ifndef SIGBLOCKS_COMPLEXSTREAMSOURCE_H
+#define SIGBLOCKS_COMPLEXSTREAMSOURCE_H
 
 #include "../../common/Port.h"
 #include "../../common/TimeTick.h"
@@ -34,4 +34,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_blocks_source_ComplexStreamSource_hh
+#endif // SIGBLOCKS_COMPLEXSTREAMSOURCE_H

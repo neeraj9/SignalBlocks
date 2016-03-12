@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_blocks_sink_PlotSink_hh
-#define sigblocks_blocks_sink_PlotSink_hh
+#ifndef SIGBLOCKS_PLOTSINK_H
+#define SIGBLOCKS_PLOTSINK_H
 
 #ifdef HAVE_PLPLOT
 #include "../../common/PlPlot.h"
@@ -33,4 +33,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_blocks_sink_PlotSink_hh
+#endif // SIGBLOCKS_PLOTSINK_H

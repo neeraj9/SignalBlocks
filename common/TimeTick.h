@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_common_TimeTick_hh
-#define sigblocks_common_TimeTick_hh
+#ifndef SIGBLOCKS_TIMETICK_H
+#define SIGBLOCKS_TIMETICK_H
 
 #include <stdint.h>
 
@@ -32,4 +32,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_common_TimeTick_hh
+#endif // SIGBLOCKS_TIMETICK_H

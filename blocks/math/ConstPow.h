@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_math_ConstPow_hh
-#define sigblocks_math_ConstPow_hh
+#ifndef SIGBLOCKS_CONSTPOW_H
+#define SIGBLOCKS_CONSTPOW_H
 
 #include "BinaryOperator.h"
 
@@ -60,4 +60,4 @@ namespace sigblocks {
 
 }
 
-#endif // sigblocks_math_ConstPow_hh
+#endif // SIGBLOCKS_CONSTPOW_H

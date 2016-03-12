@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_math_BinaryOperator_hh
-#define sigblocks_math_BinaryOperator_hh
+#ifndef SIGBLOCKS_BINARYOPERATOR_H
+#define SIGBLOCKS_BINARYOPERATOR_H
 
 #include "../../common/Port.h"
 
@@ -26,4 +26,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_math_BinaryOperator_hh
+#endif // SIGBLOCKS_BINARYOPERATOR_H

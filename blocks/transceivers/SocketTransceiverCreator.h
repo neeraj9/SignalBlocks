@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_blocks_transceiver_SocketTransceiverCreator_hh
-#define sigblocks_blocks_transceiver_SocketTransceiverCreator_hh
+#ifndef SIGBLOCKS_SOCKETTRANSCEIVERCREATOR_H
+#define SIGBLOCKS_SOCKETTRANSCEIVERCREATOR_H
 
 #include "SocketTransceiver.h"
 
@@ -40,4 +40,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_blocks_transceiver_SocketTransceiverCreator_hh
+#endif // SIGBLOCKS_SOCKETTRANSCEIVERCREATOR_H

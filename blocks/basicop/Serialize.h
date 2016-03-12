@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_math_Serialize_hh
-#define sigblocks_math_Serialize_hh
+#ifndef SIGBLOCKS_SERIALIZE_H
+#define SIGBLOCKS_SERIALIZE_H
 
 #include "../../common/Port.h"
 
@@ -24,4 +24,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_math_Serialize_hh
+#endif // SIGBLOCKS_SERIALIZE_H

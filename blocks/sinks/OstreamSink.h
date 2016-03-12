@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_blocks_sink_OstreamSink_hh
-#define sigblocks_blocks_sink_OstreamSink_hh
+#ifndef SIGBLOCKS_OSTREAMSINK_H
+#define SIGBLOCKS_OSTREAMSINK_H
 
 #include "../../common/Port.h"
 
@@ -30,4 +30,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_blocks_sink_OstreamSink_hh
+#endif // SIGBLOCKS_OSTREAMSINK_H

@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_math_Arcsinh_hh
-#define sigblocks_math_Arcsinh_hh
+#ifndef SIGBLOCKS_ARCSINH_H
+#define SIGBLOCKS_ARCSINH_H
 
 #include "BinaryOperator.h"
 
@@ -20,4 +20,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_math_Arcsinh_hh
+#endif // SIGBLOCKS_ARCSINH_H

@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_common_plugins_PythonPlugin_hh
-#define sigblocks_common_plugins_PythonPlugin_hh
+#ifndef SIGBLOCKS_PLUGINS_PYTHONPLUGIN_H
+#define SIGBLOCKS_PLUGINS_PYTHONPLUGIN_H
 
 #include "PythonPluginExceptions.h"
 #include "PythonResult.h"
@@ -57,4 +57,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_common_plugins_PythonPlugin_hh
+#endif // SIGBLOCKS_PLUGINS_PYTHONPLUGIN_H

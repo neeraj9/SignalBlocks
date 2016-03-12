@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_math_Gain_hh
-#define sigblocks_math_Gain_hh
+#ifndef SIGBLOCKS_GAIN_H
+#define SIGBLOCKS_GAIN_H
 
 #include "../../common/Port.h"
 
@@ -32,4 +32,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_math_Gain_hh
+#endif // SIGBLOCKS_GAIN_H

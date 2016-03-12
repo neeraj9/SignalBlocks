@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_common_codec_MsbitToLsbitOperation_hh
-#define sigblocks_common_codec_MsbitToLsbitOperation_hh
+#ifndef SIGBLOCKS_MSBITTOLSBITOPERATION_H
+#define SIGBLOCKS_MSBITTOLSBITOPERATION_H
 
 #include "BitReadInfo.h"
 
@@ -11,4 +11,4 @@ namespace sigblocks {
         static uint32_t ReadBits(BitReadInfo* bri, int numBits);
     };
 }
-#endif // sigblocks_common_codec_MsbitToLsbitOperation_hh
+#endif // SIGBLOCKS_MSBITTOLSBITOPERATION_H

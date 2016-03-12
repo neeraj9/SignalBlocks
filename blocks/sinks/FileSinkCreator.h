@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_blocks_sink_FileSinkCreator_hh
-#define sigblocks_blocks_sink_FileSinkCreator_hh
+#ifndef SIGBLOCKS_FILESINKCREATOR_H
+#define SIGBLOCKS_FILESINKCREATOR_H
 
 #include "../common/IPort.h"
 
@@ -24,4 +24,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_blocks_sink_FileSinkCreator_hh
+#endif // SIGBLOCKS_FILESINKCREATOR_H

@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_math_Demultiplex_hh
-#define sigblocks_math_Demultiplex_hh
+#ifndef SIGBLOCKS_DEMULTIPLEX_H
+#define SIGBLOCKS_DEMULTIPLEX_H
 
 #include "../../common/Port.h"
 
@@ -26,4 +26,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_math_Demultiplex_hh
+#endif // SIGBLOCKS_DEMULTIPLEX_H

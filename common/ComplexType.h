@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_common_ComplexType_hh
-#define  sigblocks_common_ComplexType_hh
+#ifndef SIGBLOCKS_COMPLEXTYPE_H
+#define SIGBLOCKS_COMPLEXTYPE_H
 
 namespace sigblocks {
     template<class T>
@@ -76,5 +76,5 @@ namespace sigblocks {
 
 }
 
-#endif // sigblocks_common_ComplexType_hh
+#endif // SIGBLOCKS_COMPLEXTYPE_H
 

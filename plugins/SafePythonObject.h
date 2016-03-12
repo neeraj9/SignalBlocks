@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_common_plugins_SafePythonObject_hh
-#define sigblocks_common_plugins_SafePythonObject_hh
+#ifndef SIGBLOCKS_PLUGINS_SAFEPYTHONOBJECT_H
+#define SIGBLOCKS_PLUGINS_SAFEPYTHONOBJECT_H
 
 #include <Python.h> // Its present here only because of PyObject
 // because its forward declaration is not possible.
@@ -33,4 +33,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_common_plugins_SafePythonObject_hh
+#endif // SIGBLOCKS_PLUGINS_SAFEPYTHONOBJECT_H

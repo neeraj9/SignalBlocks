@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_math_Buffer_hh
-#define sigblocks_math_Buffer_hh
+#ifndef SIGBLOCKS_BUFFER_H
+#define SIGBLOCKS_BUFFER_H
 
 #include "../../common/Port.h"
 
@@ -29,4 +29,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_math_Buffer_hh
+#endif // SIGBLOCKS_BUFFER_H

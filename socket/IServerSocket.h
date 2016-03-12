@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef IServerSocket_hh
-#define IServerSocket_hh
+#ifndef SIGBLOCKS_ISERVERSOCKET_H
+#define SIGBLOCKS_ISERVERSOCKET_H
 
 #include <stdint.h>
 #include <sys/socket.h>
@@ -52,4 +52,4 @@ namespace SocketProgramming {
     };
 }
 
-#endif // IServerSocket_hh
+#endif // SIGBLOCKS_ISERVERSOCKET_H

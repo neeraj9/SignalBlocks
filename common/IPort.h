@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_common_IPort_hh
-#define sigblocks_common_IPort_hh
+#ifndef SIGBLOCKS_IPORT_H
+#define SIGBLOCKS_IPORT_H
 
 #include "TimeTick.h"
 
@@ -61,4 +61,4 @@ namespace sigblocks {
     }
 }
 
-#endif // sigblocks_common_IPort_hh
+#endif // SIGBLOCKS_IPORT_H

@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_blocks_source_SocketSource_hh
-#define sigblocks_blocks_source_SocketSource_hh
+#ifndef SIGBLOCKS_SOCKETSOURCE_H
+#define SIGBLOCKS_SOCKETSOURCE_H
 
 #include "../../common/Port.h"
 #include "../../common/TimeTick.h"
@@ -38,4 +38,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_blocks_source_SocketSource_hh
+#endif // SIGBLOCKS_SOCKETSOURCE_H

@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_converters_BasicTypeConverter_hh
-#define sigblocks_converters_BasicTypeConverter_hh
+#ifndef SIGBLOCKS_BASICTYPECONVERTER_H
+#define SIGBLOCKS_BASICTYPECONVERTER_H
 
 #include "../../common/MixedPort.h"
 
@@ -17,4 +17,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_converters_BasicTypeConverter_hh
+#endif // SIGBLOCKS_BASICTYPECONVERTER_H

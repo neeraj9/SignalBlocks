@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef SctpSocket_hh
-#define SctpSocket_hh
+#ifndef SIGBLOCKS_SCTPSOCKET_H
+#define SIGBLOCKS_SCTPSOCKET_H
 
 #include "ISocket.h"
 
@@ -39,4 +39,4 @@ namespace SocketProgramming {
     };
 }
 
-#endif // SctpSocket_hh
+#endif // SIGBLOCKS_SCTPSOCKET_H

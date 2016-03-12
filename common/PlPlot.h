@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef sigblocks_common_PlPlot_hh
-#define sigblocks_common_PlPlot_hh
+#ifndef SIGBLOCKS_PLPLOT_H
+#define SIGBLOCKS_PLPLOT_H
 
 #include "GenericCopy.h"
 
@@ -73,4 +73,4 @@ namespace sigblocks {
     };
 }
 
-#endif // sigblocks_common_PlPlot_hh
+#endif // SIGBLOCKS_PLPLOT_H
