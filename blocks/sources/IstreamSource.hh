@@ -8,32 +8,33 @@
 
 #include <memory>
 
-namespace sigblocks
-{
-  template <class T>
-  class IstreamSource
-    : public Port<0, 1, T>
-  {
-  public:
-    IstreamSource(const TimeTick& startTime,
-                  TimeTick& increment,
-                  int blockSize);
-    IstreamSource(const TimeTick& startTime,
-                  TimeTick& increment,
-                  std::unique_ptr<std::istream> pIns,
-                  int blockSize);
+namespace sigblocks {
+    template<class T>
+    class IstreamSource
+            : public Port<0, 1, T> {
+    public:
+        IstreamSource(const TimeTick& startTime,
+                      TimeTick& increment,
+                      int blockSize);
 
-    void Generate();
-    void SetStreamSource(std::unique_ptr<std::istream> pIns);
-    void Loop(bool loopOver);
+        IstreamSource(const TimeTick& startTime,
+                      TimeTick& increment,
+                      std::unique_ptr<std::istream> pIns,
+                      int blockSize);
 
-  private:
-    TimeTick mTime;
-    const TimeTick mIncrement;
-    std::unique_ptr<std::istream> mpIstream;
-    bool mLoopOver;
-    int mBlockSize;
-  };
+        void Generate();
+
+        void SetStreamSource(std::unique_ptr<std::istream> pIns);
+
+        void Loop(bool loopOver);
+
+    private:
+        TimeTick mTime;
+        const TimeTick mIncrement;
+        std::unique_ptr<std::istream> mpIstream;
+        bool mLoopOver;
+        int mBlockSize;
+    };
 }
 
 #endif // sigblocks_blocks_source_IstreamSource_hh

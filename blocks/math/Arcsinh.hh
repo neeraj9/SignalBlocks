@@ -7,20 +7,17 @@
 
 #include <gsl/gsl_math.h>
 
-namespace sigblocks
-{
-  // computes  \arcsinh(x)
-  template <class T>
-  class Arcsinh
-    : public BinaryOperator<T>
-  {
-  protected: // BinaryOperator interface
-    virtual T Compute(const T& arg1) const
-    {
-      return gsl_asinh(arg1);
-    }
+namespace sigblocks {
+    // computes  \arcsinh(x)
+    template<class T>
+    class Arcsinh
+            : public BinaryOperator<T> {
+    protected: // BinaryOperator interface
+        virtual T Compute(const T& arg1) const {
+            return gsl_asinh(arg1);
+        }
 
-  };
+    };
 }
 
 #endif // sigblocks_math_Arcsinh_hh

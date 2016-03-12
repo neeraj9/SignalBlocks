@@ -9,37 +9,36 @@
 #include <memory>
 #include <stdint.h>
 
-namespace SocketProgramming
-{
-  class ISocket;
+namespace SocketProgramming {
+    class ISocket;
 }
 
-namespace sigblocks
-{
-  class SocketSource
-    : public Port<0, 1, unsigned char>
-  {
-  public:
-    SocketSource(const TimeTick& startTime,
-               TimeTick& increment,
-               int blockSize);
-    SocketSource(const TimeTick& startTime,
-               TimeTick& increment,
-               std::unique_ptr<SocketProgramming::ISocket> pIns,
-               int blockSize);
+namespace sigblocks {
+    class SocketSource
+            : public Port<0, 1, unsigned char> {
+    public:
+        SocketSource(const TimeTick& startTime,
+                     TimeTick& increment,
+                     int blockSize);
 
-    void Generate();
-    void SetStreamSource(std::unique_ptr<SocketProgramming::ISocket> pIns);
+        SocketSource(const TimeTick& startTime,
+                     TimeTick& increment,
+                     std::unique_ptr<SocketProgramming::ISocket> pIns,
+                     int blockSize);
 
-  private:
-    TimeTick mTime;
-    const TimeTick mIncrement;
-    std::unique_ptr<SocketProgramming::ISocket> mpSocket;
-    const int mBlockSize;
-    std::unique_ptr<uint8_t[]> mpBuffer;
-    int mBytesRead;
-    int mBufferSize;
-  };
+        void Generate();
+
+        void SetStreamSource(std::unique_ptr<SocketProgramming::ISocket> pIns);
+
+    private:
+        TimeTick mTime;
+        const TimeTick mIncrement;
+        std::unique_ptr<SocketProgramming::ISocket> mpSocket;
+        const int mBlockSize;
+        std::unique_ptr<uint8_t[]> mpBuffer;
+        int mBytesRead;
+        int mBufferSize;
+    };
 }
 
 #endif // sigblocks_blocks_source_SocketSource_hh

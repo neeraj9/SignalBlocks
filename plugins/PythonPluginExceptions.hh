@@ -6,20 +6,19 @@
 #include <exception>
 #include <string>
 
-namespace sigblocks
-{
-  class PyPluginTypeException
-    : public std::exception
-  {
-  public:
-    PyPluginTypeException(const std::string& error) throw();
-    virtual ~PyPluginTypeException() throw();
+namespace sigblocks {
+    class PyPluginTypeException
+            : public std::exception {
+    public:
+        PyPluginTypeException(const std::string& error) throw();
 
-    virtual const char* what() const throw();
+        virtual ~PyPluginTypeException() throw();
 
-  private:
-    const std::string mError;
-  };
+        virtual const char* what() const throw();
+
+    private:
+        const std::string mError;
+    };
 }
 
 #endif // sigblocks_common_plugins_PythonPluginExceptions_hh

@@ -7,8 +7,8 @@
 extern "C" {
 #endif
 
-  int tap(const char *device, int promisc_mode);
-  int get_ifc_info(char *ifc_name, unsigned int *ip, char *mac);
+int tap(const char* device, int promisc_mode);
+int get_ifc_info(char* ifc_name, unsigned int* ip, char* mac);
 
 #ifdef __cplusplus
 }

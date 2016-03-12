@@ -8,13 +8,11 @@
 #include <memory>
 #include <Python.h> // Needed for PyObject
 
-namespace sigblocks
-{
-  class NumpyUtil
-  {
-  public:
-    static std::unique_ptr<PythonBaseResult> ExtractNumpyType(PyObject* pObj);
-  };
+namespace sigblocks {
+    class NumpyUtil {
+    public:
+        static std::unique_ptr<PythonBaseResult> ExtractNumpyType(PyObject* pObj);
+    };
 }
 
 #endif // sigblocks_common_plugins_NumpyUtil_hh

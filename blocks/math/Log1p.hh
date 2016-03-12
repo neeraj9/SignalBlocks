@@ -7,20 +7,17 @@
 
 #include <gsl/gsl_math.h>
 
-namespace sigblocks
-{
-  // computes  \log(1+x)
-  template <class T>
-  class Log1p
-    : public BinaryOperator<T>
-  {
-  protected: // BinaryOperator interface
-    virtual T Compute(const T& arg1) const
-    {
-      return gsl_log1p(arg1);
-    }
+namespace sigblocks {
+    // computes  \log(1+x)
+    template<class T>
+    class Log1p
+            : public BinaryOperator<T> {
+    protected: // BinaryOperator interface
+        virtual T Compute(const T& arg1) const {
+            return gsl_log1p(arg1);
+        }
 
-  };
+    };
 }
 
 #endif // sigblocks_math_Log1p_hh

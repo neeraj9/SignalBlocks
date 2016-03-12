@@ -12,44 +12,37 @@
 #include <memory>
 #include <string>
 
-namespace sigblocks
-{
-  template <class X>
-  class SocketSinkCreator
-  {
-  public:
-    static SocketSink* Create(
-      const std::string& destIp,
-      int destPort)
-    {
-      SocketSink* socket_sink = new SocketSink();
-      std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
-      socket_sink->SetStreamSink(pIns);
-      return socket_sink;
-    }
-
-    static SocketSink* Create(
-      const std::string& destIp,
-      int destPort,
-      int localPort)
-    {
-      SocketSink* socket_sink = new SocketSink();
-      std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
-      if (pIns->Bind(localPort))
-      {
-        if (pIns->Connect())
-        {
-          // save only if successful
-          socket_sink->SetStreamSink(std::move(pIns));
+namespace sigblocks {
+    template<class X>
+    class SocketSinkCreator {
+    public:
+        static SocketSink* Create(
+                const std::string& destIp,
+                int destPort) {
+            SocketSink* socket_sink = new SocketSink();
+            std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
+            socket_sink->SetStreamSink(pIns);
+            return socket_sink;
         }
-      }
-      else
-      {
-        // cerr TODO
-      }
-      return socket_sink;
-    }
-  };
+
+        static SocketSink* Create(
+                const std::string& destIp,
+                int destPort,
+                int localPort) {
+            SocketSink* socket_sink = new SocketSink();
+            std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
+            if (pIns->Bind(localPort)) {
+                if (pIns->Connect()) {
+                    // save only if successful
+                    socket_sink->SetStreamSink(std::move(pIns));
+                }
+            }
+            else {
+                // cerr TODO
+            }
+            return socket_sink;
+        }
+    };
 }
 
 #endif // sigblocks_blocks_sink_SocketSinkCreator_hh

@@ -7,29 +7,29 @@
 
 #include <memory>
 
-namespace SocketProgramming
-{
-  class ISocket;
+namespace SocketProgramming {
+    class ISocket;
 }
 
-namespace sigblocks
-{
-  class SocketSink
-    : public Port<1, 0, unsigned char>
-  {
-  public:
-    SocketSink();
-    SocketSink(std::unique_ptr<SocketProgramming::ISocket> pIns);
-    void SetStreamSink(std::unique_ptr<SocketProgramming::ISocket> pIns);
+namespace sigblocks {
+    class SocketSink
+            : public Port<1, 0, unsigned char> {
+    public:
+        SocketSink();
 
-  public: // Port interface
-    void Process(int sourceIndex, const unsigned char& data, const TimeTick& startTime);
-    void Process(
-      int sourceIndex, std::unique_ptr<unsigned char[]> data, int len, const TimeTick& startTime);
+        SocketSink(std::unique_ptr<SocketProgramming::ISocket> pIns);
 
-  private:
-    std::unique_ptr<SocketProgramming::ISocket> mpSocket;
-  };
+        void SetStreamSink(std::unique_ptr<SocketProgramming::ISocket> pIns);
+
+    public: // Port interface
+        void Process(int sourceIndex, const unsigned char& data, const TimeTick& startTime);
+
+        void Process(
+                int sourceIndex, std::unique_ptr<unsigned char[]> data, int len, const TimeTick& startTime);
+
+    private:
+        std::unique_ptr<SocketProgramming::ISocket> mpSocket;
+    };
 }
 
 #endif // sigblocks_blocks_sink_SocketSink_hh

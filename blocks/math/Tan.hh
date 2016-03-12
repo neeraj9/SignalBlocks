@@ -7,20 +7,17 @@
 
 #include <cmath>
 
-namespace sigblocks
-{
-  // computes  \tan(x)
-  template <class T>
-  class Tan
-    : public BinaryOperator<T>
-  {
-  protected: // BinaryOperator interface
-    virtual T Compute(const T& arg1) const
-    {
-      return tan(arg1);
-    }
+namespace sigblocks {
+    // computes  \tan(x)
+    template<class T>
+    class Tan
+            : public BinaryOperator<T> {
+    protected: // BinaryOperator interface
+        virtual T Compute(const T& arg1) const {
+            return tan(arg1);
+        }
 
-  };
+    };
 }
 
 #endif // sigblocks_math_Tan_hh

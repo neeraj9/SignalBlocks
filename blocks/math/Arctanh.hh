@@ -7,20 +7,17 @@
 
 #include <gsl/gsl_math.h>
 
-namespace sigblocks
-{
-  // computes  \arctanh(x)
-  template <class T>
-  class Arctanh
-    : public BinaryOperator<T>
-  {
-  protected: // BinaryOperator interface
-    virtual T Compute(const T& arg1) const
-    {
-      return gsl_atanh(arg1);
-    }
+namespace sigblocks {
+    // computes  \arctanh(x)
+    template<class T>
+    class Arctanh
+            : public BinaryOperator<T> {
+    protected: // BinaryOperator interface
+        virtual T Compute(const T& arg1) const {
+            return gsl_atanh(arg1);
+        }
 
-  };
+    };
 }
 
 #endif // sigblocks_math_Arctanh_hh

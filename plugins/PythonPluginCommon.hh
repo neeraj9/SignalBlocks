@@ -5,22 +5,18 @@
 
 #include "SafePythonObject.hh"
 
-namespace sigblocks
-{
-  class Object
-    : public SafePythonObject
-  {
-  public:
-    Object(PyObject* ptr)
-      : SafePythonObject(ptr)
-    {
-    }
+namespace sigblocks {
+    class Object
+            : public SafePythonObject {
+    public:
+        Object(PyObject* ptr)
+                : SafePythonObject(ptr) {
+        }
 
-    PyObject* Get()
-    {
-      return GetPyObject();
-    }
-  };
+        PyObject* Get() {
+            return GetPyObject();
+        }
+    };
 }
 
 #endif // sigblocks_common_plugins_PythonPluginCommon_hh

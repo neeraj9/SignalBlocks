@@ -8,32 +8,33 @@
 
 #include <memory>
 
-namespace sigblocks
-{
-  template <class T>
-  class ComplexStreamSource
-    : public Port<0, 1, T>
-  {
-  public:
-    ComplexStreamSource(const TimeTick& startTime,
-                  TimeTick& increment,
-                  int blockSize);
-    ComplexStreamSource(const TimeTick& startTime,
-                  TimeTick& increment,
-                  std::unique_ptr<std::istream> pIns,
-                  int blockSize);
+namespace sigblocks {
+    template<class T>
+    class ComplexStreamSource
+            : public Port<0, 1, T> {
+    public:
+        ComplexStreamSource(const TimeTick& startTime,
+                            TimeTick& increment,
+                            int blockSize);
 
-    void Generate();
-    void SetStreamSource(std::unique_ptr<std::istream> pIns);
-    void Loop(bool loopOver);
+        ComplexStreamSource(const TimeTick& startTime,
+                            TimeTick& increment,
+                            std::unique_ptr<std::istream> pIns,
+                            int blockSize);
 
-  private:
-    TimeTick mTime;
-    const TimeTick mIncrement;
-    std::unique_ptr<std::istream> mpComplexStream;
-    bool mLoopOver;
-    int mBlockSize;
-  };
+        void Generate();
+
+        void SetStreamSource(std::unique_ptr<std::istream> pIns);
+
+        void Loop(bool loopOver);
+
+    private:
+        TimeTick mTime;
+        const TimeTick mIncrement;
+        std::unique_ptr<std::istream> mpComplexStream;
+        bool mLoopOver;
+        int mBlockSize;
+    };
 }
 
 #endif // sigblocks_blocks_source_ComplexStreamSource_hh

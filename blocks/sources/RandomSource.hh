@@ -6,20 +6,19 @@
 #include "../../common/Port.hh"
 #include "../../common/TimeTick.hh"
 
-namespace sigblocks
-{
-  class RandomSource
-    : public Port<0, 1, int>
-  {
-  public:
-    RandomSource(const TimeTick& startTime, const TimeTick& increment);
-    void Generate();
+namespace sigblocks {
+    class RandomSource
+            : public Port<0, 1, int> {
+    public:
+        RandomSource(const TimeTick& startTime, const TimeTick& increment);
 
-  private:
-    TimeTick mTime;
-    const TimeTick mIncrement;
-    unsigned int mSeed;
-  };
+        void Generate();
+
+    private:
+        TimeTick mTime;
+        const TimeTick mIncrement;
+        unsigned int mSeed;
+    };
 }
 
 #endif // sigblocks_blocks_source_RandomSource_hh

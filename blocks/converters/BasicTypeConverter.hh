@@ -5,17 +5,16 @@
 
 #include "../../common/MixedPort.hh"
 
-namespace sigblocks
-{
-  template <class TFROM, class TTO>
-  class BasicTypeConverter
-    : public MixedPort<1,1,TFROM,TTO>
-  {
-  protected: // Override MixedPort interfaces for Sink
-    virtual void Process(int sourceIndex, const TFROM& data, const TimeTick& startTime);
-    virtual void Process(
-      int sourceIndex, std::unique_ptr<TFROM[]> data, int len, const TimeTick& startTime);
-  };
+namespace sigblocks {
+    template<class TFROM, class TTO>
+    class BasicTypeConverter
+            : public MixedPort<1, 1, TFROM, TTO> {
+    protected: // Override MixedPort interfaces for Sink
+        virtual void Process(int sourceIndex, const TFROM& data, const TimeTick& startTime);
+
+        virtual void Process(
+                int sourceIndex, std::unique_ptr<TFROM[]> data, int len, const TimeTick& startTime);
+    };
 }
 
 #endif // sigblocks_converters_BasicTypeConverter_hh

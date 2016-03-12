@@ -5,12 +5,10 @@
 
 #include "BitReadInfo.hh"
 
-namespace sigblocks
-{
-  class MsbitToLsbitOperation
-  {
-  public:
-    static uint32_t ReadBits(BitReadInfo* bri, int numBits);
-  };
+namespace sigblocks {
+    class MsbitToLsbitOperation {
+    public:
+        static uint32_t ReadBits(BitReadInfo* bri, int numBits);
+    };
 }
 #endif // sigblocks_common_codec_MsbitToLsbitOperation_hh

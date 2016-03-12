@@ -3,14 +3,12 @@
 #ifndef sigblocks_common_signalprocessing_Conv_hh
 #define sigblocks_common_signalprocessing_Conv_hh
 
-namespace sigblocks
-{
-  template <class T>
-  class Conv
-  {
-  public:
-    Compute(const T& arg1, const T& arg2, T* output);
-  };
+namespace sigblocks {
+    template<class T>
+    class Conv {
+    public:
+        Compute(const T& arg1, const T& arg2, T* output);
+    };
 }
 
 #endif // sigblocks_common_signalprocessing_Conv_hh

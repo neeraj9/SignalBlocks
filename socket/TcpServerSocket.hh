@@ -10,45 +10,47 @@
 #include <stdint.h>
 #include <string>
 
-namespace SocketProgramming
-{
-  /**
-   * Open a non-blocking tcp server socket, which accepts
-   * one connection at a time. This can later be enhanced
-   * to accept more than one connection at a time, or rather
-   * templatized to accept and read on N connections at
-   * a time.
-   */
-  class TcpServerSocket
-    : public IServerSocket
-  {
-  public:
-    TcpServerSocket();
-    virtual ~TcpServerSocket();
+namespace SocketProgramming {
+    /**
+     * Open a non-blocking tcp server socket, which accepts
+     * one connection at a time. This can later be enhanced
+     * to accept more than one connection at a time, or rather
+     * templatized to accept and read on N connections at
+     * a time.
+     */
+    class TcpServerSocket
+            : public IServerSocket {
+    public:
+        TcpServerSocket();
 
-  public: // IServerSocket interface
-    bool Bind(int port);
-    bool Listen(int backlog);
-    bool Accept(struct sockaddr* from,
-                socklen_t* fromlen);
+        virtual ~TcpServerSocket();
 
-    int Receive(uint8_t* pBuff, int length,
-                struct sockaddr* from,
-                socklen_t* fromlen);
+    public: // IServerSocket interface
+        bool Bind(int port);
 
-    int Send(const uint8_t* pBuff, int length,
-             struct sockaddr* to,
-             socklen_t tolen);
+        bool Listen(int backlog);
 
-    bool IsValid() const;
-    bool IsConnected();
+        bool Accept(struct sockaddr* from,
+                    socklen_t* fromlen);
 
-  private:
-    int mLocalPort; // in network byte order
-    int mListeningSockfd;
-    int mDataSockfd;
-    struct sockaddr_in mDestAddr;
-  };
+        int Receive(uint8_t* pBuff, int length,
+                    struct sockaddr* from,
+                    socklen_t* fromlen);
+
+        int Send(const uint8_t* pBuff, int length,
+                 struct sockaddr* to,
+                 socklen_t tolen);
+
+        bool IsValid() const;
+
+        bool IsConnected();
+
+    private:
+        int mLocalPort; // in network byte order
+        int mListeningSockfd;
+        int mDataSockfd;
+        struct sockaddr_in mDestAddr;
+    };
 }
 
 #endif // TcpServerSocket_hh

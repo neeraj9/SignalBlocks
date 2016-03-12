@@ -7,20 +7,17 @@
 
 #include <cmath>
 
-namespace sigblocks
-{
-  // computes  \sin(x)
-  template <class T>
-  class Sin
-    : public BinaryOperator<T>
-  {
-  protected: // BinaryOperator interface
-    virtual T Compute(const T& arg1) const
-    {
-      return sin(arg1);
-    }
+namespace sigblocks {
+    // computes  \sin(x)
+    template<class T>
+    class Sin
+            : public BinaryOperator<T> {
+    protected: // BinaryOperator interface
+        virtual T Compute(const T& arg1) const {
+            return sin(arg1);
+        }
 
-  };
+    };
 }
 
 #endif // sigblocks_math_Sin_hh
