@@ -30,6 +30,8 @@ namespace sigblocks {
         void ConsumeData(
                 const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
+        void ClockCycle(const TimeTick& timeTick);
+
     protected:
         /// use this interface when T is a primitive data type, ex. int, float, etc
         void LeakData(
@@ -44,7 +46,6 @@ namespace sigblocks {
                 int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
     private:
-        //mutable BoostPort::Mutex mMutex;
         IPort<T>* mpSource[N];
         std::shared_ptr<IPort<T> > mpSink[M];
     };
@@ -73,6 +74,7 @@ namespace sigblocks {
 
     public: // IPort interface
         void SetSink(std::shared_ptr<IPort<T> >& peer, int index);
+        void ClockCycle(const TimeTick& timeTick);
 
     protected:
         /// use this interface when T is a primitive data type, ex. int, float, etc
@@ -83,7 +85,6 @@ namespace sigblocks {
                 int index, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
     private:
-        //mutable BoostPort::Mutex mMutex;
         std::shared_ptr<IPort<T> > mpSink[M];
     };
 
@@ -111,6 +112,8 @@ namespace sigblocks {
         void ConsumeData(
                 const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
+        void ClockCycle(const TimeTick& timeTick);
+
     protected:
         virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime);
 
@@ -118,7 +121,6 @@ namespace sigblocks {
                 int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
 
     private:
-        //mutable BoostPort::Mutex mMutex;
         IPort<T>* mpSource[N];
     };
 
@@ -143,6 +145,8 @@ namespace sigblocks {
 
         void ConsumeData(
                 const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
+
+        void ClockCycle(const TimeTick& timeTick);
     };
 }
 

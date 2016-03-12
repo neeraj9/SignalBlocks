@@ -17,22 +17,19 @@ namespace sigblocks {
     class ServerSocketSource
             : public Port<0, 1, unsigned char> {
     public:
-        ServerSocketSource(const TimeTick& startTime,
-                           TimeTick& increment,
-                           int blockSize);
+        ServerSocketSource(int blockSize);
 
-        ServerSocketSource(const TimeTick& startTime,
-                           TimeTick& increment,
-                           std::unique_ptr<SocketProgramming::IServerSocket> pIns,
+        ServerSocketSource(std::unique_ptr<SocketProgramming::IServerSocket> pIns,
                            int blockSize);
-
-        void Generate();
 
         void SetStreamSource(std::unique_ptr<SocketProgramming::IServerSocket> pIns);
 
+    public:  // override Port interfaces
+
+        virtual void ClockCycle(const TimeTick& timeTick);
+
     private:
-        TimeTick mTime;
-        const TimeTick mIncrement;
+        TimeTick mLastTick;
         std::unique_ptr<SocketProgramming::IServerSocket> mpSocket;
         const int mBlockSize;
         std::unique_ptr<uint8_t[]> mpBuffer;

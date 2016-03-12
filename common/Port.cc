@@ -77,6 +77,15 @@ Port<N, M, T>::ConsumeData(const IPort<T>* pSender,
 
 template<int N, int M, class T>
 void
+Port<N, M, T>::ClockCycle(const TimeTick& timeTick) {
+    // default implementation is to pass clock cycle to the sinks
+    for (int i = 0; i < M; ++i) {
+        mpSink[i]->ClockCycle(timeTick);
+    }
+}
+
+template<int N, int M, class T>
+void
 Port<N, M, T>::LeakData(int index,
                         const T& data,
                         const TimeTick& startTime) {
@@ -169,6 +178,15 @@ Port<0, M, T>::ConsumeData(const IPort<T>* pSender,
 
 template<int M, class T>
 void
+Port<0, M, T>::ClockCycle(const TimeTick& timeTick) {
+    // default implementation is to pass clock cycle
+    for (int i = 0; i < M; ++i) {
+        mpSink[i]->ClockCycle(timeTick);
+    }
+}
+
+template<int M, class T>
+void
 Port<0, M, T>::LeakData(int index,
                         const T& data,
                         const TimeTick& startTime) {
@@ -256,6 +274,12 @@ Port<N, 0, T>::ConsumeData(const IPort<T>* pSender,
 
 template<int N, class T>
 void
+Port<N, 0, T>::ClockCycle(const TimeTick& timeTick) {
+    // no one to pass the clock cycle, so ignore
+}
+
+template<int N, class T>
+void
 Port<N, 0, T>::Process(int sourceIndex,
                        const T& data,
                        const TimeTick& startTime) {
@@ -310,6 +334,12 @@ Port<0, 0, T>::ConsumeData(const IPort<T>* pSender,
                            const TimeTick& startTime) {
 }
 
+template<class T>
+void
+Port<0, 0, T>::ClockCycle(const TimeTick& timeTick) {
+    // no one to pass the clock cycle so ignore
+}
+
 ////////////////////////////////////////////////////////////
 
 
@@ -336,17 +366,13 @@ INSTANTIATE_TEMPLATE(int)
 
 INSTANTIATE_TEMPLATE(long)
 
-INSTANTIATE_TEMPLATE(unsigned
-                             char)
+INSTANTIATE_TEMPLATE(unsigned char)
 
-INSTANTIATE_TEMPLATE(unsigned
-                             short)
+INSTANTIATE_TEMPLATE(unsigned short)
 
-INSTANTIATE_TEMPLATE(unsigned
-                             int)
+INSTANTIATE_TEMPLATE(unsigned int)
 
-INSTANTIATE_TEMPLATE(unsigned
-                             long)
+INSTANTIATE_TEMPLATE(unsigned long)
 
 INSTANTIATE_TEMPLATE(float)
 

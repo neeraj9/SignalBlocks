@@ -15,11 +15,8 @@ namespace {
     const int MAX_BUFFER_SIZE = 4096; // power of 2 (2^12 = 4096)
 }
 
-SocketSource::SocketSource(
-        const TimeTick& startTime, TimeTick& increment,
-        int blockSize)
-        : mTime(startTime),
-          mIncrement(increment),
+SocketSource::SocketSource(int blockSize)
+        : mLastTick(),
           mpSocket(nullptr),
           mBlockSize(blockSize),
           mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
@@ -29,10 +26,8 @@ SocketSource::SocketSource(
 }
 
 SocketSource::SocketSource(
-        const TimeTick& startTime, TimeTick& increment,
         std::unique_ptr<SocketProgramming::ISocket> pIns, int blockSize)
-        : mTime(startTime),
-          mIncrement(increment),
+        : mLastTick(),
           mpSocket(std::move(pIns)),
           mBlockSize(blockSize),
           mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
@@ -47,11 +42,15 @@ SocketSource::SetStreamSource(std::unique_ptr<SocketProgramming::ISocket> pIns) 
 }
 
 void
-SocketSource::Generate() {
+SocketSource::ClockCycle(const TimeTick& timeTick) {
     if (!mpSocket->IsValid()) {
         cerr << this << " SocketSource is done processing!" << endl;
         return; // dont do anything
     }
+    if (mLastTick == timeTick) {
+        return;  // already processed the event
+    }
+    mLastTick = timeTick;
 
     if ((mBlockSize - (mBufferSize - mBytesRead)) > 0) {
         // get max possible bytes
@@ -70,11 +69,10 @@ SocketSource::Generate() {
     if ((mBufferSize - mBytesRead) >= mBlockSize) {
         std::unique_ptr<uint8_t[]> data(new uint8_t[mBlockSize]);
         memcpy(data.get(), mpBuffer.get() + mBytesRead, mBlockSize);
-        LeakData(0, std::move(data), mBlockSize, mTime);
+        LeakData(0, std::move(data), mBlockSize, timeTick);
         mBytesRead += mBlockSize;
         if (mBytesRead == mBufferSize) {
             mBytesRead = mBufferSize = 0;
         }
     }
-    mTime += mIncrement;
 }

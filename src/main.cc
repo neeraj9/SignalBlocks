@@ -42,8 +42,8 @@ void test1() {
     // sample instantation
     std::shared_ptr<IPort<float> > port1(new Port<2, 2, float>());
     std::shared_ptr<IPort<float> > port2(new Port<2, 2, float>());
-    dynamic_cast<Port<2, 2, float>*>(port1.get())->SetSink(port2, 0);
-    dynamic_cast<Port<2, 2, float>*>(port2.get())->SetSource(port1.get(), 1);
+    port1->SetSink(port2, 0);
+    port2->SetSource(port1.get(), 1);
 }
 
 void test2() {
@@ -61,143 +61,127 @@ void test3() {
 }
 
 void test4() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
-    RandomSource* pRandom_source = new RandomSource(start_time, increment);
-    StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
-    std::shared_ptr<IPort<int> > pSource(pRandom_source);
-    std::shared_ptr<IPort<int> > pSink(pStdout_sink);
-    pRandom_source->SetSink(pSink, 0);
-    pStdout_sink->SetSource(pSource.get(), 0);
+    std::shared_ptr<IPort<int> > pSource(new RandomSource);
+    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
+    connect(pSource, pSink);
+    TimeTick time_tick(1);  // always start with 1
     for (int i = 0; i < 10; ++i) {
-        pRandom_source->Generate();
+        pSource->ClockCycle(time_tick);
+        time_tick += 1;
     }
 }
 
 
 void test5() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
     int block_size = 1;
-    IstreamSource<unsigned char>* pStream_source =
-            new IstreamSource<unsigned char>(start_time, increment, block_size);
-    OstreamSink<unsigned char>* pStream_sink = new OstreamSink<unsigned char>();
-    std::shared_ptr<IPort<unsigned char> > pSource(pStream_source);
-    std::shared_ptr<IPort<unsigned char> > pSink(pStream_sink);
+
     std::unique_ptr<istream> pIns(new ifstream("input.txt", ifstream::in | ifstream::binary));
+    std::shared_ptr<IPort<unsigned char> > pSource(
+            new IstreamSource<unsigned char>(block_size, std::move(pIns)));
+
     std::unique_ptr<ostream> pOuts(new ofstream("output.txt", ofstream::out | ofstream::binary));
-    pStream_source->SetStreamSource(std::move(pIns));
-    pStream_sink->SetStreamSink(std::move(pOuts));
-    pStream_source->SetSink(pSink, 0);
-    pStream_sink->SetSource(pSource.get(), 0);
+    std::shared_ptr<IPort<unsigned char> > pSink(new OstreamSink<unsigned char>(std::move(pOuts)));
+
+    connect(pSource, pSink);
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10; ++i) {
-        pStream_source->Generate();
+        pSource->ClockCycle(time_tick);
+        time_tick += 1;
     }
     //pIns->close();
     //pOuts->close();
 }
 
 void test6() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
     int block_size = 1;
-    ComplexStreamSource<short>* pStream_source = new ComplexStreamSource<short int>(start_time, increment, block_size);
-    OstreamSink<short>* pStream_sink = new OstreamSink<short>();
-    std::shared_ptr<IPort<short> > pSource(pStream_source);
-    std::shared_ptr<IPort<short> > pSink(pStream_sink);
     std::unique_ptr<istream> pIns(new ifstream("input.rf", ifstream::in | ifstream::binary));
+    std::shared_ptr<IPort<short> > pSource(new ComplexStreamSource<short int>(std::move(pIns), block_size));
     std::unique_ptr<ostream> pOuts(new ofstream("output.rf", ofstream::out | ofstream::binary));
-    pStream_source->SetStreamSource(std::move(pIns));
-    pStream_sink->SetStreamSink(std::move(pOuts));
-    pStream_source->SetSink(pSink, 0);
-    pStream_sink->SetSource(pSource.get(), 0);
+    std::shared_ptr<IPort<short> > pSink(new OstreamSink<short>(std::move(pOuts)));
+
+    connect(pSource, pSink);
+
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10; ++i) {
-        pStream_source->Generate();
+        pSource->ClockCycle(time_tick);
+        time_tick += 1;
     }
     //pIns->close();
     //pOuts->close();
 }
 
 void test7() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
     int block_size = 1;
     std::shared_ptr<IPort<short> > pSource(
             FileSourceCreator<ComplexStreamSource, short>::Create(
-                    start_time, increment, "input.rf", block_size));
+                    "input.rf", block_size));
     std::shared_ptr<IPort<short> > pSink(
             FileSinkCreator<OstreamSink, short>::Create("output.rf"));
-    pSource->SetSink(pSink, 0);
-    pSink->SetSource(pSource.get(), 0);
+    connect(pSource, pSink);
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10; ++i) {
-        dynamic_cast<ComplexStreamSource<short>*>(pSource.get())->Generate();
+        pSource->ClockCycle(time_tick);
+        time_tick += 1;
     }
 }
 
 template<class T>
 void SocketSourceTest(const string& outputFilename) {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
     int block_size = 1;
     std::shared_ptr<IPort<unsigned char> > pSource(
             SocketSourceCreator<T>::Create(
-                    start_time, increment, block_size, "127.0.0.1", 0, 12000));
+                    block_size, "127.0.0.1", 0, 12000));
     std::shared_ptr<IPort<unsigned char> > pSink(
             FileSinkCreator<OstreamSink, unsigned char>::Create(outputFilename));
-    pSource->SetSink(pSink, 0);
-    pSink->SetSource(pSource.get(), 0);
+    connect(pSource, pSink);
     cout << "waiting for data" << endl;
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10; ++i) {
         cout << "[" << i << "] waiting for data" << endl;
         sleep(2);
-        dynamic_cast<SocketSource*>(pSource.get())->Generate();
+        pSource->ClockCycle(time_tick);
+        time_tick += 1;
     }
 }
 
 template<class T>
 void SocketSinkTest() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
     int block_size = 1;
     std::shared_ptr<IPort<unsigned char> > pSource(
             FileSourceCreator<IstreamSource, unsigned char>::Create(
-                    start_time, increment, "input.txt", block_size));
+                    "input.txt", block_size));
     // localPort is optional for udp
     std::shared_ptr<IPort<unsigned char> > pSink(
             SocketSinkCreator<T>::Create("127.0.0.1", 12002, 12020));
-    pSource->SetSink(pSink, 0);
-    pSink->SetSource(pSource.get(), 0);
+    connect(pSource, pSink);
 
     // Note: We just need to store the SharedPtr of pSource and not
     // for any block in-between or the sink, because they will
     // be captured in the tx.
+    TimeTick time_tick(1);  // always start with non-zero value
 
     for (int i = 0; i < 10; ++i) {
-        dynamic_cast<IstreamSource<unsigned char>*>(pSource.get())->Generate();
+        pSource->ClockCycle(time_tick);
+        time_tick += 1;
     }
 }
 
 template<class T>
 void SocketTransceiverTest(const string& inputFilename,
                            const string& outputFilename) {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
     int block_size = 1;
     std::shared_ptr<IPort<unsigned char> > pSource(
             FileSourceCreator<IstreamSource, unsigned char>::Create(
-                    start_time, increment, inputFilename, block_size));
+                    inputFilename, block_size));
 
     std::shared_ptr<IPort<unsigned char> > pTransceiver(
             SocketSourceCreator<T>::Create(
-                    start_time, increment, block_size, "127.0.0.1", 12002, 12020));
+                    block_size, "127.0.0.1", 12002, 12020));
 
     std::shared_ptr<IPort<unsigned char> > pSink(
             FileSinkCreator<OstreamSink, unsigned char>::Create(outputFilename));
 
-    pSource->SetSink(pTransceiver, 0);
-    pTransceiver->SetSource(pSource.get(), 0);
-    pTransceiver->SetSink(pSink, 0);
-    pSink->SetSource(pTransceiver.get(), 0);
+    connect(pSource, connect(pTransceiver, pSink));
 
     // Note: We need to store only the pSource because
     // pTransceiver is captured inside pSource.
@@ -208,14 +192,17 @@ void SocketTransceiverTest(const string& inputFilename,
     // point to a source which is nonexistent.
 
     cout << "waiting for data" << endl;
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10; ++i) {
         // First trigger data from the file source and send outside the socket
-        dynamic_cast<IstreamSource<unsigned char>*>(pSource.get())->Generate();
+        pSource->ClockCycle(time_tick);
 
         // Next get data from the socket and write to a file
         cout << "[" << i << "] waiting for data" << endl;
         sleep(2);
-        dynamic_cast<SocketTransceiver*>(pTransceiver.get())->Generate();
+        pTransceiver->ClockCycle(time_tick);
+
+        time_tick += 1;
     }
 }
 
@@ -251,23 +238,18 @@ void test13() {
 }
 
 void test17() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
+    std::shared_ptr<IPort<int> > pSource(new RandomSource);
+    BasicTypeConverter<int, float>* pBasicTypeConverter = new BasicTypeConverter<int, float>();
+    std::shared_ptr<IPort<int> > pConverter_sink(pBasicTypeConverter);
+    std::shared_ptr<IPort<float> > pSink(new StdoutSink<float>());
 
-    RandomSource* pRandom_source = new RandomSource(start_time, increment);
-    BasicTypeConverter<int, float>* converter = new BasicTypeConverter<int, float>();
-    StdoutSink<float>* pStdout_sink = new StdoutSink<float>();
+    connect(pSource, pConverter_sink);
+    connect(pBasicTypeConverter->GetAsSinkType(), pSink);
 
-    std::shared_ptr<IPort<int> > pSource(pRandom_source);
-    std::shared_ptr<IPort<int> > pConverter_sink(converter);
-    std::shared_ptr<IPort<float> > pSink(pStdout_sink);
-
-    pRandom_source->SetSink(pConverter_sink, 0);
-    converter->SetSource(pSource.get(), 0);
-    converter->SetSink(pSink, 0);
-    pStdout_sink->SetSource(converter, 0);
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10; ++i) {
-        pRandom_source->Generate();
+        pSource->ClockCycle(time_tick);
+        time_tick += 1;
     }
 }
 
@@ -290,133 +272,99 @@ void test21() {
 }
 
 void test22() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
-    ConstantSource<int>* pConstant_source =
-            new ConstantSource<int>(start_time, increment, 10);
-    StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
-    std::shared_ptr<IPort<int> > pSource(pConstant_source);
-    std::shared_ptr<IPort<int> > pSink(pStdout_sink);
-    pConstant_source->SetSink(pSink, 0);
-    pStdout_sink->SetSource(pSource.get(), 0);
+    std::shared_ptr<IPort<int> > pSource(new ConstantSource<int>(10));
+    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
+
+    connect(pSource, pSink);
+
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10; ++i) {
-        pConstant_source->Generate();
+        pSource->ClockCycle(time_tick);
+        time_tick += 1;
     }
 }
 
 void test23() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
-    ConstantSource<int>* pC1 =
-            new ConstantSource<int>(start_time, increment, 10);
-    ConstantSource<int>* pC2 =
-            new ConstantSource<int>(start_time, increment, 20);
-    Sum<2, int>* pS1 = new Sum<2, int>();
-    StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
+    std::shared_ptr<IPort<int> > pSource1(new ConstantSource<int>(10));
+    std::shared_ptr<IPort<int> > pSource2(new ConstantSource<int>(20));
+    std::shared_ptr<IPort<int> > pSum(new Sum<2, int>());
+    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
 
-    std::shared_ptr<IPort<int> > pSource1(pC1);
-    std::shared_ptr<IPort<int> > pSource2(pC2);
-    std::shared_ptr<IPort<int> > pSum(pS1);
-    std::shared_ptr<IPort<int> > pSink(pStdout_sink);
-    pSource1->SetSink(pSum, 0);
-    pSource2->SetSink(pSum, 0);
-    pSum->SetSource(pSource1.get(), 0);
-    pSum->SetSource(pSource2.get(), 1);
-    pSum->SetSink(pSink, 0);
-    pStdout_sink->SetSource(pSum.get(), 0);
+    connect(pSource1, pSum);
+    connect(pSource2, pSum, 0, 1);
+    connect(pSum, pSink);
+
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10; ++i) {
-        pC1->Generate();
-        pC2->Generate();
+        pSource1->ClockCycle(time_tick);
+        pSource2->ClockCycle(time_tick);
+        time_tick += 1;
     }
 }
 
 void test24() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
-    ConstantSource<int>* pC1 =
-            new ConstantSource<int>(start_time, increment, 20);
-    ConstantSource<int>* pC2 =
-            new ConstantSource<int>(start_time, increment, 10);
-    Difference<2, int>* pS1 = new Difference<2, int>();
-    StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
+    std::shared_ptr<IPort<int> > pSource1(new ConstantSource<int>(20));
+    std::shared_ptr<IPort<int> > pSource2(new ConstantSource<int>(10));
+    std::shared_ptr<IPort<int> > pD(new Difference<2, int>());
+    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
 
-    std::shared_ptr<IPort<int> > pSource1(pC1);
-    std::shared_ptr<IPort<int> > pSource2(pC2);
-    std::shared_ptr<IPort<int> > pD(pS1);
-    std::shared_ptr<IPort<int> > pSink(pStdout_sink);
-    pSource1->SetSink(pD, 0);
-    pSource2->SetSink(pD, 0);
-    pD->SetSource(pSource1.get(), 0);
-    pD->SetSource(pSource2.get(), 1);
-    pD->SetSink(pSink, 0);
-    pStdout_sink->SetSource(pD.get(), 0);
+    connect(pSource1, pD);
+    connect(pSource2, pD, 0, 1);
+    connect(pD, pSink);
+
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10; ++i) {
-        pC1->Generate();
-        pC2->Generate();
+        pSource1->ClockCycle(time_tick);
+        pSource2->ClockCycle(time_tick);
+        time_tick += 1;
     }
 }
 
 void test25() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
-    ConstantSource<int>* pC1 =
-            new ConstantSource<int>(start_time, increment, 10);
-    Gain<int>* pS1 = new Gain<int>(10);
-    StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
+    std::shared_ptr<IPort<int> > pSource(new ConstantSource<int>(10));
+    std::shared_ptr<IPort<int> > pD(new Gain<int>(10));
+    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
 
-    std::shared_ptr<IPort<int> > pSource1(pC1);
-    std::shared_ptr<IPort<int> > pD(pS1);
-    std::shared_ptr<IPort<int> > pSink(pStdout_sink);
-    pSource1->SetSink(pD, 0);
-    pD->SetSource(pSource1.get(), 0);
-    pD->SetSink(pSink, 0);
-    pStdout_sink->SetSource(pD.get(), 0);
+    connect(pSource, pD);
+    connect(pD, pSink);
+
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10; ++i) {
-        pC1->Generate();
+        pSource->ClockCycle(time_tick);
+        time_tick += 1;
     }
 }
 
 void test26() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
-    ConstantSource<int>* pC1 =
-            new ConstantSource<int>(start_time, increment, 10);
-    ConstantSource<int>* pC2 =
-            new ConstantSource<int>(start_time, increment, 20);
-    Product<2, int>* pS1 = new Product<2, int>();
-    StdoutSink<int>* pStdout_sink = new StdoutSink<int>();
+    std::shared_ptr<IPort<int> > pSource1(new ConstantSource<int>(10));
+    std::shared_ptr<IPort<int> > pSource2(new ConstantSource<int>(20));
+    std::shared_ptr<IPort<int> > pP(new Product<2, int>());
+    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
 
-    std::shared_ptr<IPort<int> > pSource1(pC1);
-    std::shared_ptr<IPort<int> > pSource2(pC2);
-    std::shared_ptr<IPort<int> > pP(pS1);
-    std::shared_ptr<IPort<int> > pSink(pStdout_sink);
-    pSource1->SetSink(pP, 0);
-    pSource2->SetSink(pP, 0);
-    pP->SetSource(pSource1.get(), 0);
-    pP->SetSource(pSource2.get(), 1);
-    pP->SetSink(pSink, 0);
-    pStdout_sink->SetSource(pP.get(), 0);
+    connect(pSource1, pP);
+    connect(pSource2, pP, 0, 1);
+    connect(pP, pSink);
+
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10; ++i) {
-        pC1->Generate();
-        pC2->Generate();
+        pSource1->ClockCycle(time_tick);
+        pSource2->ClockCycle(time_tick);
+        time_tick += 1;
     }
 }
 
 void test27() {
-    TimeTick start_time(0.0f);
-    TimeTick increment(1.0f);
-    StepSource<int>* pStep_source =
-            new StepSource<int>(start_time, increment, 0);
-    PlotSink<int>* pPlot_sink = new PlotSink<int>();
-    std::shared_ptr<IPort<int> > pSource(pStep_source);
-    std::shared_ptr<IPort<int> > pSink(pPlot_sink);
-    pStep_source->SetSink(pSink, 0);
-    pPlot_sink->SetSource(pSource.get(), 0);
+    std::shared_ptr<IPort<int> > pSource(new StepSource<int>(0));
+    std::shared_ptr<IPort<int> > pSink(new PlotSink<int>());
+    connect(pSource, pSink);
+
+    TimeTick time_tick(1);  // always start with non-zero value
     for (int i = 0; i < 10000; ++i) {
         if (i % 500 == 0) {
             sleep(2);
         }
-        pStep_source->Generate();
+        pSource->ClockCycle(time_tick);
+        time_tick += 1;
     }
 }
 

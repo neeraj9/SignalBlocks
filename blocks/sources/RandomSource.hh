@@ -10,13 +10,14 @@ namespace sigblocks {
     class RandomSource
             : public Port<0, 1, int> {
     public:
-        RandomSource(const TimeTick& startTime, const TimeTick& increment);
+        RandomSource();
 
-        void Generate();
+    public:  // override Port interfaces
+
+        virtual void ClockCycle(const TimeTick& timeTick);
 
     private:
-        TimeTick mTime;
-        const TimeTick mIncrement;
+        TimeTick mLastTick;
         unsigned int mSeed;
     };
 }

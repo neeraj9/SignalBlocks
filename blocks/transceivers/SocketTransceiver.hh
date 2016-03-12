@@ -19,17 +19,19 @@ namespace sigblocks {
     public:
         // startTime, increment and blockSize are
         // source only parameters
-        SocketTransceiver(const TimeTick& startTime,
-                          TimeTick& increment,
-                          int blockSize);
+        SocketTransceiver(int blockSize);
 
-        SocketTransceiver(const TimeTick& startTime,
-                          TimeTick& increment,
-                          int blockSize,
+        SocketTransceiver(int blockSize,
                           std::unique_ptr<SocketProgramming::ISocket> pIns);
 
-        void Generate(); // Source only interface
         void SetStreamTransceiver(std::unique_ptr<SocketProgramming::ISocket> pIns);
+
+    public:  // override Port interfaces
+
+        // Only applicable for source, but since this interface is called
+        // for sink as well, so internally use processed tick to track
+        // fresh time ticks.
+        virtual void ClockCycle(const TimeTick& timeTick);
 
     public: // Port interface needed to be overridden only by the Sink
         void Process(int sourceIndex, const unsigned char& data, const TimeTick& startTime);
@@ -38,8 +40,7 @@ namespace sigblocks {
                 int sourceIndex, std::unique_ptr<unsigned char[]> data, int len, const TimeTick& startTime);
 
     private:
-        TimeTick mTime; // only for source
-        const TimeTick mIncrement; // only for source
+        TimeTick mLastTick;
         std::unique_ptr<SocketProgramming::ISocket> mpSocket;
         const int mBlockSize; // only for source
         std::unique_ptr<uint8_t[]> mpBuffer; // only for source

@@ -15,11 +15,8 @@ namespace {
     const int MAX_BUFFER_SIZE = 4096; // power of 2 (2^12 = 4096)
 }
 
-SocketTransceiver::SocketTransceiver(
-        const TimeTick& startTime, TimeTick& increment,
-        int blockSize)
-        : mTime(startTime),
-          mIncrement(increment),
+SocketTransceiver::SocketTransceiver(int blockSize)
+        : mLastTick(),
           mpSocket(nullptr),
           mBlockSize(blockSize),
           mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
@@ -28,12 +25,9 @@ SocketTransceiver::SocketTransceiver(
     assert(mBlockSize > 0);
 }
 
-SocketTransceiver::SocketTransceiver(
-        const TimeTick& startTime, TimeTick& increment,
-        int blockSize,
+SocketTransceiver::SocketTransceiver(int blockSize,
         std::unique_ptr<SocketProgramming::ISocket> pIns)
-        : mTime(startTime),
-          mIncrement(increment),
+        : mLastTick(),
           mpSocket(std::move(pIns)),
           mBlockSize(blockSize),
           mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
@@ -49,11 +43,15 @@ SocketTransceiver::SetStreamTransceiver(std::unique_ptr<SocketProgramming::ISock
 
 // Needed by the Source
 void
-SocketTransceiver::Generate() {
+SocketTransceiver::ClockCycle(const TimeTick& timeTick) {
     if (!mpSocket->IsValid()) {
         cerr << this << " SocketSource is done processing!" << endl;
         return; // dont do anything
     }
+    if (mLastTick == timeTick) {
+        return;  // already processed the event
+    }
+    mLastTick = timeTick;
 
     if ((mBlockSize - (mBufferSize - mBytesRead)) > 0) {
         // get max possible bytes
@@ -72,13 +70,12 @@ SocketTransceiver::Generate() {
     if ((mBufferSize - mBytesRead) >= mBlockSize) {
         std::unique_ptr<uint8_t[]> data(new uint8_t[mBlockSize]);
         memcpy(data.get(), mpBuffer.get() + mBytesRead, mBlockSize);
-        LeakData(0, std::move(data), mBlockSize, mTime);
+        LeakData(0, std::move(data), mBlockSize, timeTick);
         mBytesRead += mBlockSize;
         if (mBytesRead == mBufferSize) {
             mBytesRead = mBufferSize = 0;
         }
     }
-    mTime += mIncrement;
 }
 
 // Needed by the Sink

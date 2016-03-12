@@ -9,11 +9,8 @@ using namespace sigblocks;
 using namespace std;
 
 template<class T>
-IstreamSource<T>::IstreamSource(
-        const TimeTick& startTime, TimeTick& increment,
-        int blockSize)
-        : mTime(startTime),
-          mIncrement(increment),
+IstreamSource<T>::IstreamSource(int blockSize)
+        : mLastTick(),
           mpIstream(nullptr),
           mLoopOver(true),
           mBlockSize(blockSize) {
@@ -21,10 +18,9 @@ IstreamSource<T>::IstreamSource(
 
 template<class T>
 IstreamSource<T>::IstreamSource(
-        const TimeTick& startTime, TimeTick& increment,
-        std::unique_ptr<std::istream> pIns, int blockSize)
-        : mTime(startTime),
-          mIncrement(increment),
+        int blockSize,
+        std::unique_ptr<std::istream> pIns)
+        : mLastTick(),
           mpIstream(std::move(pIns)),
           mLoopOver(true),
           mBlockSize(blockSize) {
@@ -44,17 +40,20 @@ IstreamSource<T>::Loop(bool loopOver) {
 
 template<class T>
 void
-IstreamSource<T>::Generate() {
+IstreamSource<T>::ClockCycle(const TimeTick& timeTick) {
     if (mpIstream->eof() && !mLoopOver) {
         cerr << this << " IstreamSource is done processing!" << endl;
         return; // dont do anything
     }
+    if (mLastTick == timeTick) {
+        return;  // already processed the event
+    }
+    mLastTick = timeTick;
 
     std::unique_ptr<T[]> data(new T[mBlockSize]);
     mpIstream->read(reinterpret_cast<char*>(data.get()), mBlockSize * sizeof(T));
     int bytes_read = mpIstream->gcount() / sizeof(char);
-    this->LeakData(0, std::move(data), bytes_read, mTime);
-    mTime += mIncrement;
+    this->LeakData(0, std::move(data), bytes_read, timeTick);
     if (mpIstream->eof() && mLoopOver) {
         mpIstream->clear();
         mpIstream->seekg(0, std::ios::beg);

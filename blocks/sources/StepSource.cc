@@ -5,18 +5,19 @@
 using namespace sigblocks;
 
 template<class T>
-StepSource<T>::StepSource(
-        const TimeTick& startTime, const TimeTick& increment, const T& value)
-        : mTime(startTime),
-          mIncrement(increment),
+StepSource<T>::StepSource(const T& value)
+        : mLastTick(),
           mValue(value) {
 }
 
 template<class T>
 void
-StepSource<T>::Generate() {
-    this->LeakData(0, mValue, mTime);
-    mTime += mIncrement;
+StepSource<T>::ClockCycle(const TimeTick& timeTick) {
+    if (mLastTick == timeTick) {
+        return;  // already processed the event
+    }
+    mLastTick = timeTick;
+    this->LeakData(0, mValue, timeTick);
     ++mValue;
 }
 

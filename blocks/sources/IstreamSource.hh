@@ -13,24 +13,21 @@ namespace sigblocks {
     class IstreamSource
             : public Port<0, 1, T> {
     public:
-        IstreamSource(const TimeTick& startTime,
-                      TimeTick& increment,
-                      int blockSize);
+        IstreamSource(int blockSize);
 
-        IstreamSource(const TimeTick& startTime,
-                      TimeTick& increment,
-                      std::unique_ptr<std::istream> pIns,
-                      int blockSize);
-
-        void Generate();
+        IstreamSource(int blockSize,
+                      std::unique_ptr<std::istream> pIns);
 
         void SetStreamSource(std::unique_ptr<std::istream> pIns);
 
         void Loop(bool loopOver);
 
+    public:  // override Port interfaces
+
+        virtual void ClockCycle(const TimeTick& timeTick);
+
     private:
-        TimeTick mTime;
-        const TimeTick mIncrement;
+        TimeTick mLastTick;
         std::unique_ptr<std::istream> mpIstream;
         bool mLoopOver;
         int mBlockSize;

@@ -11,14 +11,14 @@ namespace sigblocks {
     class StepSource
             : public Port<0, 1, T> {
     public:
-        StepSource(
-                const TimeTick& startTime, const TimeTick& increment, const T& value);
+        StepSource(const T& value);
 
-        void Generate();
+    public:  // override Port interfaces
+
+        virtual void ClockCycle(const TimeTick& timeTick);
 
     private:
-        TimeTick mTime;
-        const TimeTick mIncrement;
+        TimeTick mLastTick;
         T mValue;
     };
 }

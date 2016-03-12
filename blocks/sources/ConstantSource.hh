@@ -11,14 +11,13 @@ namespace sigblocks {
     class ConstantSource
             : public Port<0, 1, T> {
     public:
-        ConstantSource(
-                const TimeTick& startTime, const TimeTick& increment, const T& value);
+        ConstantSource(const T& value);
 
-        void Generate();
+    public:  // override Port interfaces
+
+        virtual void ClockCycle(const TimeTick& timeTick);
 
     private:
-        TimeTick mTime;
-        const TimeTick mIncrement;
         const T mFixedValue;
     };
 }

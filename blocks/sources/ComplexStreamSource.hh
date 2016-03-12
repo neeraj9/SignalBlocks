@@ -13,24 +13,21 @@ namespace sigblocks {
     class ComplexStreamSource
             : public Port<0, 1, T> {
     public:
-        ComplexStreamSource(const TimeTick& startTime,
-                            TimeTick& increment,
-                            int blockSize);
+        ComplexStreamSource(int blockSize);
 
-        ComplexStreamSource(const TimeTick& startTime,
-                            TimeTick& increment,
-                            std::unique_ptr<std::istream> pIns,
+        ComplexStreamSource(std::unique_ptr<std::istream> pIns,
                             int blockSize);
-
-        void Generate();
 
         void SetStreamSource(std::unique_ptr<std::istream> pIns);
 
         void Loop(bool loopOver);
 
+    public:  // override Port interfaces
+
+        virtual void ClockCycle(const TimeTick& timeTick);
+
     private:
-        TimeTick mTime;
-        const TimeTick mIncrement;
+        TimeTick mLastTick;
         std::unique_ptr<std::istream> mpComplexStream;
         bool mLoopOver;
         int mBlockSize;

@@ -3,11 +3,14 @@
 #ifndef sigblocks_common_TimeTick_hh
 #define sigblocks_common_TimeTick_hh
 
+#include <stdint.h>
+
 namespace sigblocks {
-    typedef float TimeTickType;
+    typedef uint64_t TimeTickType;
 
     class TimeTick {
     public:
+        TimeTick();
         TimeTick(TimeTickType value);
 
         TimeTick(const TimeTick& copy);

@@ -6,16 +6,17 @@
 
 using namespace sigblocks;
 
-RandomSource::RandomSource(const TimeTick& startTime, const TimeTick& increment)
-        : mTime(startTime),
-          mIncrement(increment),
-          mSeed(0) {
-    mSeed = rand();
+RandomSource::RandomSource()
+        : mLastTick(),
+          mSeed(rand()) {
 }
 
 void
-RandomSource::Generate() {
+RandomSource::ClockCycle(const TimeTick& timeTick) {
+    if (mLastTick == timeTick) {
+        return;  // already processed the event
+    }
+    mLastTick = timeTick;
     int random_value = rand_r(&mSeed);
-    LeakData(0, random_value, mTime);
-    mTime += mIncrement;
+    LeakData(0, random_value, timeTick);
 }

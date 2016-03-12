@@ -20,11 +20,8 @@ namespace {
     const int TIMEOUT_USEC = 0;
 }
 
-ServerSocketSource::ServerSocketSource(
-        const TimeTick& startTime, TimeTick& increment,
-        int blockSize)
-        : mTime(startTime),
-          mIncrement(increment),
+ServerSocketSource::ServerSocketSource(int blockSize)
+        : mLastTick(),
           mpSocket(nullptr),
           mBlockSize(blockSize),
           mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
@@ -34,10 +31,8 @@ ServerSocketSource::ServerSocketSource(
 }
 
 ServerSocketSource::ServerSocketSource(
-        const TimeTick& startTime, TimeTick& increment,
         std::unique_ptr<SocketProgramming::IServerSocket> pIns, int blockSize)
-        : mTime(startTime),
-          mIncrement(increment),
+        : mLastTick(),
           mpSocket(std::move(pIns)),
           mBlockSize(blockSize),
           mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
@@ -53,11 +48,15 @@ ServerSocketSource::SetStreamSource(
 }
 
 void
-ServerSocketSource::Generate() {
+ServerSocketSource::ClockCycle(const TimeTick& timeTick) {
     if (!mpSocket->IsValid()) {
         cerr << this << " ServerSocketSource is done processing!" << endl;
         return; // dont do anything
     }
+    if (mLastTick == timeTick) {
+        return;  // already processed the event
+    }
+    mLastTick = timeTick;
 
     struct sockaddr_in from;
     int fromlen = sizeof(struct sockaddr_in);
@@ -99,11 +98,10 @@ ServerSocketSource::Generate() {
     if ((mBufferSize - mBytesRead) >= mBlockSize) {
         std::unique_ptr<uint8_t[]> data(new uint8_t[mBlockSize]);
         memcpy(data.get(), mpBuffer.get() + mBytesRead, mBlockSize);
-        LeakData(0, std::move(data), mBlockSize, mTime);
+        LeakData(0, std::move(data), mBlockSize, timeTick);
         mBytesRead += mBlockSize;
         if (mBytesRead == mBufferSize) {
             mBytesRead = mBufferSize = 0;
         }
     }
-    mTime += mIncrement;
 }

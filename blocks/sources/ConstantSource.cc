@@ -5,18 +5,14 @@
 using namespace sigblocks;
 
 template<class T>
-ConstantSource<T>::ConstantSource(
-        const TimeTick& startTime, const TimeTick& increment, const T& value)
-        : mTime(startTime),
-          mIncrement(increment),
-          mFixedValue(value) {
+ConstantSource<T>::ConstantSource(const T& value)
+        : mFixedValue(value) {
 }
 
 template<class T>
 void
-ConstantSource<T>::Generate() {
-    this->LeakData(0, mFixedValue, mTime);
-    mTime += mIncrement;
+ConstantSource<T>::ClockCycle(const TimeTick& timeTick) {
+    this->LeakData(0, mFixedValue, timeTick);
 }
 
 template

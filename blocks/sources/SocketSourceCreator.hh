@@ -17,14 +17,12 @@ namespace sigblocks {
     class SocketSourceCreator {
     public:
         static SocketSource* Create(
-                const TimeTick& startTime,
-                TimeTick& increment,
                 int blockSize,
                 const std::string& destIp,
                 int destPort,
                 int localPort) {
             SocketSource* socket_source =
-                    new SocketSource(startTime, increment, blockSize);
+                    new SocketSource(blockSize);
             std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
             if (pIns->Bind(localPort)) {
                 if (pIns->Listen(1)) // TODO: Note for TCP of connection oriented

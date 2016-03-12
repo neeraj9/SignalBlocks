@@ -17,14 +17,12 @@ namespace sigblocks {
     class SocketTransceiverCreator {
     public:
         static SocketTransceiver* Create(
-                const TimeTick& startTime,
-                TimeTick& increment,
                 int blockSize,
                 const std::string& destIp,
                 int destPort,
                 int localPort) {
             SocketTransceiver* socket_transceiver =
-                    new SocketTransceiver(startTime, increment, blockSize);
+                    new SocketTransceiver(blockSize);
             std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
             if (pIns->Bind(localPort)) {
                 if (pIns->Connect()) // XXX We could have acted as server as well, but

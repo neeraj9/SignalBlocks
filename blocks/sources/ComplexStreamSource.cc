@@ -9,11 +9,8 @@ using namespace sigblocks;
 using namespace std;
 
 template<class T>
-ComplexStreamSource<T>::ComplexStreamSource(
-        const TimeTick& startTime, TimeTick& increment,
-        int blockSize)
-        : mTime(startTime),
-          mIncrement(increment),
+ComplexStreamSource<T>::ComplexStreamSource(int blockSize)
+        : mLastTick(),
           mpComplexStream(nullptr),
           mLoopOver(true),
           mBlockSize(blockSize) {
@@ -21,10 +18,9 @@ ComplexStreamSource<T>::ComplexStreamSource(
 
 template<class T>
 ComplexStreamSource<T>::ComplexStreamSource(
-        const TimeTick& startTime, TimeTick& increment,
-        std::unique_ptr<std::istream> pIns, int blockSize)
-        : mTime(startTime),
-          mIncrement(increment),
+        std::unique_ptr<std::istream> pIns,
+        int blockSize)
+        : mLastTick(),
           mpComplexStream(std::move(pIns)),
           mLoopOver(true),
           mBlockSize(blockSize) {
@@ -44,18 +40,22 @@ ComplexStreamSource<T>::Loop(bool loopOver) {
 
 template<class T>
 void
-ComplexStreamSource<T>::Generate() {
+ComplexStreamSource<T>::ClockCycle(const TimeTick& timeTick) {
     if (mpComplexStream->eof() && !mLoopOver) {
         cerr << this << " ComplexStreamSource is done processing!" << endl;
         return; // dont do anything
     }
 
+    if (mLastTick == timeTick) {
+        return;  // already processed the event
+    }
+    mLastTick = timeTick;
+
     std::unique_ptr<T[]> data(new T[2 * mBlockSize]);
     // There are two values per sample, RF Sample = {I,Q}.
     mpComplexStream->read(reinterpret_cast<char*>(data.get()), mBlockSize * 2 * sizeof(T));
     int bytes_read = mpComplexStream->gcount() / sizeof(char);
-    this->LeakData(0, std::move(data), bytes_read, mTime);
-    mTime += mIncrement;
+    this->LeakData(0, std::move(data), bytes_read, timeTick);
     if (mpComplexStream->eof() && mLoopOver) {
         mpComplexStream->clear();
         mpComplexStream->seekg(0, std::ios::beg);

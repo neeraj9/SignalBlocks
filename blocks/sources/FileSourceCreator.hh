@@ -15,11 +15,9 @@ namespace sigblocks {
     class FileSourceCreator {
     public:
         static B<T>* Create(
-                const TimeTick& startTime,
-                TimeTick& increment,
                 const std::string& filename,
                 int blockSize) {
-            B<T>* pStream_source = new B<T>(startTime, increment, blockSize);
+            B<T>* pStream_source = new B<T>(blockSize);
             std::unique_ptr<std::istream> pIns(new std::ifstream(
                     filename.c_str(), std::ifstream::in | std::ifstream::binary));
             pStream_source->SetStreamSource(std::move(pIns));

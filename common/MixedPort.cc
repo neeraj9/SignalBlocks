@@ -1,27 +1,50 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
 #include "MixedPort.hh"
+#include "Port.hh"
 
 #include <iostream>
 #include <assert.h>
 
+using namespace sigblocks;
 using namespace std;
 
-using namespace sigblocks;
+
+namespace sigblocks {
+    /// Note that we are using Port<1, M, T>, but actually there is no
+    /// source connected to TransparentProxy
+    template<int M, class T>
+    class TransparentProxy
+            : public Port<1, M, T> {
+    protected: // override Port interface to act as a transparent proxy
+        virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {
+            for (int i = 0; i < M; ++i) {
+                this->LeakData(i, data, startTime);
+            }
+        }
+
+        virtual void Process(
+                int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
+            for (int i = 0; i < M; ++i) {
+                this->LeakData(i, std::move(data), len, startTime);
+            }
+        }
+    };
+}
 
 template<int N, int M, class TN, class TM>
 MixedPort<N, M, TN, TM>::MixedPort()
         : mpSource(),
-          mpSink() {
+          mInternalSource(new TransparentProxy<M, TM>()) {
 }
 
 template<int N, int M, class TN, class TM>
 MixedPort<N, M, TN, TM>::~MixedPort() {
-    for (int i = 0; i < M; ++i) {
-        if (mpSink[i]) {
-            mpSink[i]->DisconnectSource(this);
-        }
-    }
+}
+
+template<int N, int M, class TN, class TM>
+std::shared_ptr<IPort<TM> >& MixedPort<N, M, TN, TM>::GetAsSinkType() {
+    return mInternalSource;
 }
 
 template<int N, int M, class TN, class TM>
@@ -29,13 +52,6 @@ void
 MixedPort<N, M, TN, TM>::SetSource(IPort<TN>* peer, int index) {
     assert(index < N); // XXX replace assert with better error handling
     mpSource[index] = peer;
-}
-
-template<int N, int M, class TN, class TM>
-void
-MixedPort<N, M, TN, TM>::SetSink(std::shared_ptr<IPort<TM> >& peer, int index) {
-    assert(index < M);
-    mpSink[index] = peer;
 }
 
 template<int N, int M, class TN, class TM>
@@ -75,29 +91,12 @@ MixedPort<N, M, TN, TM>::ConsumeData(const IPort<TN>* pSender,
     }
 }
 
-template<int N, int M, class TN, class TM>
-void
-MixedPort<N, M, TN, TM>::LeakData(int index,
-                                  const TM& data,
-                                  const TimeTick& startTime) {
-    assert(index < M);
-    assert(0 <= index);
-    if (mpSink[index]) {
-        mpSink[index]->ConsumeData(this, data, startTime);
-    }
-}
 
 template<int N, int M, class TN, class TM>
 void
-MixedPort<N, M, TN, TM>::LeakData(int index,
-                                  std::unique_ptr<TM[]> data,
-                                  int len,
-                                  const TimeTick& startTime) {
-    assert(index < M);
-    assert(0 <= index);
-    if (mpSink[index]) {
-        mpSink[index]->ConsumeData(this, std::move(data), len, startTime);
-    }
+MixedPort<N, M, TN, TM>::ClockCycle(const TimeTick& timeTick) {
+    // default implementation is to pass clock cycle
+    mInternalSource->ClockCycle(timeTick);
 }
 
 template<int N, int M, class TN, class TM>
@@ -105,7 +104,8 @@ void
 MixedPort<N, M, TN, TM>::Process(int sourceIndex,
                                  const TN& data,
                                  const TimeTick& startTime) {
-    // silently drop
+    // silently drop here, while derived class should do something
+    // useful
 }
 
 template<int N, int M, class TN, class TM>
@@ -114,7 +114,8 @@ MixedPort<N, M, TN, TM>::Process(int sourceIndex,
                                  std::unique_ptr<TN[]> data,
                                  int len,
                                  const TimeTick& startTime) {
-    // silently drop
+    // silently drop here, while derived class should do something
+    // useful
 }
 
 //
@@ -123,32 +124,7 @@ MixedPort<N, M, TN, TM>::Process(int sourceIndex,
 
 template<int N, int M, class TN, class TM>
 void
-MixedPort<N, M, TN, TM>::SetSource(IPort<TM>* peer, int index) {
-}
-
-template<int N, int M, class TN, class TM>
-void
 MixedPort<N, M, TN, TM>::SetSink(std::shared_ptr<IPort<TN> >& peer, int index) {
-}
-
-template<int N, int M, class TN, class TM>
-void
-MixedPort<N, M, TN, TM>::DisconnectSource(IPort<TM>* peer) {
-}
-
-template<int N, int M, class TN, class TM>
-void
-MixedPort<N, M, TN, TM>::ConsumeData(const IPort<TM>* pSender,
-                                     const TM& data,
-                                     const TimeTick& startTime) {
-}
-
-template<int N, int M, class TN, class TM>
-void
-MixedPort<N, M, TN, TM>::ConsumeData(const IPort<TM>* pSender,
-                                     std::unique_ptr<TM[]> data,
-                                     int len,
-                                     const TimeTick& startTime) {
 }
 
 ////////////////////////////////////////////////////////////
