@@ -3,8 +3,8 @@
 #ifndef sigblocks_common_MixedPort_hh
 #define sigblocks_common_MixedPort_hh
 
-#include "IPort.hh"
-#include "TimeTick.hh"
+#include "IPort.h"
+#include "TimeTick.h"
 
 namespace sigblocks {
     // XXX specialze a case when N=1, M=1 and optimize it

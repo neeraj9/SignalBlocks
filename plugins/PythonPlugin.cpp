@@ -41,11 +41,11 @@
 // http://web.archive.org/web/20021218064807/http://starship.python.net/crew/hinsen/NumPyExtensions.html
 // http://www.scipy.org/Cookbook/C_Extensions/NumPy_arrays
 //
-#include "PythonPlugin.hh"
-#include "PythonPluginCommon.hh"
+#include "PythonPlugin.h"
+#include "PythonPluginCommon.h"
 
-#include "NumpyUtil.hh"
-#include "PythonUtil.hh"
+#include "NumpyUtil.h"
+#include "PythonUtil.h"
 
 #include <mutex>
 #include <memory>

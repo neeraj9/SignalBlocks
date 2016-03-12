@@ -1,9 +1,9 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
 #include <assert.h>
-#include "BasicTypeConverter.hh"
+#include "BasicTypeConverter.h"
 
-#include "../../common/GenericCopy.hh"
+#include "../../common/GenericCopy.h"
 
 using namespace sigblocks;
 

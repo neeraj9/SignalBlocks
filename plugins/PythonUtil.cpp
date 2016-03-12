@@ -1,8 +1,8 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#include "PythonUtil.hh"
+#include "PythonUtil.h"
 
-#include "PythonPluginExceptions.hh"
+#include "PythonPluginExceptions.h"
 
 #include <iostream>
 #include <numpy/ndarrayobject.h> // required for Py_ssize_t

@@ -3,8 +3,8 @@
 #ifndef sigblocks_blocks_source_StepSource_hh
 #define sigblocks_blocks_source_StepSource_hh
 
-#include "../../common/Port.hh"
-#include "../../common/TimeTick.hh"
+#include "../../common/Port.h"
+#include "../../common/TimeTick.h"
 
 namespace sigblocks {
     template<class T>

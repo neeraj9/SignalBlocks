@@ -4,7 +4,7 @@
 #ifndef SIGNALBLOCKS_TRANSPARENTFORWARDER_H
 #define SIGNALBLOCKS_TRANSPARENTFORWARDER_H
 
-#include "../../common/Port.hh"
+#include "../../common/Port.h"
 
 namespace sigblocks {
     template<int M, class T>

@@ -3,7 +3,7 @@
 #ifndef sigblocks_math_Cos_hh
 #define sigblocks_math_Cos_hh
 
-#include "BinaryOperator.hh"
+#include "BinaryOperator.h"
 
 #include <cmath>
 

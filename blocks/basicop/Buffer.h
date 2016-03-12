@@ -3,7 +3,7 @@
 #ifndef sigblocks_math_Buffer_hh
 #define sigblocks_math_Buffer_hh
 
-#include "../../common/Port.hh"
+#include "../../common/Port.h"
 
 #include <vector>
 

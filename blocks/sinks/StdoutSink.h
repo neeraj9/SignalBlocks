@@ -3,7 +3,7 @@
 #ifndef sigblocks_blocks_sink_StdoutSink_hh
 #define sigblocks_blocks_sink_StdoutSink_hh
 
-#include "../../common/Port.hh"
+#include "../../common/Port.h"
 
 namespace sigblocks {
     template<class T>

@@ -3,7 +3,7 @@
 #ifndef sigblocks_math_Arcsinh_hh
 #define sigblocks_math_Arcsinh_hh
 
-#include "BinaryOperator.hh"
+#include "BinaryOperator.h"
 
 #include <gsl/gsl_math.h>
 

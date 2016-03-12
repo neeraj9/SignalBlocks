@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#include "MixedPort.hh"
-#include "Port.hh"
+#include "MixedPort.h"
+#include "Port.h"
 
 #include <iostream>
 #include <assert.h>

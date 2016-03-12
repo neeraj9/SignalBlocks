@@ -3,7 +3,7 @@
 #ifndef sigblocks_blocks_sink_OstreamSink_hh
 #define sigblocks_blocks_sink_OstreamSink_hh
 
-#include "../../common/Port.hh"
+#include "../../common/Port.h"
 
 #include <ostream>
 #include <memory>

@@ -1,8 +1,8 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#include "MsbitToLsbitOperation.hh"
+#include "MsbitToLsbitOperation.h"
 
-#include "BitReadInfo.hh"
+#include "BitReadInfo.h"
 
 #include <stdint.h>
 

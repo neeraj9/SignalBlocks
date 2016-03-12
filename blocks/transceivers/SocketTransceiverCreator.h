@@ -3,11 +3,11 @@
 #ifndef sigblocks_blocks_transceiver_SocketTransceiverCreator_hh
 #define sigblocks_blocks_transceiver_SocketTransceiverCreator_hh
 
-#include "SocketTransceiver.hh"
+#include "SocketTransceiver.h"
 
-#include "../../common/IPort.hh"
-#include "../../common/TimeTick.hh"
-#include "../../socket/ISocket.hh"
+#include "../../common/IPort.h"
+#include "../../common/TimeTick.h"
+#include "../../socket/ISocket.h"
 
 #include <memory>
 #include <string>

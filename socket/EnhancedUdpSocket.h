@@ -3,7 +3,7 @@
 #ifndef EnhancedUdpSocket_hh
 #define EnhancedUdpSocket_hh
 
-#include "UdpSocket.hh"
+#include "UdpSocket.h"
 
 #include <netinet/in.h>
 #include <stdint.h>

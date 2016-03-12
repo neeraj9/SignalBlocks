@@ -3,7 +3,7 @@
 #ifndef sigblocks_common_PlPlot_hh
 #define sigblocks_common_PlPlot_hh
 
-#include "GenericCopy.hh"
+#include "GenericCopy.h"
 
 #include <algorithm>
 #include <iterator>

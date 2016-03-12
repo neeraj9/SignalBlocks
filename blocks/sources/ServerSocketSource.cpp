@@ -1,8 +1,8 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#include "ServerSocketSource.hh"
+#include "ServerSocketSource.h"
 
-#include "../../socket/IServerSocket.hh"
+#include "../../socket/IServerSocket.h"
 
 #include <netinet/in.h>
 #include <iostream>

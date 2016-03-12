@@ -4,10 +4,10 @@
 #define sigblocks_blocks_sink_PlotSink_hh
 
 #ifdef HAVE_PLPLOT
-#include "../../common/PlPlot.hh"
+#include "../../common/PlPlot.h"
 #endif
 
-#include "../../common/Port.hh"
+#include "../../common/Port.h"
 
 namespace sigblocks {
     template<class T>

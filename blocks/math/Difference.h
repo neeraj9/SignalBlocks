@@ -3,7 +3,7 @@
 #ifndef sigblocks_math_Difference_hh
 #define sigblocks_math_Difference_hh
 
-#include "NOperator.hh"
+#include "NOperator.h"
 
 namespace sigblocks {
     // implement a(n) - b(n) - c(n) - ...

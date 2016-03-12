@@ -3,7 +3,7 @@
 #ifndef TcpSocket_hh
 #define TcpSocket_hh
 
-#include "ISocket.hh"
+#include "ISocket.h"
 
 #include <stdint.h>
 #include <string>

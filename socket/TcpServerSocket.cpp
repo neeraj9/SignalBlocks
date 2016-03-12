@@ -1,6 +1,6 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#include "TcpServerSocket.hh"
+#include "TcpServerSocket.h"
 
 #include <arpa/inet.h>
 #include <cerrno>

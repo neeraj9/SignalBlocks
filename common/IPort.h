@@ -3,7 +3,7 @@
 #ifndef sigblocks_common_IPort_hh
 #define sigblocks_common_IPort_hh
 
-#include "TimeTick.hh"
+#include "TimeTick.h"
 
 #include <memory>
 #include <iostream>

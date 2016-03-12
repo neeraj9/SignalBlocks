@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
 #include <assert.h>
-#include "Multiplex.hh"
+#include "Multiplex.h"
 
 using namespace sigblocks;
 using namespace std;

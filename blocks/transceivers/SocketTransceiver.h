@@ -3,8 +3,8 @@
 #ifndef sigblocks_blocks_sink_SocketTransceiver_hh
 #define sigblocks_blocks_sink_SocketTransceiver_hh
 
-#include "../../common/Port.hh"
-#include "../../common/TimeTick.hh"
+#include "../../common/Port.h"
+#include "../../common/TimeTick.h"
 
 #include <stdint.h>
 #include <memory>

@@ -3,7 +3,7 @@
 #ifndef sigblocks_common_plugins_PythonUtil_hh
 #define sigblocks_common_plugins_PythonUtil_hh
 
-#include "PythonResult.hh"
+#include "PythonResult.h"
 
 #include <memory>
 #include <Python.h>

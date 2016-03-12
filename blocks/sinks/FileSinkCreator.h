@@ -3,7 +3,7 @@
 #ifndef sigblocks_blocks_sink_FileSinkCreator_hh
 #define sigblocks_blocks_sink_FileSinkCreator_hh
 
-#include "../common/IPort.hh"
+#include "../common/IPort.h"
 
 #include <fstream>
 #include <memory>

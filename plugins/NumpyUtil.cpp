@@ -1,9 +1,9 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#include "NumpyUtil.hh"
+#include "NumpyUtil.h"
 
-#include "PythonPluginCommon.hh"
-#include "PythonPluginExceptions.hh"
+#include "PythonPluginCommon.h"
+#include "PythonPluginExceptions.h"
 
 #include <iostream>
 #include <Python.h>

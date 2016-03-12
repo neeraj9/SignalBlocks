@@ -3,7 +3,7 @@
 #ifndef sigblocks_common_plugins_PythonPluginCommon_hh
 #define sigblocks_common_plugins_PythonPluginCommon_hh
 
-#include "SafePythonObject.hh"
+#include "SafePythonObject.h"
 
 namespace sigblocks {
     class Object

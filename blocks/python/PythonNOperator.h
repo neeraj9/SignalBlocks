@@ -3,8 +3,8 @@
 #ifndef sigblocks_math_PythonNOperator_hh
 #define sigblocks_math_PythonNOperator_hh
 
-#include "../plugins/PythonPlugin.hh"
-#include "../common/Port.hh"
+#include "../plugins/PythonPlugin.h"
+#include "../common/Port.h"
 
 #include <memory>
 #include <list>

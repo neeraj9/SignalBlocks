@@ -3,9 +3,9 @@
 #ifndef sigblocks_common_plugins_PythonPlugin_hh
 #define sigblocks_common_plugins_PythonPlugin_hh
 
-#include "PythonPluginExceptions.hh"
-#include "PythonResult.hh"
-#include "SafePythonObject.hh"
+#include "PythonPluginExceptions.h"
+#include "PythonResult.h"
+#include "SafePythonObject.h"
 
 #include <mutex>
 #include <memory>

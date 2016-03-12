@@ -3,7 +3,7 @@
 #ifndef TcpServerSocket_hh
 #define TcpServerSocket_hh
 
-#include "IServerSocket.hh"
+#include "IServerSocket.h"
 
 #include <netinet/in.h>
 #include <sys/socket.h>

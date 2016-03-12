@@ -1,8 +1,8 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#include "SocketSink.hh"
+#include "SocketSink.h"
 
-#include "../../socket/ISocket.hh"
+#include "../../socket/ISocket.h"
 
 #include <iostream>
 

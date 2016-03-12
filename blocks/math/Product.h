@@ -3,7 +3,7 @@
 #ifndef sigblocks_math_Product_hh
 #define sigblocks_math_Product_hh
 
-#include "NOperator.hh"
+#include "NOperator.h"
 
 namespace sigblocks {
     template<int N, class T>

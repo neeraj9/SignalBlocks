@@ -3,11 +3,11 @@
 #ifndef sigblocks_blocks_source_SocketSourceCreator_hh
 #define sigblocks_blocks_source_SocketSourceCreator_hh
 
-#include "SocketSource.hh"
+#include "SocketSource.h"
 
-#include "../../common/IPort.hh"
-#include "../../common/TimeTick.hh"
-#include "../../socket/ISocket.hh"
+#include "../../common/IPort.h"
+#include "../../common/TimeTick.h"
+#include "../../socket/ISocket.h"
 
 #include <memory>
 #include <string>

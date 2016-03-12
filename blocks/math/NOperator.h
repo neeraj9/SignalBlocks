@@ -3,7 +3,7 @@
 #ifndef sigblocks_math_NOperator_hh
 #define sigblocks_math_NOperator_hh
 
-#include "../../common/Port.hh"
+#include "../../common/Port.h"
 
 #include <list>
 

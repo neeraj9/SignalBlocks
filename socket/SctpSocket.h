@@ -3,7 +3,7 @@
 #ifndef SctpSocket_hh
 #define SctpSocket_hh
 
-#include "ISocket.hh"
+#include "ISocket.h"
 
 #include <stdint.h>
 #include <string>

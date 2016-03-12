@@ -3,8 +3,8 @@
 #ifndef IPSocket_hh
 #define IPSocket_hh
 
-#include "ISocket.hh"
-#include "RawIPSocket.hh"
+#include "ISocket.h"
+#include "RawIPSocket.h"
 
 #include <stdint.h>
 #include <string>

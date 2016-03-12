@@ -3,7 +3,7 @@
 #ifndef sigblocks_converters_BasicTypeConverter_hh
 #define sigblocks_converters_BasicTypeConverter_hh
 
-#include "../../common/MixedPort.hh"
+#include "../../common/MixedPort.h"
 
 namespace sigblocks {
     template<class TFROM, class TTO>

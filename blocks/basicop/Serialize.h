@@ -3,7 +3,7 @@
 #ifndef sigblocks_math_Serialize_hh
 #define sigblocks_math_Serialize_hh
 
-#include "../../common/Port.hh"
+#include "../../common/Port.h"
 
 namespace sigblocks {
     template<class T>

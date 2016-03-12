@@ -3,7 +3,7 @@
 #ifndef sigblocks_common_codec_MsbitToLsbitOperation_hh
 #define sigblocks_common_codec_MsbitToLsbitOperation_hh
 
-#include "BitReadInfo.hh"
+#include "BitReadInfo.h"
 
 namespace sigblocks {
     class MsbitToLsbitOperation {

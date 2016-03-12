@@ -3,8 +3,8 @@
 #ifndef sigblocks_blocks_source_FileSourceCreator_hh
 #define sigblocks_blocks_source_FileSourceCreator_hh
 
-#include "../common/IPort.hh"
-#include "../common/TimeTick.hh"
+#include "../common/IPort.h"
+#include "../common/TimeTick.h"
 
 #include <fstream>
 #include <memory>

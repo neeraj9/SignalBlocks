@@ -3,7 +3,7 @@
 #ifndef UdpSocket_hh
 #define UdpSocket_hh
 
-#include "ISocket.hh"
+#include "ISocket.h"
 
 #include <stdint.h>
 #include <string>

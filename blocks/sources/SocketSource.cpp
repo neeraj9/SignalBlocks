@@ -1,8 +1,8 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#include "SocketSource.hh"
+#include "SocketSource.h"
 
-#include "../../socket/ISocket.hh"
+#include "../../socket/ISocket.h"
 
 #include <iostream>
 #include <assert.h>

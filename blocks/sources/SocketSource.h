@@ -3,8 +3,8 @@
 #ifndef sigblocks_blocks_source_SocketSource_hh
 #define sigblocks_blocks_source_SocketSource_hh
 
-#include "../../common/Port.hh"
-#include "../../common/TimeTick.hh"
+#include "../../common/Port.h"
+#include "../../common/TimeTick.h"
 
 #include <memory>
 #include <stdint.h>

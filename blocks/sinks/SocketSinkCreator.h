@@ -3,11 +3,11 @@
 #ifndef sigblocks_blocks_sink_SocketSinkCreator_hh
 #define sigblocks_blocks_sink_SocketSinkCreator_hh
 
-#include "SocketSink.hh"
+#include "SocketSink.h"
 
-#include "../../common/IPort.hh"
-#include "../../common/TimeTick.hh"
-#include "../../socket/ISocket.hh"
+#include "../../common/IPort.h"
+#include "../../common/TimeTick.h"
+#include "../../socket/ISocket.h"
 
 #include <memory>
 #include <string>
