@@ -2,25 +2,25 @@
 # All rights reserved.
 
 set(SOCKET_SOURCES
-        EnhancedUdpSocket.cc
-        EnhancedUdpSocket.hh
-        IClientSocket.hh
-        IPSocket.cc
-        IPSocket.hh
-        IServerSocket.hh
-        ISocket.hh
-        RawIPSocket.cc
-        RawIPSocket.hh
-        SctpSocket.cc
-        SctpSocket.hh
-        TcpServerSocket.cc
-        TcpServerSocket.hh
-        TcpSocket.cc
-        TcpSocket.hh
-        UdpLiteSocket.cc
-        UdpLiteSocket.hh
-        UdpSocket.cc
-        UdpSocket.hh)
+        EnhancedUdpSocket.cpp
+        EnhancedUdpSocket.h
+        IClientSocket.h
+        IPSocket.cpp
+        IPSocket.h
+        IServerSocket.h
+        ISocket.h
+        RawIPSocket.cpp
+        RawIPSocket.h
+        SctpSocket.cpp
+        SctpSocket.h
+        TcpServerSocket.cpp
+        TcpServerSocket.h
+        TcpSocket.cpp
+        TcpSocket.h
+        UdpLiteSocket.cpp
+        UdpLiteSocket.h
+        UdpSocket.cpp
+        UdpSocket.h)
 
 add_library(socket STATIC ${SOCKET_SOURCES})
 

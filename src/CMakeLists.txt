@@ -12,7 +12,7 @@ set(SOURCE_FILES
 # main sample application
 # ##################################################################################
 
-add_executable(signalblocks main.cc ${SOURCE_FILES})
+add_executable(signalblocks main.cpp ${SOURCE_FILES})
 
 
 target_link_libraries(signalblocks common)

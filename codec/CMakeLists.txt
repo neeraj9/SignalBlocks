@@ -2,12 +2,12 @@
 # All rights reserved.
 
 set(CODEC_SOURCES
-        BitOperation.hh
-        BitReadInfo.hh
-        LsbitToMsbitOperation.cc
-        LsbitToMsbitOperation.hh
-        MsbitToLsbitOperation.cc
-        MsbitToLsbitOperation.hh)
+        BitOperation.h
+        BitReadInfo.h
+        LsbitToMsbitOperation.cpp
+        LsbitToMsbitOperation.h
+        MsbitToLsbitOperation.cpp
+        MsbitToLsbitOperation.h)
 
 add_library(codec STATIC ${CODEC_SOURCES})
 

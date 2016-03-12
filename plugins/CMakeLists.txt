@@ -2,18 +2,18 @@
 # All rights reserved.
 
 set(PLUGINS_SOURCES
-        NumpyUtil.hh
-        NumpyUtil.cc
-        PythonPluginCommon.hh
-        PythonResult.hh
-        PythonPlugin.hh
-        PythonPlugin.cc
-        PythonPluginExceptions.hh
-        PythonPluginExceptions.cc
-        PythonUtil.cc
-        PythonUtil.hh
-        SafePythonObject.cc
-        SafePythonObject.hh)
+        NumpyUtil.h
+        NumpyUtil.cpp
+        PythonPluginCommon.h
+        PythonResult.h
+        PythonPlugin.h
+        PythonPlugin.cpp
+        PythonPluginExceptions.h
+        PythonPluginExceptions.cpp
+        PythonUtil.cpp
+        PythonUtil.h
+        SafePythonObject.cpp
+        SafePythonObject.h)
 
 add_library(plugins STATIC ${PLUGINS_SOURCES})
 
