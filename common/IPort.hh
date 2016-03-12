@@ -8,8 +8,6 @@
 #include <memory>
 #include <iostream>
 
-using namespace std;
-
 namespace sigblocks {
     template<class T = float>
     class IPort {
