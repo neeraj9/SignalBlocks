@@ -4,9 +4,7 @@
 set(BLOCKS_SOURCES
         basicop/Buffer.cpp
         basicop/Buffer.h
-        basicop/Demultiplex.cpp
         basicop/Demultiplex.h
-        basicop/Multiplex.cpp
         basicop/Multiplex.h
         basicop/Serialize.h
         converters/BasicTypeConverter.cpp
@@ -39,7 +37,6 @@ set(BLOCKS_SOURCES
         sinks/SocketSink.cpp
         sinks/SocketSink.h
         sinks/SocketSinkCreator.h
-        sinks/StdoutSink.cpp
         sinks/StdoutSink.h
         sinks/Terminator.h
         sources/ComplexStreamSource.cpp
@@ -60,7 +57,7 @@ set(BLOCKS_SOURCES
         sources/StepSource.h
         transceivers/SocketTransceiver.cpp
         transceivers/SocketTransceiver.h
-        transceivers/SocketTransceiverCreator.h basicop/TransparentForwarder.h)
+        transceivers/SocketTransceiverCreator.h basicop/TransparentForwarder.h sources/CsvFileSource.cpp sources/CsvFileSource.h sources/SelectiveCsvFileSource.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 

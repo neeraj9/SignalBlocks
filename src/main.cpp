@@ -19,6 +19,7 @@
 #include "../blocks/sources/SocketSource.h"
 #include "../blocks/sources/SocketSourceCreator.h"
 #include "../blocks/sources/StepSource.h"
+#include "../blocks/sources/CsvFileSource.h"
 #include "../blocks/transceivers/SocketTransceiverCreator.h"
 #include "../common/ComplexType.h"
 #include "../common/IPort.h"
@@ -32,6 +33,7 @@
 #include <iostream>
 #include <bitset>
 #include <stack>
+
 #include <unistd.h> // for sleep
 #include "../plugins/PythonPlugin.h"
 
@@ -438,6 +440,12 @@ void test34() {
     } catch (PyPluginTypeException& e) {
         std::cerr << e.what() << std::endl;
     }
+}
+
+void test35() {
+    std::shared_ptr<IPort<std::string> > source(new CsvFileSource("test.csv", true));
+    std::shared_ptr<IPort<std::string> > sink(new StdoutSink<std::string>());
+    connect(source, sink);
 }
 
 int main() {
