@@ -15,13 +15,13 @@ set(CMAKE_VERBOSE_MAKEFILE on)
 # in project root path
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 
-# Build with gnu c++11, which when disabled uses llvm+clang
-# when the gnu c++11 is disabled then llvm+clang+libstdc++ is used unless
+# Build with gnu c++14, which when disabled uses llvm+clang
+# when the gnu c++14 is disabled then llvm+clang+libstdc++ is used unless
 # USE_LLVM_WITH_LIBCXX_LIBCXXABI is set (as shown below).
 # Note that setting USE_LLVM_WITH_LIBCXX_LIBCXXABI has no effect on
-# gnu c++11 build.
+# gnu c++14 build.
 #set(USE_LLVM_WITH_LIBCXX_LIBCXXABI on)
-set(USE_GNU_CXX11_BUILD ON)
+set(USE_GNU_CXX14_BUILD ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
@@ -73,6 +73,7 @@ add_subdirectory(blocks)
 # ##################################################################################
 
 add_subdirectory(src)
+add_subdirectory(examples/histogram)
 
 # ##################################################################################
 # Inclusions
