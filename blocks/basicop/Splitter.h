@@ -11,6 +11,17 @@
 #include <memory>
 
 namespace sigblocks {
+    /** Splitter Splits an input into multiple outputs.
+     * The Splitter block splits an input received from a
+     * single source into multiple outputs, which are then
+     * subsequently sent to different sinks.
+     *
+     * When the data received is scalar, then this block sends
+     * it (scalar value) to the first sink (index-0).
+     *
+     * When the data received is vector (M dimension), then its sent to
+     * M output blocks as a scalar values.
+     */
     template<int M, class T>
     class Splitter
             : public Port<1, M, T> {
@@ -46,10 +57,11 @@ namespace sigblocks {
             for (size_t i = 0; i < mIndices.size(); ++i) {
                 if (i < static_cast<size_t>(len)) {
                     // forward
-                    std::unique_ptr<T[]> tmp(new T[1]);
+                    //std::unique_ptr<T[]> tmp(new T[1]);
                     // swap to avoid copy whenever the data structure of type T allows it
-                    std::swap(tmp[0], raw_data[mIndices[i]]);
-                    this->LeakData(i, std::move(tmp), 1, startTime);
+                    //std::swap(tmp[0], raw_data[mIndices[i]]);
+                    //this->LeakData(i, std::move(tmp), 1, startTime);
+                    this->LeakData(i, raw_data[mIndices[i]], startTime);
                 }
             }
         }
