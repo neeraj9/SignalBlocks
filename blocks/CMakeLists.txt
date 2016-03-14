@@ -57,7 +57,7 @@ set(BLOCKS_SOURCES
         sources/StepSource.h
         transceivers/SocketTransceiver.cpp
         transceivers/SocketTransceiver.h
-        transceivers/SocketTransceiverCreator.h basicop/TransparentForwarder.h sources/CsvFileSource.cpp sources/CsvFileSource.h sources/SelectiveCsvFileSource.h)
+        transceivers/SocketTransceiverCreator.h basicop/TransparentForwarder.h sources/CsvFileSource.cpp sources/CsvFileSource.h sources/SelectiveCsvFileSource.h converters/OrdinalConverter.cpp converters/OrdinalConverter.h basicop/Duplicator.h basicop/Splitter.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 
