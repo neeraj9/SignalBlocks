@@ -15,7 +15,7 @@ BasicTypeConverter<TFROM, TTO>::Process(
         const TimeTick& startTime) {
     assert(sourceIndex == 0);
     const TTO todata = static_cast<const TTO>(data);
-    this->GetAsSinkType()->ConsumeData(nullptr, todata, startTime);
+    this->GetAsSinkType()->ConsumeScalar(nullptr, todata, startTime);
 }
 
 template<class TFROM, class TTO>
@@ -25,7 +25,7 @@ BasicTypeConverter<TFROM, TTO>::Process(
     assert(sourceIndex == 0);
     std::unique_ptr<TTO[]> todata(new TTO[len]);
     GenericCopy<TFROM, TTO>::Copy(data.get(), data.get() + len, todata.get());
-    this->GetAsSinkType()->ConsumeData(nullptr, std::move(todata), len, startTime);
+    this->GetAsSinkType()->ConsumeVector(nullptr, std::move(todata), len, startTime);
 }
 
 template

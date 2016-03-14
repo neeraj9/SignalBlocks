@@ -6,7 +6,7 @@
 #include "TimeTick.h"
 
 #include <memory>
-#include <iostream>
+#include <vector>
 
 namespace sigblocks {
     template<class T = float>
@@ -21,10 +21,10 @@ namespace sigblocks {
 
         virtual void DisconnectSource(IPort<T>* peer) = 0;
 
-        virtual void ConsumeData(
+        virtual void ConsumeScalar(
                 const IPort<T>* pSender, const T& data, const TimeTick& startTime) = 0;
 
-        virtual void ConsumeData(
+        virtual void ConsumeVector(
                 const IPort<T>* pSender, std::unique_ptr<T[]> data,
                 int len, const TimeTick& startTime) = 0;
 

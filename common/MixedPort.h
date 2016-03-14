@@ -60,7 +60,7 @@ namespace sigblocks {
         }
 
         /// use this interface when T is a primitive data type, ex. int, float, etc
-        void ConsumeData(
+        void ConsumeScalar(
                 const IPort<TN>* pSender, const TN& data, const TimeTick& startTime) {
             for (int i = 0; i < N; ++i) {
                 if (mpSource[i] == pSender) {
@@ -70,7 +70,7 @@ namespace sigblocks {
             }
         }
 
-        void ConsumeData(
+        void ConsumeVector(
                 const IPort<TN>* pSender, std::unique_ptr<TN[]> data, int len, const TimeTick& startTime) {
             for (int i = 0; i < N; ++i) {
                 if (mpSource[i] == pSender) {

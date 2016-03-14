@@ -45,7 +45,7 @@ namespace sigblocks {
         }
 
         /// use this interface when T is a primitive data type, ex. int, float, etc
-        void ConsumeData(
+        void ConsumeScalar(
                 const IPort<T>* pSender, const T& data, const TimeTick& startTime) {
             for (int i = 0; i < N; ++i) {
                 if (mpSource[i] == pSender) {
@@ -55,7 +55,7 @@ namespace sigblocks {
             }
         }
 
-        void ConsumeData(
+        void ConsumeVector(
                 const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
             for (int i = 0; i < N; ++i) {
                 if (mpSource[i] == pSender) {
@@ -79,7 +79,7 @@ namespace sigblocks {
             assert(index < M);
             assert(0 <= index);
             if (mpSink[index]) {
-                mpSink[index]->ConsumeData(this, data, startTime);
+                mpSink[index]->ConsumeScalar(this, data, startTime);
             }
         }
 
@@ -88,7 +88,7 @@ namespace sigblocks {
             assert(index < M);
             assert(0 <= index);
             if (mpSink[index]) {
-                mpSink[index]->ConsumeData(this, std::move(data), len, startTime);
+                mpSink[index]->ConsumeVector(this, std::move(data), len, startTime);
             }
         }
 
@@ -131,11 +131,11 @@ namespace sigblocks {
         }
 
         /// use this interface when T is a primitive data type, ex. int, float, etc
-        void ConsumeData(
+        void ConsumeScalar(
                 const IPort<T>* pSender, const T& data, const TimeTick& startTime) {
         }
 
-        void ConsumeData(
+        void ConsumeVector(
                 const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
         }
 
@@ -158,7 +158,7 @@ namespace sigblocks {
             assert(index < M);
             assert(0 <= index);
             if (mpSink[index]) {
-                mpSink[index]->ConsumeData(this, data, startTime);
+                mpSink[index]->ConsumeScalar(this, data, startTime);
             }
         }
 
@@ -167,7 +167,7 @@ namespace sigblocks {
             assert(index < M);
             assert(0 <= index);
             if (mpSink[index]) {
-                mpSink[index]->ConsumeData(this, std::move(data), len, startTime);
+                mpSink[index]->ConsumeVector(this, std::move(data), len, startTime);
             }
         }
 
@@ -205,7 +205,7 @@ namespace sigblocks {
         }
 
         /// use this interface when T is a primitive data type, ex. int, float, etc
-        void ConsumeData(
+        void ConsumeScalar(
                 const IPort<T>* pSender, const T& data, const TimeTick& startTime) {
             for (int i = 0; i < N; ++i) {
                 if (mpSource[i] == pSender) {
@@ -215,7 +215,7 @@ namespace sigblocks {
             }
         }
 
-        void ConsumeData(
+        void ConsumeVector(
                 const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
             for (int i = 0; i < N; ++i) {
                 if (mpSource[i] == pSender) {
@@ -260,11 +260,11 @@ namespace sigblocks {
 
     public: // IPort interface (XXX do we need to use these?)
         /// use this interface when T is a primitive data type, ex. int, float, etc
-        void ConsumeData(
+        void ConsumeScalar(
                 const IPort<T>* pSender, const T& data, const TimeTick& startTime) {
         }
 
-        void ConsumeData(
+        void ConsumeVector(
                 const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
         }
 

@@ -48,7 +48,7 @@ void OrdinalConverter::Process(int sourceIndex, const std::string& data, const T
         ++mNextOrdinalValue;  // assuming no overflow
     }
 
-    this->GetAsSinkType()->ConsumeData(nullptr, todata, startTime);
+    this->GetAsSinkType()->ConsumeScalar(nullptr, todata, startTime);
 }
 
 void OrdinalConverter::Process(int sourceIndex, std::unique_ptr<std::string[]> data, int len,
@@ -65,5 +65,5 @@ void OrdinalConverter::Process(int sourceIndex, std::unique_ptr<std::string[]> d
             ++mNextOrdinalValue;  // assuming no overflow
         }
     }
-    this->GetAsSinkType()->ConsumeData(nullptr, std::move(todata), len, startTime);
+    this->GetAsSinkType()->ConsumeVector(nullptr, std::move(todata), len, startTime);
 }
