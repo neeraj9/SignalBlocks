@@ -17,6 +17,10 @@ CsvFileSource::CsvFileSource(const std::string& filename, bool hasHeader)
     }
 }
 
+const std::vector<std::string>& CsvFileSource::GetHeader() const {
+    return mParser.GetHeader();
+}
+
 bool
 CsvFileSource::IsValid() const {
     return mParser.IsOpen();
@@ -53,4 +57,3 @@ void CsvFileSource::ClockCycle(const TimeTick& timeTick) {
         this->LeakData(0, std::move(data), num_fields, timeTick);
     }
 }
-

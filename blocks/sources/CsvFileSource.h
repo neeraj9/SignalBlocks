@@ -15,6 +15,7 @@ namespace sigblocks {
     public:
         CsvFileSource(const std::string& filename, bool hasHeader);
 
+        const std::vector<std::string>& GetHeader() const;
         bool IsValid() const;
         bool IsDone() const;
 
