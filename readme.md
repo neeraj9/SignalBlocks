@@ -46,8 +46,7 @@ block for such requirement.
 
 ## Blocks
 
-    (inspired from matlab-simulink)
-    blocks:
+    Blocks:
 
     constant (source of constant number)
     demux (one to many)
@@ -70,6 +69,15 @@ block for such requirement.
     serialize (convert buffer to serial data, or send one-by-one to the connected peer)
     downsample (filter data to down-sample input stream of data)
     upsample (filter data to up-sample the input stream and insert 0s) - TODO
+    duplicator - duplicate the input into multiple outputs
+    splitter - split a N dimmention vector to scalar which goes out to
+               N output blocks.
+    ordinalconverter - learn automatically and convert from string to integer,
+                       where the id are automatically generated based on
+                       inputs and continuously increases as new text strings
+                       are encountered. It takes simple c++ string as input and
+                       unsigned long as output (so its a MixedPort).
+
 
 ## TODO
 
