@@ -4,92 +4,192 @@
 #define SIGBLOCKS_NOPERATOR_H
 
 #include "../../common/Port.h"
+#include "../../common/logging.h"
 
-#include <list>
+#include <memory>
+#include <map>
+#include <vector>
+
 
 namespace sigblocks {
     template<int N, class T>
     class NOperator
             : public Port<N, 1, T> {
     public:
-        NOperator(); // need to set mIsVectorEnabled to false
-        virtual ~NOperator(); // Need for vector buffer
+        NOperator()
+                : mDefaultValue(),
+                  mStorage(),
+                  mDims(),
+                  mLastTick() {
+        }
 
+        NOperator(const T& defaultValue)
+                : mDefaultValue(defaultValue),
+                  mStorage(),
+                  mDims(),
+                  mLastTick() {
+        }
     protected:
-        // scalar operations
-        virtual T Compute(const T& arg1) const = 0; // for N=1
-        virtual T Compute(const T& arg1,
-                          const T& arg2) const = 0; // for N=2
-        virtual T Compute(const std::list<T>& args) const = 0; // Generic
-
-#if 0 // XXX
-        // vector operations
+        // compute and store the result in pArgs[0] or pArgs[x], where x is the first index
+        // within pArgs which is non nullptr (to save unnecessary memory allocation).
+        // Note that each one of the args is of dims dimension, that is pArgs[0] ... pArgs[N-1]
+        // has dimensions dims.
+        // For scalar dims.size() == 1 and dims[0] == 1.
+        // For vector dims.size() == 1 and dims[0] > 1.
+        // For matrix dims.size() > 1.
         //
-        // Note: the input is not const because the algo can do in-place
-        //       operation, in which case input will loose the ownership of the
-        //       data to output.
-        // Note: Client should not pre-allocate memory for the output.
-        virtual void Compute(std::unique_ptr<T[]>& input,
-                             int len,
-                             std::unique_ptr<T[]>& output) const = 0;
-
-        // Note: Either intput1 or input2 memory can be used by the output.
-        // Note: If size of intput1 and input2 are different then the smaller
-        //       one should be zero padded (virtually and no new realloc is done), so
-        //       for in-place algo the bigger intput's storage is passed to the
-        //       output.
-        // Note: Zero pading needs to be taken care by the algo and *not* here.
-        //       This is to avoid the realloc of the memory.
-        // Note: Special case - if either one of input1, intput2 is null then
-        //       it implies that its not present, so the algo needs to take care
-        //       of that scenario as well by asumming all zeros.
-        virtual void Compute(std::unique_ptr<T[]>& input1, int len1,
-                             std::unique_ptr<T[]>& input2, int len2,
-                             std::unique_ptr<T[]>& output) const = 0;
-
-        // Generic array based interface.
-        // Note: The list stores pointer instead of value to save ctor/dtor of
-        //       the MultiPtr class.
-        // Note: The logic of in-place algorithm and zero padding is the same as
-        //       for 2 inputs.
-        // Note: Special case - if either one of input1, ... intputN is null then
-        //       it implies that its not present, so the algo needs to take care
-        //       of that scenario as well by asumming all zeros.
-        virtual void Compute(std::list<std::unique_ptr<T[]>*>& inputs,
-                             std::list<int>& len,
-                             std::unique_ptr<T[]>& output) const = 0;
-#endif
+        virtual void Compute(T* pArgs[N], const std::vector<int>& dims) = 0;
 
     protected: // Port interface
-        virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime);
+        virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {
+            assert(sourceIndex >= 0 || sourceIndex < 2); // XXX change to an assertion library.
+            if (mDims.empty()) {
+                mDims.push_back(1);
+            } else {
+                assert(mDims.size() == 1);
+                assert(mDims[0] == 1);
+            }
+            if (mLastTick == startTime) {
+                //mStorage[sourceIndex] = data;
+                std::unique_ptr<T[]> val(new T[1]);
+                val.get()[0] = data; // optimize complex T with std::swap(val.get()[0], data);
+                auto p = mStorage.insert(std::make_pair(sourceIndex, std::move(val)));
+                assert(p.second);
+                LOG_DEBUG("Added value to storage\n");
+            }
+
+            if ((mStorage.size() == N) || ((! mStorage.empty()) && mLastTick != startTime)) {
+                // time to push out the data
+                T* arguments[N] = {nullptr};
+                for (auto iter = mStorage.begin(); iter != mStorage.end(); ++iter) {
+                    arguments[iter->first] = iter->second.get();
+                }
+                for (int i = 0; i < N; ++i) {
+                    if (arguments[i] == nullptr) {
+                        LOG_DEBUG("Adding default value to storage at index=%d\n", i);
+                        std::unique_ptr<T[]> val(new T[1]);
+                        val.get()[0] = mDefaultValue;
+                        arguments[i] = val.get();
+                        mStorage.insert(std::make_pair(i, std::move(val)));
+                    }
+                }
+                LOG_DEBUG("Computing and sending to downstream\n");
+                this->Compute(arguments, mDims);
+                this->LeakData(0, *arguments[0], mLastTick);
+                mStorage.clear();
+                mDims.clear();
+            }
+            if (mLastTick != startTime) {
+                LOG_DEBUG("New Tick so buffer data\n");
+                mLastTick = startTime;
+                std::unique_ptr<T[]> val(new T[1]);
+                val.get()[0] = data; // use in optimization std::swap(val.get()[0], data);
+                mStorage.insert(std::make_pair(sourceIndex, std::move(val)));
+            }
+        }
 
         virtual void Process(
-                int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime);
+                int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
+            assert(sourceIndex >= 0 || sourceIndex < 2); // XXX change to an assertion library.
+            if (mDims.empty()) {
+                mDims.push_back(len);
+            } else {
+                // If you want this same block to be used alternatively with
+                // scalar, vector or matrix during its lifetime then
+                // run this validation only when mLastTick == startTime, else
+                // accept the values received
+                assert(mDims.size() == 1);
+                assert(mDims[0] == len);
+            }
+            if (mLastTick == startTime) {
+                auto p = mStorage.insert(std::make_pair(sourceIndex, std::move(data)));
+                assert(p.second);
+            }
+
+            if ((mStorage.size() == N) || ((! mStorage.empty()) && mLastTick != startTime)) {
+                // time to push out the data
+                T* arguments[N] = {nullptr};
+                for (auto iter = mStorage.begin(); iter != mStorage.end(); ++iter) {
+                    arguments[iter->first] = iter->second.get();
+                }
+                for (int i = 0; i < N; ++i) {
+                    if (arguments[i] == nullptr) {
+                        std::unique_ptr<T[]> val(new T[mDims[0]]);
+                        for (int j = 0; j < mDims[0]; ++j) {
+                            val.get()[j] = mDefaultValue;
+                        }
+                        arguments[i] = val.get();
+                        mStorage.insert(std::make_pair(i, std::move(val)));
+                    }
+                }
+                this->Compute(arguments, mDims);
+                // result is always stored in first argument, so move that down
+                this->LeakData(0, std::move(mStorage[0]), mDims[0], mLastTick);
+                mStorage.clear();
+                mDims.clear();
+            }
+            if (mLastTick != startTime) {
+                mLastTick = startTime;
+                mStorage.insert(std::make_pair(sourceIndex, std::move(data)));
+            }
+        }
+
+        virtual void ProcessMatrix(
+                int sourceIndex, std::unique_ptr<T[]> data, const std::vector<int>& dims, const TimeTick& startTime) {
+            assert(sourceIndex >= 0 || sourceIndex < 2); // XXX change to an assertion library.
+            if (mDims.empty()) {
+                mDims = dims;
+            } else {
+                // If you want this same block to be used alternatively with
+                // scalar, vector or matrix during its lifetime then
+                // run this validation only when mLastTick == startTime, else
+                // accept the values received
+                assert(mDims == dims);
+            }
+            if (mLastTick == startTime) {
+                auto p = mStorage.insert(std::make_pair(sourceIndex, std::move(data)));
+                assert(p.second);
+            }
+
+            if ((mStorage.size() == N) || ((! mStorage.empty()) && mLastTick != startTime)) {
+                int len = mDims[0];
+                for (size_t i = 1; i < mDims.size(); ++i) {
+                    len *= mDims[i];
+                }
+                // time to push out the data
+                T* arguments[N] = {nullptr};
+                for (auto iter = mStorage.begin(); iter != mStorage.end(); ++iter) {
+                    arguments[iter->first] = iter->second.get();
+                }
+                for (int i = 0; i < N; ++i) {
+                    if (arguments[i] == nullptr) {
+                        std::unique_ptr<T[]> val(new T[len]);
+                        for (int j = 0; j < len; ++j) {
+                            val.get()[j] = mDefaultValue;
+                        }
+                        arguments[i] = val.get();
+                        mStorage.insert(std::make_pair(i, std::move(val)));
+                    }
+                }
+                this->Compute(arguments, mDims);
+                // result is always stored in first argument, so move that down
+                this->LeakMatrix(0, std::move(mStorage[0]), mDims, mLastTick);
+                mStorage.clear();
+                mDims.clear();
+            }
+            if (mLastTick != startTime) {
+                mLastTick = startTime;
+                mStorage.insert(std::make_pair(sourceIndex, std::move(data)));
+            }
+        }
 
     private:
-        bool mIsVectorEnabled; // To start with this can be enabled
-        // on even a single vector Process call.
-        // Henceforth the scapar Process should
-        // look for vector buffer and not assume
-        // only scalar inputs.
-
-        // scalar input buffer
-        std::list<T> mDataPort[N];
-        std::list<TimeTick> mDataPortTime[N];
-
-        // vector input buffer
-        // Note: There can be multiple cases with
-        //       vector and scalar operatios.
-        //          * An input port can send scalar and
-        //            vector anytime during the lifetime.
-        //            It should not be but can happen.
-        //          * All the input ports need not be of
-        //            vector or scalar. A mix of scalar and
-        //            vector ports is a possibility.
-        std::list<std::unique_ptr<T[]>*> mDataPortVector[N];
-        std::list<int> mDataPortVectorLength[N];
-        std::list<TimeTick> mDataPortVectorTime[N];
+        T mDefaultValue;
+        std::map<int, std::unique_ptr<T[]> > mStorage;
+        std::vector<int> mDims;
+        TimeTick mLastTick;
     };
 }
+
 
 #endif // SIGBLOCKS_NOPERATOR_H
