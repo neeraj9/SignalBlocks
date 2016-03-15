@@ -6,7 +6,7 @@
 # ##################################################################################
 
 set(SOURCE_FILES
-        catch.hpp test_blocks_math_gain.cpp)
+        catch.hpp test_blocks_math_gain.cpp test_blocks_math_sum.cpp)
 
 # ##################################################################################
 # main sample application
