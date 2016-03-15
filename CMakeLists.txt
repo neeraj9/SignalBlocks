@@ -75,6 +75,9 @@ add_subdirectory(blocks)
 add_subdirectory(src)
 add_subdirectory(examples/histogram)
 
+# tests
+add_subdirectory(test)
+
 # ##################################################################################
 # Inclusions
 # Always at the end to take advantage of prior variables in this file.
@@ -82,3 +85,4 @@ add_subdirectory(examples/histogram)
 # ##################################################################################
 
 include(doxygen.cmake)
+
