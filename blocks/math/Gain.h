@@ -27,6 +27,19 @@ namespace sigblocks {
             this->LeakData(0, std::move(data), len, startTime);
         }
 
+        virtual void ProcessMatrix(
+                int sourceIndex, std::unique_ptr<T[]> data, const std::vector<int>& dims, const TimeTick& startTime) {
+            assert(! dims.empty());
+            int len = dims[0];
+            for (size_t i = 1; i < dims.size(); ++i) {
+                len *= dims[i];
+            }
+            for (int i = 0; i < len; ++i) {
+                data.get()[i] *= mScale;
+            }
+            this->LeakMatrix(0, std::move(data), dims, startTime);
+        }
+
     private:
         const T mScale;
     };
