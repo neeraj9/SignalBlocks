@@ -27,6 +27,13 @@ namespace sigblocks {
                 this->LeakData(i, std::move(data), len, startTime);
             }
         }
+
+        virtual void ProcessMatrix(
+                int sourceIndex, std::unique_ptr<T[]> data, const std::vector<int>& dims, const TimeTick& startTime) {
+            for (int i = 0; i < M; ++i) {
+                this->LeakMatrix(i, std::move(data), dims, startTime);
+            }
+        }
     };
 
     // XXX specialze a case when N=1, M=1 and optimize it
@@ -80,6 +87,18 @@ namespace sigblocks {
             }
         }
 
+        void ConsumeMatrix(const IPort<TN>* pSender,
+                           std::unique_ptr<TN[]> data,
+                           const std::vector<int>& dims,
+                           const TimeTick& startTime) {
+            for (int i = 0; i < N; ++i) {
+                if (mpSource[i] == pSender) {
+                    ProcessMatrix(i, std::move(data), dims, startTime);
+                    break;
+                }
+            }
+        }
+
         void ClockCycle(const TimeTick& timeTick) {
             // default implementation is to pass clock cycle
             mInternalSource->ClockCycle(timeTick);
@@ -99,6 +118,14 @@ namespace sigblocks {
 
         virtual void Process(
                 int sourceIndex, std::unique_ptr<TN[]> data, int len, const TimeTick& startTime) {
+            // silently drop here, while derived class should do something
+            // useful
+        }
+
+        virtual void ProcessMatrix(int sourceIndex,
+                                   std::unique_ptr<TN[]> data,
+                                   const std::vector<int>& dims,
+                                   const TimeTick& startTime) {
             // silently drop here, while derived class should do something
             // useful
         }

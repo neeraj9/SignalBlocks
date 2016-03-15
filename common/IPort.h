@@ -28,6 +28,10 @@ namespace sigblocks {
                 const IPort<T>* pSender, std::unique_ptr<T[]> data,
                 int len, const TimeTick& startTime) = 0;
 
+        virtual void ConsumeMatrix(
+                const IPort<T>* pSender, std::unique_ptr<T[]> data,
+                const std::vector<int>& dims, const TimeTick& startTime) = 0;
+
         virtual void ClockCycle(const TimeTick& timeTick) = 0;
 
     };

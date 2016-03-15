@@ -65,6 +65,18 @@ namespace sigblocks {
             }
         }
 
+        void ConsumeMatrix(const IPort<T>* pSender,
+                           std::unique_ptr<T[]> data,
+                           const std::vector<int>& dims,
+                           const TimeTick& startTime) {
+            for (int i = 0; i < N; ++i) {
+                if (mpSource[i] == pSender) {
+                    ProcessMatrix(i, std::move(data), dims, startTime);
+                    break;
+                }
+            }
+        }
+
         void ClockCycle(const TimeTick& timeTick) {
             // default implementation is to pass clock cycle to the sinks
             for (int i = 0; i < M; ++i) {
@@ -92,12 +104,30 @@ namespace sigblocks {
             }
         }
 
+        void LeakMatrix(int index,
+                        std::unique_ptr<T[]> data,
+                        const std::vector<int>& dims,
+                        const TimeTick& startTime) {
+            assert(index < M);
+            assert(0 <= index);
+            if (mpSink[index]) {
+                mpSink[index]->ConsumeMatrix(this, std::move(data), dims, startTime);
+            }
+        }
+
         virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {
             // silently drop
         }
 
         virtual void Process(
                 int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
+            // silently drop
+        }
+
+        virtual void ProcessMatrix(int sourceIndex,
+                                   std::unique_ptr<T[]> data,
+                                   const std::vector<int>& dims,
+                                   const TimeTick& startTime) {
             // silently drop
         }
 
@@ -139,6 +169,12 @@ namespace sigblocks {
                 const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
         }
 
+        void ConsumeMatrix(const IPort<T>* pSender,
+                           std::unique_ptr<T[]> data,
+                           const std::vector<int>& dims,
+                           const TimeTick& startTime) {
+        }
+
     public: // IPort interface
         void SetSink(std::shared_ptr<IPort<T> >& peer, int index) {
             assert(index < M);
@@ -168,6 +204,17 @@ namespace sigblocks {
             assert(0 <= index);
             if (mpSink[index]) {
                 mpSink[index]->ConsumeVector(this, std::move(data), len, startTime);
+            }
+        }
+
+        void LeakMatrix(int index,
+                        std::unique_ptr<T[]> data,
+                        const std::vector<int>& dims,
+                        const TimeTick& startTime) {
+            assert(index < M);
+            assert(0 <= index);
+            if (mpSink[index]) {
+                mpSink[index]->ConsumeMatrix(this, std::move(data), dims, startTime);
             }
         }
 
@@ -225,6 +272,18 @@ namespace sigblocks {
             }
         }
 
+        void ConsumeMatrix(const IPort<T>* pSender,
+                           std::unique_ptr<T[]> data,
+                           const std::vector<int>& dims,
+                           const TimeTick& startTime) {
+            for (int i = 0; i < N; ++i) {
+                if (mpSource[i] == pSender) {
+                    ProcessMatrix(i, std::move(data), dims, startTime);
+                    break;
+                }
+            }
+        }
+
         void ClockCycle(const TimeTick& timeTick) {
             // no one to pass the clock cycle, so ignore
         }
@@ -236,6 +295,13 @@ namespace sigblocks {
 
         virtual void Process(
                 int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
+            // silently drop
+        }
+
+        virtual void ProcessMatrix(int sourceIndex,
+                                   std::unique_ptr<T[]> data,
+                                   const std::vector<int>& dims,
+                                   const TimeTick& startTime) {
             // silently drop
         }
 
@@ -266,6 +332,12 @@ namespace sigblocks {
 
         void ConsumeVector(
                 const IPort<T>* pSender, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
+        }
+
+        void ConsumeMatrix(const IPort<T>* pSender,
+                           std::unique_ptr<T[]> data,
+                           const std::vector<int>& dims,
+                           const TimeTick& startTime) {
         }
 
         void ClockCycle(const TimeTick& timeTick) {
