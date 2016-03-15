@@ -118,7 +118,7 @@ TEST_CASE("Testing math block Gain for matrix integer", "[gain]") {
     int expected_result = input_value * factor;
 
     REQUIRE(archive->GetScalarInfo().empty());
-    //REQUIRE(archive->GetVectorInfo().empty());
+    REQUIRE(archive->GetVectorInfo().empty());
     REQUIRE(archive->GetMatrixInfo().size() == 1);
     REQUIRE(archive->GetMatrixInfo().front().mTimeTick == timeTick);
     for (int i = 0; i < len; ++i) {
