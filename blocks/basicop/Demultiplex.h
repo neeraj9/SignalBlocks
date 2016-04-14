@@ -41,6 +41,20 @@ namespace sigblocks {
             mNextOutputPort = (mNextOutputPort + 1) % N;
         }
 
+        virtual void ProcessMatrix(int sourceIndex,
+                                   std::unique_ptr<T[]> data,
+                                   const std::vector<int>& dims,
+                                   const TimeTick& startTime) {
+            assert(sourceIndex >= 0 || sourceIndex < N); // XXX change to an assertion library.
+
+            // Mutiple inputs are treated as one when passing downstream
+            // use some other class to split such a data into individual data
+            // items if those need to be demultiplexed and then apply this module.
+            this->LeakMatrix(mNextOutputPort, std::move(data), dims, startTime);
+
+            mNextOutputPort = (mNextOutputPort + 1) % N;
+        }
+
     private:
         int mNextOutputPort;
     };

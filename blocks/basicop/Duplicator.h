@@ -1,8 +1,8 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
 
-#ifndef SIGNALBLOCKS_DUPLICATOR_H
-#define SIGNALBLOCKS_DUPLICATOR_H
+#ifndef SIGBLOCKS_DUPLICATOR_H
+#define SIGBLOCKS_DUPLICATOR_H
 
 #include "../../common/Port.h"
 
@@ -40,7 +40,34 @@ namespace sigblocks {
                 this->LeakData(index, std::move(data), len, startTime);
             }
         }
+
+        virtual void ProcessMatrix(int sourceIndex,
+                                   std::unique_ptr<T[]> data,
+                                   const std::vector<int>& dims,
+                                   const TimeTick& startTime) {
+            assert(sourceIndex == 0); // XXX change to an assertion library.
+            int len = dims[0];
+            for (size_t i = 1; i < dims.size(); ++i) {
+                len *= dims[i];
+            }
+            assert(len > 0);
+            for (int i = 0; i < (M - 1); ++i) {
+                std::unique_ptr<T[]> datacopy(new T[len]);
+                // The std::copy() will not work with complex data structure (T), where
+                // shallow-copy is an issue and hence error prone. Instead rely on
+                // assignment operator, which should be available for type T.
+                //std::copy(data.get(), &(data.get()[len]), datacopy.get());
+                for (int j = 0; j < len; ++j) {
+                    datacopy.get()[j] = data.get()[j];
+                }
+                this->LeakMatrix(i, std::move(datacopy), dims, startTime);
+            }
+            constexpr int index = M - 1;
+            if (index >= 0) {
+                this->LeakMatrix(index, std::move(data), dims, startTime);
+            }
+        }
     };
 }
 
-#endif //SIGNALBLOCKS_DUPLICATOR_H
+#endif //SIGBLOCKS_DUPLICATOR_H

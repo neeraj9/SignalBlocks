@@ -5,163 +5,308 @@
 
 #include "../../common/Port.h"
 
-#include <list>
+#include <assert.h>
+#include <map>
 
 namespace sigblocks {
-    template<int N, class T>
+
+    enum MultiplexPolicy {
+        MULTIPLEX_SCALAR = 0,
+        MULTIPLEX_VECTOR,
+        MULTIPLEX_MATRIX
+    };
+
+    template <int N, class T, MultiplexPolicy P>
     class Multiplex
             : public Port<N, 1, T> {
     public:
         Multiplex() {
-            // need to set mIsVectorEnabled to false
+            assert(0);
         }
-        virtual ~Multiplex() {
-            // Need for vector buffer when vector support is added (XXX)
+    };
+
+    // Multiplex scalar and nothing else
+    template <int N, class T>
+    class Multiplex<N, T, MULTIPLEX_SCALAR>
+            : public Port<N, 1, T> {
+    public:
+        Multiplex(T defaultValue)
+                : mDefaultValue(defaultValue),
+                  mStorage(),
+                  mLastTick() {
         }
 
     protected: // Port interface
         virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {
-            assert(sourceIndex >= 0 || sourceIndex <= N); // XXX change to an assertion library.
-            mDataPort[sourceIndex].push_back(data);
-            mDataPortTime[sourceIndex].push_back(startTime);
-
-            size_t min_elements = mDataPort[0].size();
-            for (int i = 1; i < N; ++i) {
-                const size_t new_min_elements = mDataPort[i].size();
-                if (new_min_elements < min_elements) {
-                    min_elements = new_min_elements;
-                }
+            assert(sourceIndex >= 0 || sourceIndex < N); // XXX change to an assertion library.
+            if (mLastTick == startTime) {
+                mStorage[sourceIndex] = data;
             }
 
-            if (min_elements <= 0) {
-                return;
-            }
-
-            TimeTick min_time = mDataPortTime[0].front();
-            for (int i = 1; i < N; ++i) {
-                // We are sure that min_elements > 0 so no need to check for
-                // the size of list before getting its front value.
-                const TimeTick new_min_time = mDataPortTime[i].front();
-                if (new_min_time < min_time) // operator< is better than operator>
-                    // see TimeTick for details
-                {
-                    min_time = new_min_time;
+            if ((mStorage.size() == N) || (mLastTick != startTime)) {
+                // time to push out the data
+                std::unique_ptr<T[]> outdata(new T[N]);
+                // always guaranteed to be ascending order iteration
+                unsigned int index = 0;
+                for (auto iter = mStorage.begin(); iter != mStorage.end(); ++iter) {
+                    unsigned int key = iter->first;
+                    for (unsigned int i = index; i < key; ++i) {
+                        outdata[i] = mDefaultValue;
+                    }
+                    std::swap(outdata.get()[key], iter->second);
+                    index = key + 1; // next key
                 }
-            }
-
-            // assert(min_elements > 0);
-            std::list<T> arguments;
-            for (int i = 0; i < N; ++i) {
-                if (mDataPortTime[i].front() == min_time) {
-                    arguments.push_back(mDataPort[i].front());
-                    mDataPort[i].pop_front();
-                    mDataPortTime[i].pop_front();
+                mStorage.clear();
+                for (unsigned int i = index; i < N; ++i) {
+                    outdata[i] = mDefaultValue;
                 }
-                else {
-                    arguments.push_back(0); // insert zero for unmatched-rate (XXX)
-                    // unmatched rate is a big topic and should be carefully thought
-                    // and documented. XXX
-                }
+                LeakData(0, std::move(outdata), N, mLastTick);
             }
-            // XXX think about one by one multiplexing instead
-            // of waiting for all lines to be available before sending
-            // downstream multiplexing them in order
-            for (typename std::list<T>::iterator iter = arguments.begin();
-                 iter != arguments.end(); ++iter) {
-                this->LeakData(0, *iter, min_time);
-            }
+            mLastTick = startTime;
         }
 
         virtual void Process(
                 int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
-            assert(0); // FIXME
+            assert(0);
+        }
+
+        virtual void ProcessMatrix(int sourceIndex,
+                                   std::unique_ptr<T[]> data,
+                                   const std::vector<int>& dims,
+                                   const TimeTick& startTime) {
+            assert(0);
         }
 
     private:
-        // scalar input buffer
-        std::list<T> mDataPort[N];
-        std::list<TimeTick> mDataPortTime[N];
+        T mDefaultValue;
+        std::map<unsigned int, T> mStorage;
+        TimeTick mLastTick;
     };
 
+    // Multiplex vector and nothing else
+    template<int N, class T>
+    class Multiplex<N, T, MULTIPLEX_VECTOR>
+            : public Port<N, 1, T> {
+    public:
+        Multiplex(T defaultValue)
+                : mDefaultValue(defaultValue),
+                  mStorage(),
+                  mLastTick() {
+        }
 
-// have some template specialization for optimization
-// for lower value of N.
-#define N1_SPECIALIZE_SCALAR_PROCESS(T) \
-template <> \
-void \
-Multiplex<1,T>::Process( \
-  int sourceIndex, const T& data, const TimeTick& startTime) \
-{ \
-  assert(sourceIndex == 0); \
-  this->LeakData(0, data, startTime); \
-}
+    private:
+        class InternalStorage {
+        public:
+            InternalStorage(std::unique_ptr<T[]>&& data, int len)
+                    : mData(std::move(data)),
+                      mLen(len) {
+            }
 
-#define N2_SPECIALIZE_SCALAR_PROCESS(T) \
-template <> \
-void \
-Multiplex<2,T>::Process( \
-  int sourceIndex, const T& data, const TimeTick& startTime) \
-{ \
-  assert(sourceIndex == 0 || sourceIndex == 1); \
-  mDataPort[sourceIndex].push_back(data); \
-  mDataPortTime[sourceIndex].push_back(startTime); \
-  size_t min_elements = mDataPort[0].size(); \
-  if (min_elements > mDataPort[1].size()) \
-  { \
-    min_elements = mDataPort[1].size(); \
-  } \
-  if (min_elements <= 0) \
-  { \
-    return; \
-  } \
-  T arg1 = mDataPort[0].front(); \
-  T arg2 = mDataPort[1].front(); \
-  TimeTick min_time = mDataPortTime[0].front(); \
-  if (mDataPortTime[1].front() < min_time) \
-  { \
-    arg1 = 0; /* insert zero when rate do not match */ \
-    mDataPort[1].pop_front(); \
-    mDataPortTime[1].pop_front(); \
-  } \
-  else if (min_time < mDataPortTime[1].front()) \
-  { \
-    arg2 = 0; /* insert zero when rate do not match */ \
-    mDataPort[0].pop_front(); \
-    mDataPortTime[0].pop_front(); \
-  } \
-  else /* both are equal */ \
-  { \
-    mDataPort[0].pop_front(); \
-    mDataPortTime[0].pop_front(); \
-    mDataPort[1].pop_front(); \
-    mDataPortTime[1].pop_front(); \
-  } \
-  this->LeakData(0, arg1, min_time); \
-  this->LeakData(0, arg2, min_time); \
-}
+            InternalStorage(InternalStorage&& copy)
+                    : mData(std::move(copy.mData)),
+                      mLen(copy.mLen) {
+            }
 
-#define SPECIALIZE_SCALAR_PROCESS(Type) \
-  N1_SPECIALIZE_SCALAR_PROCESS(Type) \
-  N2_SPECIALIZE_SCALAR_PROCESS(Type)
+            InternalStorage& operator=(InternalStorage&& rhs) {
+                    mData.swap(rhs.mData);
+                    mLen = rhs.mLen;
+            }
 
-// This is somehow required by c++ otherwise
-// the compilers complain for specialization
-// and the definition in different namespaces.
+        public:
+            std::unique_ptr<T[]> mData;
+            int mLen;
+        };
 
-    SPECIALIZE_SCALAR_PROCESS(long)
+    protected: // Port interface
+        virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {
+            assert(0);
+        }
 
-    SPECIALIZE_SCALAR_PROCESS(unsigned long)
+        virtual void Process(
+                int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
+            assert(sourceIndex >= 0 || sourceIndex < N); // XXX change to an assertion library.
+            if (mLastTick == startTime) {
+                if (! mStorage.empty()) {
+                    assert(mStorage.begin()->second.mLen == len);  // all vectors must of same length
+                }
+                InternalStorage entry(std::move(data), len);
+                // const std::pair<std::map<unsigned int, sigblocks::Multiplex<N, T, MULTIPLEX_VECTOR>::InternalStorage>::iterator, bool>&
+                auto p = mStorage.insert(std::make_pair(sourceIndex, std::move(entry)));
+                assert(p.second);
+            }
 
-    SPECIALIZE_SCALAR_PROCESS(int)
+            if ((mStorage.size() == N) || (mLastTick != startTime)) {
+                // time to push out the data
+                int len_to_send = len;
+                if (! mStorage.empty()) {
+                    len_to_send = mStorage.begin()->second.mLen;
+                }
+                std::unique_ptr<T[]> outdata(new T[len_to_send * N]);
+                // always guaranteed to be ascending order iteration
+                unsigned int index = 0;
+                for (auto iter = mStorage.begin(); iter != mStorage.end(); ++iter) {
+                    unsigned int key = iter->first;
+                    for (unsigned int i = index; i < key; ++i) {
+                        for (int j = 0; j < len_to_send; ++j) {
+                            outdata.get()[i * len_to_send + j] = mDefaultValue;
+                        }
+                    }
+                    for (int j = 0; j < len_to_send; ++j) {
+                        std::swap(outdata.get()[key * len_to_send + j], iter->second.mData.get()[j]);
+                    }
+                    index = key + 1; // next key
+                }
+                mStorage.clear();
+                for (unsigned int i = index; i < N; ++i) {
+                    for (int j = 0; j < len_to_send; ++j) {
+                        outdata.get()[i * len_to_send + j] = mDefaultValue;
+                    }
+                }
+                // output remains a vector
+                this->LeakData(0, std::move(outdata), len_to_send * N, mLastTick);
+            }
 
-    SPECIALIZE_SCALAR_PROCESS(unsigned int)
+            // buffer data when not done already
+            if (mLastTick != startTime) {
+                mLastTick = startTime;
+                InternalStorage entry(std::move(data), len);
+                mStorage.insert(std::make_pair(sourceIndex, std::move(entry)));
+            }
 
-    SPECIALIZE_SCALAR_PROCESS(unsigned char)
+        }
 
-    SPECIALIZE_SCALAR_PROCESS(float)
+        virtual void ProcessMatrix(int sourceIndex,
+                                   std::unique_ptr<T[]> data,
+                                   const std::vector<int>& dims,
+                                   const TimeTick& startTime) {
+            assert(0);
+        }
 
-    SPECIALIZE_SCALAR_PROCESS(double)
+    private:
+        T mDefaultValue;
+        std::map<unsigned int, Multiplex<N, T, MULTIPLEX_VECTOR>::InternalStorage> mStorage;
+        TimeTick mLastTick;
+    };
 
+    // Multiplex matrix and nothing else
+    template<int N, class T>
+    class Multiplex<N, T, MULTIPLEX_MATRIX>
+            : public Port<N, 1, T> {
+    public:
+        Multiplex(T defaultValue)
+                : mDefaultValue(defaultValue),
+                  mStorage(),
+                  mLastTick() {
+        }
+
+    private:
+        class InternalStorage {
+        public:
+            InternalStorage(std::unique_ptr<T[]> data, const std::vector<int>& dims)
+                    : mData(std::move(data)),
+                      mDims(dims) {
+            }
+
+            InternalStorage(InternalStorage&& copy)
+                    : mData(std::move(copy.mData)),
+                      mDims(copy.mDims) {
+            }
+
+        public:
+            std::unique_ptr<T[]> mData;
+            std::vector<int> mDims;
+        };
+
+    protected: // Port interface
+        virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {
+            assert(0);
+        }
+
+        virtual void Process(
+                int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) {
+            assert(0);
+        }
+
+        virtual void ProcessMatrix(int sourceIndex,
+                                   std::unique_ptr<T[]> data,
+                                   const std::vector<int>& dims,
+                                   const TimeTick& startTime) {
+            assert(sourceIndex >= 0 || sourceIndex < N); // XXX change to an assertion library.
+            assert(! dims.empty());
+            int len = dims[0];
+            for (size_t i = 1; i < dims.size(); ++i) {
+                len *= dims[i];
+            }
+            assert(len > 0);
+
+            if (mLastTick == startTime) {
+                if (! mStorage.empty()) {
+                    assert(mStorage.begin()->second.mDims == dims);  // all matrix must of same dimensions
+                }
+                InternalStorage entry(std::move(data), dims);
+                // const std::pair<std::map<unsigned int, sigblocks::Multiplex<N, T, MULTIPLEX_VECTOR>::InternalStorage>::iterator, bool>&
+                auto p = mStorage.insert(std::make_pair(sourceIndex, std::move(entry)));
+                assert(p.second);
+            }
+
+            if ((mStorage.size() == N) || (mLastTick != startTime)) {
+                // time to push out the data
+                std::vector<int> outdims;
+                int len_to_send = len;
+                if (! mStorage.empty()) {
+                    len_to_send = mStorage.begin()->second.mDims[0];
+                    for (size_t i = 1; i < mStorage.begin()->second.mDims.size(); ++i) {
+                        len_to_send *= mStorage.begin()->second.mDims[i];
+                    }
+                    // in order to avoid copy swap out the first index dims
+                    outdims.swap(mStorage.begin()->second.mDims);
+                } else {
+                    outdims = dims;
+                }
+                // the last dimension will increase since data is multiplexed there
+                outdims[outdims.size() - 1] *= N;
+
+                std::unique_ptr<T[]> outdata(new T[len_to_send * N]);
+                // always guaranteed to be ascending order iteration
+                unsigned int index = 0;
+                for (auto iter = mStorage.begin(); iter != mStorage.end(); ++iter) {
+                    unsigned int key = iter->first;
+                    for (unsigned int i = index; i < key; ++i) {
+                        for (int j = 0; j < len_to_send; ++j) {
+                            outdata.get()[i * len_to_send + j] = mDefaultValue;
+                        }
+                    }
+                    for (int j = 0; j < len_to_send; ++j) {
+                        std::swap(outdata.get()[key * len_to_send + j], iter->second.mData.get()[j]);
+                    }
+                    index = key + 1; // next key
+                }
+                mStorage.clear();
+                for (unsigned int i = index; i < N; ++i) {
+                    for (int j = 0; j < len_to_send; ++j) {
+                        outdata.get()[i * len_to_send + j] = mDefaultValue;
+                    }
+                }
+                // output remains a matrix with same dimension but the last dimension value increases
+
+                LeakData(0, std::move(outdata), len_to_send * N, mLastTick);
+            }
+
+            // buffer data when not done already
+            if (mLastTick != startTime) {
+                InternalStorage entry(std::move(data), len);
+                auto p = mStorage.insert(std::make_pair(sourceIndex, std::move(entry)));
+                // since storage will be empty at this point so asserting is unnecessary
+                // assert(p.second);
+            }
+            mLastTick = startTime;
+        }
+
+    private:
+        T mDefaultValue;
+        std::map<unsigned int, InternalStorage> mStorage;
+        TimeTick mLastTick;
+    };
 }
 
 #endif // SIGBLOCKS_MULTIPLEX_H
