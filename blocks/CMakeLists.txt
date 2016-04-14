@@ -6,14 +6,12 @@ set(BLOCKS_SOURCES
         basicop/Buffer.h
         basicop/Demultiplex.h
         basicop/Multiplex.h
-        basicop/Serialize.h
         converters/BasicTypeConverter.cpp
         converters/BasicTypeConverter.h
         filters/DownSample.h
         math/Arccosh.h
         math/Arcsinh.h
         math/Arctanh.h
-        math/BinaryOperator.cpp
         math/BinaryOperator.h
         math/ConstPow.h
         math/Cos.h
@@ -21,7 +19,6 @@ set(BLOCKS_SOURCES
         math/Expm1.h
         math/Gain.h
         math/Log1p.h
-        math/NOperator.cpp
         math/NOperator.h
         math/Product.h
         math/Sin.h
@@ -41,7 +38,6 @@ set(BLOCKS_SOURCES
         sinks/Terminator.h
         sources/ComplexStreamSource.cpp
         sources/ComplexStreamSource.h
-        sources/ConstantSource.cpp
         sources/ConstantSource.h
         sources/FileSourceCreator.h
         sources/IstreamSource.cpp
@@ -57,7 +53,7 @@ set(BLOCKS_SOURCES
         sources/StepSource.h
         transceivers/SocketTransceiver.cpp
         transceivers/SocketTransceiver.h
-        transceivers/SocketTransceiverCreator.h basicop/TransparentForwarder.h sources/CsvFileSource.cpp sources/CsvFileSource.h sources/SelectiveCsvFileSource.h converters/OrdinalConverter.cpp converters/OrdinalConverter.h basicop/Duplicator.h basicop/Splitter.h)
+        transceivers/SocketTransceiverCreator.h sources/CsvFileSource.cpp sources/CsvFileSource.h sources/SelectiveCsvFileSource.h converters/OrdinalConverter.cpp converters/OrdinalConverter.h basicop/Duplicator.h basicop/Splitter.h math/UnaryOperator.h ../test/testsuite.cpp sinks/ArchiverSink.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 
