@@ -48,6 +48,8 @@ block for such requirement.
 
     Blocks:
 
+    csvfilesource - source of csvfile and generates a vector output of
+                    string data type.
     constant (source of constant number)
     demux (one to many)
     summation (add values received so far)
@@ -79,13 +81,31 @@ block for such requirement.
                        unsigned long as output (so its a MixedPort).
 
 
+## Design Choices
+
+
+### Flexible Input and Output Data
+
+Each of the block is written such that it can receive either scalar, vector
+or matrix data and mostly (unless there is a strong reason against it)
+it accepts it. Additionally, the same block instance can receive different
+type of data in its lifetime as well. There is no hard requirements against
+it and not configuration option is provided to enforce it as well. This design
+choice is made to allow complex scenarios (where changing dimension is required)
+and avoid configuration. Instead this design lets the system learn the data
+dimension automatically. The downside of this approach is that technically
+the block can receive data of different dimensions (scalar, vector or matrix)
+without any validation and needs to accept as it receives it. In case a
+specific block cannot work in this manner then appropriate errors or assertions
+should be enforced (but that is on a case-by-case basis).
+
+At present there is no restriction on the dimensions of data passed each time
+to the same block, while this is a lot flexible but can be an issue for an
+incorrectly written block. (hint: see Buffer block)
+
+
 ## TODO
 
-* Make mutex optional, which will speedup single-threaded operations.
-  How about having a ifdef like DISABLE_MUTEX or something?
-* Enable Port vector operations
-* Think about removing the generic list operation (i.e. std::list)
-  in favour of vector
 * Include a bulk of Gnu Scientific Library vector operations
 * Enable Port matrix operations
 * Include matrix operations provided by GSL
