@@ -15,7 +15,7 @@ opensource libraries available which I intend to reuse for much faster
 development.
 
     I know that the sample code is a lot cryptic at present,
-    but I plan to change all that once I get free time.
+    but this will improve over time.
 
 
 > (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
@@ -31,14 +31,13 @@ development.
 2. graphical based approach where users will use blocks as
    drag an drop, while the c++ engine is running in the
    background (more like Matlab Simulink).
-3. Have some more thoughts but none mature enough to state
-   yet.
+3. Have some more thoughts but none mature enough to document.
 
 
 ## Motivation
 
-I was always facinated by Matlab power and ease of use while in
-college and wanted to implement something similar but in a language
+I was always facinated by Matlab's power and ease of use while in
+college and wanted to implement something similar, but in a language
 which can be compiled to native format for blazingly fast performance.
 This project is an attempt to give a basic frameowork which will (soon)
 encapsulate many of the open source software to construct a building
@@ -68,7 +67,6 @@ block for such requirement.
     difference (have fixed initial condition, y(n) = x(n) - x(n-1)
     buffer (convert serial data to a buffer of given size)
     nbuffer (convert serial data to a buffer of length N where N is within a given set and repeats over and over) - TODO
-    serialize (convert buffer to serial data, or send one-by-one to the connected peer)
     downsample (filter data to down-sample input stream of data)
     upsample (filter data to up-sample the input stream and insert 0s) - TODO
     duplicator - duplicate the input into multiple outputs
@@ -107,8 +105,6 @@ incorrectly written block. (hint: see Buffer block)
 ## TODO
 
 * Include a bulk of Gnu Scientific Library vector operations
-* Enable Port matrix operations
-* Include matrix operations provided by GSL
 * Test all socket operations tcp, udp, udplite and sctp
 * Enhance bulk of functionality with unit tests
 
