@@ -1,7 +1,7 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-#ifndef SIGNALBLOCKS_ORDINALCONVERTER_H
-#define SIGNALBLOCKS_ORDINALCONVERTER_H
+#ifndef SIGBLOCKS_ORDINALCONVERTER_H
+#define SIGBLOCKS_ORDINALCONVERTER_H
 
 #include "../../common/MixedPort.h"
 
@@ -29,6 +29,11 @@ namespace sigblocks {
         virtual void Process(
                 int sourceIndex, std::unique_ptr<std::string[]> data, int len, const TimeTick& startTime);
 
+        virtual void ProcessMatrix(int sourceIndex,
+                                   std::unique_ptr<std::string[]> data,
+                                   const std::vector<int>& dims,
+                                   const TimeTick& startTime);
+
     private:
         std::unordered_map<std::string, unsigned long> mDictionary;
         unsigned long mNextOrdinalValue;
@@ -36,4 +41,4 @@ namespace sigblocks {
 }
 
 
-#endif //SIGNALBLOCKS_ORDINALCONVERTER_H
+#endif //SIGBLOCKS_ORDINALCONVERTER_H

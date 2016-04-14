@@ -28,5 +28,23 @@ BasicTypeConverter<TFROM, TTO>::Process(
     this->GetAsSinkType()->ConsumeVector(nullptr, std::move(todata), len, startTime);
 }
 
+template<class TFROM, class TTO>
+void
+BasicTypeConverter<TFROM, TTO>::ProcessMatrix(int sourceIndex,
+                                              std::unique_ptr<TFROM[]> data,
+                                              const std::vector<int>& dims,
+                                              const TimeTick& startTime) {
+    assert(sourceIndex == 0);
+    assert(! dims.empty());
+    int len = dims[0];
+    for (size_t i = 1; i < dims.size(); ++i) {
+        len *= dims[i];
+    }
+    assert(len > 0);
+    std::unique_ptr<TTO[]> todata(new TTO[len]);
+    GenericCopy<TFROM, TTO>::Copy(data.get(), data.get() + len, todata.get());
+    this->GetAsSinkType()->ConsumeMatrix(nullptr, std::move(todata), dims, startTime);
+}
+
 template
 class BasicTypeConverter<int, float>;

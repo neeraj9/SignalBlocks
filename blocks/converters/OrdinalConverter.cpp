@@ -67,3 +67,28 @@ void OrdinalConverter::Process(int sourceIndex, std::unique_ptr<std::string[]> d
     }
     this->GetAsSinkType()->ConsumeVector(nullptr, std::move(todata), len, startTime);
 }
+
+void OrdinalConverter::ProcessMatrix(int sourceIndex,
+                                     std::unique_ptr<std::string[]> data,
+                                     const std::vector<int>& dims,
+                                     const TimeTick& startTime) {
+    assert(sourceIndex == 0);
+    assert(! dims.empty());
+    int len = dims[0];
+    for (size_t i = 1; i < dims.size(); ++i) {
+        len *= dims[i];
+    }
+    assert(len > 0);
+    std::unique_ptr<unsigned long[]> todata(new unsigned long[len]);
+    for (int i = 0; i < len; ++i) {
+        auto iter = mDictionary.find(data[i]);
+        if (iter != mDictionary.end()) {
+            todata[i] = iter->second;
+        } else {
+            mDictionary.insert({data[i], mNextOrdinalValue});
+            todata[i] = mNextOrdinalValue;
+            ++mNextOrdinalValue;  // assuming no overflow
+        }
+    }
+    this->GetAsSinkType()->ConsumeMatrix(nullptr, std::move(todata), dims, startTime);
+}

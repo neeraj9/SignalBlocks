@@ -5,10 +5,22 @@
 
 #include "../../common/Port.h"
 
-#include <list>
+#include <assert.h>
 
 namespace sigblocks {
-    template<int N, class T>
+    /** DownSample Down sample the input with respect to TimeTick.
+     * Down sample the input data stream with respect to TimeTick.
+     *
+     * If you are looking for dropping packets instead, which
+     * simply drop packets then for vector and matrix inputs this may
+     * not be what you are looking for. This block will drop
+     * packets with respect to TimeTick, hence vector and matrix inputs
+     * are treated similar to scalar input where complete vector or scalar
+     * input at a particular TimeTick is one time sample. This block will
+     * pass-through one input (scalar, vector or matrix) for every
+     * down-sample cycle.
+     */
+    template<class T>
     class DownSample
             : public Port<1, 1, T> {
     public:
@@ -22,7 +34,7 @@ namespace sigblocks {
         virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {
             assert(sourceIndex == 0); // XXX
             if (mCurrentCount == 0) {
-                LeakData(0, data, startTime);
+                this->LeakData(0, data, startTime);
             }
             mCurrentCount = (mCurrentCount + 1) % mDownSampleFactor;
         }
@@ -33,19 +45,19 @@ namespace sigblocks {
             if (len < 0) {
                 return;
             }
-            int rem_len = len;
-            int count = 0;
             if (mCurrentCount == 0) {
-                LeakData(0, data.get()[0], startTime);
-                mCurrentCount = (mCurrentCount + 1) % mDownSampleFactor;
-                --rem_len;
-                ++count;
+                this->LeakData(0, std::move(data), len, startTime);
             }
-            const int max_count = ((mCurrentCount + rem_len) / mDownSampleFactor);
-            for (; count < max_count; ++count) {
-                LeakData(0, data.get()[count * mDownSampleFactor], startTime);
+            mCurrentCount = (mCurrentCount + 1) % mDownSampleFactor;
+        }
+
+        virtual void ProcessMatrix(
+                int sourceIndex, std::unique_ptr<T[]> data, const std::vector<int>& dims, const TimeTick& startTime) {
+            assert(sourceIndex == 0); // XXX
+            if (mCurrentCount == 0) {
+                this->LeakMatrix(0, std::move(data), dims, startTime);
             }
-            mCurrentCount = (mCurrentCount + rem_len) % mDownSampleFactor;
+            mCurrentCount = (mCurrentCount + 1) % mDownSampleFactor;
         }
 
     private:

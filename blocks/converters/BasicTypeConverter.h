@@ -14,6 +14,11 @@ namespace sigblocks {
 
         virtual void Process(
                 int sourceIndex, std::unique_ptr<TFROM[]> data, int len, const TimeTick& startTime);
+
+        virtual void ProcessMatrix(int sourceIndex,
+                                   std::unique_ptr<TFROM[]> data,
+                                   const std::vector<int>& dims,
+                                   const TimeTick& startTime);
     };
 }
 
