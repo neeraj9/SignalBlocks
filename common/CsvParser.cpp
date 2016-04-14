@@ -4,15 +4,9 @@
 #include "CsvParser.h"
 #include "logging.h"
 
-#include <regex>
-
 using namespace sigblocks;
 
 namespace {
-    static std::regex csv_regex(",");
-    static std::regex quote_regex("\"");
-
-
     // split the line within CSV file, which can be quoted with double quotes (")
     // and fields are separated by comma (,).
     inline std::vector<std::string> CsvSplit(std::ifstream& instream,
