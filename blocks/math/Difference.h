@@ -11,24 +11,20 @@ namespace sigblocks {
     class Difference
             : public NOperator<N, T> {
     protected: // NOperator interface
-        virtual T Compute(const T& arg1) const {
-            return arg1;
-        }
-
-        virtual T Compute(const T& arg1, const T& arg2) const {
-            return (arg2 - arg1);
-        }
-
         // args[0], ... args[N] = a(n), b(n), ...
         // implement args[0] - args[1] - ... args[N-1]
-        virtual T Compute(const std::list<T>& args) const {
-            typename std::list<T>::const_iterator iter = args.begin();
-            T result = *iter; // at least one is present
-            ++iter;
-            for (; iter != args.end(); ++iter) {
-                result = result - (*iter); // XXX saturate if enabled.
+        virtual void Compute(T* pArgs[N], const std::vector<int>& dims) {
+            int len = dims[0];
+            for (size_t i = 1; i < dims.size(); ++i) {
+                len *= dims[i];
             }
-            return result;
+            for (int i = 0; i < len; ++i) {
+                T result = pArgs[0][i];
+                for (int j = 1; j < N; ++j) {
+                    result -= pArgs[j][i];  // TODO handle underflow
+                }
+                pArgs[0][i] = result;
+            }
         }
     };
 }
