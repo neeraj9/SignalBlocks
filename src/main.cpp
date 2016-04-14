@@ -1,6 +1,8 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
+#include "../blocks/basicop/Multiplex.h"
 #include "../blocks/converters/BasicTypeConverter.h"
+#include "../blocks/filters/DownSample.h"
 #include "../blocks/math/Difference.h"
 #include "../blocks/math/Gain.h"
 #include "../blocks/math/Product.h"
@@ -33,6 +35,7 @@
 #include <iostream>
 #include <bitset>
 #include <stack>
+
 
 #include <unistd.h> // for sleep
 #include "../plugins/PythonPlugin.h"
@@ -446,6 +449,16 @@ void test35() {
     std::shared_ptr<IPort<std::string> > source(new CsvFileSource("test.csv", true));
     std::shared_ptr<IPort<std::string> > sink(new StdoutSink<std::string>());
     connect(source, sink);
+}
+
+void test36() {
+    int default_value = 0;
+    std::shared_ptr<IPort<int> > block(new Multiplex<2, int, MULTIPLEX_VECTOR>(default_value));
+}
+
+void test37() {
+    int factor = 10;  // down sample to 1 in 10 TimeTick
+    std::shared_ptr<IPort<int> > block(new DownSample<int>(factor));
 }
 
 int main() {
