@@ -3,7 +3,7 @@
 #ifndef SIGBLOCKS_COS_H
 #define SIGBLOCKS_COS_H
 
-#include "BinaryOperator.h"
+#include "UnaryOperator.h"
 
 #include <cmath>
 
@@ -11,8 +11,8 @@ namespace sigblocks {
     // computes  \cos(x)
     template<class T>
     class Cos
-            : public BinaryOperator<T> {
-    protected: // BinaryOperator interface
+            : public UnaryOperator<T> {
+    protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return cos(arg1);
         }

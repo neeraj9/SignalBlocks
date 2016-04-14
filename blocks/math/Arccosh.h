@@ -3,7 +3,7 @@
 #ifndef SIGBLOCKS_ARCCOSH_H
 #define SIGBLOCKS_ARCCOSH_H
 
-#include "BinaryOperator.h"
+#include "UnaryOperator.h"
 
 #include <gsl/gsl_math.h>
 
@@ -11,8 +11,8 @@ namespace sigblocks {
     // computes  \arccosh(x)
     template<class T>
     class Arccosh
-            : public BinaryOperator<T> {
-    protected: // BinaryOperator interface
+            : public UnaryOperator<T> {
+    protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return gsl_acosh(arg1);
         }

@@ -3,18 +3,18 @@
 #ifndef SIGBLOCKS_CONSTPOW_H
 #define SIGBLOCKS_CONSTPOW_H
 
-#include "BinaryOperator.h"
+#include "UnaryOperator.h"
 
 #include <gsl/gsl_math.h>
 
 namespace sigblocks {
-    // computes  x^N, where N is a constant
-    template<int N, class T>
+    // computes  x^P, where P is a constant
+    template<class T, int P>
     class ConstPow
-            : public BinaryOperator<T> {
-    protected: // BinaryOperator interface
+            : public UnaryOperator<T> {
+    protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
-            return gsl_pow_int(arg1, N);
+            return gsl_pow_int(arg1, P);
         }
 
     };
@@ -29,18 +29,18 @@ namespace sigblocks {
     // Note to improve efficiency these
     // functions do not check for overflow or underflow conditions.
     //
-    // computes  x^N, where N is a constant
-#define OPTIMIZED_POW_TEMPLATE_SPECIALIZATION(N) \
-  template <##N, class T> \
-  class ConstPow \
-    : public BinaryOperator<T> \
+    // computes  x^P, where P is a constant
+#define OPTIMIZED_POW_TEMPLATE_SPECIALIZATION(P) \
+  template <class T> \
+  class ConstPow<T, ##P> \
+    : public UnaryOperator<T> \
   { \
   protected: \
     virtual T Compute(const T& arg1) const \
     { \
-      return gsl_pow_##N(arg1); \
+      return gsl_pow_##P(arg1); \
     } \
-  }
+  };
 
     OPTIMIZED_POW_TEMPLATE_SPECIALIZATION(2);
 
