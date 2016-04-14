@@ -1,8 +1,8 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>.
 // see LICENSE for license
 
-#ifndef SIGNALBLOCKS_SELECTIVECSVFILESOURCE_H
-#define SIGNALBLOCKS_SELECTIVECSVFILESOURCE_H
+#ifndef SIGBLOCKS_SELECTIVECSVFILESOURCE_H
+#define SIGBLOCKS_SELECTIVECSVFILESOURCE_H
 
 #include "../../common/Port.h"
 #include "../../common/CsvParser.h"
@@ -78,4 +78,4 @@ namespace sigblocks {
     };
 }
 
-#endif //SIGNALBLOCKS_SELECTIVECSVFILESOURCE_H
+#endif //SIGBLOCKS_SELECTIVECSVFILESOURCE_H
