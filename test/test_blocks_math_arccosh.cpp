@@ -2,7 +2,7 @@
 // see LICENSE for license
 
 #include "../common/Port.h"
-#include "../blocks/math/Gain.h"
+#include "../blocks/math/Arccosh.h"
 #include "../blocks/sources/ConstantSource.h"
 #include "../blocks/sinks/ArchiverSink.h"
 
@@ -16,13 +16,13 @@ namespace {
 
 
 
-TEST_CASE("Testing block gain for scalar integer", "[gain]") {
-    int factor = 2;
-    int input_value = 4;
-    std::shared_ptr<IPort<int> > source(new ConstantSource<int>(input_value));
-    std::shared_ptr<IPort<int> > block(new Gain<int>(factor));
-    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>());
-    ArchiverSink<int>* archive = dynamic_cast<ArchiverSink<int>*>(sink.get());
+TEST_CASE("Testing block arccosh for scalar integer", "[arccosh]") {
+    // no ctor args required
+    double input_value = M_PI;
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double>(input_value));
+    std::shared_ptr<IPort<double> > block(new Arccosh<double>());
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, connect(block, sink));
 
@@ -34,7 +34,7 @@ TEST_CASE("Testing block gain for scalar integer", "[gain]") {
     TimeTick timeTick(1);
     source->ClockCycle(timeTick);
 
-    int expected_result = input_value * factor;
+    double expected_result = gsl_acosh(input_value);
 
     REQUIRE(archive->GetScalarInfo().size() == 1);
     REQUIRE(archive->GetScalarInfo().front().mTimeTick == timeTick);
@@ -51,14 +51,14 @@ TEST_CASE("Testing block gain for scalar integer", "[gain]") {
     REQUIRE(archive->GetScalarInfo().back().mData == expected_result);
 }
 
-TEST_CASE("Testing math block gain for vector integer", "[gain]") {
-    int factor = 2;
-    int input_value = 4;
+TEST_CASE("Testing math block arccosh for vector integer", "[arccosh]") {
+    // no ctor args required
+    double input_value = M_PI;
     int len = 10;
-    std::shared_ptr<IPort<int> > source(new ConstantSource<int, PORT_TYPE_VECTOR>(input_value, len));
-    std::shared_ptr<IPort<int> > block(new Gain<int>(factor));
-    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>());
-    ArchiverSink<int>* archive = dynamic_cast<ArchiverSink<int>*>(sink.get());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_VECTOR>(input_value, len));
+    std::shared_ptr<IPort<double> > block(new Arccosh<double>());
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, connect(block, sink));
 
@@ -70,7 +70,7 @@ TEST_CASE("Testing math block gain for vector integer", "[gain]") {
     TimeTick timeTick(1);
     source->ClockCycle(timeTick);
 
-    int expected_result = input_value * factor;
+    double expected_result = gsl_acosh(input_value);
 
     REQUIRE(archive->GetScalarInfo().empty());
     REQUIRE(archive->GetVectorInfo().size() == 1);
@@ -93,18 +93,18 @@ TEST_CASE("Testing math block gain for vector integer", "[gain]") {
     }
 }
 
-TEST_CASE("Testing math block gain for matrix integer", "[gain]") {
-    int factor = 2;
-    int input_value = 4;
+TEST_CASE("Testing math block arccosh for matrix integer", "[arccosh]") {
+    // no ctor args required
+    double input_value = M_PI;
     std::vector<int> dims = {4, 2, 1};
     int len = 1;
     for (auto v : dims) {
         len *= v;
     }
-    std::shared_ptr<IPort<int> > source(new ConstantSource<int, PORT_TYPE_MATRIX>(input_value, dims));
-    std::shared_ptr<IPort<int> > block(new Gain<int>(factor));
-    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>());
-    ArchiverSink<int>* archive = dynamic_cast<ArchiverSink<int>*>(sink.get());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_MATRIX>(input_value, dims));
+    std::shared_ptr<IPort<double> > block(new Arccosh<double>());
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, connect(block, sink));
 
@@ -116,7 +116,7 @@ TEST_CASE("Testing math block gain for matrix integer", "[gain]") {
     TimeTick timeTick(1);
     source->ClockCycle(timeTick);
 
-    int expected_result = input_value * factor;
+    double expected_result = gsl_acosh(input_value);
 
     REQUIRE(archive->GetScalarInfo().empty());
     REQUIRE(archive->GetVectorInfo().empty());
