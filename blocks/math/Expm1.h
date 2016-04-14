@@ -3,7 +3,7 @@
 #ifndef SIGBLOCKS_EXPM1_H
 #define SIGBLOCKS_EXPM1_H
 
-#include "BinaryOperator.h"
+#include "UnaryOperator.h"
 
 #include <gsl/gsl_math.h>
 
@@ -11,8 +11,8 @@ namespace sigblocks {
     // computes  \exp(x)-1
     template<class T>
     class Expm1
-            : public BinaryOperator<T> {
-    protected: // BinaryOperator interface
+            : public UnaryOperator<T> {
+    protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return gsl_expm1(arg1);
         }

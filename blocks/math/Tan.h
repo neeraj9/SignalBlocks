@@ -3,7 +3,7 @@
 #ifndef SIGBLOCKS_TAN_H
 #define SIGBLOCKS_TAN_H
 
-#include "BinaryOperator.h"
+#include "UnaryOperator.h"
 
 #include <cmath>
 
@@ -11,8 +11,8 @@ namespace sigblocks {
     // computes  \tan(x)
     template<class T>
     class Tan
-            : public BinaryOperator<T> {
-    protected: // BinaryOperator interface
+            : public UnaryOperator<T> {
+    protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return tan(arg1);
         }

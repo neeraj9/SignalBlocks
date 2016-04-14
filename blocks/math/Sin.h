@@ -3,7 +3,7 @@
 #ifndef SIGBLOCKS_SIN_H
 #define SIGBLOCKS_SIN_H
 
-#include "BinaryOperator.h"
+#include "UnaryOperator.h"
 
 #include <cmath>
 
@@ -11,8 +11,8 @@ namespace sigblocks {
     // computes  \sin(x)
     template<class T>
     class Sin
-            : public BinaryOperator<T> {
-    protected: // BinaryOperator interface
+            : public UnaryOperator<T> {
+    protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return sin(arg1);
         }
