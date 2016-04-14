@@ -5,6 +5,7 @@
 
 #include "TimeTick.h"
 
+#include <assert.h>
 #include <memory>
 #include <vector>
 
@@ -16,8 +17,10 @@ namespace sigblocks {
         }
 
         virtual void SetSource(IPort<T>* peer, int index) = 0;
+        virtual bool IsSourceConnected(int index) const = 0;
 
         virtual void SetSink(std::shared_ptr<IPort<T> >& peer, int index) = 0;
+        virtual bool IsSinkConnected(int index) const = 0;
 
         virtual void DisconnectSource(IPort<T>* peer) = 0;
 
@@ -59,7 +62,9 @@ namespace sigblocks {
                                         std::shared_ptr<IPort<T> >& dest,
                                         int srcindex = 0,
                                         int destindex = 0) {
+        assert(! src->IsSinkConnected(srcindex));
         src->SetSink(dest, srcindex);
+        assert(! dest->IsSourceConnected(destindex));
         dest->SetSource(src.get(), destindex);
         return src;
     }

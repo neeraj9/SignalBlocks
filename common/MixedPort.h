@@ -43,6 +43,9 @@ namespace sigblocks {
     public:
         MixedPort() : mpSource(),
                       mInternalSource(new TransparentProxy<M, TM>()) {
+            for (int i = 0; i < N; ++i) {
+                mpSource[i] = nullptr;
+            }
         }
 
         virtual ~MixedPort() {
@@ -56,6 +59,14 @@ namespace sigblocks {
         void SetSource(IPort<TN>* peer, int index) {
             assert(index < N); // XXX replace assert with better error handling
             mpSource[index] = peer;
+        }
+
+        virtual bool IsSourceConnected(int index) const {
+            return mpSource[index] != nullptr;
+        }
+
+        virtual bool IsSinkConnected(int index) const {
+            return false;  // direct sink is not valid, look for GetAsSinkType()->IsSinkConnected()
         }
 
         void DisconnectSource(IPort<TN>* peer) {

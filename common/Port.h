@@ -15,6 +15,9 @@ namespace sigblocks {
     public:
         Port() : mpSource(),
                  mpSink() {
+            for (int i = 0; i < N; ++i) {
+                mpSource[i] = nullptr;
+            }
         }
 
         virtual ~Port() {
@@ -30,10 +33,17 @@ namespace sigblocks {
             assert(index < N); // XXX replace assert with better error handling
             mpSource[index] = peer;
         }
+        virtual bool IsSourceConnected(int index) const {
+            return mpSource[index] != nullptr;
+        }
 
         void SetSink(std::shared_ptr<IPort<T> >& peer, int index) {
             assert(index < M);
             mpSink[index] = peer;
+        }
+
+        virtual bool IsSinkConnected(int index) const {
+            return mpSink[index].get() != nullptr;
         }
 
         void DisconnectSource(IPort<T>* peer) {
@@ -180,6 +190,15 @@ namespace sigblocks {
             assert(index < M);
             mpSink[index] = peer;
         }
+
+        virtual bool IsSourceConnected(int index) const {
+            return false;
+        }
+
+        virtual bool IsSinkConnected(int index) const {
+            return mpSink[index].get() != nullptr;
+        }
+
         void ClockCycle(const TimeTick& timeTick) {
             // default implementation is to pass clock cycle
             for (int i = 0; i < M; ++i) {
@@ -228,6 +247,9 @@ namespace sigblocks {
             : public IPort<T> {
     public:
         Port() : mpSource() {
+            for (int i = 0; i < N; ++i) {
+                mpSource[i] = nullptr;
+            }
         }
 
         virtual ~Port() {
@@ -241,6 +263,14 @@ namespace sigblocks {
         void SetSource(IPort<T>* peer, int index) {
             assert(index < N); // XXX replace assert with better error handling
             mpSource[index] = peer;
+        }
+
+        virtual bool IsSourceConnected(int index) const {
+            return mpSource[index] != nullptr;
+        }
+
+        virtual bool IsSinkConnected(int index) const {
+            return false;
         }
 
         void DisconnectSource(IPort<T>* peer) {
@@ -325,6 +355,14 @@ namespace sigblocks {
         void DisconnectSource(IPort<T>* peer);
 
     public: // IPort interface (XXX do we need to use these?)
+        virtual bool IsSourceConnected(int index) const {
+            return false;
+        }
+
+        virtual bool IsSinkConnected(int index) const {
+            return false;
+        }
+
         /// use this interface when T is a primitive data type, ex. int, float, etc
         void ConsumeScalar(
                 const IPort<T>* pSender, const T& data, const TimeTick& startTime) {
