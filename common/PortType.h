@@ -2,8 +2,8 @@
 // Created by nsharma on 3/15/16.
 //
 
-#ifndef SIGNALBLOCKS_PORTTYPE_H
-#define SIGNALBLOCKS_PORTTYPE_H
+#ifndef SIGBLOCKS_PORTTYPE_H
+#define SIGBLOCKS_PORTTYPE_H
 
 namespace sigblocks {
     enum PortType {
@@ -12,4 +12,4 @@ namespace sigblocks {
         PORT_TYPE_MATRIX
     };
 }
-#endif //SIGNALBLOCKS_PORTTYPE_H
+#endif //SIGBLOCKS_PORTTYPE_H
