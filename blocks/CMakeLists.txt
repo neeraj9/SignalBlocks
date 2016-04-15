@@ -53,7 +53,16 @@ set(BLOCKS_SOURCES
         sources/StepSource.h
         transceivers/SocketTransceiver.cpp
         transceivers/SocketTransceiver.h
-        transceivers/SocketTransceiverCreator.h sources/CsvFileSource.cpp sources/CsvFileSource.h sources/SelectiveCsvFileSource.h converters/OrdinalConverter.cpp converters/OrdinalConverter.h basicop/Duplicator.h basicop/Splitter.h math/UnaryOperator.h ../test/testsuite.cpp sinks/ArchiverSink.h
+        transceivers/SocketTransceiverCreator.h
+        sources/CsvFileSource.cpp
+        sources/CsvFileSource.h
+        sources/SelectiveCsvFileSource.h
+        converters/OrdinalConverter.cpp
+        converters/OrdinalConverter.h
+        basicop/Duplicator.h
+        basicop/Splitter.h
+        math/UnaryOperator.h
+        sinks/ArchiverSink.h
         sources/LinearSource.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
