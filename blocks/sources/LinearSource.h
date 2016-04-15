@@ -95,5 +95,4 @@ namespace sigblocks {
     };
 }
 
-
 #endif //SIGNALBLOCKS_LINEARSOURCE_H
