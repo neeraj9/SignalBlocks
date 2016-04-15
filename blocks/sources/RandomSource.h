@@ -3,22 +3,160 @@
 #ifndef SIGBLOCKS_RANDOMSOURCE_H
 #define SIGBLOCKS_RANDOMSOURCE_H
 
+#include "../../common/PortType.h"
 #include "../../common/Port.h"
 #include "../../common/TimeTick.h"
 
+#include <assert.h>
+#include <ctime>
+#include <cstdlib>
+#include <vector>
+#include <limits>
+
 namespace sigblocks {
+    template <class T>
+    T GetRandomNumber(unsigned int* pSeed) {
+        T random_value = static_cast<T>(rand_r(pSeed));
+        return random_value;
+    }
+
+    template <>
+    char GetRandomNumber(unsigned int* pSeed) {
+        int total_values = (std::numeric_limits<char>::max() + 1);
+        char random_value = static_cast<char>(rand_r(pSeed) % total_values);
+        return random_value;
+    }
+
+    template <>
+    unsigned char GetRandomNumber(unsigned int* pSeed) {
+        int total_values = (std::numeric_limits<unsigned char>::max() + 1);
+        unsigned char random_value = static_cast<unsigned char>(rand_r(pSeed) % total_values);
+        return random_value;
+    }
+
+    template <>
+    short GetRandomNumber(unsigned int* pSeed) {
+        int total_values = (std::numeric_limits<short>::max() + 1);
+        short random_value = static_cast<short>(rand_r(pSeed) % total_values);
+        return random_value;
+    }
+
+    template <>
+    unsigned short GetRandomNumber(unsigned int* pSeed) {
+        int total_values = (std::numeric_limits<unsigned short>::max() + 1);
+        unsigned short random_value = static_cast<unsigned short>(rand_r(pSeed) % total_values);
+        return random_value;
+    }
+
+    /** RandomSource A sample based random signal source.
+     * This source block generate a random signal
+     * based on samples. This block generates a scalar,
+     * vector or matrix output based on the template parameter.
+     *
+     * This block generates psuedo-random values even for vector
+     * and matrix outputs. This block treats each
+     * of the vector or matrix output elements independently and
+     * the values (within a vector or matrix output) are random
+     * as well. This block uses the POSIX rand() method for
+     * generating psuedo-random numbers.
+     *
+     * @todo generate psuedo-random numbers based on other
+     *       distributions as well.
+     */
+    template <class T, PortType P = PORT_TYPE_SCALAR>
     class RandomSource
-            : public Port<0, 1, int> {
+            : public Port<0, 1, T> {
     public:
-        RandomSource();
+        RandomSource() :
+                mLastTick(),
+                mSeed(static_cast<unsigned int>(time(nullptr))) {
+        }
 
     public:  // override Port interfaces
 
-        virtual void ClockCycle(const TimeTick& timeTick);
+        virtual void ClockCycle(const TimeTick& timeTick) {
+            if (mLastTick == timeTick) {
+                return;  // already processed the event
+            }
+            mLastTick = timeTick;
+            T random_value = GetRandomNumber<T>(&mSeed);
+            this->LeakData(0, random_value, timeTick);
+        }
 
     private:
         TimeTick mLastTick;
         unsigned int mSeed;
+    };
+
+    template <class T>
+    class RandomSource<T, PORT_TYPE_VECTOR>
+            : public Port<0, 1, T> {
+    public:
+        RandomSource(int len) :
+                mLastTick(),
+                mSeed(static_cast<unsigned int>(time(nullptr))),
+                mFixedLen(len) {
+        }
+
+    public:  // override Port interfaces
+
+        virtual void ClockCycle(const TimeTick& timeTick) {
+            if (mLastTick == timeTick) {
+                return;  // already processed the event
+            }
+            mLastTick = timeTick;
+
+            std::unique_ptr<T[]> data(new T[mFixedLen]);
+            for (int i = 0; i < mFixedLen; ++i) {
+                T random_value = GetRandomNumber<T>(&mSeed);
+                data.get()[i] = random_value;
+            }
+            this->LeakData(0, std::move(data), mFixedLen, timeTick);
+        }
+
+    private:
+        TimeTick mLastTick;
+        unsigned int mSeed;
+        const int mFixedLen;
+    };
+
+    template <class T>
+    class RandomSource<T, PORT_TYPE_MATRIX>
+            : public Port<0, 1, T> {
+    public:
+        RandomSource(const std::vector<int>& dims) :
+                mLastTick(),
+                mSeed(static_cast<unsigned int>(time(nullptr))),
+                mFixedDims(dims),
+                mFixedLen(1) {
+            assert(! mFixedDims.empty());
+            for (size_t i = 0; i < mFixedDims.size(); ++i) {
+                mFixedLen *= mFixedDims[i];
+            }
+            assert(mFixedLen > 0);
+        }
+
+    public:  // override Port interfaces
+
+        virtual void ClockCycle(const TimeTick& timeTick) {
+            if (mLastTick == timeTick) {
+                return;  // already processed the event
+            }
+            mLastTick = timeTick;
+
+            std::unique_ptr<T[]> data(new T[mFixedLen]);
+            for (int i = 0; i < mFixedLen; ++i) {
+                T random_value = GetRandomNumber<T>(&mSeed);
+                data.get()[i] = random_value;
+            }
+            this->LeakMatrix(0, std::move(data), mFixedDims, timeTick);
+        }
+
+    private:
+        TimeTick mLastTick;
+        unsigned int mSeed;
+        const std::vector<int> mFixedDims;
+        int mFixedLen;
     };
 }
 
