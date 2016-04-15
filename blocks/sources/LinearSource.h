@@ -12,6 +12,15 @@
 #include <vector>
 
 namespace sigblocks {
+    /** LinearSource A sample based linear signal source.
+     * This source block generate linear signal (increasing or decreasing)
+     * based on samples (and not time ticks).
+     *
+     * In case you are looking for a time tick based pulse source then
+     * either enhance this block or write a new one. It would be
+     * better though to define a new template parameter to
+     * specify time tick based linear generator though.
+     */
     template<class T, PortType P = PORT_TYPE_SCALAR>
     class LinearSource
             : public Port<0, 1, T> {

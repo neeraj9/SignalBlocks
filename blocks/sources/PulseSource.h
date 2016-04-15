@@ -13,6 +13,15 @@
 
 namespace sigblocks {
 
+    /** PulseSource A sample based pulse signal source.
+     * This source block generate pulse signal (high and then low)
+     * based on samples (and not time ticks).
+     *
+     * In case you are looking for a time tick based pulse source then
+     * either enhance this block or write a new one. It would be
+     * better though to define a new template parameter to
+     * specify time tick based pulse generator though.
+     */
     template<class T, PortType P = PORT_TYPE_SCALAR>
     class PulseSource
             : public Port<0, 1, T> {
