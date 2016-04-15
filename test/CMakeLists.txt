@@ -11,7 +11,8 @@ set(SOURCE_FILES
         test_blocks_math_sum.cpp
         test_blocks_math_cos.cpp
         test_blocks_math_arccosh.cpp
-        test_blocks_math_arcsinh.cpp)
+        test_blocks_math_arcsinh.cpp
+        test_blocks_sources_linear.cpp)
 
 # ##################################################################################
 # main sample application
