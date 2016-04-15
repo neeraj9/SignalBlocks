@@ -10,6 +10,10 @@ namespace sigblocks {
 
     class TimeTick {
     public:
+
+        /// minimum increment value
+        static const TimeTickType MIN_INCREMENT = 1;
+
         TimeTick();
         TimeTick(TimeTickType value);
 
