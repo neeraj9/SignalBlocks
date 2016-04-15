@@ -42,7 +42,6 @@ set(BLOCKS_SOURCES
         sources/FileSourceCreator.h
         sources/IstreamSource.cpp
         sources/IstreamSource.h
-        sources/RandomSource.cpp
         sources/RandomSource.h
         sources/ServerSocketSource.cpp
         sources/ServerSocketSource.h
