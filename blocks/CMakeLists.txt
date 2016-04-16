@@ -36,7 +36,6 @@ set(BLOCKS_SOURCES
         sinks/SocketSinkCreator.h
         sinks/StdoutSink.h
         sinks/Terminator.h
-        sources/ComplexStreamSource.cpp
         sources/ComplexStreamSource.h
         sources/ConstantSource.h
         sources/FileSourceCreator.h
