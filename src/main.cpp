@@ -66,7 +66,7 @@ void test3() {
 }
 
 void test4() {
-    std::shared_ptr<IPort<int> > pSource(new RandomSource);
+    std::shared_ptr<IPort<int> > pSource(new RandomSource<int>);
     std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
     connect(pSource, pSink);
     TimeTick time_tick(1);  // always start with 1
@@ -117,9 +117,13 @@ void test6() {
 
 void test7() {
     int block_size = 1;
-    std::shared_ptr<IPort<short> > pSource(
-            FileSourceCreator<ComplexStreamSource, short>::Create(
-                    "input.rf", block_size));
+
+    std::unique_ptr<std::istream> pIns(new std::ifstream(
+            "input.rf", std::ifstream::in | std::ifstream::binary));
+    ComplexStreamSource<short>* pStream_source = new ComplexStreamSource<short>(block_size);
+    pStream_source->SetStreamSource(std::move(pIns));
+
+    std::shared_ptr<IPort<short> > pSource(pStream_source);
     std::shared_ptr<IPort<short> > pSink(
             FileSinkCreator<OstreamSink, short>::Create("output.rf"));
     connect(pSource, pSink);
@@ -243,7 +247,7 @@ void test13() {
 }
 
 void test17() {
-    std::shared_ptr<IPort<int> > pSource(new RandomSource);
+    std::shared_ptr<IPort<int> > pSource(new RandomSource<int>);
     BasicTypeConverter<int, float>* pBasicTypeConverter = new BasicTypeConverter<int, float>();
     std::shared_ptr<IPort<int> > pConverter_sink(pBasicTypeConverter);
     std::shared_ptr<IPort<float> > pSink(new StdoutSink<float>());
