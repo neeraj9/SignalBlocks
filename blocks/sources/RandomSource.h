@@ -46,12 +46,26 @@ namespace sigblocks {
         int total_values = (std::numeric_limits<unsigned short>::max() + 1);
         unsigned short random_value = static_cast<unsigned short>(rand_r(pSeed) % total_values);
         return random_value;
+
     }
 
     /** RandomSource A sample based random signal source.
      * This source block generate a random signal
      * based on samples. This block generates a scalar,
      * vector or matrix output based on the template parameter.
+     * The output value is between [0, MAX], where
+     * MAX depends on the data types and ranges are as follows:
+     *
+     * char: [0, 127],
+     * unsigned char: [0, 255],
+     * short: [0, 2^15-1],
+     * unsigned short: [0, 2^16-1],
+     * int: [0, 2^31-1],
+     * unsigned int: [0, 2^31-1],
+     * long: [0, 2^31-1],
+     * unsigned long: [0, 2^31-1],
+     * float: [0, 2^31-1],
+     * double: [0, 2^31-1]
      *
      * This block generates psuedo-random values even for vector
      * and matrix outputs. This block treats each

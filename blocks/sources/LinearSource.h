@@ -14,7 +14,11 @@
 namespace sigblocks {
     /** LinearSource A sample based linear signal source.
      * This source block generate linear signal (increasing or decreasing)
-     * based on samples (and not time ticks).
+     * based on samples (and not time ticks). This block generates a scalar,
+     * vector or matrix output based on the template parameter.
+     *
+     * For vector and matrix output each of the elements has the same value in a
+     * clock cycle.
      *
      * In case you are looking for a time tick based pulse source then
      * either enhance this block or write a new one. It would be
