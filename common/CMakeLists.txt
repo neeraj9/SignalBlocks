@@ -13,7 +13,7 @@ set(COMMON_SOURCES
         MixedPort.h
         IPort.h
         CsvParser.cpp
-        CsvParser.h PortType.h)
+        CsvParser.h PortType.h BlockRunner.cpp BlockRunner.h MemInputStream.h MemInputStream.cpp)
 
 add_library(common STATIC ${COMMON_SOURCES})
 
