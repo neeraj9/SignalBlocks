@@ -64,8 +64,6 @@ set(BLOCKS_SOURCES
         sources/LinearSource.h
         sources/PulseSource.h
         filters/Delay.h
-        sources/WavSoundSource.cpp
-        sources/WavSoundSource.h
         sources/AudioSource.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
