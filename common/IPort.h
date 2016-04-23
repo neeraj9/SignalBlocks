@@ -10,6 +10,45 @@
 #include <vector>
 
 namespace sigblocks {
+
+    /// Matrix data is stored as shown in the example below.
+    ///
+    /// Example:
+    ///
+    /// dims = {2, 4}
+    /// data = { {a0, a1},
+    ///          {a2, a3},
+    ///          {a4, a5},
+    ///          {a6, a7}
+    ///         }
+    ///
+    /// That is the first dimension is stored and then the other
+    /// dimension. For more than 2 dimensions this scales similarly
+    /// and the first dimension is stored while assuming that all
+    /// the other dimension are 0th index, and then subsequent
+    /// dimensions follow.
+    ///
+    /// dims = {2, 3, 4}
+    /// data = { { {a0, a1}, {a2, a3}, {a4, a5} },
+    ///          { {a6, a7}, {a8, a9}, {a10, a11} },
+    ///          { {a12, a13}, {a14, a15}, {a16, a17} },
+    ///          { {a18, a19}, {a20, a21}, {a22, a23} }
+    ///        }
+    ///
+    ///
+    /// The following sample c++ code can read 3-D matrix (based on
+    /// above format), which is provided for illustrative purpose only.
+    ///
+    /// std::vector<int> dims = {2, 3, 4};
+    /// int data[2*3*4];  // some data
+    /// for (int i = 0; i < dims[2]; ++i) {
+    ///     for (int j = 0; j < dims[1]; ++j) {
+    ///         for (int k = 0; k < dims[0]; ++k) {
+    ///             std::cout << data[i * (dims[1] * dims[0]) + j * dims[0] + k] << ",";
+    ///         }
+    ///     }
+    /// }
+    ///
     template<class T = float>
     class IPort {
     public:
