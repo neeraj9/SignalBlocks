@@ -30,7 +30,9 @@ namespace sigblocks {
      * to generate I and Q as the one which is running this block
      * to read it back directly into memory.
      *
-     * @todo generate matrix output as well.
+     * @note scalar output is never generated because there are
+     *       always {I, Q} outputs which is generated as a
+     *       vector of size 2.
      *
      * @todo allow user to specify endianness in addition to
      *       native, which is used at present.
@@ -156,8 +158,10 @@ namespace sigblocks {
             std::unique_ptr<T[]> data(new T[mFixedLen]);
             // There are two values per sample, RF Sample = {I,Q}.
             mpComplexStream->read(reinterpret_cast<char*>(data.get()), mFixedLen * sizeof(T));
-            int bytes_read = mpComplexStream->gcount() / sizeof(char);
-            this->LeakMatrix(0, std::move(data), mFixedDims, timeTick);
+            size_t bytes_read = mpComplexStream->gcount() / sizeof(char);
+            if (bytes_read > 0) {
+                this->LeakMatrix(0, std::move(data), mFixedDims, timeTick);
+            }
             if (mpComplexStream->eof() && mLoopOver) {
                 mpComplexStream->clear();
                 mpComplexStream->seekg(0, std::ios::beg);
