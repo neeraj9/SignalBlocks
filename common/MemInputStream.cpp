@@ -3,6 +3,8 @@
 
 #include "MemInputStream.h"
 
+#include <assert.h>
+
 using namespace sigblocks;
 
 MemInputStream::MemInputStream(char* data, std::size_t len)
