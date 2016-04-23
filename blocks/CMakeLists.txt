@@ -61,7 +61,12 @@ set(BLOCKS_SOURCES
         basicop/Splitter.h
         math/UnaryOperator.h
         sinks/ArchiverSink.h
-        sources/LinearSource.h sources/PulseSource.h)
+        sources/LinearSource.h
+        sources/PulseSource.h
+        filters/Delay.h
+        sources/WavSoundSource.cpp
+        sources/WavSoundSource.h
+        sources/AudioSource.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 
