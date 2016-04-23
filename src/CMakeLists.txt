@@ -21,6 +21,6 @@ target_link_libraries(signalblocks socket)
 target_link_libraries(signalblocks codec)
 target_link_libraries(signalblocks common)
 
-target_link_libraries(signalblocks ${PYTHON_LIBRARIES} ${GSL_LIBRARIES} ${SCTP_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(signalblocks ${LIBSNDFILE_LIBRARIES} ${PYTHON_LIBRARIES} ${GSL_LIBRARIES} ${SCTP_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 # define more applications if exists

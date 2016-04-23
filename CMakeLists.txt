@@ -51,7 +51,7 @@ find_package(Threads)
 find_package(SCTP)
 find_package(GSL)
 find_package(PythonLibs)
-
+find_package(LibSndFile)
 
 # required to search for Python.h
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${PYTHON_INCLUDE_DIRS}")
