@@ -29,8 +29,6 @@ set(BLOCKS_SOURCES
         sinks/FileSinkCreator.h
         sinks/OstreamSink.cpp
         sinks/OstreamSink.h
-        sinks/PlotSink.cpp
-        sinks/PlotSink.h
         sinks/SocketSink.cpp
         sinks/SocketSink.h
         sinks/SocketSinkCreator.h
