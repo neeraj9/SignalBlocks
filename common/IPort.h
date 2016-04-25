@@ -11,11 +11,12 @@
 
 namespace sigblocks {
 
-    /// Matrix data is stored as shown in the example below.
+    /// Matrix data is stored as shown in the example below, which is row-major order as in C 2D array.
+    /// This format is intentionally choosen for compatibility with the C/C++ multidimensional arrays.
     ///
     /// Example:
     ///
-    /// dims = {2, 4}
+    /// dims = {4, 2}
     /// data = { {a0, a1},
     ///          {a2, a3},
     ///          {a4, a5},
@@ -28,7 +29,7 @@ namespace sigblocks {
     /// the other dimension are 0th index, and then subsequent
     /// dimensions follow.
     ///
-    /// dims = {2, 3, 4}
+    /// dims = {4, 3, 2}
     /// data = { { {a0, a1}, {a2, a3}, {a4, a5} },
     ///          { {a6, a7}, {a8, a9}, {a10, a11} },
     ///          { {a12, a13}, {a14, a15}, {a16, a17} },
@@ -39,12 +40,12 @@ namespace sigblocks {
     /// The following sample c++ code can read 3-D matrix (based on
     /// above format), which is provided for illustrative purpose only.
     ///
-    /// std::vector<int> dims = {2, 3, 4};
-    /// int data[2*3*4];  // some data
-    /// for (int i = 0; i < dims[2]; ++i) {
+    /// std::vector<int> dims = {4, 3, 2};
+    /// int data[4*3*2];  // some data
+    /// for (int i = 0; i < dims[0]; ++i) {
     ///     for (int j = 0; j < dims[1]; ++j) {
-    ///         for (int k = 0; k < dims[0]; ++k) {
-    ///             std::cout << data[i * (dims[1] * dims[0]) + j * dims[0] + k] << ",";
+    ///         for (int k = 0; k < dims[2]; ++k) {
+    ///             std::cout << data[(i * (dims[1] * dims[2])) + (j * dims[2]) + k] << ",";
     ///         }
     ///     }
     /// }

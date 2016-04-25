@@ -1,6 +1,5 @@
-//
-// Created by nsharma on 3/13/16.
-//
+// (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
+// see LICENSE for license
 
 #ifndef SIGBLOCKS_SPLITTER_H
 #define SIGBLOCKS_SPLITTER_H
@@ -11,7 +10,7 @@
 #include <memory>
 
 namespace sigblocks {
-    /** Splitter Splits an input into multiple outputs.
+    /** Splitter Splits an input into multiple outputs based on columns.
      * The Splitter block splits an input received from a
      * single source into multiple outputs, which are then
      * subsequently sent to different sinks.
@@ -19,8 +18,75 @@ namespace sigblocks {
      * When the data received is scalar, then this block sends
      * it (scalar value) to the first sink (index-0).
      *
-     * When the data received is vector (M dimension), then its sent to
+     * When the data received is vector (M values per vector), then its sent to
      * M output blocks as a scalar values.
+     *
+     * When the data is a matrix then the number of output port is matched with
+     * the last dimension, so the data separation happens only for the
+     * last dimension. Its easier to explain when there are only 2 dimensions,
+     * although this logic applies for multiple dimensions.
+     * For example the transformation will happen as follows:
+     *
+     *                                     +----> d-mcol0 {10, 4} (port-0)
+     * d {10, 4, 2} ----> splitter<2, T> --+
+     *                                     +----> d-mcol1 {10, 4} (port-1)
+     *
+     * Another example, but this time the user wants only one output:
+     *
+     *                                     +----> d-mcol0 {10, 5}
+     * d {10, 5, 2} ----> splitter<1, T> --+
+     *                                     +----- dropped
+     *
+     * Another example, but this time user selectively chooses only
+     * few of the items from the last dimension.
+     *
+     *                                            +----> d-mcol0 {10, 3}
+     *                                            |
+     *                                            +----- dropped
+     *                                            |
+     *                                            +----- dropped
+     * d {10, 3, 5} ----> splitter<2, T>({0,4}) --+
+     *                                            +----- dropped
+     *                                            |
+     *                                            +----> d-mcol4 {10, 3}
+     *
+     * Note that all the outputs are matrix, which is same as the first
+     * two dimensions.
+     * There is an exception to this rule, wherein when the
+     * incoming data is a matrix of single dimension (which is odd
+     * because then it should have been passed as a vector), but
+     * for that case a scalar is produced as an output. See below:
+     *
+     *                                     +----> d-col3 scalar (port-0)
+     * d {10} --> splitter<2, T>({3, 2}) --+
+     *                                     +----> d-col2 scalar (port-1)
+     *
+     * Notice that the index can be in any order (3 and 2 are not sorted)
+     * and the same will be sent out.
+     *
+     * There is another exception wherein when there are only 2 dimensions
+     * of the input data then the output is a vector (see below).
+     *
+     *
+     *                                       +----> d-col3 vector [10] (port-0)
+     * d {10,4} --> splitter<2, T>({3, 2}) --+
+     *                                       +----> d-col2 vector [10] (port-1)
+     *
+     *
+     * There is another example, where the input matrix has lesser
+     * number in its last dimension. In such a case default value
+     * is used to generate data. See the example below for details.
+     *
+     *                                         +----> d-col0 vector [10, 1]
+     *                                         |
+     *                                         +----- dropped
+     *                                         |
+     *                                         +----- dropped (but not present)
+     * d {10, 2} ----> splitter<2, T>({0,4}) --+
+     *                                         +----- dropped (but not present)
+     *                                         |
+     *                                         +----> default-value vector [10]
+     *
      */
     template<int M, class T>
     class Splitter
@@ -54,7 +120,7 @@ namespace sigblocks {
             // extract vector into its raw form and then dispatch each one
             // as std::unique_ptr
             T* raw_data = data.get();
-            for (size_t i = 0; i < mIndices.size(); ++i) {
+            for (int i = 0; i < static_cast<int>(mIndices.size()); ++i) {
                 if (mIndices[i] < len) {
                     // forward
                     //std::unique_ptr<T[]> tmp(new T[1]);
@@ -62,6 +128,8 @@ namespace sigblocks {
                     //std::swap(tmp[0], raw_data[mIndices[i]]);
                     //this->LeakData(i, std::move(tmp), 1, startTime);
                     this->LeakData(i, raw_data[mIndices[i]], startTime);
+                } else {
+                    this->LeakData(i, mDefaultValue, startTime);
                 }
             }
         }
@@ -70,67 +138,65 @@ namespace sigblocks {
                                    std::unique_ptr<T[]> data,
                                    const std::vector<int>& dims,
                                    const TimeTick& startTime) {
-            assert(sourceIndex == 0); // XXX change to an assertion library.
-
+            assert(sourceIndex == 0);
             assert(! dims.empty());
 
-            // Matrix is stored as shown in the example below (see IPort doc as well).
-            // Example (2 dimensions):
-            // dims = {2, 4}
-            // data = { {a0, a1},
-            //          {a2, a3},
-            //          {a4, a5},
-            //          {a6, a7}
-            //         }
-            //
-            // Another example (3 dimensions):
-            // dims = {2, 3, 4}
-            // data = { { {a0, a1}, {a2, a3}, {a4, a5} },
-            //          { {a6, a7}, {a8, a9}, {a10, a11} },
-            //          { {a12, a13}, {a14, a15}, {a16, a17} },
-            //          { {a18, a19}, {a20, a21}, {a22, a23} }
-            //        }
+            // Matrix are stored in row-major format. See IPort.h for details.
             int len = 1;
+            //printf("dims=[");
             for (size_t i = 0; i < (dims.size() - 1); ++i) {
+                //printf("%d, ", dims[i]);
                 len *= dims[i];
             }
+            //printf("%d]\n", dims[dims.size()-1]);
             assert(len > 0);
             T* raw_data = data.get();
+            //printf("dims.size()=%lu, len=%d, mIndices.size()=%lu\n", dims.size(), len, mIndices.size());
             // unfold the last dimension
             if (dims.size() == 1) {
                 // extract vector into its raw form and then dispatch each one
                 // as std::unique_ptr
-                for (size_t i = 0; i < mIndices.size(); ++i) {
+                for (int i = 0; i < static_cast<int>(mIndices.size()); ++i) {
                     if (mIndices[i] < dims.back()) {
                         // leak scalar
                         this->LeakData(i, raw_data[mIndices[i]], startTime);
+                    } else {
+                        this->LeakData(i, mDefaultValue, startTime);
                     }
                 }
             } else if (dims.size() == 2) {
-                for (size_t i = 0; i < mIndices.size(); ++i) {
+                for (int i = 0; i < static_cast<int>(mIndices.size()); ++i) {
+                    std::unique_ptr<T[]> tmpdata(new T[len]);
                     if (mIndices[i] < dims.back()) {
-                        std::unique_ptr<T[]> tmpdata(new T[len]);
                         for (int j = 0; j < len; ++j) {
-                            tmpdata.get()[j] = raw_data[mIndices[i] * len + j];
+                                tmpdata.get()[j] = raw_data[(j * dims.back()) + mIndices[i]];
                         }
-                        // leak vector
-                        this->LeakData(i, std::move(tmpdata), len, startTime);
+                    } else {
+                        for (int j = 0; j < len; ++j) {
+                            tmpdata.get()[j] = mDefaultValue;
+                        }
                     }
+                    // leak vector
+                    this->LeakData(i, std::move(tmpdata), len, startTime);
                 }
             } else {
                 // dont include the last dimension, because that is serialized or unfolded
                 std::vector<int> reduced_dims(dims.begin(), dims.end() - 1);
-                for (size_t i = 0; i < mIndices.size(); ++i) {
+                for (int i = 0; i < static_cast<int>(mIndices.size()); ++i) {
+                    std::unique_ptr<T[]> tmpdata(new T[len]);
                     if (mIndices[i] < dims.back()) {
-                        std::unique_ptr<T[]> tmpdata(new T[len]);
-                        // use assignment operator to take care of complex data type T
-                        // For optimisation use std::copy() for native
-                        // data type (for example int, long, etc).
                         for (int j = 0; j < len; ++j) {
-                            tmpdata.get()[j] = raw_data[mIndices[i] * len + j];
+                            // use assignment operator to take care of complex data type T
+                            // For optimisation use std::copy() for native
+                            // data type (for example int, long, etc).
+                            tmpdata.get()[j] = raw_data[(j * dims.back()) + mIndices[i]];
                         }
-                        this->LeakMatrix(i, std::move(tmpdata), reduced_dims, startTime);
+                    } else {
+                        for (int j = 0; j < len; ++j) {
+                            tmpdata.get()[j] = mDefaultValue;
+                        }
                     }
+                    this->LeakMatrix(i, std::move(tmpdata), reduced_dims, startTime);
                 }
             }
         }
