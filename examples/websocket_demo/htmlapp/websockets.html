@@ -1,0 +1,84 @@
+<!-- Copyright (c) 2016 Neeraj Sharma neeraj.sharma@alumni.iitg.ernet.in
+     All rights reserved.
+     See LICENSE for license.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>SignalBlocks Streaming WebSocketsDemo</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script type="text/javascript" src="smoothie.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			var log = document.getElementById("log");
+			var timeSeries = new TimeSeries();
+			var smoothieChart = new SmoothieChart({
+        millisPerPixel: 41,
+        timestampFormatter:SmoothieChart.timeFormatter,  // show timestamps
+				grid: {
+					strokeStyle: 'rgb(125, 0, 0)',
+					fillStyle: 'rgb(60, 0, 0)',
+					lineWidth: 1,
+					millisPerLine: 1000,
+					verticalSections: 4
+				}
+			});
+			smoothieChart.addTimeSeries(timeSeries, {
+				strokeStyle:'rgb(0, 255, 0)',
+				fillStyle:'rgba(0, 255, 0, 0.4)',
+				lineWidth:3
+			});
+			smoothieChart.streamTo(document.getElementById("mycanvas"), 1000);
+			if (window["WebSocket"]) {
+        var load_time_millisec = 0;
+        var load_x = -1;
+        var millisec_between_samples = 200;  // read from websocket (TODO)
+				var conn = new WebSocket("ws://localhost:8585/1");
+				// var conn = new WebSocket("ws://"+window.location.host+"/ws");
+				conn.onmessage = function(evt) {
+          if (evt.data.length > 80)
+          {
+					  log.innerHTML = evt.data.substring(0, 80) + " ...";
+          }
+          else
+          {
+            log.innerHTML = evt.data;
+          }
+					// timeSeries.append(new Date().getTime(), parseFloat(evt.data));
+					var json = jQuery.parseJSON(evt.data);
+          if (load_x < 0) {  // init for the first time (after connection)
+            // TODO read millisec_between_samples as well from
+            // the websocket server. Maybe do this as a special packet
+            // which is the first one.
+
+            // TODO Fix the current assumption that at least one element in
+            // json array and
+            // also json[0].data array, but this need not be the case.
+            var last_index = json[0].data.length - 1;
+            load_x = json[0].data[last_index].x;
+            load_time_millisec = new Date().getTime();
+            console.log("load_x " + load_x);
+          }
+          for (i = 0; i < json[0].data.length; i++) {
+            // Date().getTime() gives the number of milliseconds since
+            // 1970/01/01
+            timeSeries.append(load_time_millisec + ((json[0].data[i].x - load_x) * millisec_between_samples), parseFloat(json[0].data[i].y));
+          }
+				};
+				conn.onclose = function(evt) {
+					log.innerHTML = "Connection closed";
+				};
+			} else {
+				log.innerHTML = "Browser does not support WebSockets";
+			}
+		};
+	</script>
+</head>
+
+<body>
+	<div id="log" style="font-family:Courier,monospace"></div>
+	<canvas id="mycanvas" width="1024" height="240"></canvas>
+</body>
+
+</html>
