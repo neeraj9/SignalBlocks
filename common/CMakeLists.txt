@@ -20,7 +20,7 @@ set(COMMON_SOURCES
         MemInputStream.h
         MemInputStream.cpp
         SoundInfo.cpp
-        SoundInfo.h)
+        SoundInfo.h sha1.cpp sha1.h base64.cpp base64.h)
 
 add_library(common STATIC ${COMMON_SOURCES})
 
