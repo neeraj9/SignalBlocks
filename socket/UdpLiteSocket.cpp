@@ -110,7 +110,7 @@ UdpLiteSocket::Receive(uint8_t* pBuff, int length) {
     int bytes_read =
             recv(mSockfd, (void*) pBuff, (size_t) length, MSG_DONTWAIT);
     if ((bytes_read < 0) && (errno != EAGAIN)) {
-        cerr << "Something is very wrong for this RawIPSocket (fd=" << mSockfd <<
+        cerr << "Something is very wrong for this UdpLiteSocket (fd=" << mSockfd <<
         "), errno:err=(" << errno << ":" << strerror(errno) << ")" << endl;
     }
     return bytes_read;
