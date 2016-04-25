@@ -20,7 +20,7 @@ set(SOCKET_SOURCES
         UdpLiteSocket.cpp
         UdpLiteSocket.h
         UdpSocket.cpp
-        UdpSocket.h)
+        UdpSocket.h SocketUtils.cpp SocketUtils.h)
 
 add_library(socket STATIC ${SOCKET_SOURCES})
 
