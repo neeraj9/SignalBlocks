@@ -82,7 +82,22 @@ namespace sigblocks {
             std::unique_ptr<T[]> data(new T[2 * mBlockSize]);
             // There are two values per sample, RF Sample = {I,Q}.
             mpComplexStream->read(reinterpret_cast<char*>(data.get()), mBlockSize * 2 * sizeof(T));
-            int bytes_read = mpComplexStream->gcount() / sizeof(char);
+            int bytes_read = static_cast<int>(mpComplexStream->gcount() / sizeof(char));
+            if (bytes_read <= 0) {
+                if (mpComplexStream->eof() && mLoopOver) {
+                    mpComplexStream->clear();
+                    mpComplexStream->seekg(0, std::ios::beg);
+                    // lets try again
+                    mpComplexStream->read(reinterpret_cast<char*>(data.get()), mBlockSize * sizeof(T));
+                    bytes_read = static_cast<int>(mpComplexStream->gcount() / sizeof(char));
+                    if (bytes_read <= 0) {
+                        // still doesnt work, so give up
+                        return;
+                    }
+                } else {
+                    return;
+                }
+            }
             this->LeakData(0, std::move(data), bytes_read, timeTick);
             if (mpComplexStream->eof() && mLoopOver) {
                 mpComplexStream->clear();
