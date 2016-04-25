@@ -22,7 +22,6 @@
 #include "../blocks/sources/SocketSourceCreator.h"
 #include "../blocks/sources/StepSource.h"
 #include "../blocks/sources/CsvFileSource.h"
-#include "../blocks/transceivers/SocketTransceiverCreator.h"
 #include "../common/ComplexType.h"
 #include "../common/IPort.h"
 #include "../common/Port.h"
@@ -175,58 +174,12 @@ void SocketSinkTest() {
     }
 }
 
-template<class T>
-void SocketTransceiverTest(const string& inputFilename,
-                           const string& outputFilename) {
-    int block_size = 1;
-    std::shared_ptr<IPort<unsigned char> > pSource(
-            FileSourceCreator<IstreamSource, unsigned char>::Create(
-                    inputFilename, block_size));
-
-    std::shared_ptr<IPort<unsigned char> > pTransceiver(
-            SocketSourceCreator<T>::Create(
-                    block_size, "127.0.0.1", 12002, 12020));
-
-    std::shared_ptr<IPort<unsigned char> > pSink(
-            FileSinkCreator<OstreamSink, unsigned char>::Create(outputFilename));
-
-    connect(pSource, connect(pTransceiver, pSink));
-
-    // Note: We need to store only the pSource because
-    // pTransceiver is captured inside pSource.
-    // It is important to call Generate() on pTransceiver though,
-    // so probably save the SharedPtr of pTransceiver anyways, but
-    // remember to dispose that off once the pSource is gone. If this
-    // is not done then its an issue later because pTransceiver will
-    // point to a source which is nonexistent.
-
-    cout << "waiting for data" << endl;
-    TimeTick time_tick(1);  // always start with non-zero value
-    for (int i = 0; i < 10; ++i) {
-        // First trigger data from the file source and send outside the socket
-        pSource->ClockCycle(time_tick);
-
-        // Next get data from the socket and write to a file
-        cout << "[" << i << "] waiting for data" << endl;
-        sleep(2);
-        pTransceiver->ClockCycle(time_tick);
-
-        time_tick += 1;
-    }
-}
-
 void test8() {
     SocketSourceTest<SocketProgramming::UdpSocket>("udp_port_12000.dat");
 }
 
 void test9() {
     SocketSinkTest<SocketProgramming::UdpSocket>();
-}
-
-void test10() {
-    SocketTransceiverTest<SocketProgramming::UdpSocket>(
-            "input.txt",
-            "udp_port_12000.dat");
 }
 
 // TODO: Not tested
@@ -237,13 +190,6 @@ void test11() {
 // TODO: Not tested
 void test12() {
     SocketSinkTest<SocketProgramming::UdpLiteSocket>();
-}
-
-// TODO: Not tested
-void test13() {
-    SocketTransceiverTest<SocketProgramming::UdpLiteSocket>(
-            "input.txt",
-            "udp_port_12000.dat");
 }
 
 void test17() {
