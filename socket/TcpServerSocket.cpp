@@ -23,7 +23,7 @@ namespace {
 
 TcpServerSocket::TcpServerSocket()
         : mLocalPort(-1),
-          mListeningSockfd(socket(PF_INET, SOCK_STREAM, IPPROTO_SCTP)),
+          mListeningSockfd(socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)),
           mDataSockfd(-1),
           mDestAddr({0}) {
     // Make socket non-blocking
