@@ -20,7 +20,7 @@ namespace sigblocks {
             OPEN_NONE
         };
 
-        SoundInfo();
+        SoundInfo(bool enableNormalisation = true);
 
         virtual ~SoundInfo();
 
@@ -47,7 +47,30 @@ namespace sigblocks {
         /// The samples read are one for each channel and then next frame (or sample for
         /// all channels), and so on.
         ///
+        /// @note Whenever integer data is moved from one sized container to another
+        /// sized container, the most significant bit in the source container
+        /// will become the most significant bit in the destination container.
+        ///
+        /// @note When converting between integer data and floating point data,
+        /// different rules apply. The default behaviour when reading floating
+        /// point data (sf_read_float() or sf_read_double ()) from a file with
+        /// integer data is normalisation. Regardless of whether data in the
+        /// file is 8, 16, 24 or 32 bit wide, the data will be read as floating
+        /// point data in the range [-1.0, 1.0]. Similarly, data in the range
+        /// [-1.0, 1.0] will be written to an integer PCM file so that a data
+        /// value of 1.0 will be the largest allowable integer for the given
+        /// bit width. This normalisation can be turned on or off using the
+        /// sf_command interface.
+        ///
+        /// @note Reading a file containing floating point data (allowable
+        /// with WAV, AIFF, AU and other file formats) using integer read
+        /// methods can produce unexpected results. There is a work around
+        /// this issue but it is currently not implemented to force
+        /// the user to use correct data type while reading from such audio
+        /// files.
+        ///
         /// @return number of elements read.
+        ///
         int64_t Read(char* pData, int maxElements);
         int64_t Read(unsigned char* pData, int maxElements);
         int64_t Read(short* pData, int maxElements);
@@ -66,6 +89,7 @@ namespace sigblocks {
         int64_t ReadDouble(double* pData, int maxElements);
 
     private:
+        bool mEnableNormalisation;
         OpenMode mMode;
         SF_INFO mSfInfo;
         SNDFILE* mpSndFile;  //< c-style file representation by libsndfile

@@ -20,7 +20,6 @@ namespace {
         stream->seekg(0, stream->end);
         sf_count_t len = stream->tellg();
         stream->seekg(pos, stream->beg);
-        // LOG_INFO("len=%ld\n", len);
         return len;
     }
 
@@ -46,7 +45,6 @@ namespace {
 
     static sf_count_t SfVioRead(void *ptr, sf_count_t count,  void *pData) {
         // read data
-        // LOG_INFO("reading, ptr=%p, count=%ld, pData=%p\n", ptr, count, pData);
         std::istream* stream = static_cast<std::istream*>(pData);
         stream->read(static_cast<char*>(ptr), count);
         sf_count_t bytes_read = stream->gcount() / sizeof(char);
@@ -66,8 +64,9 @@ namespace {
     }
 }
 
-SoundInfo::SoundInfo()
-        : mMode(OPEN_NONE),
+SoundInfo::SoundInfo(bool enableNormalisation)
+        : mEnableNormalisation(enableNormalisation),
+          mMode(OPEN_NONE),
           mpSndFile(nullptr),
           mFd(-1),
           mpIns(nullptr) {
@@ -120,6 +119,12 @@ SoundInfo::Open(const std::string& path, SoundInfo::OpenMode mode) {
     if (mpSndFile == nullptr) {
         LOG_ERROR("Cannot open file=%s\n", path.c_str());
         return false;
+    }
+    // default behaviour is to enable normalisation in libsndfile
+    // see http://www.mega-nerd.com/libsndfile/api.html#note1
+    if (! mEnableNormalisation) {
+        sf_command(mpSndFile, SFC_SET_NORM_FLOAT, nullptr, SF_FALSE);
+        sf_command(mpSndFile, SFC_SET_NORM_DOUBLE, nullptr, SF_FALSE);
     }
     return true;
 }
@@ -187,18 +192,32 @@ int SoundInfo::GetFormat() const {
 
 bool SoundInfo::IsEof() const {
     if (mpIns) {
-        return mpIns->eof();
-    } else {
-        // TODO
-        return false;
+        // libsndfile do not read once the limit is reached
+        // so mpIns->eof() will never return true, hence
+        // implementing an alternative (though crude)
+        // way of detecting stuff
+        //return mpIns->eof();
+        sf_count_t pos = mpIns->tellg();
+        mpIns->seekg(0, mpIns->end);
+        sf_count_t len = mpIns->tellg();
+        if (pos == len) {
+            return true;
+        } else {
+            // go back to where you where
+            mpIns->seekg(pos, mpIns->beg);
+            return false;
+        }
     }
+    // else TODO
+    return false;
 }
 
 int64_t SoundInfo::Read(char* pData, int maxElements) {
     short data[maxElements];
     int64_t elements_read = ReadShort(data, maxElements);
     for (int64_t i = 0; i < elements_read; ++i) {
-        pData[i] = static_cast<char>(data[i] & 0xff);  // clip
+        // retain the most-significant bit during conversion
+        pData[i] = static_cast<char>((data[i] >> 8) & 0xff);
     }
     return elements_read;
 }
@@ -207,7 +226,8 @@ int64_t SoundInfo::Read(unsigned char* pData, int maxElements) {
     short data[maxElements];
     int64_t elements_read = ReadShort(data, maxElements);
     for (int64_t i = 0; i < elements_read; ++i) {
-        pData[i] = static_cast<unsigned char>(data[i] & 0xff);  // clip
+        // retain the most-significant bit during conversion
+        pData[i] = static_cast<unsigned char>((data[i] >> 8) & 0xff);
     }
     return elements_read;
 }
@@ -249,7 +269,10 @@ bool SoundInfo::Rewind() {
     mpIns->clear();  // clear end-of-file or any other internal error state
     // use the sf_seek() method because it will automatically call SfVioSeek()
     // on the stream and skip over the header as well.
-    sf_seek(mpSndFile, 0, SEEK_SET);
+    sf_count_t offset = sf_seek(mpSndFile, 0, SEEK_SET);
+    if (offset < 0) {
+        LOG_ERROR("Cannot seek back to the beginning of the audio file\n");
+    }
     return true;
 }
 
