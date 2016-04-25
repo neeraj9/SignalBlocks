@@ -8,7 +8,6 @@
 #include "../blocks/math/Product.h"
 #include "../blocks/math/Sum.h"
 #include "../blocks/sinks/FileSinkCreator.h"
-#include "../blocks/sinks/PlotSink.h"
 #include "../blocks/sinks/SocketSink.h"
 #include "../blocks/sinks/SocketSinkCreator.h"
 #include "../blocks/sinks/StdoutSink.h"
@@ -304,21 +303,6 @@ void test26() {
     for (int i = 0; i < 10; ++i) {
         pSource1->ClockCycle(time_tick);
         pSource2->ClockCycle(time_tick);
-        time_tick += 1;
-    }
-}
-
-void test27() {
-    std::shared_ptr<IPort<int> > pSource(new StepSource<int>(0));
-    std::shared_ptr<IPort<int> > pSink(new PlotSink<int>());
-    connect(pSource, pSink);
-
-    TimeTick time_tick(1);  // always start with non-zero value
-    for (int i = 0; i < 10000; ++i) {
-        if (i % 500 == 0) {
-            sleep(2);
-        }
-        pSource->ClockCycle(time_tick);
         time_tick += 1;
     }
 }
