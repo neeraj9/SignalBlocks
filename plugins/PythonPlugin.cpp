@@ -1,46 +1,5 @@
 // (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>
 // see LICENSE for license
-//
-// references
-// http://python.active-venture.com/ext/pure-embedding.html
-// http://docs.python.org/c-api/object.html
-// http://www.codeproject.com/KB/cpp/embedpython_1.aspx
-// http://www.codase.com/search/call?name=pyobject_callobject
-// http://docs.python.org/release/2.5/api/intObjects.html
-// /usr/include/python2.5/pyerrors.h
-// http://www.tramy.us/
-// http://docs.scipy.org/doc/numpy/user/c-info.python-as-glue.html
-// http://blog.enthought.com/?p=62&cpage=1
-// http://codespeak.net/pipermail/cython-dev/2008-September/002339.html
-//
-// http://www.velocityreviews.com/forums/t562301-3d-plotting-with-python-2-5-on-win32.html
-// http://linuxgazette.net/144/john.html
-// http://www.vtk.org/
-// http://stackoverflow.com/questions/2721521/fastest-way-to-generate-delimited-string-from-1d-numpy-array
-//
-// http://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/
-// http://qwt.sourceforge.net/qwtlicense.html
-// http://qwt.sourceforge.net/
-// http://soft.proindependent.com/scripting.html
-// http://rpy.sourceforge.net/
-// http://code.enthought.com/projects/mayavi/
-// http://mpi4py.scipy.org/
-// http://lbolla.wordpress.com/2007/04/11/numerical-computing-matlab-vs-pythonnumpyweave/
-// http://www.scipy.org/PerformancePython
-// http://www.scipy.org/Weave
-// http://www.ginac.de/
-// http://pynac.sagemath.org/
-// http://ipython.scipy.org/moin/
-// http://sagemath.org/links-components.html
-// http://code.google.com/p/sympy/
-//
-// http://www.linuxjournal.com/article/3641?page=0,2
-//
-// How to create numpy.matrix from C code
-// see http://stackoverflow.com/questions/573487/any-way-to-create-a-numpy-matrix-with-c-api
-// http://web.archive.org/web/20021218064807/http://starship.python.net/crew/hinsen/NumPyExtensions.html
-// http://www.scipy.org/Cookbook/C_Extensions/NumPy_arrays
-//
 #include "PythonPlugin.h"
 #include "PythonPluginCommon.h"
 
