@@ -39,7 +39,6 @@ set(BLOCKS_SOURCES
         sources/ComplexStreamSource.h
         sources/ConstantSource.h
         sources/FileSourceCreator.h
-        sources/IstreamSource.cpp
         sources/IstreamSource.h
         sources/RandomSource.h
         sources/ServerSocketSource.cpp
@@ -64,7 +63,10 @@ set(BLOCKS_SOURCES
         sources/LinearSource.h
         sources/PulseSource.h
         filters/Delay.h
-        sources/AudioSource.h)
+        sources/AudioSource.h
+        sinks/JsonDataExtractableSink.h
+        basicop/Transpose.h
+        converters/ToMatrixConverter.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 

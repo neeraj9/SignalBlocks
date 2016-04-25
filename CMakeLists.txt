@@ -85,6 +85,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_CURRENT_BINARY_DIR}/gslmm-inst
 add_subdirectory(common)
 add_subdirectory(codec)
 add_subdirectory(socket)
+add_subdirectory(http)
 add_subdirectory(plugins)
 add_subdirectory(blocks)
 
@@ -94,6 +95,7 @@ add_subdirectory(blocks)
 
 add_subdirectory(src)
 add_subdirectory(examples/histogram)
+add_subdirectory(examples/websocket_demo)
 
 # tests
 add_subdirectory(test)

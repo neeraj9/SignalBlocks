@@ -16,6 +16,7 @@ add_executable(histograms histograms.cpp ${SOURCE_FILES})
 
 target_link_libraries(histograms blocks)
 target_link_libraries(histograms plugins)
+target_link_libraries(histograms http)
 target_link_libraries(histograms socket)
 target_link_libraries(histograms codec)
 target_link_libraries(histograms common)
