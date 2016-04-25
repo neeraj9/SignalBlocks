@@ -48,9 +48,6 @@ set(BLOCKS_SOURCES
         sources/SocketSourceCreator.h
         sources/StepSource.cpp
         sources/StepSource.h
-        transceivers/SocketTransceiver.cpp
-        transceivers/SocketTransceiver.h
-        transceivers/SocketTransceiverCreator.h
         sources/CsvFileSource.cpp
         sources/CsvFileSource.h
         sources/SelectiveCsvFileSource.h
