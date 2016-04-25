@@ -5,12 +5,8 @@ set(SOCKET_SOURCES
         EnhancedUdpSocket.cpp
         EnhancedUdpSocket.h
         IClientSocket.h
-        IPSocket.cpp
-        IPSocket.h
         IServerSocket.h
         ISocket.h
-        RawIPSocket.cpp
-        RawIPSocket.h
         TcpServerSocket.cpp
         TcpServerSocket.h
         TcpSocket.cpp
