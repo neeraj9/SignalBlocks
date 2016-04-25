@@ -33,7 +33,7 @@ target_link_libraries(testsuite socket)
 target_link_libraries(testsuite codec)
 target_link_libraries(testsuite common)
 
-target_link_libraries(testsuite ${LIBSNDFILE_LIBRARIES} ${PYTHON_LIBRARIES} ${GSL_LIBRARIES} ${SCTP_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(testsuite ${LIBSNDFILE_LIBRARIES} ${PYTHON_LIBRARIES} ${GSL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 # unit test via CTest
 enable_testing()

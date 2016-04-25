@@ -48,7 +48,6 @@ include(compiler.cmake)
 
 # any third-party libraries are to be found here
 find_package(Threads)
-find_package(SCTP)
 find_package(GSL)
 find_package(PythonLibs)
 find_package(LibSndFile)

@@ -9,7 +9,7 @@
 namespace SocketProgramming {
     /**
      * Abstract base class for server socket. All the transport
-     * layers (ex. UDP, TCP, SCTP, UDPLite) will derive from
+     * layers (ex. UDP, TCP, UDPLite) will derive from
      * it and provide the server side of socket library.
      */
     class IServerSocket {

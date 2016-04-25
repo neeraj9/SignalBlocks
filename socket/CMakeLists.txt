@@ -11,8 +11,6 @@ set(SOCKET_SOURCES
         ISocket.h
         RawIPSocket.cpp
         RawIPSocket.h
-        SctpSocket.cpp
-        SctpSocket.h
         TcpServerSocket.cpp
         TcpServerSocket.h
         TcpSocket.cpp

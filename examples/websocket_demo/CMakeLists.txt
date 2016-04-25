@@ -21,6 +21,6 @@ target_link_libraries(websocket_demo socket)
 target_link_libraries(websocket_demo codec)
 target_link_libraries(websocket_demo common)
 
-target_link_libraries(websocket_demo ${LIBSNDFILE_LIBRARIES} ${PYTHON_LIBRARIES} ${GSL_LIBRARIES} ${SCTP_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(websocket_demo ${LIBSNDFILE_LIBRARIES} ${PYTHON_LIBRARIES} ${GSL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 # define more applications if exists

@@ -105,7 +105,7 @@ incorrectly written block. (hint: see Buffer block)
 ## TODO
 
 * Include a bulk of Gnu Scientific Library vector operations
-* Test all socket operations tcp, udp, udplite and sctp
+* Test all socket operations tcp, udp and udplite
 * Enhance bulk of functionality with unit tests
 
 ## Thanks
