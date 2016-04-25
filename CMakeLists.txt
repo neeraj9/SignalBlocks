@@ -61,20 +61,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${PYTHON_INCLUDE_DIRS}")
 # External Projects
 # ##################################################################################
 
-include(ExternalProject)
-
-# gslmm is just a bunch for header files so install those
-ExternalProject_add(
-        libgslmm
-        #no download because the source is already included in external/
-        DOWNLOAD_COMMAND ""
-        #PREFIX "${CMAKE_CURRENT_BINARY_DIR}"
-        #CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}
-        CONFIGURE_COMMAND ${CMAKE_SOURCE_DIR}/external/gslmm-0.12/configure --prefix=${CMAKE_CURRENT_BINARY_DIR}/gslmm-installed
-        SOURCE_DIR ${CMAKE_SOURCE_DIR}/external/gslmm-0.12
-)
-# add the installed include path
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_CURRENT_BINARY_DIR}/gslmm-installed/include")
+#include(ExternalProject)
 
 # ##################################################################################
 # Subdirectories
