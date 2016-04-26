@@ -36,7 +36,7 @@
 
 
 #include <unistd.h> // for sleep
-#include "../plugins/PythonPlugin.h"
+
 
 using namespace sigblocks;
 using namespace std;
@@ -332,53 +332,6 @@ void test32() {
     printf("real = %g, imag = %g\n", p->GetReal(), p->GetImag());
 }
 
-// TODO this is a raw test and instead use PythonNOperator
-void test34() {
-    PythonPlugin* pPyplugin = new PythonPlugin;
-    try {
-        std::string source("print 'Hello World!'");
-        std::unique_ptr<PythonRunnableCode> runnable(
-                pPyplugin->ParsePythonSource(source));
-        if (runnable.get() == 0) {
-            return; // XXX error!
-        }
-
-        std::cout << "Running inline source [" << source << "] : output {";
-        std::unique_ptr<PythonBaseResult> result(
-                pPyplugin->RunPythonRunnableCode(runnable.get()));
-        std::cout << "} ";
-        if (result.get() != 0) {
-            std::cout << result->ToString() << std::endl;
-        }
-        else {
-            std::cout << "No result returned!" << std::endl;
-        }
-    }
-    catch (PyPluginTypeException& e) {
-        std::cerr << e.what() << std::endl;
-    }
-
-
-    // test numpy code
-    try {
-        std::cout << "Running numpy_test.myrange : output {";
-        // TODO the path needs to be where the numpy_test.py exists
-        // TODO this is hackish and need to instead use other mechanism
-        //      to get the correct source path to search for numpy_test.py
-        std::unique_ptr<PythonBaseResult> result(
-                pPyplugin->RunPythonCode("./", "numpy_test", "myrange"));
-        std::cout << "} ";
-        if (result.get() != 0) {
-            std::cout << result->ToString() << std::endl;
-        }
-        else {
-            std::cout << "No result returned!" << std::endl;
-        }
-    } catch (PyPluginTypeException& e) {
-        std::cerr << e.what() << std::endl;
-    }
-}
-
 void test35() {
     std::shared_ptr<IPort<std::string> > source(new CsvFileSource("test.csv", true));
     std::shared_ptr<IPort<std::string> > sink(new StdoutSink<std::string>());
@@ -396,7 +349,6 @@ void test37() {
 }
 
 int main() {
-    test34();
     //test32();
     //test27();
     return 0;
