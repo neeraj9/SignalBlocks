@@ -14,7 +14,7 @@ using namespace sigblocks;
 TEST_CASE("Testing plugins numpy basic inline test", "[plugin numpy basic]") {
     PythonPlugin pyplugin;
     try {
-        std::string source("print 'Hello World!'");
+        std::string source("print('Hello World!')");
         std::unique_ptr <PythonRunnableCode> runnable(
                 pyplugin.ParsePythonSource(source));
         if (runnable.get() == 0) {
@@ -48,7 +48,7 @@ TEST_CASE("Testing plugins numpy basic file test", "[plugin numpy basic]") {
             "  return x\n"
             "  #return np.bool_(0)\n"
             "  c = np.longdouble(10)\n"
-            "  print type(c)\n"
+            "  print(type(c))\n"
             "  return c";
 
     std::string tmp_name("tmp_11232_plugin_test");
@@ -79,8 +79,10 @@ TEST_CASE("Testing plugins numpy basic file test", "[plugin numpy basic]") {
         LOG_ERROR("%s\n", e.what());
     }
 
+    // There is a strange race condition, where the python interpreter complains that
+    // the file is not available (some of the times).
     // cleanup the test file created
-    REQUIRE(remove(tmp_fullfilename.c_str()) == 0);
+    //REQUIRE(remove(tmp_fullfilename.c_str()) == 0);
 }
 
 TEST_CASE("Testing plugins numpy basic hello world test", "[plugin numpy basic]") {
@@ -89,7 +91,7 @@ TEST_CASE("Testing plugins numpy basic hello world test", "[plugin numpy basic]"
     // generate a temporary python file/module for testing
     std::string numpy_code = "''' test '''\n"
             "def test_function():\n"
-            "  print \"Hello World!\"\n"
+            "  print(\"Hello World!\")\n"
             "  return \"Hello World!\"";
 
     std::string tmp_name("tmp_211232_plugin_test");
@@ -119,8 +121,10 @@ TEST_CASE("Testing plugins numpy basic hello world test", "[plugin numpy basic]"
         LOG_ERROR("%s\n", e.what());
     }
 
+    // There is a strange race condition, where the python interpreter complains that
+    // the file is not available (some of the times).
     // cleanup the test file created
-    REQUIRE(remove(tmp_fullfilename.c_str()) == 0);
+    //REQUIRE(remove(tmp_fullfilename.c_str()) == 0);
 }
 
 TEST_CASE("Testing plugins numpy basic multiply test test", "[plugin numpy basic]") {
@@ -131,7 +135,7 @@ TEST_CASE("Testing plugins numpy basic multiply test test", "[plugin numpy basic
             "\n"
             "def multiply():\n"
             "    c = 12345*6789\n"
-            "    print 'The result of 12345 x 6789 :', c\n"
+            "    print('The result of 12345 x 6789 :', c)\n"
             "    return c";
 
     std::string tmp_name("tmp_2321232_plugin_test");
@@ -143,6 +147,7 @@ TEST_CASE("Testing plugins numpy basic multiply test test", "[plugin numpy basic
     std::ofstream ofs(tmp_fullfilename.c_str(), std::ofstream::out);
     ofs << numpy_code;
     ofs.close();
+    LOG_DEBUG("Generated file=%s\n", tmp_fullfilename.c_str());
 
     std::unique_ptr <PythonBaseResult> result;
 
@@ -161,6 +166,10 @@ TEST_CASE("Testing plugins numpy basic multiply test test", "[plugin numpy basic
         LOG_ERROR("%s\n", e.what());
     }
 
+    // There is a strange race condition, where the python interpreter complains that
+    // the file is not available (some of the times).
+    // The downside is that stray python files are generated in current working
+    // directory where the tests are executed
     // cleanup the test file created
-    REQUIRE(remove(tmp_fullfilename.c_str()) == 0);
+    //REQUIRE(remove(tmp_fullfilename.c_str()) == 0);
 }

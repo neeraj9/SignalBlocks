@@ -25,11 +25,6 @@ set(USE_GNU_CXX11_BUILD ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
-# PYTHON_INCLUDE_DIR=/usr/include/python2.7
-# PYTHON_LIBRARY=/usr/lib/python2.7/config/libpython2.7.so
-set(PYTHON_INCLUDE_DIR "/usr/include/python2.7")
-#set(PYTHON_LIBRARY, "/usr/lib64/libpython2.7.so")
-
 # ##################################################################################
 # Project Version
 # ##################################################################################
@@ -42,18 +37,35 @@ mark_as_advanced(VERSION_MAJOR VERSION_MINOR VERSION_PATCH)
 # should be at top so that subdirectories can take advantage of this
 include(compiler.cmake)
 
-# ##################################################################################
+# ##############################################################################
 # Find third party libraries
-# ##################################################################################
+# ##############################################################################
 
 # any third-party libraries are to be found here
 find_package(Threads)
 find_package(GSL)
-find_package(PythonLibs)
 find_package(LibSndFile)
 
-# required to search for Python.h
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${PYTHON_INCLUDE_DIRS}")
+# ####################
+# Find Python
+# ####################
+
+find_package(PythonInterp)
+find_package(PythonLibs)
+
+# require at least python 2.7
+if(PYTHON_VERSION_STRING VERSION_LESS 2.7)
+  message(FATAL_ERROR " Python version less than 2.7: \"${PYTHON_VERSION_STRING}\".")
+endif()
+
+# check for version mismatch.
+if(PYTHONLIBS_FOUND AND PYTHONINTERP_FOUND
+    AND NOT(PYTHON_VERSION_STRING VERSION_EQUAL PYTHONLIBS_VERSION_STRING))
+    message(FATAL_ERROR " Python executable (\"${PYTHON_VERSION_STRING}\") and library (\"${PYTHONLIBS_VERSION_STRING}\") version mismatch. Clean build area and try again.")
+endif()
+
+mark_as_advanced(PYTHON_EXECUTABLE)
+include_directories(${PYTHON_INCLUDE_PATH})
 
 
 # ##################################################################################

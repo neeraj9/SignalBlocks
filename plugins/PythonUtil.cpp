@@ -18,7 +18,11 @@ PythonUtil::ExtractBasicType(PyObject* pObj) {
     }
     // bool is a subclass of int so check it first.
     if (PyBool_Check(pObj)) {
+#if PY_MAJOR_VERSION == 2
         long res = PyInt_AS_LONG(pObj);
+#elif PY_MAJOR_VERSION >= 3
+        long res = PyLong_AsLong(pObj);
+#endif
         std::unique_ptr<PyBooleanResult> pres(new PyBooleanResult());
         if (res == 0) {
             pres->mValue = false;
@@ -28,8 +32,13 @@ PythonUtil::ExtractBasicType(PyObject* pObj) {
         }
         return std::unique_ptr<PythonBaseResult>(pres.release());
     }
+#if PY_MAJOR_VERSION == 2
     else if (PyInt_Check(pObj)) {
         long res = PyInt_AsLong(pObj);
+#elif PY_MAJOR_VERSION >= 3
+    else if (PyLong_Check(pObj)) {
+        long res = PyLong_AsLong(pObj);
+#endif
         if (PyErr_Occurred()) {
             PyErr_Print();
             PyErr_Clear();
@@ -85,6 +94,7 @@ PythonUtil::ExtractBasicType(PyObject* pObj) {
         pres->mValue.mImagValue = res.imag;
         return std::unique_ptr<PythonBaseResult>(pres.release());
     }
+#if PY_MAJOR_VERSION == 2
     else if (PyString_Check(pObj)) {
         Py_ssize_t len = PyString_GET_SIZE(pObj);
         const char* str = PyString_AS_STRING(pObj);
@@ -94,6 +104,20 @@ PythonUtil::ExtractBasicType(PyObject* pObj) {
         pres->mValue = std::string(str, len);
         return std::unique_ptr<PythonBaseResult>(pres.release());
     }
+#elif PY_MAJOR_VERSION >= 3
+        // https://docs.python.org/2/howto/cporting.html
+        // https://docs.python.org/3/c-api/unicode.html
+    else if (PyUnicode_Check(pObj)) {
+        PyObject* byteobj = PyUnicode_AsASCIIString(pObj);
+        Py_ssize_t len = PyBytes_GET_SIZE(byteobj);
+        const char* str = PyBytes_AS_STRING(byteobj);
+        // copy the string and dont modify because its an internal
+        // buffer of the pObj
+        std::unique_ptr<PyStringResult> pres(new PyStringResult());
+        pres->mValue = std::string(str, len);
+        return std::unique_ptr<PythonBaseResult>(pres.release());
+    }
+#endif
     // XXX else if (PyUnicodeObject(pObj))
     throw PyPluginTypeException("error: no basic type matched");
     // return 0;

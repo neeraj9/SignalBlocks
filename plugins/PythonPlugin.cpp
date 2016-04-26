@@ -91,7 +91,7 @@ PythonPlugin::RunPythonCode(
         PyRun_SimpleString(sys_path_append_cmd.c_str());
     }
 
-#if 1 // long way of doing short things
+#if PY_MAJOR_VERSION == 2 // long way of doing short things
     // Build the name object
     Object name(PyString_FromString(pyModuleName.c_str()));
     if (name.Get() == NULL) {
@@ -104,9 +104,10 @@ PythonPlugin::RunPythonCode(
     // Load the module object
     // module is a new reference
     Object module(PyImport_Import(name.Get()));
-#else
-    // XXX this gives error with stricter compiler in CentOS 5.5
-    // module is a new reference
+#elif PY_MAJOR_VERSION >= 3
+    // This gives error with stricter compiler in CentOS 5.5
+    // module is a new reference for Python ver < 3, but
+    // for Python 3+ this is not an issue with newer compiler.
     Object module(PyImport_ImportModule(pyModuleName.c_str()));
 #endif
     if (module.Get() == 0) {
@@ -208,8 +209,16 @@ PythonPlugin::RunPythonRunnableCode(
     PyDict_SetItemString(glb.Get(), "__builtins__", PyEval_GetBuiltins());
 
     // XXX the dynamic_cast is bound to succeed.
+#if PY_MAJOR_VERSION == 2
     PyObject * pyobject = dynamic_cast<Object*>(pCode)->Get();
     Object result(PyEval_EvalCode((PyCodeObject*) pyobject, glb.Get(), loc.Get()));
+#elif PY_MAJOR_VERSION >= 3
+    // PythonRunnableCode may not be required for python 3+, but lets
+    // keep it simple and retain that logic for supporting older python
+    // interpreter as well.
+    PyObject * pyobject = dynamic_cast<Object*>(pCode)->Get();
+    Object result(PyEval_EvalCode(pyobject, glb.Get(), loc.Get()));
+#endif
     // XXX look at /usr/include/python2.5/eval.h
     // and alternatively use PyEval_EvalCodeEx
     if (PyErr_Occurred()) {
