@@ -41,40 +41,6 @@
 using namespace sigblocks;
 using namespace std;
 
-void test1() {
-    // sample instantation
-    std::shared_ptr<IPort<float> > port1(new Port<2, 2, float>());
-    std::shared_ptr<IPort<float> > port2(new Port<2, 2, float>());
-    port1->SetSink(port2, 0);
-    port2->SetSource(port1.get(), 1);
-}
-
-void test2() {
-    // lets do some data transfer
-    std::unique_ptr<int[]> x(new int[10]);
-    cout << "x = " << x.get() << endl;
-    std::unique_ptr<int[]> y(std::move(x));
-    cout << "x = " << x.get() << ", y = " << y.get() << endl;
-}
-
-void test3() {
-    //bitset is optimized for size
-    bitset<128> bit_set;
-    cout << "sizeof(bitset<128>()) = " << sizeof(bit_set) << endl;
-}
-
-void test4() {
-    std::shared_ptr<IPort<int> > pSource(new RandomSource<int>);
-    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
-    connect(pSource, pSink);
-    TimeTick time_tick(1);  // always start with 1
-    for (int i = 0; i < 10; ++i) {
-        pSource->ClockCycle(time_tick);
-        time_tick += 1;
-    }
-}
-
-
 void test5() {
     int block_size = 1;
 
@@ -93,43 +59,6 @@ void test5() {
     }
     //pIns->close();
     //pOuts->close();
-}
-
-void test6() {
-    int block_size = 1;
-    std::unique_ptr<istream> pIns(new ifstream("input.rf", ifstream::in | ifstream::binary));
-    std::shared_ptr<IPort<short> > pSource(new ComplexStreamSource<short int>(std::move(pIns), block_size));
-    std::unique_ptr<ostream> pOuts(new ofstream("output.rf", ofstream::out | ofstream::binary));
-    std::shared_ptr<IPort<short> > pSink(new OstreamSink<short>(std::move(pOuts)));
-
-    connect(pSource, pSink);
-
-    TimeTick time_tick(1);  // always start with non-zero value
-    for (int i = 0; i < 10; ++i) {
-        pSource->ClockCycle(time_tick);
-        time_tick += 1;
-    }
-    //pIns->close();
-    //pOuts->close();
-}
-
-void test7() {
-    int block_size = 1;
-
-    std::unique_ptr<std::istream> pIns(new std::ifstream(
-            "input.rf", std::ifstream::in | std::ifstream::binary));
-    ComplexStreamSource<short>* pStream_source = new ComplexStreamSource<short>(block_size);
-    pStream_source->SetStreamSource(std::move(pIns));
-
-    std::shared_ptr<IPort<short> > pSource(pStream_source);
-    std::shared_ptr<IPort<short> > pSink(
-            FileSinkCreator<OstreamSink, short>::Create("output.rf"));
-    connect(pSource, pSink);
-    TimeTick time_tick(1);  // always start with non-zero value
-    for (int i = 0; i < 10; ++i) {
-        pSource->ClockCycle(time_tick);
-        time_tick += 1;
-    }
 }
 
 template<class T>
@@ -207,55 +136,6 @@ void test17() {
     }
 }
 
-void test18() {
-    // XXX free to be used
-}
-
-void test21() {
-    stack<int> s;
-
-    for (int i = 0; i < 10; ++i) {
-        s.push(i);
-    }
-    cout << "Reversed = ";
-    for (int i = 0; i < 10; ++i) {
-        cout << s.top() << ",";
-        s.pop();
-    }
-    cout << endl;
-}
-
-void test22() {
-    std::shared_ptr<IPort<int> > pSource(new ConstantSource<int>(10));
-    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
-
-    connect(pSource, pSink);
-
-    TimeTick time_tick(1);  // always start with non-zero value
-    for (int i = 0; i < 10; ++i) {
-        pSource->ClockCycle(time_tick);
-        time_tick += 1;
-    }
-}
-
-void test23() {
-    std::shared_ptr<IPort<int> > pSource1(new ConstantSource<int>(10));
-    std::shared_ptr<IPort<int> > pSource2(new ConstantSource<int>(20));
-    std::shared_ptr<IPort<int> > pSum(new Sum<2, int>());
-    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
-
-    connect(pSource1, pSum);
-    connect(pSource2, pSum, 0, 1);
-    connect(pSum, pSink);
-
-    TimeTick time_tick(1);  // always start with non-zero value
-    for (int i = 0; i < 10; ++i) {
-        pSource1->ClockCycle(time_tick);
-        pSource2->ClockCycle(time_tick);
-        time_tick += 1;
-    }
-}
-
 void test24() {
     std::shared_ptr<IPort<int> > pSource1(new ConstantSource<int>(20));
     std::shared_ptr<IPort<int> > pSource2(new ConstantSource<int>(10));
@@ -270,21 +150,6 @@ void test24() {
     for (int i = 0; i < 10; ++i) {
         pSource1->ClockCycle(time_tick);
         pSource2->ClockCycle(time_tick);
-        time_tick += 1;
-    }
-}
-
-void test25() {
-    std::shared_ptr<IPort<int> > pSource(new ConstantSource<int>(10));
-    std::shared_ptr<IPort<int> > pD(new Gain<int>(10));
-    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
-
-    connect(pSource, pD);
-    connect(pD, pSink);
-
-    TimeTick time_tick(1);  // always start with non-zero value
-    for (int i = 0; i < 10; ++i) {
-        pSource->ClockCycle(time_tick);
         time_tick += 1;
     }
 }
