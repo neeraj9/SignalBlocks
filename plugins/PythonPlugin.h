@@ -14,9 +14,35 @@
 namespace sigblocks {
     typedef SafePythonObject PythonRunnableCode;
 
-    // I dont want to have singleton pattern because of multi-threaded env
-    // so lets be content with no-copy and let application have as many
-    // plugin's required. But have only one.
+    //
+    // For regular users have a single instance of this class
+    // and share it across multiple threads within the same
+    // process if you need it. At best do not create multiple
+    // instances of the class to exist at the same time.
+    //
+    // Also note that the python interpreter is initialized
+    // upon the first instance of this class and destroyed
+    // only at the exit of the process.
+    //
+    // Details:
+    //
+    // Note that python interpreter is not completely
+    // thread safe (or at least was not at the time of
+    // writing this module and I did not test again).
+    // That is why a mutex is added to this class in case
+    // a single instance of this class used across multiple
+    // threads. This do not restrict the case where many
+    // instances of such class could exist, but then it
+    // is left to the anyone using this plugin worry about it.
+    //
+    // Although a single process may have multiple copies of
+    // python plugin, but ultimately the initialization and
+    // finalization step for the python interpreter only
+    // happens once. This class ensures that a handler
+    // is setup via a call to atexit() cstdlib call
+    // so that python finalization happens at the
+    // exit of the process.
+    //
     class PythonPlugin {
     public:
         PythonPlugin();
@@ -48,9 +74,9 @@ namespace sigblocks {
                 PythonRunnableCode* pCode) throw(PyPluginTypeException);
 
     private: // no copy allowed
-        PythonPlugin(const PythonPlugin&);
+        PythonPlugin(const PythonPlugin&) = delete;
 
-        PythonPlugin& operator=(const PythonPlugin&);
+        PythonPlugin& operator=(const PythonPlugin&) = delete;
 
     private:
         std::mutex mMutex;

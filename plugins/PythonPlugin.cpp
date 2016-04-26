@@ -5,7 +5,10 @@
 
 #include "NumpyUtil.h"
 #include "PythonUtil.h"
+#include "../common/logging.h"
 
+#include <atomic>
+#include <cstdlib>
 #include <mutex>
 #include <memory>
 #include <Python.h>
@@ -14,26 +17,42 @@
 using namespace sigblocks;
 
 namespace {
-    inline void ImportUsualPythonModules() {
-        PyRun_SimpleString("import sys, os, re, struct");
-        PyRun_SimpleString("import numpy");
+
+    static std::atomic_flag py_initialized = ATOMIC_FLAG_INIT;
+
+    // Initialize and Deinitialize the python interpreter only
+    // once for the whole process. This is required because modules
+    // like numpy do not play nice with repeated Py_Initialize() and
+    // Py_Finalize() calls.
+    // see https://mail.scipy.org/pipermail/numpy-discussion/2009-March/040849.html
+
+    static void PythonDeinitOnlyOnce() {
+        // Finish the Python Interpreter
+        LOG_DEBUG("Finish the python interpreter\n");
+        Py_Finalize();
+    }
+
+    static void PythonInitOnlyOnce() {
+        bool was_init = py_initialized.test_and_set(std::memory_order_seq_cst);
+        if (! was_init) {
+            Py_Initialize();
+            // Dont do it all the time because its expensive!
+            // So have only one instance of the PythonPlugin.
+            PyRun_SimpleString("import sys, os, re, struct");
+            PyRun_SimpleString("import numpy");
+
+            assert(atexit(&PythonDeinitOnlyOnce) == 0);
+            LOG_DEBUG("Initialized the python interpreter.\n");
+        }
     }
 }
 
 PythonPlugin::PythonPlugin() {
-    Py_Initialize();
-    // Dont do it all the time because its expensive!
-    // So have only one instance of the PythonPlugin.
-
-    ImportUsualPythonModules();
+    PythonInitOnlyOnce();
 }
 
 PythonPlugin::PythonPlugin(const std::string& includePath) {
-    Py_Initialize();
-    // Dont do it all the time because its expensive!
-    // So have only one instance of the PythonPlugin.
-
-    ImportUsualPythonModules();
+    PythonInitOnlyOnce();
 
     // This is better than passing modulePath all the time.
     // So instead use this ctor and pass empty string as
@@ -52,7 +71,7 @@ PythonPlugin::RunPythonCode(
         const std::string& pyModuleName,
         const std::string& pyFuncName) throw(PyPluginTypeException) {
     // Python interpreter is not fully thread safe. So for multi-threaded
-    // programs we need to either us the Python GIL (global interpreter lock)
+    // programs we need to either use the Python GIL (global interpreter lock)
     // or have our own because its simple and independent of python version.
     std::lock_guard<std::mutex> guard(mMutex);
 
@@ -154,7 +173,7 @@ PythonPlugin::RunPythonCode(
 std::unique_ptr<PythonRunnableCode>
 PythonPlugin::ParsePythonSource(const std::string& source) throw() {
     // Python interpreter is not fully thread safe. So for multi-threaded
-    // programs we need to either us the Python GIL (global interpreter lock)
+    // programs we need to either use the Python GIL (global interpreter lock)
     // or have our own because its simple and independent of python version.
     std::lock_guard<std::mutex> guard(mMutex);
 
@@ -180,7 +199,7 @@ std::unique_ptr<PythonBaseResult>
 PythonPlugin::RunPythonRunnableCode(
         PythonRunnableCode* pCode) throw(PyPluginTypeException) {
     // Python interpreter is not fully thread safe. So for multi-threaded
-    // programs we need to either us the Python GIL (global interpreter lock)
+    // programs we need to either use the Python GIL (global interpreter lock)
     // or have our own because its simple and independent of python version.
     std::lock_guard<std::mutex> guard(mMutex);
 
@@ -220,6 +239,8 @@ PythonPlugin::RunPythonRunnableCode(
 }
 
 PythonPlugin::~PythonPlugin() {
-    // Finish the Python Interpreter
-    Py_Finalize();
+    // do not finalize the python interpreter
+    // here because a new instance of python plugin
+    // will cause an issue with loading of numpy module
+    // see PythonDeinitOnlyOnce() for details.
 }
