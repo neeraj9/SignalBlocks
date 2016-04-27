@@ -1,6 +1,6 @@
 # SigBlocks
 
-The SignalBlocks is a c++14 framework to implement blocks of
+The SignalBlocks is a c++11 framework to implement blocks of
 logic which can be tied together like digital signal processing
 (DSP) blocks (as in Matlab). This toolset aims to be fast, adaptable
 and free (GPLv3 license) for the student/research community.
