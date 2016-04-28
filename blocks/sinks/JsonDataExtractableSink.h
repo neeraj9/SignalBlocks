@@ -183,7 +183,6 @@ namespace sigblocks {
         }
 
         std::tuple<std::string, TimeTick> GetAsJsonData(bool isFirst, const TimeTick& tick) {
-            LOG_DEBUG("is_first=%s, tick=%lu\n", isFirst ? "true" : "false", tick.GetValue());
             std::string json_output;
             TimeTick updated_tick = tick;
             if (isFirst) {
@@ -254,7 +253,6 @@ namespace sigblocks {
                     updated_tick = last->GetTimeTick();
                 }
             }
-            LOG_DEBUG("updated_tick=%lu\n", updated_tick.GetValue());
             return std::make_tuple(std::move(json_output), updated_tick);
         };
 
