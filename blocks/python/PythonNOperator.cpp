@@ -103,7 +103,9 @@ PythonNOperator<N, T>::Process(
   template class PythonNOperator<NUM, float>; \
   template class PythonNOperator<NUM, double>;
 
+namespace sigblocks {
 // XXX allow max of two inputs for now.
-INSTANTIATE_TYPES_FOR_N_INPUTS(1)
+    INSTANTIATE_TYPES_FOR_N_INPUTS(1)
 
-INSTANTIATE_TYPES_FOR_N_INPUTS(2)
+    INSTANTIATE_TYPES_FOR_N_INPUTS(2)
+}

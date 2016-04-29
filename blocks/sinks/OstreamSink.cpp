@@ -41,17 +41,21 @@ OstreamSink<T>::Process(
     mpOstream->write(reinterpret_cast<const char*>(data.get()), len * sizeof(T));
 }
 
-template
-class OstreamSink<unsigned char>;
+namespace sigblocks {
 
-template
-class OstreamSink<char>;
+    template
+    class OstreamSink<unsigned char>;
 
-template
-class OstreamSink<short>;
+    template
+    class OstreamSink<char>;
 
-template
-class OstreamSink<int>;
+    template
+    class OstreamSink<short>;
 
-template
-class OstreamSink<long>;
+    template
+    class OstreamSink<int>;
+
+    template
+    class OstreamSink<long>;
+
+}

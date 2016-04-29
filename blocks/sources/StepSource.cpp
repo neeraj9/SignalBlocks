@@ -24,26 +24,29 @@ StepSource<T>::ClockCycle(const TimeTick& timeTick) {
     ++mValue;
 }
 
-template
-class StepSource<long>;
+namespace sigblocks {
+    template
+    class StepSource<long>;
 
-template
-class StepSource<unsigned long>;
+    template
+    class StepSource<unsigned long>;
 
-template
-class StepSource<int>;
+    template
+    class StepSource<int>;
 
-template
-class StepSource<unsigned int>;
+    template
+    class StepSource<unsigned int>;
 
-template
-class StepSource<char>;
+    template
+    class StepSource<char>;
 
-template
-class StepSource<unsigned char>;
+    template
+    class StepSource<unsigned char>;
 
-template
-class StepSource<float>;
+    template
+    class StepSource<float>;
 
-template
-class StepSource<double>;
+    template
+    class StepSource<double>;
+
+}

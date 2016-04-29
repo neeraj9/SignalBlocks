@@ -53,5 +53,7 @@ BasicTypeConverter<TFROM, TTO>::ProcessMatrix(int sourceIndex,
     this->GetAsSinkType()->ConsumeMatrix(nullptr, std::move(todata), dims, startTime);
 }
 
-template
-class BasicTypeConverter<int, float>;
+namespace sigblocks {
+    template
+    class BasicTypeConverter<int, float>;
+}
