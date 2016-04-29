@@ -15,7 +15,7 @@ MemInputStream::MemInputStream(char* data, std::size_t len)
 }
 
 std::streambuf::pos_type
-MemInputStream::seekoff(long off,
+MemInputStream::seekoff(off_type off,
                         std::ios_base::seekdir dir,
                         std::ios_base::openmode which) {
     if (dir == std::ios_base::cur) {
