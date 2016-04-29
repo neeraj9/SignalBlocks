@@ -1,0 +1,24 @@
+language: cpp
+sudo: required
+dist: trusty
+compiler:
+  - clang
+  - gcc
+os:
+  - linux
+  - osx
+script:
+  - mkdir build
+  - cd build
+  - cmake .. && make
+  - make testsuite
+before_install:
+  - echo $LANG
+  - echo $LC_ALL
+branches:
+  only:
+    - master
+    - "/^v\\d+\\./"
+env:
+  global:
+    - LANG="en_US.UTF-8"
