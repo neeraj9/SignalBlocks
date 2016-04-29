@@ -10,7 +10,7 @@ os:
 script:
   - mkdir build
   - cd build
-  - cmake .. && make
+  - cmake -DDISABLE_PYTHON_BIN_AND_LIBCHECK=on .. && make
   - make testsuite
 before_install:
   - echo $LANG

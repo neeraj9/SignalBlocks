@@ -58,11 +58,13 @@ if(PYTHON_VERSION_STRING VERSION_LESS 2.7)
   message(FATAL_ERROR " Python version less than 2.7: \"${PYTHON_VERSION_STRING}\".")
 endif()
 
-# check for version mismatch.
-if(PYTHONLIBS_FOUND AND PYTHONINTERP_FOUND
-    AND NOT(PYTHON_VERSION_STRING VERSION_EQUAL PYTHONLIBS_VERSION_STRING))
-    message(FATAL_ERROR " Python executable (\"${PYTHON_VERSION_STRING}\") and library (\"${PYTHONLIBS_VERSION_STRING}\") version mismatch. Clean build area and try again.")
-endif()
+if (NOT DISABLE_PYTHON_BIN_AND_LIBCHECK)
+    # check for version mismatch.
+    if(PYTHONLIBS_FOUND AND PYTHONINTERP_FOUND
+        AND NOT(PYTHON_VERSION_STRING VERSION_EQUAL PYTHONLIBS_VERSION_STRING))
+        message(FATAL_ERROR " Python executable (\"${PYTHON_VERSION_STRING}\") and library (\"${PYTHONLIBS_VERSION_STRING}\") version mismatch. Clean build area and try again.")
+    endif()
+endif(NOT DISABLE_PYTHON_BIN_AND_LIBCHECK)
 
 mark_as_advanced(PYTHON_EXECUTABLE)
 include_directories(${PYTHON_INCLUDE_PATH})
