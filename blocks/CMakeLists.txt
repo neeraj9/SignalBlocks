@@ -2,7 +2,6 @@
 # All rights reserved.
 
 set(BLOCKS_SOURCES
-        basicop/Buffer.cpp
         basicop/Buffer.h
         basicop/Demultiplex.h
         basicop/Multiplex.h
