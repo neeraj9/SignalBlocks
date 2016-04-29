@@ -38,7 +38,7 @@ html5 app via a websocket server. The demo can be built via the
         LOG_INFO("http server thread is terminating.\n");
     }
 
-    void run_signal_blocks(cons char *filename) {
+    void run_signal_blocks(const char *filename) {
 
         // create the blocks and connect them together
         std::unique_ptr<std::istream> audiofile(new std::ifstream(filename));
