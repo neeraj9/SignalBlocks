@@ -5,10 +5,11 @@
 
 #include "BitReadInfo.h"
 
+#include <cstring>
 #include <stdint.h>
 
 namespace sigblocks {
-    templace<typename Operation>
+    template<typename Operation>
     class BitOperation {
     public:
         static unsigned int ReadBits(BitReadInfo* bri, int numBits);
