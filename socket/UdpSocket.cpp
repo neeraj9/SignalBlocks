@@ -44,7 +44,7 @@ UdpSocket::Bind(int port) {
     // hostent* h = gethostbyname("server.ip.address");
     //addr.sin_addr = *reinterpret_cast<in_addr *> (h->h_addr);
     addr.sin_addr.s_addr = INADDR_ANY;
-    int ret = bind(mSockfd, (const sockaddr*) (&addr), sizeof(addr));
+    int ret = ::bind(mSockfd, (const sockaddr*) (&addr), sizeof(addr));
     if (ret < 0) {
         cerr << "Cannot bind socket to local port/addess = " << port << "/" <<
         "any" << endl;
