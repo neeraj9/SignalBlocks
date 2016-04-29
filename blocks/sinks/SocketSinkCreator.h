@@ -21,7 +21,7 @@ namespace sigblocks {
                 int destPort) {
             SocketSink* socket_sink = new SocketSink("socket-sink");
             std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
-            socket_sink->SetStreamSink(pIns);
+            socket_sink->SetStreamSink(std::move(pIns));
             return socket_sink;
         }
 
