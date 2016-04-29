@@ -92,8 +92,9 @@ namespace sigblocks {
     class Splitter
             : public Port<1, M, T> {
     public:
-        Splitter(T defaultValue)
-                : mIndices(),
+        Splitter(std::string name, T defaultValue)
+                : Port<1, M, T>(std::move(name), "A Splitter block."),
+                  mIndices(),
                   mDefaultValue(std::move(defaultValue)) {
             // split all values so indices are [0, M)
             mIndices.reserve(M);
@@ -102,8 +103,9 @@ namespace sigblocks {
             }
         }
 
-        Splitter(T defaultValue, std::vector<int> indices)
-                : mIndices(std::move(indices)),
+        Splitter(std::string name, T defaultValue, std::vector<int> indices)
+                : Port<1, M, T>(std::move(name), "A Splitter block."),
+                  mIndices(std::move(indices)),
                   mDefaultValue(std::move(defaultValue)) {
             assert(mIndices.size() == M);
         }

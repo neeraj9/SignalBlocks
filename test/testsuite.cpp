@@ -9,8 +9,8 @@
 using namespace sigblocks;
 
 TEST_CASE("A very basic test cases for ports", "[basic]") {
-    std::shared_ptr<IPort<float> > port1(new Port<2, 2, float>());
-    std::shared_ptr<IPort<float> > port2(new Port<2, 2, float>());
+    std::shared_ptr<IPort<float> > port1(new Port<2, 2, float>("port-1", "port 1 description"));
+    std::shared_ptr<IPort<float> > port2(new Port<2, 2, float>("port-2", "port 2 description"));
     port1->SetSink(port2, 0);
     port2->SetSource(port1.get(), 1);
     REQUIRE(port1);

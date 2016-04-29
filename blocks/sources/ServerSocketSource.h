@@ -17,9 +17,10 @@ namespace sigblocks {
     class ServerSocketSource
             : public Port<0, 1, unsigned char> {
     public:
-        ServerSocketSource(int blockSize);
+        ServerSocketSource(std::string name, int blockSize);
 
-        ServerSocketSource(std::unique_ptr<SocketProgramming::IServerSocket> pIns,
+        ServerSocketSource(std::string name,
+                           std::unique_ptr<SocketProgramming::IServerSocket> pIns,
                            int blockSize);
 
         void SetStreamSource(std::unique_ptr<SocketProgramming::IServerSocket> pIns);

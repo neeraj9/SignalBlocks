@@ -19,8 +19,8 @@ TEST_CASE("Testing block linear source for scalar integer", "[linear source]") {
     // no ctor args required
     double initial_value = 0.0;
     double increment = 1.5;
-    std::shared_ptr<IPort<double> > source(new LinearSource<double, PORT_TYPE_SCALAR>(initial_value, increment));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new LinearSource<double, PORT_TYPE_SCALAR>("linear-1", initial_value, increment));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);
@@ -55,8 +55,8 @@ TEST_CASE("Testing math block linear source for vector integer", "[linear source
     double initial_value = 0.0;
     double increment = 1.5;
     int len = 10;
-    std::shared_ptr<IPort<double> > source(new LinearSource<double, PORT_TYPE_VECTOR>(initial_value, increment, len));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new LinearSource<double, PORT_TYPE_VECTOR>("linear-1", initial_value, increment, len));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);
@@ -101,8 +101,8 @@ TEST_CASE("Testing math block linear source for matrix integer", "[linear source
     for (auto v : dims) {
         len *= v;
     }
-    std::shared_ptr<IPort<double> > source(new LinearSource<double, PORT_TYPE_MATRIX>(initial_value, increment, dims));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new LinearSource<double, PORT_TYPE_MATRIX>("linear-1", initial_value, increment, dims));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);

@@ -19,8 +19,8 @@ TEST_CASE("Testing math block complex stream source for vector integer", "[compl
 
     MemInputStream mem_instream(reinterpret_cast<char*>(&data[0]), total_num_data_bytes);
     std::unique_ptr<std::istream> input_stream(new std::istream(&mem_instream));
-    std::shared_ptr<IPort<double> > source(new ComplexStreamSource<double, PORT_TYPE_VECTOR>(std::move(input_stream), block_size));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new ComplexStreamSource<double, PORT_TYPE_VECTOR>("complex-1", std::move(input_stream), block_size));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);
@@ -59,8 +59,8 @@ TEST_CASE("Testing math block complex stream source for matrix integer", "[compl
     MemInputStream mem_instream(reinterpret_cast<char*>(&data[0]), total_num_data_bytes);
     std::unique_ptr<std::istream> input_stream(new std::istream(&mem_instream));
 
-    std::shared_ptr<IPort<double> > source(new ComplexStreamSource<double, PORT_TYPE_MATRIX>(std::move(input_stream), dims));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new ComplexStreamSource<double, PORT_TYPE_MATRIX>("complex-1", std::move(input_stream), dims));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);

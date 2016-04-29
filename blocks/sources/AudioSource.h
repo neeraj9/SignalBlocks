@@ -37,10 +37,12 @@ namespace sigblocks {
         /// set enableNormalisation to false when you dont want
         /// integer audio samples to be normalised to [-1.0, 1.0]
         /// when read as float or double.
-        AudioSource(int blockSize,
+        AudioSource(std::string name,
+                    int blockSize,
                     std::unique_ptr<std::istream> pIns,
                     bool enableNormalisation = true)
-                : mLastTick(),
+                : Port<0, 1, T>(std::move(name), "An audio source."),
+                  mLastTick(),
                   mLoopOver(true),
                   mBlockSize(blockSize),
                   mSoundInfo(enableNormalisation) {

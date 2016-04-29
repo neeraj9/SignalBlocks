@@ -15,7 +15,7 @@ namespace sigblocks {
     public:
         static B<T>* Create(
                 const std::string& filename) {
-            B<T>* pStream_sink = new B<T>();
+            B<T>* pStream_sink = new B<T>("sink-block");
             std::unique_ptr<std::ostream> pOuts(new std::ofstream(
                     filename.c_str(), std::ofstream::out | std::ofstream::binary));
             pStream_sink->SetStreamSink(std::move(pOuts));

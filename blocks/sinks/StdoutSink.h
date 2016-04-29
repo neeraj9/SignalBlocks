@@ -12,10 +12,15 @@ namespace sigblocks {
     class StdoutSink
             : public Port<1, 0, T> {
     public:
-        StdoutSink() : mPrefix() {
+        StdoutSink(std::string name)
+                : Port<1, 0, T>(std::move(name), "A stdout sink."),
+                  mPrefix() {
         }
 
-        StdoutSink(const std::string& prefix) : mPrefix(prefix) {
+        StdoutSink(std::string name,
+                   const std::string& prefix)
+                : Port<1, 0, T>(std::move(name), "A stdout sink."),
+                  mPrefix(prefix) {
         }
 
     public: // Port interface

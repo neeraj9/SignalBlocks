@@ -13,8 +13,9 @@ namespace sigblocks {
     class BinaryOperator
             : public Port<2, 1, T> {
     public:
-        BinaryOperator()
-                : mDefaultValue(),
+        BinaryOperator(std::string name)
+                : Port<2, 1, T>(std::move(name), "A binary operator block."),
+                  mDefaultValue(),
                   mStorage({mDefaultValue, mDefaultValue}),
                   mArrayStorage({nullptr, nullptr}),
                   mDims(),
@@ -22,8 +23,9 @@ namespace sigblocks {
                   mNumInputsReceived(0) {
         }
 
-        BinaryOperator(const T& defaultValue)
-                : mDefaultValue(defaultValue),
+        BinaryOperator(std::string name, const T& defaultValue)
+                : Port<2, 1, T>(std::move(name), "A binary operator block."),
+                  mDefaultValue(defaultValue),
                   mStorage({defaultValue, defaultValue}),
                   mArrayStorage({nullptr, nullptr}),
                   mDims(),

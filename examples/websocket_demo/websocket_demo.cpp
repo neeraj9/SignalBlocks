@@ -35,10 +35,10 @@ std::shared_ptr<IPort<BaseDataType> > CreateWebsocketDemoCodeBlocks(
         HttpTcpWebsocketServer* pHttpTcpWebsocketServer,
         std::unique_ptr<std::istream> audioStream) {
     int block_size = 1; // one sample at a time
-    std::shared_ptr<IPort<BaseDataType> > source(new AudioSource<BaseDataType>(block_size, std::move(audioStream)));
-    std::shared_ptr<IPort<BaseDataType> > block(new Splitter<2, BaseDataType>(0));
-    std::shared_ptr<IPort<BaseDataType> > nullport(new Terminator<BaseDataType>);
-    std::shared_ptr<IPort<BaseDataType> > sink(new JsonDataExtractableSink<BaseDataType>);
+    std::shared_ptr<IPort<BaseDataType> > source(new AudioSource<BaseDataType>("audio-src-1", block_size, std::move(audioStream)));
+    std::shared_ptr<IPort<BaseDataType> > block(new Splitter<2, BaseDataType>("splitter-1", 0));
+    std::shared_ptr<IPort<BaseDataType> > nullport(new Terminator<BaseDataType>("nullport-1"));
+    std::shared_ptr<IPort<BaseDataType> > sink(new JsonDataExtractableSink<BaseDataType>("json-data-extractor-1"));
     JsonDataExtractableSink<BaseDataType>* archive = dynamic_cast<JsonDataExtractableSink<BaseDataType>*>(sink.get());
 
     JsonDataCallbackFuncType cb = std::bind(&JsonDataExtractableSink<BaseDataType>::GetAsJsonData,

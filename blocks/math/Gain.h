@@ -10,8 +10,9 @@ namespace sigblocks {
     class Gain
             : public Port<1, 1, T> {
     public:
-        Gain(const T& scale)
-                : mScale(scale) {
+        Gain(std::string name, const T& scale)
+                : Port<1, 1, T>(std::move(name), "A gain block"),
+                  mScale(scale) {
         }
 
     protected: // Port interface

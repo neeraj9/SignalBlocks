@@ -17,7 +17,7 @@ namespace sigblocks {
         static B<T>* Create(
                 const std::string& filename,
                 int blockSize) {
-            B<T>* pStream_source = new B<T>(blockSize);
+            B<T>* pStream_source = new B<T>("source-block", blockSize);
             std::unique_ptr<std::istream> pIns(new std::ifstream(
                     filename.c_str(), std::ifstream::in | std::ifstream::binary));
             pStream_source->SetStreamSource(std::move(pIns));

@@ -22,6 +22,10 @@ namespace sigblocks {
     template<class T>
     class Transpose
             : public Port<1, 1, T> {
+    public:
+        Transpose(std::string name)
+                : Port<1, 1, T>(std::move(name), "A 2D matrix transpose block.") {
+        }
     protected: // Port interface
         virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {
             this->LeakData(sourceIndex, data, startTime);

@@ -12,6 +12,11 @@ namespace sigblocks {
     template<class T>
     class Log1p
             : public UnaryOperator<T> {
+    public:
+        Log1p(std::string name)
+                : UnaryOperator<T>(std::move(name)) {
+        }
+
     protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return gsl_log1p(arg1);

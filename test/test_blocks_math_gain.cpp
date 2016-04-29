@@ -19,9 +19,9 @@ namespace {
 TEST_CASE("Testing block gain for scalar integer", "[gain]") {
     int factor = 2;
     int input_value = 4;
-    std::shared_ptr<IPort<int> > source(new ConstantSource<int>(input_value));
-    std::shared_ptr<IPort<int> > block(new Gain<int>(factor));
-    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>());
+    std::shared_ptr<IPort<int> > source(new ConstantSource<int>("constant-source-1", input_value));
+    std::shared_ptr<IPort<int> > block(new Gain<int>("gain-1", factor));
+    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>("sink-1"));
     ArchiverSink<int>* archive = dynamic_cast<ArchiverSink<int>*>(sink.get());
 
     connect(source, connect(block, sink));
@@ -55,9 +55,9 @@ TEST_CASE("Testing math block gain for vector integer", "[gain]") {
     int factor = 2;
     int input_value = 4;
     int len = 10;
-    std::shared_ptr<IPort<int> > source(new ConstantSource<int, PORT_TYPE_VECTOR>(input_value, len));
-    std::shared_ptr<IPort<int> > block(new Gain<int>(factor));
-    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>());
+    std::shared_ptr<IPort<int> > source(new ConstantSource<int, PORT_TYPE_VECTOR>("constant-1", input_value, len));
+    std::shared_ptr<IPort<int> > block(new Gain<int>("gain-1", factor));
+    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>("archive-1"));
     ArchiverSink<int>* archive = dynamic_cast<ArchiverSink<int>*>(sink.get());
 
     connect(source, connect(block, sink));
@@ -101,9 +101,9 @@ TEST_CASE("Testing math block gain for matrix integer", "[gain]") {
     for (auto v : dims) {
         len *= v;
     }
-    std::shared_ptr<IPort<int> > source(new ConstantSource<int, PORT_TYPE_MATRIX>(input_value, dims));
-    std::shared_ptr<IPort<int> > block(new Gain<int>(factor));
-    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>());
+    std::shared_ptr<IPort<int> > source(new ConstantSource<int, PORT_TYPE_MATRIX>("constant-1", input_value, dims));
+    std::shared_ptr<IPort<int> > block(new Gain<int>("gain-1", factor));
+    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>("archive-1"));
     ArchiverSink<int>* archive = dynamic_cast<ArchiverSink<int>*>(sink.get());
 
     connect(source, connect(block, sink));

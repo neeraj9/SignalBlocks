@@ -13,7 +13,7 @@ namespace sigblocks {
     class CsvFileSource
             : public Port<0, 1, std::string> {
     public:
-        CsvFileSource(const std::string& filename, bool hasHeader);
+        CsvFileSource(std::string name, const std::string& filename, bool hasHeader);
 
         const std::vector<std::string>& GetHeader() const;
         bool IsValid() const;

@@ -12,6 +12,11 @@ namespace sigblocks {
     template<class T>
     class Arccosh
             : public UnaryOperator<T> {
+    public:
+        Arccosh(std::string name)
+                : UnaryOperator<T>(std::move(name)) {
+        }
+
     protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return gsl_acosh(arg1);

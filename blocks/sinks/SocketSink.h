@@ -15,9 +15,9 @@ namespace sigblocks {
     class SocketSink
             : public Port<1, 0, unsigned char> {
     public:
-        SocketSink();
+        SocketSink(std::string name);
 
-        SocketSink(std::unique_ptr<SocketProgramming::ISocket> pIns);
+        SocketSink(std::string name, std::unique_ptr<SocketProgramming::ISocket> pIns);
 
         void SetStreamSink(std::unique_ptr<SocketProgramming::ISocket> pIns);
 

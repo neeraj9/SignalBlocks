@@ -88,8 +88,8 @@ TEST_CASE("Testing block audio source for 8KHz 16-bit signed PCM, stereo signal"
     std::unique_ptr<std::istream> input_stream(new std::istream(&mem_instream));
 
     int block_size = 2;
-    std::shared_ptr<IPort<short> > source(new AudioSource<short>(block_size, std::move(input_stream)));
-    std::shared_ptr<IPort<short> > sink(new ArchiverSink<short>());
+    std::shared_ptr<IPort<short> > source(new AudioSource<short>("audio-1", block_size, std::move(input_stream)));
+    std::shared_ptr<IPort<short> > sink(new ArchiverSink<short>("archiver-1"));
     ArchiverSink<short>* archive = dynamic_cast<ArchiverSink<short>*>(sink.get());
 
     connect(source, sink);

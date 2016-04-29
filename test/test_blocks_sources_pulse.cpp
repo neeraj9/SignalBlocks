@@ -22,8 +22,8 @@ TEST_CASE("Testing block pulse source for scalar integer", "[pulse source]") {
     double high_value = 20.5;
     double low_value = -1.0;
     std::shared_ptr<IPort<double> > source(new PulseSource<double, PORT_TYPE_SCALAR>(
-            period_offset, total_period_samples, high_ratio, high_value, low_value));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+            "pulse-1", period_offset, total_period_samples, high_ratio, high_value, low_value));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);
@@ -71,8 +71,8 @@ TEST_CASE("Testing math block pulse source for vector integer", "[pulse source]"
     double high_value = 20.5;
     double low_value = -1.0;    int len = 10;
     std::shared_ptr<IPort<double> > source(new PulseSource<double, PORT_TYPE_VECTOR>(
-            period_offset, total_period_samples, high_ratio, high_value, low_value, len));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+            "pulse-1", period_offset, total_period_samples, high_ratio, high_value, low_value, len));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);
@@ -131,8 +131,8 @@ TEST_CASE("Testing math block pulse source for matrix integer", "[pulse source]"
         len *= v;
     }
     std::shared_ptr<IPort<double> > source(new PulseSource<double, PORT_TYPE_MATRIX>(
-            period_offset, total_period_samples, high_ratio, high_value, low_value, dims));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+            "pulse-1", period_offset, total_period_samples, high_ratio, high_value, low_value, dims));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);

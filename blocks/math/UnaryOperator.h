@@ -9,6 +9,11 @@ namespace sigblocks {
     template<class T>
     class UnaryOperator
             : public Port<1, 1, T> {
+    public:
+        UnaryOperator(std::string name)
+                : Port<1, 1, T>(std::move(name), "A unary operator") {
+        }
+
     protected:
         virtual T Compute(const T& arg1) const = 0;
 

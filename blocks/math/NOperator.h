@@ -16,15 +16,17 @@ namespace sigblocks {
     class NOperator
             : public Port<N, 1, T> {
     public:
-        NOperator()
-                : mDefaultValue(),
+        NOperator(std::string name)
+                : Port<N, 1, T>(std::move(name), "An operator block."),
+                  mDefaultValue(),
                   mStorage(),
                   mDims(),
                   mLastTick() {
         }
 
-        NOperator(const T& defaultValue)
-                : mDefaultValue(defaultValue),
+        NOperator(std::string name, const T& defaultValue)
+                : Port<N, 1, T>(std::move(name), "An operator block."),
+                  mDefaultValue(defaultValue),
                   mStorage(),
                   mDims(),
                   mLastTick() {

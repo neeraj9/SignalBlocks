@@ -109,6 +109,15 @@ bool BlockRunner::Add(std::shared_ptr<IPort<long double> > source, const std::st
     return false;
 }
 
+bool BlockRunner::Add(std::shared_ptr<IPort<std::string> > source, const std::string& name) {
+    bool success = mBlocks.insert({name, BLOCK_STRING}).second;
+    if (success) {
+        mStringSources.insert({name, source});
+        return true;
+    }
+    return false;
+}
+
 bool BlockRunner::Remove(const std::string& name) {
     auto element = mBlocks.find(name);
     if (element != mBlocks.end()) {
@@ -168,6 +177,11 @@ bool BlockRunner::Remove(const std::string& name) {
                 mLongDoubleSources.erase(name);
                 break;
             }
+            case BLOCK_STRING:
+            {
+                mStringSources.erase(name);
+                break;
+            }
             // no default
         }
         mBlocks.erase(name);
@@ -218,6 +232,10 @@ void BlockRunner::Iterate() {
     }
 
     for (auto&& iter : mLongDoubleSources) {
+        iter.second->ClockCycle(mTimeTick);
+    }
+
+    for (auto&& iter : mStringSources) {
         iter.second->ClockCycle(mTimeTick);
     }
 

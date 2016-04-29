@@ -3,6 +3,8 @@
 #ifndef SIGBLOCKS_MIXEDPORT_H
 #define SIGBLOCKS_MIXEDPORT_H
 
+#include "BlockTypes.h"
+#include "BlockManager.h"
 #include "IPort.h"
 #include "TimeTick.h"
 #include "Port.h"
@@ -14,6 +16,12 @@ namespace sigblocks {
     template<int M, class T>
     class TransparentProxy
             : public Port<1, M, T> {
+
+    public:
+        TransparentProxy(std::string name)
+                : Port<1, M, T>(std::move(name), "A Transparent Proxy") {
+        }
+
     protected: // override Port interface to act as a transparent proxy
         virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {
             for (int i = 0; i < M; ++i) {
@@ -41,8 +49,14 @@ namespace sigblocks {
     class MixedPort
             : public IPort<TN> {
     public:
-        MixedPort() : mpSource(),
-                      mInternalSource(new TransparentProxy<M, TM>()) {
+        MixedPort(std::string name, std::string description)
+                : mBlockInfo(std::move(name), std::move(description), TypeToBt<TN>::ToType(), N, M),
+                  mpSource(),
+                  mInternalSource(new TransparentProxy<M, TM>(mBlockInfo.mName)) {
+            BlockManager::BlockInfoFuncType cb = std::bind(&MixedPort<N, M, TN, TM>::GetBlockInfo,
+                                                           this);
+            mBlockInfo.mId = BlockManager::Getinstance()->Add(std::move(cb));
+
             for (int i = 0; i < N; ++i) {
                 mpSource[i] = nullptr;
             }
@@ -115,6 +129,10 @@ namespace sigblocks {
             mInternalSource->ClockCycle(timeTick);
         }
 
+        const BlockManager::BlockInfo& GetBlockInfo() {
+            return mBlockInfo;
+        }
+
     private: // IPort interface (which should not be used because sink are of type TM)
         // NOT TO BE USED
         void SetSink(std::shared_ptr<IPort<TN> >& peer, int index) {
@@ -142,6 +160,7 @@ namespace sigblocks {
         }
 
     private:
+        BlockManager::BlockInfo mBlockInfo;
         IPort<TN>* mpSource[N];
         std::shared_ptr<IPort<TM> > mInternalSource;
     };

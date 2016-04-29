@@ -14,6 +14,11 @@ namespace sigblocks {
     template<int M, class T>
     class Duplicator
             : public Port<1, M, T> {
+    public:
+        Duplicator(std::string name)
+                : Port<1, M, T>(std::move(name), "A duplicator block.") {
+        }
+
     protected: // Port interface
         virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {
             for (int i = 0; i < M; ++i) {

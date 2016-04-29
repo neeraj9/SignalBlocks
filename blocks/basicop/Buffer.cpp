@@ -8,9 +8,12 @@
 using namespace sigblocks;
 using namespace std;
 
+#define DESCRIPTION "A buffer block."
+
 template<class T>
-Buffer<T>::Buffer(int fieldsToBuffer)
-        : mFieldsToBuffer(fieldsToBuffer),
+Buffer<T>::Buffer(std::string name, int fieldsToBuffer)
+        : Port<1, 1, T>(std::move(name), DESCRIPTION),
+          mFieldsToBuffer(fieldsToBuffer),
           mNumFields(0),
           mData(new T[fieldsToBuffer]) // pre-allocate space
 {

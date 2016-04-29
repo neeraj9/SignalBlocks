@@ -1,6 +1,5 @@
-//
-// Created by nsharma on 3/15/16.
-//
+// (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>.
+// see LICENSE for license
 
 #ifndef SIGBLOCKS_PORTTYPE_H
 #define SIGBLOCKS_PORTTYPE_H

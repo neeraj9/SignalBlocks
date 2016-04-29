@@ -20,7 +20,8 @@ namespace sigblocks {
     class Multiplex
             : public Port<N, 1, T> {
     public:
-        Multiplex() {
+        Multiplex(std::string name)
+                : Port<N, 1, T>(std::move(name), "A Multiplex block.") {
             assert(0);
         }
     };
@@ -30,8 +31,9 @@ namespace sigblocks {
     class Multiplex<N, T, MULTIPLEX_SCALAR>
             : public Port<N, 1, T> {
     public:
-        Multiplex(T defaultValue)
-                : mDefaultValue(defaultValue),
+        Multiplex(std::string name, T defaultValue)
+                : Port<N, 1, T>(std::move(name), "A Multiplex block."),
+                  mDefaultValue(defaultValue),
                   mStorage(),
                   mLastTick() {
         }
@@ -88,8 +90,9 @@ namespace sigblocks {
     class Multiplex<N, T, MULTIPLEX_VECTOR>
             : public Port<N, 1, T> {
     public:
-        Multiplex(T defaultValue)
-                : mDefaultValue(defaultValue),
+        Multiplex(std::string name, T defaultValue)
+                : Port<N, 1, T>(std::move(name), "A Multiplex block."),
+                  mDefaultValue(defaultValue),
                   mStorage(),
                   mLastTick() {
         }
@@ -193,8 +196,9 @@ namespace sigblocks {
     class Multiplex<N, T, MULTIPLEX_MATRIX>
             : public Port<N, 1, T> {
     public:
-        Multiplex(T defaultValue)
-                : mDefaultValue(defaultValue),
+        Multiplex(std::string name, T defaultValue)
+                : Port<N, 1, T>(std::move(name), "A Multiplex block."),
+                  mDefaultValue(defaultValue),
                   mStorage(),
                   mLastTick() {
         }
@@ -227,6 +231,7 @@ namespace sigblocks {
             assert(0);
         }
 
+        // TODO FIXME based on the matrix storage as specified in IPort.h
         virtual void ProcessMatrix(int sourceIndex,
                                    std::unique_ptr<T[]> data,
                                    const std::vector<int>& dims,

@@ -41,6 +41,7 @@ namespace sigblocks {
             mNextOutputPort = (mNextOutputPort + 1) % N;
         }
 
+        // TODO FIXME based on the matrix storage as specified in IPort.h
         virtual void ProcessMatrix(int sourceIndex,
                                    std::unique_ptr<T[]> data,
                                    const std::vector<int>& dims,

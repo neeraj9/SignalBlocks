@@ -14,9 +14,9 @@ using namespace sigblocks;
 TEST_CASE("Testing block delay filter for scalar integer", "[delay filter]") {
     double fixed_value = 1.0;
     int delay_samples = 1;
-    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_SCALAR>(fixed_value));
-    std::shared_ptr<IPort<double> > block(new Delay<double, PORT_TYPE_SCALAR>(delay_samples));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_SCALAR>("constant-1", fixed_value));
+    std::shared_ptr<IPort<double> > block(new Delay<double, PORT_TYPE_SCALAR>("delay-1", delay_samples));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, connect(block, sink));
@@ -46,9 +46,9 @@ TEST_CASE("Testing math block delay filter for vector integer", "[delay filter]"
     double fixed_value = 1.0;
     int delay_samples = 1;
     int len = 10;
-    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_VECTOR>(fixed_value, len));
-    std::shared_ptr<IPort<double> > block(new Delay<double, PORT_TYPE_VECTOR>(delay_samples));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_VECTOR>("complex-1", fixed_value, len));
+    std::shared_ptr<IPort<double> > block(new Delay<double, PORT_TYPE_VECTOR>("delay-1", delay_samples));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, connect(block, sink));
@@ -86,9 +86,9 @@ TEST_CASE("Testing math block delay filter for matrix integer", "[delay filter]"
     for (auto v : dims) {
         len *= v;
     }
-    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_MATRIX>(fixed_value, dims));
-    std::shared_ptr<IPort<double> > block(new Delay<double, PORT_TYPE_MATRIX>(delay_samples));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_MATRIX>("constant-1", fixed_value, dims));
+    std::shared_ptr<IPort<double> > block(new Delay<double, PORT_TYPE_MATRIX>("delay-1", delay_samples));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, connect(block, sink));

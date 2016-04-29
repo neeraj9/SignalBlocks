@@ -24,8 +24,9 @@ namespace sigblocks {
     class DownSample
             : public Port<1, 1, T> {
     public:
-        DownSample(int factor)
-                : mDownSampleFactor(factor),
+        DownSample(std::string name, int factor)
+                : Port<1, 1, T>(std::move(name), "A down sample block."),
+                  mDownSampleFactor(factor),
                   mCurrentCount(0) {
             assert(mDownSampleFactor > 0); // XXX replace with some assertion library
         }

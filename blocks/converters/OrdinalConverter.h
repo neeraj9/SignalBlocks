@@ -13,9 +13,10 @@ namespace sigblocks {
             : public MixedPort<1, 1, std::string, unsigned long> {
 
     public:
-        OrdinalConverter();
+        OrdinalConverter(std::string name);
 
-        OrdinalConverter(std::unordered_map<std::string, unsigned long> initDict,
+        OrdinalConverter(std::string name,
+                         std::unordered_map<std::string, unsigned long> initDict,
                          unsigned long nextOrdinalValue);
 
         std::tuple<unsigned long, bool> GetOrdinalValue(const std::string& key) const;

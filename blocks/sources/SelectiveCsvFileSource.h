@@ -16,8 +16,11 @@ namespace sigblocks {
     class SelectiveCsvFileSource
             : public Port<0, M, std::string> {
     public:
-        SelectiveCsvFileSource(const std::string& filename, std::vector<std::string> selectColumns)
-                : mLastTick(),
+        SelectiveCsvFileSource(std::string name,
+                               const std::string& filename,
+                               std::vector<std::string> selectColumns)
+                : Port<0, M, std::string>(std::move(name), "A selective csv file source."),
+                  mLastTick(),
                   mFilename(filename),
                   mParser(filename, true),
                   mColumns(std::move(selectColumns)),

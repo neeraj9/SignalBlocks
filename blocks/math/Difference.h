@@ -10,6 +10,11 @@ namespace sigblocks {
     template<int N, class T>
     class Difference
             : public NOperator<N, T> {
+    public:
+        Difference(std::string name)
+                : NOperator<N, T>(std::move(name)) {
+        }
+
     protected: // NOperator interface
         // args[0], ... args[N] = a(n), b(n), ...
         // implement args[0] - args[1] - ... args[N-1]

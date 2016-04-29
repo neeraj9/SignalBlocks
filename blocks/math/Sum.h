@@ -9,6 +9,11 @@ namespace sigblocks {
     template<int N, class T>
     class Sum
             : public NOperator<N, T> {
+    public:
+        Sum(std::string name)
+                : NOperator<N, T>(std::move(name)) {
+        }
+
     protected: // NOperator interface
 
         virtual void Compute(T* pArgs[N], const std::vector<int>& dims) {

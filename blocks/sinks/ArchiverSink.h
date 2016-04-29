@@ -73,6 +73,10 @@ namespace sigblocks {
 
 
     public:
+        ArchiverSink(std::string name)
+                : Port<1, 0, T>(std::move(name), "An archiver sink.") {
+        }
+
         const std::list<ArchiveScalarInfo>& GetScalarInfo() const {
             return mScalarStorage;
         }

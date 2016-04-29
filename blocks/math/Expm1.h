@@ -12,6 +12,11 @@ namespace sigblocks {
     template<class T>
     class Expm1
             : public UnaryOperator<T> {
+    public:
+        Expm1(std::string name)
+                : UnaryOperator<T>(std::move(name)) {
+        }
+
     protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return gsl_expm1(arg1);

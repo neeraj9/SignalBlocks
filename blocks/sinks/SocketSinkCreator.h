@@ -19,7 +19,7 @@ namespace sigblocks {
         static SocketSink* Create(
                 const std::string& destIp,
                 int destPort) {
-            SocketSink* socket_sink = new SocketSink();
+            SocketSink* socket_sink = new SocketSink("socket-sink");
             std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
             socket_sink->SetStreamSink(pIns);
             return socket_sink;
@@ -29,7 +29,7 @@ namespace sigblocks {
                 const std::string& destIp,
                 int destPort,
                 int localPort) {
-            SocketSink* socket_sink = new SocketSink();
+            SocketSink* socket_sink = new SocketSink("socket-sink");
             std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
             if (pIns->Bind(localPort)) {
                 if (pIns->Connect()) {

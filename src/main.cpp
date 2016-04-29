@@ -46,10 +46,10 @@ void test5() {
 
     std::unique_ptr<istream> pIns(new ifstream("input.txt", ifstream::in | ifstream::binary));
     std::shared_ptr<IPort<unsigned char> > pSource(
-            new IstreamSource<unsigned char>(block_size, std::move(pIns)));
+            new IstreamSource<unsigned char>("source-1", block_size, std::move(pIns)));
 
     std::unique_ptr<ostream> pOuts(new ofstream("output.txt", ofstream::out | ofstream::binary));
-    std::shared_ptr<IPort<unsigned char> > pSink(new OstreamSink<unsigned char>(std::move(pOuts)));
+    std::shared_ptr<IPort<unsigned char> > pSink(new OstreamSink<unsigned char>("ostream-1", std::move(pOuts)));
 
     connect(pSource, pSink);
     TimeTick time_tick(1);  // always start with non-zero value
@@ -121,10 +121,10 @@ void test12() {
 }
 
 void test17() {
-    std::shared_ptr<IPort<int> > pSource(new RandomSource<int>);
-    BasicTypeConverter<int, float>* pBasicTypeConverter = new BasicTypeConverter<int, float>();
+    std::shared_ptr<IPort<int> > pSource(new RandomSource<int>("random-1"));
+    BasicTypeConverter<int, float>* pBasicTypeConverter = new BasicTypeConverter<int, float>("type-convert-1");
     std::shared_ptr<IPort<int> > pConverter_sink(pBasicTypeConverter);
-    std::shared_ptr<IPort<float> > pSink(new StdoutSink<float>());
+    std::shared_ptr<IPort<float> > pSink(new StdoutSink<float>("stdout-sink-1"));
 
     connect(pSource, pConverter_sink);
     connect(pBasicTypeConverter->GetAsSinkType(), pSink);
@@ -137,10 +137,10 @@ void test17() {
 }
 
 void test24() {
-    std::shared_ptr<IPort<int> > pSource1(new ConstantSource<int>(20));
-    std::shared_ptr<IPort<int> > pSource2(new ConstantSource<int>(10));
-    std::shared_ptr<IPort<int> > pD(new Difference<2, int>());
-    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
+    std::shared_ptr<IPort<int> > pSource1(new ConstantSource<int>("constant-1", 20));
+    std::shared_ptr<IPort<int> > pSource2(new ConstantSource<int>("constant-2", 10));
+    std::shared_ptr<IPort<int> > pD(new Difference<2, int>("difference-1"));
+    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>("stdout-sink-1"));
 
     connect(pSource1, pD);
     connect(pSource2, pD, 0, 1);
@@ -155,10 +155,10 @@ void test24() {
 }
 
 void test26() {
-    std::shared_ptr<IPort<int> > pSource1(new ConstantSource<int>(10));
-    std::shared_ptr<IPort<int> > pSource2(new ConstantSource<int>(20));
-    std::shared_ptr<IPort<int> > pP(new Product<2, int>());
-    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>());
+    std::shared_ptr<IPort<int> > pSource1(new ConstantSource<int>("constant-1", 10));
+    std::shared_ptr<IPort<int> > pSource2(new ConstantSource<int>("constant-2", 20));
+    std::shared_ptr<IPort<int> > pP(new Product<2, int>("product-1"));
+    std::shared_ptr<IPort<int> > pSink(new StdoutSink<int>("stdout-1"));
 
     connect(pSource1, pP);
     connect(pSource2, pP, 0, 1);
@@ -198,19 +198,19 @@ void test32() {
 }
 
 void test35() {
-    std::shared_ptr<IPort<std::string> > source(new CsvFileSource("test.csv", true));
-    std::shared_ptr<IPort<std::string> > sink(new StdoutSink<std::string>());
+    std::shared_ptr<IPort<std::string> > source(new CsvFileSource("csv-source-1", "test.csv", true));
+    std::shared_ptr<IPort<std::string> > sink(new StdoutSink<std::string>("stdout-1"));
     connect(source, sink);
 }
 
 void test36() {
     int default_value = 0;
-    std::shared_ptr<IPort<int> > block(new Multiplex<2, int, MULTIPLEX_VECTOR>(default_value));
+    std::shared_ptr<IPort<int> > block(new Multiplex<2, int, MULTIPLEX_VECTOR>("multiplex-1", default_value));
 }
 
 void test37() {
     int factor = 10;  // down sample to 1 in 10 TimeTick
-    std::shared_ptr<IPort<int> > block(new DownSample<int>(factor));
+    std::shared_ptr<IPort<int> > block(new DownSample<int>("downsample-1", factor));
 }
 
 int main() {

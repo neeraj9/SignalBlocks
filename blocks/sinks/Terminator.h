@@ -9,6 +9,11 @@ namespace sigblocks {
     template<class T>
     class Terminator
             : public Port<1, 0, T> {
+    public:
+        Terminator(std::string name)
+                : Port<1, 0, T>(std::move(name), "A terminator block.") {
+        }
+
     public: // Port interface
         void Process(int sourceIndex, const T& data, const TimeTick& startTime) { }
 

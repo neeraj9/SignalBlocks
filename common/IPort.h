@@ -3,6 +3,7 @@
 #ifndef SIGBLOCKS_IPORT_H
 #define SIGBLOCKS_IPORT_H
 
+#include "BlockManager.h"
 #include "TimeTick.h"
 
 #include <assert.h>
@@ -76,6 +77,8 @@ namespace sigblocks {
                 const std::vector<int>& dims, const TimeTick& startTime) = 0;
 
         virtual void ClockCycle(const TimeTick& timeTick) = 0;
+
+        virtual const BlockManager::BlockInfo& GetBlockInfo() = 0;
 
     };
 

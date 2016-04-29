@@ -9,12 +9,16 @@
 using namespace sigblocks;
 using namespace std;
 
-SocketSink::SocketSink()
-        : mpSocket(nullptr) {
+#define DESCRIPTION "A sink which passes through the data to a sock."
+
+SocketSink::SocketSink(std::string name)
+        : Port(std::move(name), DESCRIPTION),
+          mpSocket(nullptr) {
 }
 
-SocketSink::SocketSink(std::unique_ptr<SocketProgramming::ISocket> pOuts)
-        : mpSocket(std::move(pOuts)) {
+SocketSink::SocketSink(std::string name, std::unique_ptr<SocketProgramming::ISocket> pOuts)
+        : Port(std::move(name), DESCRIPTION),
+          mpSocket(std::move(pOuts)) {
 }
 
 void

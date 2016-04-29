@@ -11,8 +11,8 @@ using namespace sigblocks;
 
 TEST_CASE("Testing block json-data-extractable source for scalar integer", "[json-data-extractable source]") {
     double fixed_value = 1.2;
-    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_SCALAR>(fixed_value));
-    std::shared_ptr<IPort<double> > sink(new JsonDataExtractableSink<double>());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_SCALAR>("constant-1", fixed_value));
+    std::shared_ptr<IPort<double> > sink(new JsonDataExtractableSink<double>("json-data-1"));
     JsonDataExtractableSink<double>* archive = dynamic_cast<JsonDataExtractableSink<double>*>(sink.get());
 
     connect(source, sink);
@@ -38,8 +38,8 @@ TEST_CASE("Testing block json-data-extractable source for scalar integer", "[jso
 TEST_CASE("Testing math block json-data-extractable source for vector integer", "[json-data-extractable source]") {
     double fixed_value = 1.2;
     int len = 2;
-    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_VECTOR>(fixed_value, len));
-    std::shared_ptr<IPort<double> > sink(new JsonDataExtractableSink<double>());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_VECTOR>("constant-1", fixed_value, len));
+    std::shared_ptr<IPort<double> > sink(new JsonDataExtractableSink<double>("json-data-1"));
     JsonDataExtractableSink<double>* archive = dynamic_cast<JsonDataExtractableSink<double>*>(sink.get());
 
     connect(source, sink);

@@ -12,6 +12,11 @@ namespace sigblocks {
     template<class T>
     class Cos
             : public UnaryOperator<T> {
+    public:
+        Cos(std::string name)
+                : UnaryOperator<T>(std::move(name)) {
+        }
+
     protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return cos(arg1);

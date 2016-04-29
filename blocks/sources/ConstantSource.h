@@ -14,8 +14,9 @@ namespace sigblocks {
     class ConstantSource
             : public Port<0, 1, T> {
     public:
-        ConstantSource(const T& value)
-                : mFixedValue(value) {
+        ConstantSource(std::string name, const T& value)
+                : Port<0, 1, T>(std::move(name), "A constant source."),
+                  mFixedValue(value) {
         }
 
     public:  // override Port interfaces
@@ -32,8 +33,9 @@ namespace sigblocks {
     class ConstantSource<T, PORT_TYPE_VECTOR>
             : public Port<0, 1, T> {
     public:
-        ConstantSource(const T& value, int len)
-                : mFixedValue(value),
+        ConstantSource(std::string name, const T& value, int len)
+                : Port<0, 1, T>(std::move(name), "A constant source."),
+                  mFixedValue(value),
                   mFixedLen(len) {
         }
 
@@ -56,8 +58,9 @@ namespace sigblocks {
     class ConstantSource<T, PORT_TYPE_MATRIX>
             : public Port<0, 1, T> {
     public:
-        ConstantSource(const T& value, const std::vector<int>& dims)
-                : mFixedValue(value),
+        ConstantSource(std::string name, const T& value, const std::vector<int>& dims)
+                : Port<0, 1, T>(std::move(name), "A constant source."),
+                  mFixedValue(value),
                   mFixedDims(dims),
                   mFixedLen(1) {
             assert(! mFixedDims.empty());

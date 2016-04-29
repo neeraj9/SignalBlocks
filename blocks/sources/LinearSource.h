@@ -29,8 +29,9 @@ namespace sigblocks {
     class LinearSource
             : public Port<0, 1, T> {
     public:
-        LinearSource(const T& initialValue, const T& increment)
-                : mValue(initialValue),
+        LinearSource(std::string name, const T& initialValue, const T& increment)
+                : Port<0, 1, T>(std::move(name), "A linear source."),
+                  mValue(initialValue),
                   mIncrement(increment) {
         }
 
@@ -50,8 +51,9 @@ namespace sigblocks {
     class LinearSource<T, PORT_TYPE_VECTOR>
             : public Port<0, 1, T> {
     public:
-        LinearSource(const T& initialValue, const T& increment, int len)
-                : mValue(initialValue),
+        LinearSource(std::string name, const T& initialValue, const T& increment, int len)
+                : Port<0, 1, T>(std::move(name), "A linear source."),
+                  mValue(initialValue),
                   mIncrement(increment),
                   mFixedLen(len) {
         }
@@ -77,8 +79,9 @@ namespace sigblocks {
     class LinearSource<T, PORT_TYPE_MATRIX>
             : public Port<0, 1, T> {
     public:
-        LinearSource(const T& initialValue, const T& increment, const std::vector<int>& dims)
-                : mValue(initialValue),
+        LinearSource(std::string name, const T& initialValue, const T& increment, const std::vector<int>& dims)
+                : Port<0, 1, T>(std::move(name), "A linear source."),
+                  mValue(initialValue),
                   mIncrement(increment),
                   mFixedDims(dims),
                   mFixedLen(1) {

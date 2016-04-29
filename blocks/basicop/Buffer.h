@@ -33,7 +33,7 @@ namespace sigblocks {
     class Buffer
             : public Port<1, 1, T> {
     public:
-        Buffer(int fieldsToBuffer);
+        Buffer(std::string name, int fieldsToBuffer);
 
         virtual ~Buffer();
 

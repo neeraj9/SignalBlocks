@@ -7,6 +7,13 @@
 
 using namespace sigblocks;
 
+#define DESCRIPTION "A basic type converter block."
+
+template<class TFROM, class TTO>
+BasicTypeConverter<TFROM, TTO>::BasicTypeConverter(std::string name)
+        : MixedPort<1, 1, TFROM, TTO>(std::move(name), DESCRIPTION) {
+}
+
 template<class TFROM, class TTO>
 void
 BasicTypeConverter<TFROM, TTO>::Process(

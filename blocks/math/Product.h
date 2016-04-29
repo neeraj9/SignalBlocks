@@ -9,6 +9,11 @@ namespace sigblocks {
     template<int N, class T>
     class Product
             : public NOperator<N, T> {
+    public:
+        Product(std::string name)
+                : NOperator<N, T>(std::move(name)) {
+        }
+
     protected: // NOperator interface
 
         virtual void Compute(T* pArgs[N], const std::vector<int>& dims) {

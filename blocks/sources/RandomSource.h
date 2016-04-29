@@ -81,9 +81,10 @@ namespace sigblocks {
     class RandomSource
             : public Port<0, 1, T> {
     public:
-        RandomSource() :
-                mLastTick(),
-                mSeed(static_cast<unsigned int>(time(nullptr))) {
+        RandomSource(std::string name)
+                : Port<0, 1, T>(std::move(name), "A random source."),
+                  mLastTick(),
+                  mSeed(static_cast<unsigned int>(time(nullptr))) {
         }
 
     public:  // override Port interfaces
@@ -106,10 +107,11 @@ namespace sigblocks {
     class RandomSource<T, PORT_TYPE_VECTOR>
             : public Port<0, 1, T> {
     public:
-        RandomSource(int len) :
-                mLastTick(),
-                mSeed(static_cast<unsigned int>(time(nullptr))),
-                mFixedLen(len) {
+        RandomSource(std::string name, int len)
+                : Port<0, 1, T>(std::move(name), "A random source."),
+                  mLastTick(),
+                  mSeed(static_cast<unsigned int>(time(nullptr))),
+                  mFixedLen(len) {
         }
 
     public:  // override Port interfaces
@@ -138,11 +140,12 @@ namespace sigblocks {
     class RandomSource<T, PORT_TYPE_MATRIX>
             : public Port<0, 1, T> {
     public:
-        RandomSource(const std::vector<int>& dims) :
-                mLastTick(),
-                mSeed(static_cast<unsigned int>(time(nullptr))),
-                mFixedDims(dims),
-                mFixedLen(1) {
+        RandomSource(std::string name, const std::vector<int>& dims)
+                : Port<0, 1, T>(std::move(name), "A random source."),
+                  mLastTick(),
+                  mSeed(static_cast<unsigned int>(time(nullptr))),
+                  mFixedDims(dims),
+                  mFixedLen(1) {
             assert(! mFixedDims.empty());
             for (size_t i = 0; i < mFixedDims.size(); ++i) {
                 mFixedLen *= mFixedDims[i];

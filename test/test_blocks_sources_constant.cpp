@@ -15,8 +15,8 @@ namespace {
 
 TEST_CASE("Testing block constant source for scalar integer", "[constant source]") {
     double fixed_value = 0.0;
-    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_SCALAR>(fixed_value));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_SCALAR>("constant-1", fixed_value));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);
@@ -48,8 +48,8 @@ TEST_CASE("Testing block constant source for scalar integer", "[constant source]
 TEST_CASE("Testing math block constant source for vector integer", "[constant source]") {
     double fixed_value = 0.0;
     int len = 10;
-    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_VECTOR>(fixed_value, len));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_VECTOR>("constant-1", fixed_value, len));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);
@@ -91,8 +91,8 @@ TEST_CASE("Testing math block constant source for matrix integer", "[constant so
     for (auto v : dims) {
         len *= v;
     }
-    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_MATRIX>(fixed_value, dims));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_MATRIX>("constant-1", fixed_value, dims));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);

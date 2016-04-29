@@ -16,16 +16,19 @@ namespace sigblocks {
     class IstreamSource
             : public Port<0, 1, T> {
     public:
-        IstreamSource(int blockSize)
-                : mLastTick(),
+        IstreamSource(std::string name, int blockSize)
+                : Port<0, 1, T>(std::move(name), "An input stream source block"),
+                  mLastTick(),
                   mpIstream(nullptr),
                   mLoopOver(true),
                   mBlockSize(blockSize) {
         }
 
-        IstreamSource(int blockSize,
+        IstreamSource(std::string name,
+                      int blockSize,
                       std::unique_ptr<std::istream> pIns)
-                : mLastTick(),
+                : Port<0, 1, T>(std::move(name), "An input stream source block"),
+                  mLastTick(),
                   mpIstream(std::move(pIns)),
                   mLoopOver(true),
                   mBlockSize(blockSize) {

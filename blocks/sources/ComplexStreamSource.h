@@ -45,17 +45,22 @@ namespace sigblocks {
     class ComplexStreamSource
             : public Port<0, 1, T> {
     public:
-        ComplexStreamSource(int blockSize) : mLastTick(),
-                                             mpComplexStream(nullptr),
-                                             mLoopOver(true),
-                                             mBlockSize(blockSize) {
+        ComplexStreamSource(std::string name, int blockSize)
+                : Port<0, 1, T>(std::move(name), "A complex stream source."),
+                  mLastTick(),
+                  mpComplexStream(nullptr),
+                  mLoopOver(true),
+                  mBlockSize(blockSize) {
         }
 
-        ComplexStreamSource(std::unique_ptr<std::istream> pIns,
-                            int blockSize) : mLastTick(),
-                                             mpComplexStream(std::move(pIns)),
-                                             mLoopOver(true),
-                                             mBlockSize(blockSize) {
+        ComplexStreamSource(std::string name,
+                            std::unique_ptr<std::istream> pIns,
+                            int blockSize)
+                : Port<0, 1, T>(std::move(name), "A complex stream source."),
+                  mLastTick(),
+                  mpComplexStream(std::move(pIns)),
+                  mLoopOver(true),
+                  mBlockSize(blockSize) {
         }
 
         void SetStreamSource(std::unique_ptr<std::istream> pIns) {
@@ -116,8 +121,9 @@ namespace sigblocks {
     class ComplexStreamSource<T, PORT_TYPE_MATRIX>
             : public Port<0, 1, T> {
     public:
-        ComplexStreamSource(const std::vector<int>& dims)
-                : mLastTick(),
+        ComplexStreamSource(std::string name, const std::vector<int>& dims)
+                : Port<0, 1, T>(std::move(name), "A complex stream source."),
+                  mLastTick(),
                   mpComplexStream(nullptr),
                   mLoopOver(true),
                   mFixedDims(dims),
@@ -132,9 +138,11 @@ namespace sigblocks {
             assert(mFixedLen > 0 && (mFixedLen % 2 == 0));
         }
 
-        ComplexStreamSource(std::unique_ptr<std::istream> pIns,
+        ComplexStreamSource(std::string name,
+                            std::unique_ptr<std::istream> pIns,
                             const std::vector<int>& dims)
-                : mLastTick(),
+                : Port<0, 1, T>(std::move(name), "A complex stream source."),
+                  mLastTick(),
                   mpComplexStream(std::move(pIns)),
                   mLoopOver(true),
                   mFixedDims(dims),

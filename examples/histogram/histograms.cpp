@@ -16,8 +16,8 @@ using namespace sigblocks;
 
 
 std::shared_ptr<IPort<std::string> > CreateSimpleHistogramCodeBlocks(const std::string& csvFilename) {
-    std::shared_ptr<IPort<std::string> > source(new CsvFileSource(csvFilename, true));
-    std::shared_ptr<IPort<std::string> > duplicator(new Duplicator<2, std::string>());
+    std::shared_ptr<IPort<std::string> > source(new CsvFileSource("csv-source-1", csvFilename, true));
+    std::shared_ptr<IPort<std::string> > duplicator(new Duplicator<2, std::string>("duplicator-1"));
     std::shared_ptr<IPort<std::string> > sink(new StdoutSink<std::string>("[RAW CSV] "));
 
     std::vector<int> selective_indices;
@@ -32,7 +32,7 @@ std::shared_ptr<IPort<std::string> > CreateSimpleHistogramCodeBlocks(const std::
             selective_indices.push_back(i);
         }
     }
-    std::shared_ptr<IPort<std::string> > splitter(new Splitter<num_columns, std::string>(""));
+    std::shared_ptr<IPort<std::string> > splitter(new Splitter<num_columns, std::string>("splitter", ""));
 
     // connect as follows:
     //
@@ -61,8 +61,8 @@ std::shared_ptr<IPort<std::string> > CreateSimpleHistogramCodeBlocks(const std::
         std::ostringstream out;
         out << "[SINK " << i << "] ";
         std::shared_ptr<IPort<std::string> > tmpsink(new StdoutSink<std::string>(out.str()));
-        std::shared_ptr<IPort<std::string> > tmpduplicator(new Duplicator<2, std::string>());
-        std::shared_ptr<IPort<std::string> > tmpconverter(new OrdinalConverter);
+        std::shared_ptr<IPort<std::string> > tmpduplicator(new Duplicator<2, std::string>("duplicator-block"));
+        std::shared_ptr<IPort<std::string> > tmpconverter(new OrdinalConverter("ordinal-converter-block"));
         out.str(std::string()); // cleanup and clear contents of out
         out << "[CONVERTER SINK " << i << "] ";
         std::shared_ptr<IPort<unsigned long> > tmpconvertersink(new StdoutSink<unsigned long>(out.str()));

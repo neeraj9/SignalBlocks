@@ -4,9 +4,12 @@
 
 using namespace sigblocks;
 
+#define DESCRIPTION "A step source."
+
 template<class T>
-StepSource<T>::StepSource(const T& value)
-        : mLastTick(),
+StepSource<T>::StepSource(std::string name, const T& value)
+        : Port<0, 1, T>(std::move(name), DESCRIPTION),
+          mLastTick(),
           mValue(value) {
 }
 

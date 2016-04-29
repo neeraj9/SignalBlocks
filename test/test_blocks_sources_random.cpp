@@ -12,8 +12,8 @@ using namespace sigblocks;
 
 TEST_CASE("Testing block random source for scalar integer", "[random source]") {
     // no ctor args required
-    std::shared_ptr<IPort<double> > source(new RandomSource<double, PORT_TYPE_SCALAR>());
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new RandomSource<double, PORT_TYPE_SCALAR>("random-1"));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);
@@ -41,8 +41,8 @@ TEST_CASE("Testing block random source for scalar integer", "[random source]") {
 TEST_CASE("Testing math block random source for vector integer", "[random source]") {
     // no ctor args required
     int len = 10;
-    std::shared_ptr<IPort<double> > source(new RandomSource<double, PORT_TYPE_VECTOR>(len));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new RandomSource<double, PORT_TYPE_VECTOR>("random-1", len));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);
@@ -78,8 +78,8 @@ TEST_CASE("Testing math block random source for matrix integer", "[random source
     for (auto v : dims) {
         len *= v;
     }
-    std::shared_ptr<IPort<double> > source(new RandomSource<double, PORT_TYPE_MATRIX>(dims));
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new RandomSource<double, PORT_TYPE_MATRIX>("random-1", dims));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, sink);

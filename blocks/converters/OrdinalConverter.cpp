@@ -4,16 +4,20 @@
 
 using namespace sigblocks;
 
+#define DESCRIPTION "An ordinal block which converts from string to a number."
 
-OrdinalConverter::OrdinalConverter()
-        : mDictionary(),
+OrdinalConverter::OrdinalConverter(std::string name)
+        : MixedPort<1, 1, std::string, unsigned long>(std::move(name), DESCRIPTION),
+          mDictionary(),
           mNextOrdinalValue(0) {
 
 }
 
-OrdinalConverter::OrdinalConverter(std::unordered_map<std::string, unsigned long> initDict,
+OrdinalConverter::OrdinalConverter(std::string name,
+                                   std::unordered_map<std::string, unsigned long> initDict,
                                    unsigned long nextOrdinalValue)
-        : mDictionary(std::move(initDict)),
+        : MixedPort<1, 1, std::string, unsigned long>(std::move(name), DESCRIPTION),
+          mDictionary(std::move(initDict)),
           mNextOrdinalValue(nextOrdinalValue) {
 }
 

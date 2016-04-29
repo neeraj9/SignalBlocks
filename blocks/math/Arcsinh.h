@@ -12,6 +12,11 @@ namespace sigblocks {
     template<class T>
     class Arcsinh
             : public UnaryOperator<T> {
+    public:
+        Arcsinh(std::string name)
+                : UnaryOperator<T>(std::move(name)) {
+        }
+
     protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return gsl_asinh(arg1);

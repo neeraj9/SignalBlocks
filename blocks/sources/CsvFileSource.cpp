@@ -8,8 +8,12 @@
 
 using namespace sigblocks;
 
-CsvFileSource::CsvFileSource(const std::string& filename, bool hasHeader)
-        : mLastTick(),
+#define DESCRIPTION "A source block which reads data from a CSV text file."
+
+CsvFileSource::CsvFileSource(
+        std::string name, const std::string& filename, bool hasHeader)
+        : Port<0, 1, std::string>(std::move(name), DESCRIPTION),
+          mLastTick(),
           mFilename(filename),
           mParser(filename, hasHeader) {
     if (! mParser.IsOpen()) {

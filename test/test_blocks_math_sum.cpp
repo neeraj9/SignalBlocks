@@ -18,10 +18,10 @@ namespace {
 TEST_CASE("Testing math block Sum for scalar integer", "[sum]") {
     int a = 4;
     int b = 17;
-    std::shared_ptr<IPort<int> > source1(new ConstantSource<int>(a));
-    std::shared_ptr<IPort<int> > source2(new ConstantSource<int>(b));
-    std::shared_ptr<IPort<int> > block(new Sum<2, int>());
-    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>());
+    std::shared_ptr<IPort<int> > source1(new ConstantSource<int>("constatant-source-a", a));
+    std::shared_ptr<IPort<int> > source2(new ConstantSource<int>("constatant-source-b", b));
+    std::shared_ptr<IPort<int> > block(new Sum<2, int>("sum-block"));
+    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>("archive-1"));
     ArchiverSink<int>* archive = dynamic_cast<ArchiverSink<int>*>(sink.get());
 
     connect(source1, connect(block, sink));
@@ -65,10 +65,10 @@ TEST_CASE("Testing math block Sum for vector integer", "[sum]") {
     int a = 4;
     int b = 17;
     int len = 10;
-    std::shared_ptr<IPort<int> > source1(new ConstantSource<int, PORT_TYPE_VECTOR>(a, len));
-    std::shared_ptr<IPort<int> > source2(new ConstantSource<int, PORT_TYPE_VECTOR>(b, len));
-    std::shared_ptr<IPort<int> > block(new Sum<2, int>());
-    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>());
+    std::shared_ptr<IPort<int> > source1(new ConstantSource<int, PORT_TYPE_VECTOR>("const-a", a, len));
+    std::shared_ptr<IPort<int> > source2(new ConstantSource<int, PORT_TYPE_VECTOR>("const-b", b, len));
+    std::shared_ptr<IPort<int> > block(new Sum<2, int>("sum-1"));
+    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>("archive-1"));
     ArchiverSink<int>* archive = dynamic_cast<ArchiverSink<int>*>(sink.get());
 
     connect(source1, connect(block, sink));
@@ -116,10 +116,10 @@ TEST_CASE("Testing math block Sum for matrix integer", "[sum]") {
     for (auto v : dims) {
         len *= v;
     }
-    std::shared_ptr<IPort<int> > source1(new ConstantSource<int, PORT_TYPE_MATRIX>(a, dims));
-    std::shared_ptr<IPort<int> > source2(new ConstantSource<int, PORT_TYPE_MATRIX>(b, dims));
-    std::shared_ptr<IPort<int> > block(new Sum<2, int>());
-    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>());
+    std::shared_ptr<IPort<int> > source1(new ConstantSource<int, PORT_TYPE_MATRIX>("const-a", a, dims));
+    std::shared_ptr<IPort<int> > source2(new ConstantSource<int, PORT_TYPE_MATRIX>("const-b", b, dims));
+    std::shared_ptr<IPort<int> > block(new Sum<2, int>("sum-1"));
+    std::shared_ptr<IPort<int> > sink(new ArchiverSink<int>("archive-1"));
     ArchiverSink<int>* archive = dynamic_cast<ArchiverSink<int>*>(sink.get());
 
     connect(source1, connect(block, sink));

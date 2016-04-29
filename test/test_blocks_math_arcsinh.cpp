@@ -19,9 +19,9 @@ namespace {
 TEST_CASE("Testing block arcsinh for scalar integer", "[arcsinh]") {
     // no ctor args required
     double input_value = M_PI;
-    std::shared_ptr<IPort<double> > source(new ConstantSource<double>(input_value));
-    std::shared_ptr<IPort<double> > block(new Arcsinh<double>());
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double>("constant-1", input_value));
+    std::shared_ptr<IPort<double> > block(new Arcsinh<double>("arcsinh"));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archive-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, connect(block, sink));
@@ -55,9 +55,9 @@ TEST_CASE("Testing math block arcsinh for vector integer", "[arcsinh]") {
     // no ctor args required
     double input_value = M_PI;
     int len = 10;
-    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_VECTOR>(input_value, len));
-    std::shared_ptr<IPort<double> > block(new Arcsinh<double>());
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_VECTOR>("constant-1", input_value, len));
+    std::shared_ptr<IPort<double> > block(new Arcsinh<double>("arcsinh-1"));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, connect(block, sink));
@@ -101,9 +101,9 @@ TEST_CASE("Testing math block arcsinh for matrix integer", "[arcsinh]") {
     for (auto v : dims) {
         len *= v;
     }
-    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_MATRIX>(input_value, dims));
-    std::shared_ptr<IPort<double> > block(new Arcsinh<double>());
-    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>());
+    std::shared_ptr<IPort<double> > source(new ConstantSource<double, PORT_TYPE_MATRIX>("constant-1", input_value, dims));
+    std::shared_ptr<IPort<double> > block(new Arcsinh<double>("arcsinh-1"));
+    std::shared_ptr<IPort<double> > sink(new ArchiverSink<double>("archiver-1"));
     ArchiverSink<double>* archive = dynamic_cast<ArchiverSink<double>*>(sink.get());
 
     connect(source, connect(block, sink));

@@ -22,7 +22,7 @@ namespace sigblocks {
                 int destPort,
                 int localPort) {
             SocketSource* socket_source =
-                    new SocketSource(blockSize);
+                    new SocketSource("socket-source", blockSize);
             std::unique_ptr<SocketProgramming::ISocket> pIns(new X(destIp, destPort));
             if (pIns->Bind(localPort)) {
                 if (pIns->Listen(1)) // TODO: Note for TCP of connection oriented

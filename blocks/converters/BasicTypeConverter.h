@@ -9,6 +9,9 @@ namespace sigblocks {
     template<class TFROM, class TTO>
     class BasicTypeConverter
             : public MixedPort<1, 1, TFROM, TTO> {
+    public:
+        BasicTypeConverter(std::string name);
+
     protected: // Override MixedPort interfaces for Sink
         virtual void Process(int sourceIndex, const TFROM& data, const TimeTick& startTime);
 

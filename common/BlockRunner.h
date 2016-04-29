@@ -4,6 +4,7 @@
 #ifndef SIGNALBLOCKS_BLOCKRUNNER_H
 #define SIGNALBLOCKS_BLOCKRUNNER_H
 
+#include "BlockTypes.h"
 #include "IPort.h"
 
 #include <unordered_map>
@@ -12,21 +13,6 @@
 
 namespace sigblocks {
     class BlockRunner {
-    public:
-        enum BlockType {
-            BLOCK_CHAR = 0,
-            BLOCK_UCHAR,
-            BLOCK_SHORT,
-            BLOCK_USHORT,
-            BLOCK_INT,
-            BLOCK_UINT,
-            BLOCK_LONG,
-            BLOCK_ULONG,
-            BLOCK_FLOAT,
-            BLOCK_DOUBLE,
-            BLOCK_LONG_DOUBLE
-        };
-
     public:
 
         BlockRunner(const TimeTick& increment);
@@ -42,6 +28,7 @@ namespace sigblocks {
         bool Add(std::shared_ptr<IPort<float> > source, const std::string& name);
         bool Add(std::shared_ptr<IPort<double> > source, const std::string& name);
         bool Add(std::shared_ptr<IPort<long double> > source, const std::string& name);
+        bool Add(std::shared_ptr<IPort<std::string> > source, const std::string& name);
 
         bool Remove(const std::string& name);
 
@@ -69,6 +56,7 @@ namespace sigblocks {
         std::unordered_map<std::string, std::shared_ptr<IPort<float> > > mFloatSources;
         std::unordered_map<std::string, std::shared_ptr<IPort<double> > > mDoubleSources;
         std::unordered_map<std::string, std::shared_ptr<IPort<long double> > > mLongDoubleSources;
+        std::unordered_map<std::string, std::shared_ptr<IPort<std::string> > > mStringSources;
     };
 }
 

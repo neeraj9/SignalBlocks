@@ -12,6 +12,11 @@ namespace sigblocks {
     template<class T, int P>
     class ConstPow
             : public UnaryOperator<T> {
+    public:
+        ConstPow(std::string name)
+                : UnaryOperator<T>(std::move(name)) {
+        }
+
     protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return gsl_pow_int(arg1, P);
@@ -35,6 +40,10 @@ namespace sigblocks {
   class ConstPow<T, ##P> \
     : public UnaryOperator<T> \
   { \
+  public: \
+    ConstPow(std::string name) \
+        : UnaryOperator<T>(std::move(name)) { \
+    } \
   protected: \
     virtual T Compute(const T& arg1) const \
     { \

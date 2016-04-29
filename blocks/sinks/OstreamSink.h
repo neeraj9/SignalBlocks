@@ -13,9 +13,9 @@ namespace sigblocks {
     class OstreamSink
             : public Port<1, 0, T> {
     public:
-        OstreamSink();
+        OstreamSink(std::string name);
 
-        OstreamSink(std::unique_ptr<std::ostream> pIns);
+        OstreamSink(std::string name, std::unique_ptr<std::ostream> pIns);
 
         void SetStreamSink(std::unique_ptr<std::ostream> pIns);
 

@@ -173,8 +173,10 @@ namespace sigblocks {
         // default maximum number of historic data
         static constexpr size_t DEFAULT_MAX_NUM_HISTORIC_DATA = 256;
 
-        JsonDataExtractableSink(size_t maxNumHistoricData = DEFAULT_MAX_NUM_HISTORIC_DATA)
-                : mMutex(),  // unlocked state
+        JsonDataExtractableSink(std::string name,
+                                size_t maxNumHistoricData = DEFAULT_MAX_NUM_HISTORIC_DATA)
+                : Port<1, 0, T>(std::move(name), "A Json data extractor sink."),
+                  mMutex(),  // unlocked state
                   mMaxNumHistoricData(maxNumHistoricData),
                   mSingleShotNumDataDeleted(maxNumHistoricData / 4) {
             if (mSingleShotNumDataDeleted == 0) {

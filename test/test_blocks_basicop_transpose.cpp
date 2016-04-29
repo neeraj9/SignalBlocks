@@ -30,6 +30,7 @@ TEST_CASE("Testing block transpose for scalar integer", "[transpose]") {
     std::unique_ptr<std::istream> input_stream(new std::istream(&mem_instream));
 
     std::shared_ptr<IPort<BaseDataType> > source(new IstreamSource<BaseDataType>(
+            "istream-source-1",
             1,  // generate one element at a time but as vector output
             std::move(input_stream)));
     // Using the splitter as vector to scalar converter here. Note
@@ -37,9 +38,9 @@ TEST_CASE("Testing block transpose for scalar integer", "[transpose]") {
     // because IstreamSource can only generate vector output.
     // This is the reason why we require a splitter block to convert to
     // scalar output.
-    std::shared_ptr<IPort<BaseDataType> > toscalar(new Splitter<1, BaseDataType>(0));
-    std::shared_ptr<IPort<BaseDataType> > block(new Transpose<BaseDataType>);
-    std::shared_ptr<IPort<BaseDataType> > sink(new ArchiverSink<BaseDataType>);
+    std::shared_ptr<IPort<BaseDataType> > toscalar(new Splitter<1, BaseDataType>("splitter-1", 0));
+    std::shared_ptr<IPort<BaseDataType> > block(new Transpose<BaseDataType>("transport-1"));
+    std::shared_ptr<IPort<BaseDataType> > sink(new ArchiverSink<BaseDataType>("archiver-1"));
     ArchiverSink<BaseDataType>* archive = dynamic_cast<ArchiverSink<BaseDataType>*>(sink.get());
 
     connect(source, connect(toscalar, connect(block, sink)));
@@ -84,10 +85,11 @@ TEST_CASE("Testing math block transpose for vector integer", "[transpose]") {
     std::unique_ptr<std::istream> input_stream(new std::istream(&mem_instream));
 
     std::shared_ptr<IPort<BaseDataType> > source(new IstreamSource<BaseDataType>(
+            "istream-1",
             static_cast<int>(total_num_data_bytes),
             std::move(input_stream)));
-    std::shared_ptr<IPort<BaseDataType> > block(new Transpose<BaseDataType>);
-    std::shared_ptr<IPort<BaseDataType> > sink(new ArchiverSink<BaseDataType>);
+    std::shared_ptr<IPort<BaseDataType> > block(new Transpose<BaseDataType>("transpose-1"));
+    std::shared_ptr<IPort<BaseDataType> > sink(new ArchiverSink<BaseDataType>("archiver-1"));
     ArchiverSink<BaseDataType>* archive = dynamic_cast<ArchiverSink<BaseDataType>*>(sink.get());
 
     connect(source, connect(block, sink));
@@ -135,11 +137,12 @@ TEST_CASE("Testing math block transpose for matrix integer", "[transpose]") {
     std::unique_ptr<std::istream> input_stream(new std::istream(&mem_instream));
 
     std::shared_ptr<IPort<BaseDataType> > source(new IstreamSource<BaseDataType>(
+            "istream-1",
             static_cast<int>(total_num_data_bytes),
             std::move(input_stream)));
-    std::shared_ptr<IPort<BaseDataType> > tomatrix(new ToMatrixConverter<BaseDataType>(dims));
-    std::shared_ptr<IPort<BaseDataType> > block(new Transpose<BaseDataType>);
-    std::shared_ptr<IPort<BaseDataType> > sink(new ArchiverSink<BaseDataType>);
+    std::shared_ptr<IPort<BaseDataType> > tomatrix(new ToMatrixConverter<BaseDataType>("tomatrix", dims));
+    std::shared_ptr<IPort<BaseDataType> > block(new Transpose<BaseDataType>("transpose-1"));
+    std::shared_ptr<IPort<BaseDataType> > sink(new ArchiverSink<BaseDataType>("archiver-1"));
     ArchiverSink<BaseDataType>* archive = dynamic_cast<ArchiverSink<BaseDataType>*>(sink.get());
 
     connect(source, connect(tomatrix, connect(block, sink)));

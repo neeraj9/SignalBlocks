@@ -15,8 +15,10 @@ namespace sigblocks {
     class ToMatrixConverter
             : public Port<1, 1, T> {
     public:
-        ToMatrixConverter(std::vector<int> dims)
-                : mDims(std::move(dims)), mTotalElements(1) {
+        ToMatrixConverter(std::string name, std::vector<int> dims)
+                : Port<1, 1, T>(std::move(name), "A converter block to matrix data."),
+                  mDims(std::move(dims)),
+                  mTotalElements(1) {
             for (auto v : mDims) {
                 mTotalElements *= v;
             }

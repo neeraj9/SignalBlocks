@@ -11,7 +11,7 @@ namespace sigblocks {
     class StepSource
             : public Port<0, 1, T> {
     public:
-        StepSource(const T& value);
+        StepSource(std::string name, const T& value);
 
     public:  // override Port interfaces
 

@@ -15,12 +15,14 @@ namespace sigblocks {
     class PythonNOperator
             : public Port<N, 1, T> {
     public:
-        PythonNOperator(std::shared_ptr<PythonPlugin>& plugin,
+        PythonNOperator(std::string name,
+                        std::shared_ptr<PythonPlugin>& plugin,
                         const std::string& path,
                         const std::string& moduleName,
                         const std::string& functionName);
 
-        PythonNOperator(std::shared_ptr<PythonPlugin>& plugin,
+        PythonNOperator(std::string name,
+                        std::shared_ptr<PythonPlugin>& plugin,
                         const std::string& path,
                         const std::string& pysource);
 

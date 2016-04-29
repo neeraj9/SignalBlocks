@@ -12,6 +12,11 @@ namespace sigblocks {
     template<class T>
     class Tan
             : public UnaryOperator<T> {
+    public:
+        Tan(std::string name)
+                : UnaryOperator<T>(std::move(name)) {
+        }
+
     protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) const {
             return tan(arg1);

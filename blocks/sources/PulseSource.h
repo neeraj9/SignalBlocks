@@ -30,12 +30,14 @@ namespace sigblocks {
     class PulseSource
             : public Port<0, 1, T> {
     public:
-        PulseSource(double periodOffset,
+        PulseSource(std::string name,
+                    double periodOffset,
                     int periodSamples,
                     double highRatio,
                     const T& highValue,
                     const T& lowValue)
-                : mPeriodSample(0),
+                : Port<0, 1, T>(std::move(name), "A pulse source."),
+                  mPeriodSample(0),
                   mTotalPeriodSamples(periodSamples),
                   mHighRatio(highRatio),
                   mHighValue(highValue),
@@ -72,13 +74,15 @@ namespace sigblocks {
     class PulseSource<T, PORT_TYPE_VECTOR>
             : public Port<0, 1, T> {
     public:
-        PulseSource(double periodOffset,
+        PulseSource(std::string name,
+                    double periodOffset,
                     int periodSamples,
                     double highRatio,
                     const T& highValue,
                     const T& lowValue,
                     int len)
-                : mPeriodSample(0),
+                : Port<0, 1, T>(std::move(name), "A pulse source."),
+                  mPeriodSample(0),
                   mTotalPeriodSamples(periodSamples),
                   mHighRatio(highRatio),
                   mHighValue(highValue),
@@ -115,13 +119,15 @@ namespace sigblocks {
     class PulseSource<T, PORT_TYPE_MATRIX>
             : public Port<0, 1, T> {
     public:
-        PulseSource(double periodOffset,
+        PulseSource(std::string name,
+                    double periodOffset,
                     int periodSamples,
                     double highRatio,
                     const T& highValue,
                     const T& lowValue,
                     const std::vector<int>& dims)
-                : mPeriodSample(0),
+                : Port<0, 1, T>(std::move(name), "A pulse source."),
+                  mPeriodSample(0),
                   mTotalPeriodSamples(periodSamples),
                   mHighRatio(highRatio),
                   mHighValue(highValue),

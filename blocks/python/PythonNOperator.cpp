@@ -5,12 +5,16 @@
 using namespace sigblocks;
 using namespace std;
 
+#define DESCRIPTION "An system implemented in python."
+
 template<int N, class T>
-PythonNOperator<N, T>::PythonNOperator(std::shared_ptr<PythonPlugin>& plugin,
+PythonNOperator<N, T>::PythonNOperator(std::string name,
+                                       std::shared_ptr<PythonPlugin>& plugin,
                                        const std::string& path,
                                        const std::string& moduleName,
                                        const std::string& functionName)
-        : mPlugin(plugin),
+        : Port<N, 1, T>(std::move(name), DESCRIPTION),
+          mPlugin(plugin),
           mPath(path),
           mModuleName(moduleName),
           mFunctionName(functionName),
@@ -19,10 +23,12 @@ PythonNOperator<N, T>::PythonNOperator(std::shared_ptr<PythonPlugin>& plugin,
 
 template<int N, class T>
 PythonNOperator<N, T>::PythonNOperator(
+        std::string name,
         std::shared_ptr<PythonPlugin>& plugin,
         const std::string& path,
         const std::string& pysource)
-        : mPlugin(plugin),
+        : Port<N, 1, T>(std::move(name), DESCRIPTION),
+          mPlugin(plugin),
           mPath(path),
           mModuleName(),
           mFunctionName(),

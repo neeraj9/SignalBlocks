@@ -3,9 +3,14 @@
 #ifndef SIGBLOCKS_PORT_H
 #define SIGBLOCKS_PORT_H
 
-#include <assert.h>
 #include "IPort.h"
 #include "TimeTick.h"
+#include "BlockManager.h"
+
+#include <assert.h>
+#include <functional>
+#include <memory>
+#include <string>
 
 namespace sigblocks {
     // XXX specialze a case when N=1, M=1 and optimize it
@@ -13,8 +18,15 @@ namespace sigblocks {
     class Port
             : public IPort<T> {
     public:
-        Port() : mpSource(),
-                 mpSink() {
+        Port(std::string name, std::string description)
+                : mBlockInfo(std::move(name), std::move(description), TypeToBt<T>::ToType(), N, M),
+                  mpSource(),
+                  mpSink() {
+
+            BlockManager::BlockInfoFuncType cb = std::bind(&Port<N, M, T>::GetBlockInfo,
+                                                           this);
+            mBlockInfo.mId = BlockManager::Getinstance()->Add(std::move(cb));
+
             for (int i = 0; i < N; ++i) {
                 mpSource[i] = nullptr;
             }
@@ -29,6 +41,10 @@ namespace sigblocks {
         }
 
     public: // IPort interface
+        const BlockManager::BlockInfo& GetBlockInfo() {
+            return mBlockInfo;
+        }
+
         void SetSource(IPort<T>* peer, int index) {
             assert(index < N); // XXX replace assert with better error handling
             mpSource[index] = peer;
@@ -142,6 +158,7 @@ namespace sigblocks {
         }
 
     private:
+        BlockManager::BlockInfo mBlockInfo;
         IPort<T>* mpSource[N];
         std::shared_ptr<IPort<T> > mpSink[M];
     };
@@ -151,7 +168,12 @@ namespace sigblocks {
     class Port<0, M, T>
             : public IPort<T> {
     public:
-        Port() : mpSink() {
+        Port(std::string name, std::string description)
+                : mBlockInfo(std::move(name), std::move(description), TypeToBt<T>::ToType(), 0, M),
+                  mpSink() {
+            BlockManager::BlockInfoFuncType cb = std::bind(&Port<0, M, T>::GetBlockInfo,
+                                                           this);
+            mBlockInfo.mId = BlockManager::Getinstance()->Add(std::move(cb));
         }
 
         virtual ~Port() {
@@ -206,6 +228,10 @@ namespace sigblocks {
             }
         }
 
+        const BlockManager::BlockInfo& GetBlockInfo() {
+            return mBlockInfo;
+        }
+
     protected:
         /// use this interface when T is a primitive data type, ex. int, float, etc
         void LeakData(
@@ -238,6 +264,7 @@ namespace sigblocks {
         }
 
     private:
+        BlockManager::BlockInfo mBlockInfo;
         std::shared_ptr<IPort<T> > mpSink[M];
     };
 
@@ -246,7 +273,13 @@ namespace sigblocks {
     class Port<N, 0, T>
             : public IPort<T> {
     public:
-        Port() : mpSource() {
+        Port(std::string name, std::string description)
+                : mBlockInfo(std::move(name), std::move(description), TypeToBt<T>::ToType(), N, 0),
+                  mpSource() {
+            BlockManager::BlockInfoFuncType cb = std::bind(&Port<N, 0, T>::GetBlockInfo,
+                                                           this);
+            mBlockInfo.mId = BlockManager::Getinstance()->Add(std::move(cb));
+
             for (int i = 0; i < N; ++i) {
                 mpSource[i] = nullptr;
             }
@@ -318,6 +351,10 @@ namespace sigblocks {
             // no one to pass the clock cycle, so ignore
         }
 
+        const BlockManager::BlockInfo& GetBlockInfo() {
+            return mBlockInfo;
+        }
+
     protected:
         virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {
             // silently drop
@@ -336,6 +373,7 @@ namespace sigblocks {
         }
 
     private:
+        BlockManager::BlockInfo mBlockInfo;
         IPort<T>* mpSource[N];
     };
 
@@ -344,6 +382,13 @@ namespace sigblocks {
     class Port<0, 0, T>
             : public IPort<T> {
     public:
+        Port(std::string name, std::string description)
+                : mBlockInfo(std::move(name), std::move(description), TypeToBt<T>::ToType(), 0, 0) {
+            BlockManager::BlockInfoFuncType cb = std::bind(&Port<0, 0, T>::GetBlockInfo,
+                                                           this);
+            mBlockInfo.mId = BlockManager::Getinstance()->Add(std::move(cb));
+        }
+
         virtual ~Port() {
         }
 
@@ -381,6 +426,13 @@ namespace sigblocks {
         void ClockCycle(const TimeTick& timeTick) {
             // no one to pass the clock cycle so ignore
         }
+
+        const BlockManager::BlockInfo& GetBlockInfo() {
+            return mBlockInfo;
+        }
+
+    private:
+        BlockManager::BlockInfo mBlockInfo;
     };
 }
 

@@ -11,12 +11,15 @@
 using namespace sigblocks;
 using namespace std;
 
+#define DESCRIPTION "A source block gets data from a socket"
+
 namespace {
     const int MAX_BUFFER_SIZE = 4096; // power of 2 (2^12 = 4096)
 }
 
-SocketSource::SocketSource(int blockSize)
-        : mLastTick(),
+SocketSource::SocketSource(std::string name, int blockSize)
+        : Port<0, 1, unsigned char>(std::move(name), DESCRIPTION),
+          mLastTick(),
           mpSocket(nullptr),
           mBlockSize(blockSize),
           mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),
@@ -26,8 +29,10 @@ SocketSource::SocketSource(int blockSize)
 }
 
 SocketSource::SocketSource(
+        std::string name,
         std::unique_ptr<SocketProgramming::ISocket> pIns, int blockSize)
-        : mLastTick(),
+        : Port<0, 1, unsigned char>(std::move(name), DESCRIPTION),
+          mLastTick(),
           mpSocket(std::move(pIns)),
           mBlockSize(blockSize),
           mpBuffer(new uint8_t[MAX_BUFFER_SIZE]),

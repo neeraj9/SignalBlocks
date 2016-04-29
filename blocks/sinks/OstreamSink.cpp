@@ -8,14 +8,18 @@
 using namespace sigblocks;
 using namespace std;
 
+#define DESCRIPTION "An output stream sink, where the incomig data passes through to the stream."
+
 template<class T>
-OstreamSink<T>::OstreamSink()
-        : mpOstream(nullptr) {
+OstreamSink<T>::OstreamSink(std::string name)
+        : Port<1, 0, T>(std::move(name), DESCRIPTION),
+          mpOstream(nullptr) {
 }
 
 template<class T>
-OstreamSink<T>::OstreamSink(std::unique_ptr<std::ostream> pOuts)
-        : mpOstream(std::move(pOuts)) {
+OstreamSink<T>::OstreamSink(std::string name, std::unique_ptr<std::ostream> pOuts)
+        : Port<1, 0, T>(std::move(name), DESCRIPTION),
+          mpOstream(std::move(pOuts)) {
 }
 
 template<class T>

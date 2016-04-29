@@ -24,8 +24,9 @@ namespace sigblocks {
     class Delay
             : public Port<1, 1, T> {
     public:
-        Delay(int numSamples)
-                : mDelaySamples(numSamples),
+        Delay(std::string name, int numSamples)
+                : Port<1, 1, T>(std::move(name), "A delay block."),
+                  mDelaySamples(numSamples),
                   mNextIndex(0),
                   mBufferCount(0),
                   mCircularBuffer(numSamples) {
@@ -67,8 +68,9 @@ namespace sigblocks {
     class Delay<T, PORT_TYPE_VECTOR>
             : public Port<1, 1, T> {
     public:
-        Delay(int numSamples)
-                : mDelaySamples(numSamples),
+        Delay(std::string name, int numSamples)
+                : Port<1, 1, T>(std::move(name), "A delay block."),
+                  mDelaySamples(numSamples),
                   mQueue() {
             assert(mDelaySamples > 0);
         }
@@ -123,8 +125,9 @@ namespace sigblocks {
     class Delay<T, PORT_TYPE_MATRIX>
             : public Port<1, 1, T> {
     public:
-        Delay(int numSamples)
-                : mDelaySamples(numSamples),
+        Delay(std::string name, int numSamples)
+                : Port<1, 1, T>(std::move(name), "A delay block."),
+                  mDelaySamples(numSamples),
                   mQueue() {
             assert(mDelaySamples > 0);
         }
