@@ -15,6 +15,8 @@ script:
 before_install:
   - echo $LANG
   - echo $LC_ALL
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libsndfile1-dev libgsl-dev
 branches:
   only:
     - master
