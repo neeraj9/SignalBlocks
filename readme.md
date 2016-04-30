@@ -10,14 +10,61 @@ and free (GPLv3 license). Although I initially intended this for the
 student and research community, but this tool is generic enough to
 be used elsewhere.
 
-The c++ can appear daunting for newbies, but I strive to make those
-as simple possible from an general user point of view. Having said that
-it is important to pick up any good book on c++ which covers c++11 to
-make the best use this framework and avoid spending a lot of time debugging
-language usage issues. A plethora of open source frameworks allow an
-ever expanding functionality (on top of this framework) with practically
-limitless possibilities.
+This framework supports *Gnu/Linux* operating system, but with little change
+it can be made to build on any of the POSIX compliant operating system. The
+following depencies are required to use this project; namely
 
+* [g++](https://gcc.gnu.org/) v3.8+ or [clang](http://clang.llvm.org/) v3.3+
+* [cmake](https://cmake.org/)
+* [GSL](http://www.gnu.org/software/gsl/)
+* [libsndfile](http://www.mega-nerd.com/libsndfile/)
+* [python-dev](http://www.python.org)
+* [numpy](http://www.numpy.org/)
+
+> The standard compatibility for
+> [clang cxx status](http://clang.llvm.org/cxx_status.html) and
+> [gcc cxx11 status](https://gcc.gnu.org/projects/cxx-status.html#cxx11)
+> gives details of the appropriate compiler versions to use.
+
+The [travis config](.travis.yml) sets up the ubuntu plaform for the build (hint:
+look at the apt-get commands).
+
+C++ code can be daunting for newbies, but I strive to make the framework API
+simple to understand and use. Having said that
+it is important to pick up any good book on c++ which covers c++11 to
+make the best use this framework. This will also allow you to avoid spending a
+lot of time debugging language usage issues. A plethora of open source
+frameworks allow an ever expanding functionality (on top of this framework)
+with practically limitless possibilities.
+
+
+## Environment Setup
+
+Although the installation for various GNU/Linux distributions differ but
+the dependencies are easily available on any one of them.
+
+### Ubuntu
+
+The following commands needs to be as a system administrator or with sudo
+(as shown below) so that the relavent packages are installed in the
+system.
+
+If your system is not updated then probably it is a good idea to do that
+before installing anything else.
+
+    sudo apt-get update
+
+In case you prefer the GNU GCC compler then install g++
+
+    sudo apt-get install -y g++
+
+Alternatively, you can install the clang compiler as well
+
+    sudo apt-get install -y clang-3.5
+
+The following other depencies are required as mentioned before.
+
+    sudo apt-get install -y libsndfile1-dev libgsl0-dev python-numpy
 
 ## A Sneak Peak
 
