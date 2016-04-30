@@ -50,7 +50,7 @@ void CsvFileSource::ClockCycle(const TimeTick& timeTick) {
     }
     mLastTick = timeTick;
 
-    std::vector<std::string> fields(std::move(mParser.GetNext()));
+    std::vector<std::string> fields = mParser.GetNext();
     if (! fields.empty()) {
         int num_fields = static_cast<int>(fields.size());
         std::unique_ptr<std::string[]> data(new std::string[num_fields]);

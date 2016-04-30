@@ -88,9 +88,7 @@ int main(int argc, char* argv[]) {
     //std::vector<std::string> select_columns{""};
     //std::shared_ptr<IPort<std::string> > source(new SelectiveCsvFileSource<1>(argv[1], select_columns));
 
-    std::shared_ptr<IPort<std::string> > source(
-            std::move(CreateSimpleHistogramCodeBlocks(argv[1])));
-
+    std::shared_ptr<IPort<std::string> > source = CreateSimpleHistogramCodeBlocks(argv[1]);
     TimeTick time_tick(1);  // always start with non-zero value
     auto pCsvFileSource = dynamic_cast<CsvFileSource*>(source.get());
     while (! pCsvFileSource->IsDone()) {

@@ -65,10 +65,9 @@ int main(int argc, char* argv[]) {
 
     std::unique_ptr<HttpTcpWebsocketServer> httpTcpWebsocketServer(new HttpTcpWebsocketServer(http_port));
     std::unique_ptr<std::istream> audiofile(new std::ifstream(filename));
-    std::shared_ptr<IPort<BaseDataType> > source(
-            std::move(CreateWebsocketDemoCodeBlocks(
+    std::shared_ptr<IPort<BaseDataType> > source = CreateWebsocketDemoCodeBlocks(
                     httpTcpWebsocketServer.get(),
-                    std::move(audiofile))));
+                    std::move(audiofile));
 
     std::atomic<bool> keep_running(true);
     std::thread http_server(&RunHttpServer, httpTcpWebsocketServer.get(), &keep_running);
