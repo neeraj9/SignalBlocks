@@ -44,7 +44,17 @@ if(NOT CMAKE_COMPILER_IS_GNUCXX)
   endif()
 endif() # NOT CMAKE_COMPILER_IS_GNUCXX
 
-# unit test via CTest
-enable_testing(true)
-add_test(NAME RunTests COMMAND testsuite)
+if (COVERALLS)
+  FILE(GLOB SOURCE_FILES ${PROJECT_SOURCE_DIR}/*/*.cpp ${PROJECT_SOURCE_DIR}/*/*.h)
+  foreach(item ${SOURCE_FILES})
+    if(${item} MATCHES ".*/test/.*")
+      list(REMOVE_ITEM SOURCE_FILES ${item})
+    endif()
+  endforeach()
+	coveralls_setup(
+        "${SOURCE_FILES}"
+        ${COVERALLS_UPLOAD}
+        "${PROJECT_SOURCE_DIR}/cmake")
+endif()
 
+add_test(NAME RunTests COMMAND testsuite)

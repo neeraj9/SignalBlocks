@@ -11,15 +11,11 @@ before_install:
   - echo $LC_ALL
   - sudo apt-get -qq update
   - sudo apt-get install -y libsndfile1-dev libgsl0-dev python-numpy
-  - pip install --user cpp-coveralls
 script:
   - mkdir build
   - cd build
-  - cmake -DDISABLE_PYTHON_BIN_AND_LIBCHECK=on -DCMAKE_BUILD_TYPE=Debug .. && make
-  - make testsuite
-  - ./test/testsuite
+  - cmake -DCOVERALLS=1 -DDISABLE_PYTHON_BIN_AND_LIBCHECK=on -DCMAKE_BUILD_TYPE=Debug .. && make && make coveralls
 after_success:
-  - coveralls --verbose --exclude testsuite.dir --gcov-options '\-lp'
 branches:
   only:
     - master

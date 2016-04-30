@@ -11,6 +11,9 @@ project(SignalBlocks)
 # Uncomment to view detailed build commands for debugging build issues.
 set(CMAKE_VERBOSE_MAKEFILE on)
 
+option(COVERALLS "Turn on coveralls support" OFF)
+option(COVERALLS_UPLOAD "Upload the generated coveralls json" ON)
+
 # inform cmake to search for non-standard module (ex. FindICU)
 # in project root path
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -24,6 +27,17 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(USE_GNU_CXX11_BUILD ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
+if (COVERALLS)
+	include(Coveralls)
+	coveralls_turn_on_coverage()
+endif()
+
+# include before adding the test subfolder where tests
+# are added. Unless you do that ctest will not be integrated correctly.
+# Doing the include is enough and you no longer need to do
+# enable_testing() here.
+include(CTest)
 
 # ##################################################################################
 # Project Version
