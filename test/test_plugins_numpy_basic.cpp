@@ -11,6 +11,91 @@
 
 using namespace sigblocks;
 
+// This test case is not testing anything, while generating all the test python
+// code so that the rest of the test cases can use them.
+// It appears that the python interpreter (once loaded) do not have
+// a clear view when new python modules are added dynamically.
+// This results in failure of test cases and it reports that the import
+// for the said module (file) failed although the file was dynamically
+// generated within that test case.
+//
+// This is a workaround of the issue where all the python code is
+// made available at the start so that once the python interpreter
+// is loaded it has the complete visibility and can run the test
+// modules correctly. Note that the first instance of PythonPlugin
+// will trigger initialization of the python interpreter hence all
+// the python test modules must be available before that.
+//
+TEST_CASE("Testing plugins while generating python modules", "[plugin numpy basic]") {
+    {
+        // generate a temporary python file/module for testing
+        std::string numpy_code = "import numpy as np\n"
+                "\n"
+                "def myrange():\n"
+                "    x = np.arange(0, 10, np.float(1.0)).reshape(5,2)\n"
+                "    return x\n"
+                "    #return np.bool_(0)\n"
+                "    c = np.longdouble(10)\n"
+                "    print(type(c))\n"
+                "    return c";
+
+        std::string tmp_name("tmp_11232_plugin_test");
+        std::string tmp_filename(tmp_name);
+        tmp_filename += std::string(".py");
+        std::string tmp_filepath("./");
+        std::string tmp_fullfilename = tmp_filepath;
+        tmp_fullfilename += tmp_filename;
+        {
+            std::ofstream ofs(tmp_fullfilename.c_str(), std::ofstream::out);
+            ofs << numpy_code;
+            ofs.close();
+        }
+    }
+
+    {
+        // generate a temporary python file/module for testing
+        std::string numpy_code = "''' test '''\n"
+                "def test_function():\n"
+                "  print(\"Hello World!\")\n"
+                "  return \"Hello World!\"";
+
+        std::string tmp_name("tmp_211232_plugin_test");
+        std::string tmp_filename(tmp_name);
+        tmp_filename += std::string(".py");
+        std::string tmp_filepath("./");
+        std::string tmp_fullfilename = tmp_filepath;
+        tmp_fullfilename += tmp_filename;
+        {
+            std::ofstream ofs(tmp_fullfilename.c_str(), std::ofstream::out);
+            ofs << numpy_code;
+            ofs.close();
+        }
+    }
+
+    {
+        // generate a temporary python file/module for testing
+        std::string numpy_code = "''' Test Multiplication '''\n"
+                "\n"
+                "def multiply():\n"
+                "    c = 12345*6789\n"
+                "    print('The result of 12345 x 6789 :', c)\n"
+                "    return c";
+
+        std::string tmp_name("tmp_2321232_plugin_test");
+        std::string tmp_filename(tmp_name);
+        tmp_filename += std::string(".py");
+        std::string tmp_filepath("./");
+        std::string tmp_fullfilename = tmp_filepath;
+        tmp_fullfilename += tmp_filename;
+        {
+            std::ofstream ofs(tmp_fullfilename.c_str(), std::ofstream::out);
+            ofs << numpy_code;
+            ofs.close();
+        }
+        LOG_DEBUG("Generated file=%s\n", tmp_fullfilename.c_str());
+    }
+}
+
 TEST_CASE("Testing plugins numpy basic inline test", "[plugin numpy basic]") {
     PythonPlugin pyplugin;
     try {
@@ -38,34 +123,12 @@ TEST_CASE("Testing plugins numpy basic inline test", "[plugin numpy basic]") {
 }
 
 TEST_CASE("Testing plugins numpy basic file test", "[plugin numpy basic]") {
-    PythonPlugin pyplugin;
-
-    // generate a temporary python file/module for testing
-    std::string numpy_code = "import numpy as np\n"
-            "\n"
-            "def myrange():\n"
-            "  x = np.arange(0, 10, np.float(1.0)).reshape(5,2)\n"
-            "  return x\n"
-            "  #return np.bool_(0)\n"
-            "  c = np.longdouble(10)\n"
-            "  print(type(c))\n"
-            "  return c";
-
-    std::string tmp_name("tmp_11232_plugin_test");
-    std::string tmp_filename(tmp_name);
-    tmp_filename += std::string(".py");
-    std::string tmp_filepath("./");
-    std::string tmp_fullfilename = tmp_filepath;
-    tmp_fullfilename += tmp_filename;
-    std::ofstream ofs(tmp_fullfilename.c_str(), std::ofstream::out);
-    ofs << numpy_code;
-    ofs.close();
-
     std::unique_ptr <PythonBaseResult> result;
 
+    PythonPlugin pyplugin;
     try {
         LOG_INFO("Running numpy_test.myrange : output {");
-        result = pyplugin.RunPythonCode(tmp_filepath, tmp_name, "myrange");
+        result = pyplugin.RunPythonCode("./", "tmp_11232_plugin_test", "myrange");
         LOG_INFO("} ");
         if (result.get() != 0) {
             LOG_INFO("%s\n", result->ToString().c_str());
@@ -79,36 +142,17 @@ TEST_CASE("Testing plugins numpy basic file test", "[plugin numpy basic]") {
         LOG_ERROR("%s\n", e.what());
     }
 
-    // There is a strange race condition, where the python interpreter complains that
-    // the file is not available (some of the times).
     // cleanup the test file created
-    //REQUIRE(remove(tmp_fullfilename.c_str()) == 0);
+    REQUIRE(remove("./tmp_11232_plugin_test.py") == 0);
 }
 
 TEST_CASE("Testing plugins numpy basic hello world test", "[plugin numpy basic]") {
-    PythonPlugin pyplugin;
-
-    // generate a temporary python file/module for testing
-    std::string numpy_code = "''' test '''\n"
-            "def test_function():\n"
-            "  print(\"Hello World!\")\n"
-            "  return \"Hello World!\"";
-
-    std::string tmp_name("tmp_211232_plugin_test");
-    std::string tmp_filename(tmp_name);
-    tmp_filename += std::string(".py");
-    std::string tmp_filepath("./");
-    std::string tmp_fullfilename = tmp_filepath;
-    tmp_fullfilename += tmp_filename;
-    std::ofstream ofs(tmp_fullfilename.c_str(), std::ofstream::out);
-    ofs << numpy_code;
-    ofs.close();
-
     std::unique_ptr <PythonBaseResult> result;
 
+    PythonPlugin pyplugin;
     try {
         LOG_INFO("Running test_file.test_function : output {");
-        result = pyplugin.RunPythonCode(tmp_filepath, tmp_name, "test_function");
+        result = pyplugin.RunPythonCode("./", "tmp_211232_plugin_test", "test_function");
         LOG_INFO("} ");
         if (result.get() != 0) {
             LOG_INFO("%s\n", result->ToString().c_str());
@@ -121,40 +165,29 @@ TEST_CASE("Testing plugins numpy basic hello world test", "[plugin numpy basic]"
         LOG_ERROR("%s\n", e.what());
     }
 
-    // There is a strange race condition, where the python interpreter complains that
-    // the file is not available (some of the times).
     // cleanup the test file created
-    //REQUIRE(remove(tmp_fullfilename.c_str()) == 0);
+    REQUIRE(remove("./tmp_211232_plugin_test.py") == 0);
 }
 
 TEST_CASE("Testing plugins numpy basic multiply test test", "[plugin numpy basic]") {
-    PythonPlugin pyplugin;
-
-    // generate a temporary python file/module for testing
-    std::string numpy_code = "''' Test Multiplication '''\n"
-            "\n"
-            "def multiply():\n"
-            "    c = 12345*6789\n"
-            "    print('The result of 12345 x 6789 :', c)\n"
-            "    return c";
-
-    std::string tmp_name("tmp_2321232_plugin_test");
-    std::string tmp_filename(tmp_name);
-    tmp_filename += std::string(".py");
-    std::string tmp_filepath("./");
-    std::string tmp_fullfilename = tmp_filepath;
-    tmp_fullfilename += tmp_filename;
-    std::ofstream ofs(tmp_fullfilename.c_str(), std::ofstream::out);
-    ofs << numpy_code;
-    ofs.close();
-    LOG_DEBUG("Generated file=%s\n", tmp_fullfilename.c_str());
-
     std::unique_ptr <PythonBaseResult> result;
 
+    PythonPlugin pyplugin;
     try {
         LOG_INFO("Running py_function.multiply : output {");
-        result = pyplugin.RunPythonCode(tmp_filepath, tmp_name, "multiply");
+        result = pyplugin.RunPythonCode("./", "tmp_2321232_plugin_test", "multiply");
         LOG_INFO("} ");
+    }
+    catch (PyPluginTypeException& e) {
+        LOG_ERROR("%s. Try rerunning again to allow reloading of module.\n", e.what());
+        // lets rerun again (see below)
+    }
+    try {
+        if (!result) {
+            LOG_INFO("Running py_function.multiply : output {");
+            result = pyplugin.RunPythonCode("./", "tmp_2321232_plugin_test", "multiply");
+            LOG_INFO("} ");
+        }
         if (result.get() != 0) {
             LOG_INFO("%s\n", result->ToString().c_str());
         }
@@ -166,10 +199,5 @@ TEST_CASE("Testing plugins numpy basic multiply test test", "[plugin numpy basic
         LOG_ERROR("%s\n", e.what());
     }
 
-    // There is a strange race condition, where the python interpreter complains that
-    // the file is not available (some of the times).
-    // The downside is that stray python files are generated in current working
-    // directory where the tests are executed
-    // cleanup the test file created
-    //REQUIRE(remove(tmp_fullfilename.c_str()) == 0);
+    REQUIRE(remove("./tmp_2321232_plugin_test.py") == 0);
 }
