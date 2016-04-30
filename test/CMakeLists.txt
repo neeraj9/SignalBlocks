@@ -19,9 +19,12 @@ set(SOURCE_FILES
         test_blocks_filters_delay.cpp
         test_blocks_sources_audio.cpp test_blocks_sources_constant.cpp test_blocks_sinks_json_data_extractable.cpp test_blocks_basicop_transpose.cpp test_plugins_numpy_basic.cpp)
 
+
 # ##################################################################################
-# main sample application
+# main test application
 # ##################################################################################
+
+set(PROJECT_TEST_NAME testsuite)
 
 add_executable(testsuite testsuite.cpp ${SOURCE_FILES})
 
@@ -35,6 +38,13 @@ target_link_libraries(testsuite common)
 
 target_link_libraries(testsuite ${LIBSNDFILE_LIBRARIES} ${PYTHON_LIBRARIES} ${GSL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
+if(NOT CMAKE_COMPILER_IS_GNUCXX)
+  if( (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "Coverage"))
+    target_link_libraries(${PROJECT_TEST_NAME} gcov)
+  endif()
+endif() # NOT CMAKE_COMPILER_IS_GNUCXX
+
 # unit test via CTest
-enable_testing()
+enable_testing(true)
 add_test(NAME RunTests COMMAND testsuite)
+

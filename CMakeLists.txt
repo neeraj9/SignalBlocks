@@ -69,6 +69,34 @@ endif(NOT DISABLE_PYTHON_BIN_AND_LIBCHECK)
 mark_as_advanced(PYTHON_EXECUTABLE)
 include_directories(${PYTHON_INCLUDE_PATH})
 
+# ##################################################################################
+# For Test Coverage
+# ##################################################################################
+
+find_program( GCOV_PATH gcov )
+
+if(NOT GCOV_PATH)
+	message(FATAL_ERROR "gcov not found! Aborting...")
+endif() # not GCOV_PATH
+
+if(NOT CMAKE_COMPILER_IS_GNUCXX)
+	# Clang version 3.0.0 and greater now supports gcov as well.
+	message(WARNING "Compiler is not GNU gcc! Clang Version 3.0.0 and greater supports gcov as well, but older versions don't.")
+
+	if(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+		message(FATAL_ERROR "Compiler is not GNU gcc! Aborting...")
+	endif()
+endif() # NOT CMAKE_COMPILER_IS_GNUCXX
+
+
+if( NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "Coverage"))
+  MESSAGE( WARNING "Code coverage results with an optimized (non-Debug) build may be misleading" )
+else()
+  # for debug build only
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage -fprofile-arcs -ftest-coverage")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 --coverage -fprofile-arcs -ftest-coverage" )
+endif() # NOT CMAKE_BUILD_TYPE STREQUAL "Debug"
+
 
 # ##################################################################################
 # External Projects

@@ -6,17 +6,20 @@ compiler:
   - gcc
 os:
   - linux
+before_install:
+  - echo $LANG
+  - echo $LC_ALL
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libsndfile1-dev libgsl0-dev python-numpy
+  - pip install --user cpp-coveralls
 script:
   - mkdir build
   - cd build
   - cmake -DDISABLE_PYTHON_BIN_AND_LIBCHECK=on .. && make
   - make testsuite
   - ./test/testsuite
-before_install:
-  - echo $LANG
-  - echo $LC_ALL
-  - sudo apt-get -qq update
-  - sudo apt-get install -y libsndfile1-dev libgsl0-dev python-numpy
+after_success:
+  - coveralls --exclude testsuite.dir --gcov-options '\-lp'
 branches:
   only:
     - master
