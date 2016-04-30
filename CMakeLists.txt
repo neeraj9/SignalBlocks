@@ -13,7 +13,7 @@ set(CMAKE_VERBOSE_MAKEFILE on)
 
 # inform cmake to search for non-standard module (ex. FindICU)
 # in project root path
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 # Build with gnu c++11, which when disabled uses llvm+clang
 # when the gnu c++11 is disabled then llvm+clang+libstdc++ is used unless
@@ -35,7 +35,7 @@ set(VERSION_PATCH   0   CACHE STRING "0")
 mark_as_advanced(VERSION_MAJOR VERSION_MINOR VERSION_PATCH)
 
 # should be at top so that subdirectories can take advantage of this
-include(compiler.cmake)
+include(compiler)
 
 # ##############################################################################
 # Find third party libraries
@@ -134,5 +134,5 @@ add_subdirectory(test)
 # Although target dependencies are is further down.
 # ##################################################################################
 
-include(doxygen.cmake)
+include(doxygen)
 
