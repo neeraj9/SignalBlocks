@@ -19,7 +19,7 @@ script:
   - make testsuite
   - ./test/testsuite
 after_success:
-  - coveralls --exclude testsuite.dir --gcov-options '\-lp'
+  - coveralls --verbose --exclude testsuite.dir --gcov-options '\-lp'
 branches:
   only:
     - master
