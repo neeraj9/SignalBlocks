@@ -15,7 +15,7 @@ before_install:
 script:
   - mkdir build
   - cd build
-  - cmake -DDISABLE_PYTHON_BIN_AND_LIBCHECK=on .. && make
+  - cmake -DDISABLE_PYTHON_BIN_AND_LIBCHECK=on -DCMAKE_BUILD_TYPE=Debug .. && make
   - make testsuite
   - ./test/testsuite
 after_success:
