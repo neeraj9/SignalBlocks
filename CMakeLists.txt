@@ -149,7 +149,9 @@ add_subdirectory(examples/websocket_demo)
 add_subdirectory(test)
 
 if (COVERALLS)
-  FILE(GLOB SOURCE_FILES RELATIVE ${PROJECT_SOURCE_DIR} */*.cpp */*.h)
+  # without absolute path older cmake (prior to 3.3 experience some issue)
+  # so have relative path instead
+  FILE(GLOB SOURCE_FILES RELATIVE ${PROJECT_SOURCE_DIR} */*.cpp */*.h */*/*.cpp */*/*.h)
   foreach(item ${SOURCE_FILES})
     if(${item} MATCHES "test/.*")
       list(REMOVE_ITEM SOURCE_FILES ${item})
