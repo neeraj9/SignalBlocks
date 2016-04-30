@@ -37,7 +37,7 @@ lot of time debugging language usage issues. A plethora of open source
 frameworks allow an ever expanding functionality (on top of this framework)
 with practically limitless possibilities.
 
-## Basic Data Types
+## Data Types
 
 The following base data types are largely supported within the framework, but
 this framework do not restrict you in any way. Other than being GPLv3 this
@@ -50,6 +50,10 @@ added.
 * long, unsigned long
 * float
 * double, long double
+
+The framework supports scalar, vector and N-Dimensional matrix and each of
+the blocks must support any of them (unless intentionally not supported
+where assertions are to be made).
 
 ## A Sneak Peak
 
