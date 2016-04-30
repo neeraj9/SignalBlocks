@@ -3,6 +3,7 @@
 #ifndef SIGNALBLOCKS_JSONDATAEXTRACTABLESINK_H
 #define SIGNALBLOCKS_JSONDATAEXTRACTABLESINK_H
 
+#include "../../common/CallbackTypes.h"
 #include "../../common/Port.h"
 #include "../../common/logging.h"
 
@@ -263,6 +264,15 @@ namespace sigblocks {
             }
             return std::make_tuple(std::move(json_output), updated_tick);
         };
+
+        JsonDataCallbackFuncType GetDataCallback() {
+						JsonDataCallbackFuncType cb = std::bind(
+												&JsonDataExtractableSink<T>::GetAsJsonData,
+												this,
+												std::placeholders::_1,
+												std::placeholders::_2);
+            return cb;
+        }
 
     public: // Port interface
         void Process(int sourceIndex, const T& data, const TimeTick& startTime) {

@@ -4,6 +4,7 @@
 #ifndef SIGNALBLOCKS_HTTPTCPWEBSOCKETSERVER_H
 #define SIGNALBLOCKS_HTTPTCPWEBSOCKETSERVER_H
 
+#include "../common/CallbackTypes.h"
 #include "../common/TimeTick.h"
 
 #include <functional>
@@ -14,10 +15,6 @@
 #include <unordered_map>
 
 namespace sigblocks {
-
-    using JsonDataCallbackFuncType =
-        std::function<std::tuple<std::string, TimeTick>(bool isFirst, const TimeTick& tick)>;
-
     class HttpTcpWebsocketServer {
     public:
         HttpTcpWebsocketServer(int port);
