@@ -28,6 +28,11 @@ set(USE_GNU_CXX11_BUILD ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
+if(NOT CMAKE_COMPILER_IS_GNUCXX)
+  message("Since the compiler is non GNU CXX so disable coveralls upload")
+  set(COVERALLS_UPLOAD OFF)
+endif()
+
 if (COVERALLS)
 	include(Coveralls)
 	coveralls_turn_on_coverage()
