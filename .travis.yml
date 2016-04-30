@@ -6,7 +6,6 @@ compiler:
   - gcc
 os:
   - linux
-  - osx
 script:
   - mkdir build
   - cd build
