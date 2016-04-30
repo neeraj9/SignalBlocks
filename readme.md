@@ -1,5 +1,8 @@
 # SigBlocks
 
+[![Build Status](https://travis-ci.org/neeraj9/SignalBlocks.svg?branch=master)](https://travis-ci.org/neeraj9/SignalBlocks)
+[![Software License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square)](LICENSE)
+
 The SignalBlocks is a c++11 framework to implement blocks of
 logic which can be tied together like digital signal processing
 (DSP) blocks (as in Matlab). This toolset aims to be fast, adaptable
