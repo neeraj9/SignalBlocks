@@ -1,6 +1,7 @@
 # SigBlocks
 
 [![Build Status](https://travis-ci.org/neeraj9/SignalBlocks.svg?branch=master)](https://travis-ci.org/neeraj9/SignalBlocks)
+[![Coverage Status](https://coveralls.io/repos/github/neeraj9/SignalBlocks/badge.svg?branch=master)](https://coveralls.io/github/neeraj9/SignalBlocks?branch=master)
 [![Software License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square)](LICENSE)
 
 The SignalBlocks is a c++11 framework to implement blocks of
