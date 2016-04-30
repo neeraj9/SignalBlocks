@@ -25,7 +25,7 @@ namespace sigblocks {
     };
 
 
-    template <class T>
+    template <typename T>
     class TypeToBt {
     public:
         static BlockType ToType() {
