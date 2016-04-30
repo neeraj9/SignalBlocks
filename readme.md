@@ -188,6 +188,31 @@ This project is an attempt to give a basic framework which will (soon)
 encapsulate many of the open source software to construct a building
 block for such requirement.
 
+## Build and Test
+
+After you are done setting up the development environment the build is
+pretty straight-forward (see below).
+
+    git clone https://github.com/neeraj9/SignalBlocks
+    cd SignalBlocks
+    mkdir build
+    cd build
+    cmake ..
+    make
+
+The testsuite is another target which is built and run as follows:
+
+    make testsuite
+    ./test/testsuite
+
+Take a look at the example projects for using this framework. Lets build the
+websocket_demo (for example).
+
+    cd SignalBlocks/build
+    make websocket_demo
+    ./examples/websocket_demo/websocket_demo somewavfile.wav
+
+
 ## Components
 
 The framework has the following components:
