@@ -7,10 +7,10 @@ The SignalBlocks is a c++11 framework to implement blocks of
 logic which can be tied together like digital signal processing
 (DSP) blocks (as in Matlab). This toolset aims to be fast, adaptable
 and free (GPLv3 license). Although I initially intended this for the
-student and research community but this tool is generic enough to
+student and research community, but this tool is generic enough to
 be used elsewhere.
 
-The c++ can appear daunting for newbies but I strive to make those
+The c++ can appear daunting for newbies, but I strive to make those
 as simple possible from an general user point of view. Having said that
 it is important to pick up any good book on c++ which covers c++11 to
 make the best use this framework and avoid spending a lot of time debugging
@@ -22,7 +22,7 @@ limitless possibilities.
 ## A Sneak Peak
 
 Lets take a sneak peak at a sample c++ source which is required to read
-audio from a file and apply a constant gain and then stream to a remote
+audio from a file, apply a constant gain and then stream the output to a remote
 html5 app via a websocket server. The demo can be built via the
 "websocket_demo" target in the cmake build rule. Cool huh!
 
@@ -42,11 +42,10 @@ html5 app via a websocket server. The demo can be built via the
     }
 
     void run_signal_blocks(const char *filename) {
-
         // create the blocks and connect them together
         std::unique_ptr<std::istream> audiofile(new std::ifstream(filename));
         BlockSharedPointer source(new AudioSource<BaseDataType>(
-            "audio-src", block_size, std::move(audioStream)));
+            "audio-source", block_size, std::move(audioStream)));
 
         BlockSharedPointer block(new Splitter<2, BaseDataType>("extract-ch0", 0));
         BlockSharedPointer nullport(new Terminator<BaseDataType>("nullport"));
@@ -54,7 +53,7 @@ html5 app via a websocket server. The demo can be built via the
             new JsonDataExtractableSink<BaseDataType>("json-data-extractor"));
 
         connect(source, connect(connect(block, sink), nullport, 1, 0));
-        // the connection of the block is complete
+        // all the blocks are now connected and ready to run
 
         // create a websocket server thread
         std::atomic<bool> keep_running(true);
@@ -64,11 +63,7 @@ html5 app via a websocket server. The demo can be built via the
         // connect the json data block sink with websocket server
         JsonDataExtractableSink<BaseDataType>* archive =
             dynamic_cast<JsonDataExtractableSink<BaseDataType>*>(sink.get());
-        JsonDataCallbackFuncType cb = std::bind(
-            &JsonDataExtractableSink<BaseDataType>::GetAsJsonData,
-            archive,
-            std::placeholders::_1,
-            std::placeholders::_2);
+        JsonDataCallbackFuncType cb = archive->GetDataCallback();
 
         server->AddRoute("/1", std::move(cb));
         std::thread http_server(&RunHttpServer, server.get(), &keep_running);
@@ -82,8 +77,6 @@ html5 app via a websocket server. The demo can be built via the
             time_tick += 1;
             usleep(200 * 1000);  // sleep for 200 milliseconds
         }
-        // ...
-
 ```
 
 
