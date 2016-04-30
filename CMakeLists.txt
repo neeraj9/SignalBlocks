@@ -1,7 +1,7 @@
 # (c) 2016 Neeraj Sharma <neeraj.sharma@alumni.iitg.ernet.in>.
 # All rights reserved.
 
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 2.8)
 project(SignalBlocks)
 
 # ##################################################################################
@@ -57,7 +57,13 @@ include(compiler)
 
 # any third-party libraries are to be found here
 find_package(Threads)
-find_package(GSL)
+
+if(CMAKE_MAJOR_VERSION VERSION_LESS 3.0)
+  find_package(GslForOlderCmake)
+else()
+  find_package(GSL)
+endif()
+
 find_package(LibSndFile)
 
 # ####################
