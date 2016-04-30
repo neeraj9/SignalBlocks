@@ -506,5 +506,6 @@ that there will be new features available from time to to time.
 
 ## Thanks
 
-Please write comments / drop me an email since a lot needs to be
-achieved and this is just the beginning.
+Feel free to create issues for bugs or new features.
+
+Copyright (c) 2016 Neeraj Sharma.
