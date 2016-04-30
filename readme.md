@@ -101,7 +101,7 @@ html5 app via a websocket server. The demo can be built via the
         }
 ```
 
-## Environment Setup
+## Development Environment Setup
 
 Although the installation for various GNU/Linux distributions differ but
 the dependencies are easily available on any one of them.
