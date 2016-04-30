@@ -148,6 +148,21 @@ add_subdirectory(examples/websocket_demo)
 # tests
 add_subdirectory(test)
 
+if (COVERALLS)
+  FILE(GLOB SOURCE_FILES RELATIVE ${PROJECT_SOURCE_DIR} */*.cpp */*.h)
+  foreach(item ${SOURCE_FILES})
+    if(${item} MATCHES "test/.*")
+      list(REMOVE_ITEM SOURCE_FILES ${item})
+    endif()
+  endforeach()
+  message("Coverage source files: ${SOURCE_FILES}")
+  coveralls_setup(
+        "${SOURCE_FILES}"
+        ${COVERALLS_UPLOAD}
+        "${PROJECT_SOURCE_DIR}/cmake")
+endif()
+
+
 # ##################################################################################
 # Inclusions
 # Always at the end to take advantage of prior variables in this file.
