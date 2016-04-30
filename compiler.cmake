@@ -17,6 +17,8 @@ if (USE_GNU_CXX11_BUILD)
 else()
 
     if (USE_LLVM_WITH_LIBCXX_LIBCXXABI)
+        # this will only work if the libc++ library is installed
+        # as well
 
         # ------------ option-1: use llvm+clang with libc++ linked to libc++abi ------
         #set(LLVM_FOUND YES)
@@ -29,10 +31,10 @@ else()
                 "${CMAKE_CXX_COMPILE_OBJECT} && ${generate_bc} -emit-llvm")
         # the default compiler is c++, which is typically g++ (gnu c++ compiler)
         # lets use clang
-        set(CMAKE_CXX_COMPILER           "/opt/storage/2/nsharma/llvm/bin/clang++")
+        set(CMAKE_CXX_COMPILER           "clang++")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
         # if we dont provide -lc++abi then the following error is displayed
-        # libc++abi.so.1, needed by /opt/storage/2/nsharma/llvm/bin/../lib64/libc++.so
+        # libc++abi.so.1, needed by /..<llvm-path>../llvm/bin/../lib64/libc++.so
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++abi")
         # Since clang is used, so lets use libc++ instead of libstdc++ as well :)
 
@@ -44,7 +46,7 @@ else()
     else()
 
         # ------------ option-3: use llvm+clang with libstdc++ ------
-        set(CMAKE_CXX_COMPILER           "/opt/storage/2/nsharma/llvm/bin/clang++")
+        set(CMAKE_CXX_COMPILER           "clang++")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
     endif(USE_LLVM_WITH_LIBCXX_LIBCXXABI)
