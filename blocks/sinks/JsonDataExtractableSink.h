@@ -4,13 +4,13 @@
 #define SIGNALBLOCKS_JSONDATAEXTRACTABLESINK_H
 
 #include "../../common/Port.h"
+#include "../../common/logging.h"
 
 #include <deque>
 #include <iterator>
 #include <mutex>
 #include <sstream>
 #include <vector>
-#include <logging.h>
 
 namespace sigblocks {
 
@@ -99,18 +99,20 @@ namespace sigblocks {
         /// dump data from first to last (which include the last iterator as well).
         template <typename M>
         static std::string DataToJson(typename M::iterator first, typename M::iterator last) {
-            std::vector<std::ostringstream> vout(1);
-            vout[0] << "{";
-            vout[0] << "\"name\": \"series-0\",";
-            vout[0] << " \"data\": [";
+            std::vector<std::ostringstream*> vout(1);
+            vout[0] = new std::ostringstream;
+            (*vout[0]) << "{";
+            (*vout[0]) << "\"name\": \"series-0\",";
+            (*vout[0]) << " \"data\": [";
             typename M::iterator iter = first;
-            vout[0] << "{\"x\": " << (*iter).mTimeTick.GetValue() << ", \"y\": " << (*iter).mData[0] << "}";
+            (*vout[0]) << "{\"x\": " << (*iter).mTimeTick.GetValue() << ", \"y\": " << (*iter).mData[0] << "}";
             for (int i = 1; i < (*iter).mLen; ++i) {
-                vout.push_back(std::ostringstream());
-                vout[i] << ", {";
-                vout[i] << "\"name\": \"series-" << i << "\",";
-                vout[i] << " \"data\": [";
-                vout[i] << "{\"x\": " << (*iter).mTimeTick.GetValue() << ", \"y\": " << (*iter).mData[i] << "}";
+                std::ostringstream *tmp_stream = new std::ostringstream;
+                vout.push_back(tmp_stream);
+                (*vout[i]) << ", {";
+                (*vout[i]) << "\"name\": \"series-" << i << "\",";
+                (*vout[i]) << " \"data\": [";
+                (*vout[i]) << "{\"x\": " << (*iter).mTimeTick.GetValue() << ", \"y\": " << (*iter).mData[i] << "}";
             }
             if (first != last) {
                 ++iter;
@@ -121,36 +123,40 @@ namespace sigblocks {
                         // we can avoid this when all the vectors are trusted to be of the same
                         // size
                         if (vout.size() < static_cast<size_t>(i)) {
-                            vout.push_back(std::ostringstream());
-                            vout[i] << ", {";
-                            vout[i] << "\"name\": \"series-" << i << "\",";
-                            vout[i] << " \"data\": [";
-                            vout[i] << "{\"x\": " << (*iter).mTimeTick.GetValue() << ", \"y\": " << (*iter).mData[i] << "}";
+                            std::ostringstream *tmp_stream = new std::ostringstream;
+                            vout.push_back(tmp_stream);
+                            (*vout[i]) << ", {";
+                            (*vout[i]) << "\"name\": \"series-" << i << "\",";
+                            (*vout[i]) << " \"data\": [";
+                            (*vout[i]) << "{\"x\": " << (*iter).mTimeTick.GetValue() << ", \"y\": " << (*iter).mData[i] << "}";
                         } else {
-                            vout[i] << ", {\"x\": " << (*iter).mTimeTick.GetValue() << ", \"y\": " << (*iter).mData[i] << "}";
+                            (*vout[i]) << ", {\"x\": " << (*iter).mTimeTick.GetValue() << ", \"y\": " << (*iter).mData[i] << "}";
                         }
                     }
                     ++iter;
                 }
             }
             for (auto iter = vout.begin(); iter != vout.end(); ++iter) {
-                (*iter) << "]";
-                (*iter) << "}";
+                *(*iter) << "]";
+                *(*iter) << "}";
             }
 
             // a 2-pass technique to optimize string
             // concatenation
             size_t max_chars = 0;
             for (auto iter = vout.begin(); iter != vout.end(); ++iter) {
-                max_chars += iter->tellp();
+                max_chars += (*iter)->tellp();
             }
             std::string json_content;
             json_content.reserve(max_chars + 2);  // include "[" and "]"
             json_content += "[";  // enclose with starting json array marker
             for (auto iter = vout.begin(); iter != vout.end(); ++iter) {
-                json_content += iter->str();
+                json_content += (*iter)->str();
             }
             json_content += "]"; // enclose with ending json array marker
+            for (auto iter = vout.begin(); iter != vout.end(); ++iter) {
+                delete (*iter);
+            }
             return json_content;
         }
 
