@@ -11,6 +11,7 @@ script:
   - cd build
   - cmake -DDISABLE_PYTHON_BIN_AND_LIBCHECK=on .. && make
   - make testsuite
+  - ./test/testsuite
 before_install:
   - echo $LANG
   - echo $LC_ALL
