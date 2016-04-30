@@ -17,6 +17,8 @@ script:
   - cd build
   - cmake -DCOVERALLS=1 -DDISABLE_PYTHON_BIN_AND_LIBCHECK=on -DCMAKE_BUILD_TYPE=Debug .. && make && make coveralls
 after_success:
+  - echo "Dumping coveralls data"
+  - cat coveralls.json
 branches:
   only:
     - master
