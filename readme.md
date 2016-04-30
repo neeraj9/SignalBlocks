@@ -234,28 +234,28 @@ not all of them are thoroughly tested.
     </thead>
     <tbody>
         <tr>
-            <td>de-multiplexer</td>
+            <td>[de-multiplexer](blocks/basicop/Demultiplex.h)</td>
             <td>one to many</td>
         </tr>
         <tr>
-            <td>multiplexer</td>
+            <td>[multiplexer](blocks/basicop/Multiplex.h)</td>
             <td>many to one</td>
         </tr>
         <tr>
-            <td>buffer</td>
+            <td>[buffer](blocks/basicop/Buffer.h)</td>
             <td>convert serial data to a buffer of given size</td>
         </tr>
         <tr>
-            <td>duplicator</td>
+            <td>[duplicator](blocks/basicop/Duplicator.h)</td>
             <td>duplicate the input into multiple outputs</td>
         </tr>
         <tr>
-            <td>splitter</td>
+            <td>[splitter](blocks/basicop/Splitter.h)</td>
             <td>split a N dimmention vector to scalar which goes out to
                 N output blocks</td>
         </tr>
         <tr>
-            <td>transpose</td>
+            <td>[transpose](blocks/basicop/Transpose.h)</td>
             <td>compute 2D matrix transpose</td>
         </tr>
     </tbody>
@@ -272,7 +272,7 @@ not all of them are thoroughly tested.
     </thead>
     <tbody>
         <tr>
-            <td>ordinal converter</td>
+            <td>[ordinal converter](blocks/converters/OrdinalConverter.h)</td>
             <td>learn automatically and convert from string to integer,
                 where the id are automatically generated based on
                 inputs and continuously increases as new text strings
@@ -280,11 +280,11 @@ not all of them are thoroughly tested.
                 unsigned long as output (so its a MixedPort).</td>
         </tr>
         <tr>
-            <td>basic-type converter</td>
+            <td>[basic-type converter](blocks/converters/BasicTypeConverter.h)</td>
             <td>convert from one base type to another</td>
         </tr>
         <tr>
-            <td>to-matrix converter</td>
+            <td>[to-matrix converter](blocks/converters/ToMatrixConverter.h)</td>
             <td>convert scalar or vector input to matrix output but retaining the dimensions.
                 This is particularly useful when a block needs an input in matrix
                 format. Note that the data is not transformed, just that the dimensions
@@ -305,12 +305,12 @@ not all of them are thoroughly tested.
     </thead>
     <tbody>
         <tr>
-            <td>delay</td>
+            <td>[delay](blocks/filter/Delay.h)</td>
             <td>with some initial condition which is the initial output
                 till delay is reached for first output</td>
         </tr>
         <tr>
-            <td>downsample</td>
+            <td>[downsample](blocks/filter/DownSample.h)</td>
             <td>filter data to down-sample input stream of data</td>
         </tr>
     </tbody>
@@ -327,55 +327,55 @@ not all of them are thoroughly tested.
     </thead>
     <tbody>
         <tr>
-            <td>gain</td>
+            <td>[gain](blocks/math/Gain.h)</td>
             <td>multiply input with a constant factor</td>
         </tr>
         <tr>
-            <td>product</td>
+            <td>[product](blocks/math/Product.h)</td>
             <td>multiply two input values</td>
         </tr>
         <tr>
-            <td>sum</td>
+            <td>[sum](blocks/math/Sum.h)</td>
             <td>add two input values</td>
         </tr>
         <tr>
-            <td>difference</td>
+            <td>[difference](blocks/math/Difference.h)</td>
             <td>difference between two input values</td>
         </tr>
         <tr>
-            <td>arccosh</td>
+            <td>[arccosh](blocks/math/Arccosh.h)</td>
             <td>inverse hyperbolic cosine</td>
         </tr>
         <tr>
-            <td>arcsine</td>
+            <td>[arcsine](blocks/math/Arcsinh.h)</td>
             <td>inverse hyperbolic sine</td>
         </tr>
         <tr>
-            <td>arctanh</td>
+            <td>[arctanh](blocks/math/Arctanh.h)</td>
             <td>inverse hyperbolic tan</td>
         </tr>
         <tr>
-            <td>constant power</td>
+            <td>[constant power](blocks/math/ConstPow.h)</td>
             <td>raise the input to a constant power</td>
         </tr>
         <tr>
-            <td>cos</td>
+            <td>[cos](blocks/math/Cos.h)</td>
             <td>cosine</td>
         </tr>
         <tr>
-            <td>expm1</td>
+            <td>[expm1](blocks/math/Expm1.h)</td>
             <td>it computes \exp(x)-1</td>
         </tr>
         <tr>
-            <td>log1p</td>
+            <td>[log1p](blocks/math/Log1p.h)</td>
             <td>it computes \log(1+x) </td>
         </tr>
         <tr>
-            <td>sin</td>
+            <td>[sin](blocks/math/Sin.h)</td>
             <td>sine</td>
         </tr>
         <tr>
-            <td>tan</td>
+            <td>[tan](blocks/math/Tan.h)</td>
             <td>tan</td>
         </tr>
     </tbody>
@@ -392,26 +392,26 @@ not all of them are thoroughly tested.
     </thead>
     <tbody>
         <tr>
-            <td>archive sink</td>
+            <td>[archive sink](blocks/sinks/ArchiverSink.h)</td>
             <td>archives all the data without dropping any one. It is
                 important to note that there is no bound checking, so
                 you will quickly run out of memory for a very
                 large data set.</td>
         </tr>
         <tr>
-            <td>output stream sink</td>
+            <td>[output stream sink](blocks/sinks/OstreamSink.h)</td>
             <td>a sink which can be used to store to a file or any c++ ostream</td>
         </tr>
         <tr>
-            <td>socket sink</td>
+            <td>[socket sink](blocks/sinks/SocketSink.h)</td>
             <td>output to a socket and send it to remote system (udp or tcp)</td>
         </tr>
         <tr>
-            <td>standard output</td>
+            <td>[standard output](blocks/sinks/StdoutSink.h)</td>
             <td>dump the data (signal) on the standard output or the console</td>
         </tr>
         <tr>
-            <td>json data extractable sink</td>
+            <td>[json data extractable sink](blocks/sinks/JsonDataExtractableSink.h)</td>
             <td>a special sink to convert input signal to a json (text) data stream,
                 which can then be attached to a websocket server to stream them
                 to connected clients. There is a cool demo also added which
@@ -421,7 +421,7 @@ not all of them are thoroughly tested.
                 events beyond the configured threshold.</td>
         </tr>
         <tr>
-            <td>terminator</td>
+            <td>[terminator](blocks/sinks/Terminator.h)</td>
             <td>a null port (or sort of a ground) which is useful when
                 you dont want to look at a signal but since all the
                 input and output must be connected so this must be
@@ -441,51 +441,51 @@ not all of them are thoroughly tested.
     </thead>
     <tbody>
         <tr>
-            <td>csv file source</td>
+            <td>[csv file source](blocks/sources/CsvFileSource.h)</td>
             <td>source of csvfile and generates a vector output of string data
                 type</td>
         </tr>
         <tr>
-            <td>constant</td>
+            <td>[constant](blocks/sources/ConstantSource.h)</td>
             <td>source of constant number</td>
         </tr>
         <tr>
-            <td>audio source</td>
+            <td>[audio source](blocks/sources/AudioSource.h)</td>
             <td>read audio file (multiple non-patented) formats and generate signal stream</td>
         </tr>
         <tr>
-            <td>complex stream source</td>
+            <td>[complex stream source](blocks/sources/ComplexStreamSource.h)</td>
             <td>reads {I, Q} complex data from a stream and pass on as-is</td>
         </tr>
         <tr>
-            <td>input stream source</td>
+            <td>[input stream source](blocks/sources/IstreamSource.h)</td>
             <td>a source which can read from any c++ istream source</td>
         </tr>
         <tr>
-            <td>linear</td>
+            <td>[linear](blocks/sources/LinearSource.h)</td>
             <td>generates a linear signal based on an initial value and an increment per tick</td>
         </tr>
         <tr>
-            <td>pulse</td>
+            <td>[pulse](blocks/sources/PulseSource.h)</td>
             <td>generates a pulse signal of high and low values</td>
         </tr>
         <tr>
-            <td>random</td>
+            <td>[random](blocks/sources/RandomSource.h)</td>
             <td>generates a random signal source based on the c psuedo random number generator</td>
         </tr>
         <tr>
-            <td>selective csv file source</td>
+            <td>[selective csv file source](blocks/sources/SelectiveCsvFileSource.h)</td>
             <td>selectively read specific columns from a text csv file and generate appropriate
                 signal streams</td>
         </tr>
         <tr>
-            <td>socket</td>
+            <td>[socket](blocks/sources/SocketSource.h)</td>
             <td>reads packets from socket and sends them out as a source. This can be
                 used to receive data from remote location and feed to your subsystem.
                 At present it supports tcp and udp sockets.</td>
         </tr>
         <tr>
-            <td>step</td>
+            <td>[step](blocks/sources/StepSource.h)</td>
             <td>generates a function which starts with an initial value and always increase
                 by 1/td>
         </tr>
