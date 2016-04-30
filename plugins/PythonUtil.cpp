@@ -5,7 +5,11 @@
 #include "PythonPluginExceptions.h"
 
 #include <iostream>
-#include <numpy/ndarrayobject.h> // required for Py_ssize_t
+
+// required for Py_ssize_t
+#include <numpy/numpyconfig.h>
+#include <numpy/arrayobject.h>
+
 #include <string>
 
 using namespace sigblocks;
