@@ -26,7 +26,7 @@ following depencies are required to use this project; namely
 > [gcc cxx11 status](https://gcc.gnu.org/projects/cxx-status.html#cxx11)
 > gives details of the appropriate compiler versions to use.
 
-The [travis config](.travis.yml) sets up the ubuntu plaform for the build (hint:
+[Travis config](.travis.yml) sets up the ubuntu plaform for the build (hint:
 look at the apt-get commands).
 
 C++ code can be daunting for newbies, but I strive to make the framework API
@@ -38,37 +38,12 @@ frameworks allow an ever expanding functionality (on top of this framework)
 with practically limitless possibilities.
 
 
-## Environment Setup
-
-Although the installation for various GNU/Linux distributions differ but
-the dependencies are easily available on any one of them.
-
-### Ubuntu
-
-The following commands needs to be as a system administrator or with sudo
-(as shown below) so that the relavent packages are installed in the
-system.
-
-If your system is not updated then probably it is a good idea to do that
-before installing anything else.
-
-    sudo apt-get update
-
-In case you prefer the GNU GCC compler then install g++
-
-    sudo apt-get install -y g++
-
-Alternatively, you can install the clang compiler as well
-
-    sudo apt-get install -y clang-3.5
-
-The following other depencies are required as mentioned before.
-
-    sudo apt-get install -y libsndfile1-dev libgsl0-dev python-numpy
-
 ## A Sneak Peak
 
-Lets take a sneak peak at a sample c++ source which is required to read
+"The proof is in the pudding ..." and the following demo should get sufficient
+information (and possibly motivation) to decide on this project.
+
+Lets take a sneak peak at a sample c++ source which reads
 audio from a file, apply a constant gain and then stream the output to a remote
 html5 app via a websocket server. The demo can be built via the
 "websocket_demo" target in the cmake build rule. Cool huh!
@@ -126,6 +101,65 @@ html5 app via a websocket server. The demo can be built via the
         }
 ```
 
+## Environment Setup
+
+Although the installation for various GNU/Linux distributions differ but
+the dependencies are easily available on any one of them.
+
+### Ubuntu or Debian
+
+The following commands were tested on Ubuntu 14.04 but things should be similar
+(if not same) on other releases and Debian.
+
+The following commands needs to be as a system administrator or with sudo
+(as shown below) so that the relavent packages are installed in the
+system.
+
+If your system is not updated then probably it is a good idea to do that
+before installing anything else.
+
+    sudo apt-get update
+
+In case you prefer the GNU GCC compler then install g++
+
+    sudo apt-get install -y g++
+
+Alternatively, you can install the clang compiler as well
+
+    sudo apt-get install -y clang-3.5
+
+The following other depencies are required as mentioned before.
+
+    sudo apt-get install -y libsndfile1-dev libgsl0-dev python-numpy
+
+### CentOS / Fedora / Redhat
+
+The following commands were tested on Centos 7 but things should be similar
+(if not same) on other releases and Fedora or Redhat.
+
+If your system is not updated then probably it is a good idea to do that
+before installing anything else.
+
+    sudo yum update
+
+In case you prefer the GNU GCC compler then install g++
+
+    sudo yum install -y gcc-c++
+
+Alternatively, you can install the clang compiler as well
+
+    sudo yum install -y clang
+
+The following other depencies are required as mentioned before.
+
+    sudo yum install -y gsl-devel libsndfile-devel python-devel numpy
+
+> The versions gcc (g++) and clang which are installed in your (rpm based)
+> operating needs to meet the previously mentioned criteria. At the time of
+> this writing CentOS 7, Fedora 23, RHEL 7 are the latest releases and works
+> well. Anything earlier may not work for you unless you are willing to
+> get under the hood and build things on your own.
+
 
 ## Motivation
 
@@ -135,6 +169,20 @@ which can be compiled to native format for fast performance.
 This project is an attempt to give a basic framework which will (soon)
 encapsulate many of the open source software to construct a building
 block for such requirement.
+
+## Components
+
+The framework has the following components:
+
+* core - The core of the library which forms the basis for writing usable blocks.
+* socket - The socket related wrapper code (over system socket api) which is
+  used by some of the blocks.
+* blocks - The base blocks which provide a lot of useful functionality (for example sources, sinks, etc).
+* http - A primitive (yet working) websocket server which hosts data results for
+  websocket clients to view. There is even a cool demo in the examples subfolder.
+* examples - Example applications to use the framework.
+* test - Unit test based on a great (single header) test framework
+  [Catch](https://github.com/philsquared/Catch).
 
 ## Blocks
 
