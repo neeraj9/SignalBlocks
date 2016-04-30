@@ -37,6 +37,19 @@ lot of time debugging language usage issues. A plethora of open source
 frameworks allow an ever expanding functionality (on top of this framework)
 with practically limitless possibilities.
 
+## Basic Data Types
+
+The following base data types are largely supported within the framework, but
+this framework do not restrict you in any way. Other than being GPLv3 this
+framework relies on templates heavily, so that new data type can be easily
+added.
+
+* char, unsigned char
+* short, unsigned short
+* int, unsigned int
+* long, unsigned long
+* float
+* double, long double
 
 ## A Sneak Peak
 
@@ -543,12 +556,13 @@ incorrectly written block. (hint: see Buffer block)
 
 There are number of items and which are in the pipeline and mostly
 I have it documented in my personal notes. The most important of them
-is to improve the code coverage of the unit tests as must possible
-(close to 100%) and subsequently move to any new feature. Having said
-that there will be new features available from time to to time.
+is to improve the code coverage of the unit tests
+and any new feature. Having said that there will be new features available
+from time to to time.
 
 ## Thanks
 
+Thanks for evaluating this project and hope you find it useful.
 Feel free to create issues for bugs or new features.
 
 Copyright (c) 2016 Neeraj Sharma.
