@@ -160,6 +160,24 @@ The following other depencies are required as mentioned before.
 > well. Anything earlier may not work for you unless you are willing to
 > get under the hood and build things on your own.
 
+### Archlinux
+
+If your system is not updated then probably it is a good idea to do that
+before installing anything else.
+
+    sudo pacman -Syu
+
+In case you prefer the GNU GCC compler then install g++
+
+    sudo pacman -Sy gcc-multilib
+
+Alternatively, you can install the clang compiler as well
+
+    sudo pacman -Sy clang
+
+The following other depencies are required as mentioned before.
+
+    sudo yum install -y gsl libsndfile python2 python2-numpy
 
 ## Motivation
 
