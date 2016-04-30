@@ -57,7 +57,7 @@ added.
 information (and possibly motivation) to decide on this project.
 
 Lets take a sneak peak at a sample c++ source which reads
-audio from a file, apply a constant gain and then stream the output to a remote
+audio from a file and then stream the output to a remote
 html5 app via a websocket server. The demo can be built via the
 "websocket_demo" target in the cmake build rule. Cool huh!
 
