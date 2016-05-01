@@ -210,7 +210,7 @@ endforeach()
 # talks about a new option which is built into the gcov now).
 message("Running gcov on ${CONSOLIDATED_GCDA_FILES}")
 execute_process(
-  COMMAND ${GCOV_EXECUTABLE} -p ${TMP_GCDA_FILES}
+  COMMAND ${GCOV_EXECUTABLE} -p ${CONSOLIDATED_GCDA_FILES}
   WORKING_DIRECTORY ${COV_PATH}
 )
 
