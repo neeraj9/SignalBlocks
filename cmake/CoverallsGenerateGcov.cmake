@@ -177,35 +177,42 @@ endmacro()
 
 # Get the coverage data.
 file(GLOB_RECURSE GCDA_FILES "${COV_PATH}/*.gcda")
-message("GCDA files:")
+message("GCDA files: ${GCDA_FILES}")
 
+set(CONSOLIDATED_GCDA_FILES "")
 # Get a list of all the object directories needed by gcov
 # (The directories the .gcda files and .o files are found in)
 # and run gcov on those.
 foreach(GCDA ${GCDA_FILES})
 	message("Process: ${GCDA}")
-	message("------------------------------------------------------------------------------")
 	get_filename_component(GCDA_DIR ${GCDA} PATH)
-
-	#
-	# The -p below refers to "Preserve path components",
-	# This means that the generated gcov filename of a source file will
-	# keep the original files entire filepath, but / is replaced with #.
-	# Example:
-	#
-	# /path/to/project/root/build/CMakeFiles/the_file.dir/subdir/the_file.c.gcda
-	# ------------------------------------------------------------------------------
-	# File '/path/to/project/root/subdir/the_file.c'
-	# Lines executed:68.34% of 199
-	# /path/to/project/root/subdir/the_file.c:creating '#path#to#project#root#subdir#the_file.c.gcov'
-	#
-	# If -p is not specified then the file is named only "the_file.c.gcov"
-	#
-	execute_process(
-		COMMAND ${GCOV_EXECUTABLE} -p -o ${GCDA_DIR} ${GCDA}
-		WORKING_DIRECTORY ${COV_PATH}
-	)
+  list(APPEND CONSOLIDATED_GCDA_FILES "${GCDA}")
 endforeach()
+
+#
+# The -p below refers to "Preserve path components",
+# This means that the generated gcov filename of a source file will
+# keep the original files entire filepath, but / is replaced with #.
+# Example:
+#
+# /path/to/project/root/build/CMakeFiles/the_file.dir/subdir/the_file.c.gcda
+# ------------------------------------------------------------------------------
+# File '/path/to/project/root/subdir/the_file.c'
+# Lines executed:68.34% of 199
+# /path/to/project/root/subdir/the_file.c:creating '#path#to#project#root#subdir#the_file.c.gcov'
+#
+# If -p is not specified then the file is named only "the_file.c.gcov"
+#
+#
+# An aggreagated list is generated to avoid coverage data being overwritten
+# see https://cmake.org/pipermail/cmake/2009-October/032388.html
+# for a hint at what I am talking about (although the discussion
+# talks about a new option which is built into the gcov now).
+message("Running gcov on ${CONSOLIDATED_GCDA_FILES}")
+execute_process(
+  COMMAND ${GCOV_EXECUTABLE} -p ${TMP_GCDA_FILES}
+  WORKING_DIRECTORY ${COV_PATH}
+)
 
 # TODO: Make these be absolute path
 file(GLOB ALL_GCOV_FILES ${COV_PATH}/*.gcov)
