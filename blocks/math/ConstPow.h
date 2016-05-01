@@ -37,7 +37,7 @@ namespace sigblocks {
     // computes  x^P, where P is a constant
 #define OPTIMIZED_POW_TEMPLATE_SPECIALIZATION(P) \
   template <class T> \
-  class ConstPow<T, ##P> \
+  class ConstPow<T, P> \
     : public UnaryOperator<T> \
   { \
   public: \
