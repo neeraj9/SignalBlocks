@@ -218,7 +218,13 @@ pretty straight-forward (see below).
     cmake ..
     make
 
-The testsuite is another target which is built and run as follows:
+The tests are integrated into the ctest framework, so you can run it
+simply as follows:
+
+    make test
+
+The testsuite is another target which is built and run as follows (in case
+you want to run that directly instead of via the ctest way):
 
     make testsuite
     ./test/testsuite
