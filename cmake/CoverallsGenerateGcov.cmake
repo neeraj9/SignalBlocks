@@ -313,6 +313,10 @@ foreach (GCOV_FILE ${GCOV_FILES})
 	#  also the \ to escaped \n in macros screws up things.)
 	# https://public.kitware.com/Bug/view.php?id=15369
 	file(READ ${GCOV_FILE} GCOV_CONTENTS)
+  # TODO: remove after debugging is done
+  message("--------------------------------------------")
+  message("file ${GCOV_FILE} contents: ${GCOV_CONTENTS}")
+  message("--------------------------------------------")
 	string(REPLACE "[" "_" GCOV_CONTENTS "${GCOV_CONTENTS}")
 	string(REPLACE "]" "_" GCOV_CONTENTS "${GCOV_CONTENTS}")
 	string(REPLACE "\\" "_" GCOV_CONTENTS "${GCOV_CONTENTS}")
