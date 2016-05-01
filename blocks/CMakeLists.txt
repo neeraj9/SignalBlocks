@@ -43,7 +43,6 @@ set(BLOCKS_SOURCES
         sources/SocketSource.cpp
         sources/SocketSource.h
         sources/SocketSourceCreator.h
-        sources/StepSource.cpp
         sources/StepSource.h
         sources/CsvFileSource.cpp
         sources/CsvFileSource.h

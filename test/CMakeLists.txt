@@ -16,6 +16,7 @@ set(SOURCE_FILES
         test_blocks_math_arcsinh.cpp
         test_blocks_math_constpow.cpp
         test_blocks_sources_linear.cpp
+        test_blocks_sources_step.cpp
         test_blocks_sources_pulse.cpp
         test_blocks_sources_random.cpp
         test_blocks_sources_complex.cpp
