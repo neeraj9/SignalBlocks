@@ -22,6 +22,7 @@ set(SOURCE_FILES
         test_blocks_sources_audio.cpp
         test_blocks_sources_constant.cpp
         test_blocks_sinks_json_data_extractable.cpp
+        test_blocks_sinks_stdout.cpp
         test_blocks_basicop_transpose.cpp
         test_plugins_numpy_basic.cpp
         test_blocks_sources_constant.cpp)
