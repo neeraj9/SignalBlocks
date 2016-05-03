@@ -9,83 +9,14 @@
 	<title>SignalBlocks Streaming WebSocketsDemo</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 	<script type="text/javascript" src="smoothie.js"></script>
-  <style type="text/css">
-
-  body {
-    background-color: black;
-    color: darkgray;
-  }
-
-  table {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-width: 0;
-    border-spacing: 0;
-    border-collapse: collapse;
-    vertical-align: baseline;
-    align: center;
-  }
-
-  tr {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      border-width: 0;
-      border-spacing: 0;
-  }
-  td {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      border-width: 0;
-      border-spacing: 0;
-  }
-
-  canvas#mycanvas {
-    margin: 0px;
-    padding: 0px;
-    display: block;
-	  width: 100%;
-    height: 100%;
-  }
-
-  td img#top-middle {
-      width:100%; height:93px;
-  }
-
-  td img#bottom-middle {
-      width:100%; height:45px;
-  }
-
-  td img#left {
-      width:100%; height:100%;
-  }
-
-  td img#right {
-      width:100%; height:100%;
-  }
-
-  td img#right-panel {
-      width: 100%; height: 100%;
-  }
-
-  img {
-    display: block;
-  }
-
-  </style>
 	<script type="text/javascript">
 		window.onload = function() {
 			var log = document.getElementById("log");
-      var time_status = document.getElementById("time_status");
-      var tsample_element = document.getElementById("tsample");
 			var timeSeries = new TimeSeries();
 			var smoothieChart = new SmoothieChart({
         millisPerPixel: 41,
         timestampFormatter:SmoothieChart.timeFormatter,  // show timestamps
 				grid: {
-          borderVisible:false, // no border
 					strokeStyle: 'rgb(125, 0, 0)',
 					fillStyle: 'rgb(60, 0, 0)',
 					lineWidth: 1,
@@ -95,26 +26,27 @@
 			});
 			smoothieChart.addTimeSeries(timeSeries, {
 				strokeStyle:'rgb(0, 255, 0)',
-				//fillStyle:'rgba(0, 255, 0, 0.4)',
+				fillStyle:'rgba(0, 255, 0, 0.4)',
 				lineWidth:3
 			});
 			smoothieChart.streamTo(document.getElementById("mycanvas"), 1000);
-      //var img_top_left = document.getElementById("top-left");
-      //smoothieChart.canvas.drawImage(img,10,10, 150, 180);
 			if (window["WebSocket"]) {
         var load_time_millisec = 0;
         var load_x = -1;
         var millisec_between_samples = 200;  // read from websocket (TODO)
-        tsample_element.innerHTML = millisec_between_samples;
-        // when the time difference between last sample received and current
-        // time is more than the threshold then reset again to avoid lagging
-        // display.
-        var time_adjustment_threshold_millisec = 1000;
 				var conn = new WebSocket("ws://localhost:8585/1");
 				// var conn = new WebSocket("ws://"+window.location.host+"/ws");
 				conn.onmessage = function(evt) {
+          if (evt.data.length > 80)
+          {
+					  log.innerHTML = evt.data.substring(0, 80) + " ...";
+          }
+          else
+          {
+            log.innerHTML = evt.data;
+          }
+					// timeSeries.append(new Date().getTime(), parseFloat(evt.data));
 					var json = jQuery.parseJSON(evt.data);
-          var current_time_millisec = new Date().getTime();
           if (load_x < 0) {  // init for the first time (after connection)
             // TODO read millisec_between_samples as well from
             // the websocket server. Maybe do this as a special packet
@@ -125,44 +57,12 @@
             // also json[0].data array, but this need not be the case.
             var last_index = json[0].data.length - 1;
             load_x = json[0].data[last_index].x;
-            load_time_millisec = current_time_millisec;
+            load_time_millisec = new Date().getTime();
             console.log("load_x " + load_x);
-            time_status.innerHTML = "<b>Init</b>";
-          } else {
-            var last_index = json[0].data.length - 1;
-            // TODO worry about wraparound of value of x
-            var delta_millisec = current_time_millisec -
-              (load_time_millisec +
-                ((json[0].data[last_index].x - load_x) * millisec_between_samples));
-            if (delta_millisec > 0)
-            {
-              time_status.innerHTML = "<font color=\"cyan\">" + delta_millisec +
-                "</font> msec behind";
-            } else if (delta_millisec < 0)
-            {
-              time_status.innerHTML = "<font color=\"green\">" + Math.abs(delta_millisec) +
-                "</font> msec ahead";
-            } else {
-              time_status.innerHTML = "Synced";
-            }
-            if (delta_millisec > time_adjustment_threshold_millisec)
-            {
-              // reinit because the time lag is too much
-              var last_index = json[0].data.length - 1;
-              load_x = json[0].data[last_index].x;
-              load_time_millisec = current_time_millisec;
-              console.log("load_x " + load_x);
-              time_status.innerHTML = "<b>ReInit</b>";
-            }
           }
-          log.innerHTML = json[0].name + " = [" +
-                          "{x = " + json[0].data[0].x + ", " +
-                          "y = " + json[0].data[0].y + "}, ...] (size=" +
-                          json[0].data.length + ")";
           for (i = 0; i < json[0].data.length; i++) {
             // Date().getTime() gives the number of milliseconds since
             // 1970/01/01
-            // TODO worry about wraparound of value of x
             timeSeries.append(load_time_millisec + ((json[0].data[i].x - load_x) * millisec_between_samples), parseFloat(json[0].data[i].y));
           }
 				};
@@ -177,29 +77,8 @@
 </head>
 
 <body>
-  <ul>
-    <li>Tsample = <span id="tsample"></span> (milliseconds between samples).</li>
-    <li>The signal is <span id="time_status"></span> your clock.</li>
-    <li><div id="log"></div></li>
-  </ul>
-  <table cellspacing="0" cellpadding="0" rowspacing="0" rowpadding="0">
-    <tr>
-      <td><img id="top-left" src="oscilloscope_top_left_border.png"/></td>
-      <td><img id="top-middle" src="oscilloscope_top_middle.png"/></td>
-      <td><img id="top-right" src="oscilloscope_top_right_border.png"/></td>
-      <td rowspan="3" ><img id="right-panel" src="oscilloscope_right_panel_sized.png"/></td>
-    </tr>
-    <tr>
-      <td><img id="left" src="oscilloscope_left_border.png"/></td>
-      <td id="canvas"> <canvas id="mycanvas" width="480" height="240"></canvas></td>
-      <td><img id="right" src="oscilloscope_right_border.png"/></td>
-    </tr>
-    <tr>
-      <td><img id="bottom-left" src="oscilloscope_bottom_left_border.png"/></td>
-      <td><img id="bottom-middle" src="oscilloscope_bottom.png"/></td>
-      <td><img id="bottom-right" src="oscilloscope_bottom_right_border.png"/></td>
-    </tr>
-  </table>
+	<div id="log" style="font-family:Courier,monospace"></div>
+	<canvas id="mycanvas" width="1024" height="240"></canvas>
 </body>
 
 </html>
