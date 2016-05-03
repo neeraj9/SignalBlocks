@@ -24,7 +24,7 @@
 #include <assert.h>
 #include <string.h>
 
-using namespace sigblocks;
+using namespace signalblocks;
 using namespace std;
 
 #define DESCRIPTION "A source block which gets data from a socket."

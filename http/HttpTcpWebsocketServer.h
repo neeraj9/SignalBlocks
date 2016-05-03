@@ -28,7 +28,7 @@
 #include <tuple>
 #include <unordered_map>
 
-namespace sigblocks {
+namespace signalblocks {
     class HttpTcpWebsocketServer {
     public:
         HttpTcpWebsocketServer(int port);

@@ -22,7 +22,7 @@
 
 #include <cmath>
 
-namespace sigblocks {
+namespace signalblocks {
     // computes  \cos(x)
     template<class T>
     class Cos

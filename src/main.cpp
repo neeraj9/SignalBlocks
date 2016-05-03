@@ -53,7 +53,7 @@
 #include <unistd.h> // for sleep
 
 
-using namespace sigblocks;
+using namespace signalblocks;
 using namespace std;
 
 void test5() {

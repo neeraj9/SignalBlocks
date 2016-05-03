@@ -17,7 +17,7 @@
 
 #include "BlockRunner.h"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 BlockRunner::BlockRunner(const TimeTick& increment)
         : mTimeTick(),

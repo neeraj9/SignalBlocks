@@ -24,7 +24,7 @@
 #include <cassert>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
     /** Buffer Buffer and send downstream after the buffer is full.
      * This block buffers the input data until the buffer limit is
      * reached and then sends the buffered data in one shot and the

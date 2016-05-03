@@ -23,7 +23,7 @@
 #include <cstdio>
 #include <fstream>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 // This test case is not testing anything, while generating all the test python
 // code so that the rest of the test cases can use them.

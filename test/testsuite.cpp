@@ -6,7 +6,7 @@
 
 #include "../common/Port.h"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 TEST_CASE("A very basic test cases for ports", "[basic]") {
     std::shared_ptr<IPort<float> > port1(new Port<2, 2, float>("port-1", "port 1 description"));

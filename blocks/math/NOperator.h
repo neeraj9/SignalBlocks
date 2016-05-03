@@ -26,7 +26,7 @@
 #include <vector>
 
 
-namespace sigblocks {
+namespace signalblocks {
     template<int N, class T>
     class NOperator
             : public Port<N, 1, T> {

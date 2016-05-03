@@ -27,7 +27,7 @@
 #include <memory>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
 
     /** Transpose of a matrix is a new matrix whose rows and column are interchanged.
      * This block takes transpose of the input only if it is a matrix, otherwise

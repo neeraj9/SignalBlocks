@@ -23,7 +23,7 @@
 #include <assert.h>
 #include <memory>
 
-namespace sigblocks {
+namespace signalblocks {
     /** Splitter Splits an input into multiple outputs based on columns.
      * The Splitter block splits an input received from a
      * single source into multiple outputs, which are then

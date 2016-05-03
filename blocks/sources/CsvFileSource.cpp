@@ -20,7 +20,7 @@
 
 #include <algorithm>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 #define DESCRIPTION "A source block which reads data from a CSV text file."
 

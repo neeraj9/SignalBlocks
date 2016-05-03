@@ -20,7 +20,7 @@
 
 #include <cstdio>
 
-namespace sigblocks {
+namespace signalblocks {
 
 #define VERBOSE
 

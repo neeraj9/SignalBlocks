@@ -22,7 +22,7 @@
 
 #include "catch.hpp"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 
 TEST_CASE("Testing block delay filter for scalar integer", "[delay filter]") {

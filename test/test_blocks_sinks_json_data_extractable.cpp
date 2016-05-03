@@ -21,7 +21,7 @@
 
 #include "catch.hpp"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 TEST_CASE("Testing block json-data-extractable source for scalar integer", "[json-data-extractable source]") {
     double fixed_value = 1.2;

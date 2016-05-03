@@ -24,7 +24,7 @@
 
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
     template<class T, PortType P = PORT_TYPE_SCALAR>
     class ConstantSource
             : public Port<0, 1, T> {

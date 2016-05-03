@@ -24,7 +24,7 @@
 #include <assert.h>
 #include <memory>
 
-namespace sigblocks {
+namespace signalblocks {
     template<int M, class T>
     class Duplicator
             : public Port<1, M, T> {

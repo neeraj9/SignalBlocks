@@ -27,7 +27,7 @@
 #include <memory>
 #include <string>
 
-namespace sigblocks {
+namespace signalblocks {
     template<class X>
     class SocketSinkCreator {
     public:

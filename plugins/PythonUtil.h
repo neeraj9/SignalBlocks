@@ -23,7 +23,7 @@
 #include <memory>
 #include <Python.h>
 
-namespace sigblocks {
+namespace signalblocks {
     class PythonUtil {
     public:
         static std::unique_ptr<PythonBaseResult> ExtractBasicType(PyObject* pObj);

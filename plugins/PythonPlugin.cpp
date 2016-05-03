@@ -29,7 +29,7 @@
 #include <Python.h>
 #include <iostream>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 namespace {
 

@@ -33,7 +33,7 @@
 #include <sys/epoll.h>
 #include <unistd.h>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 namespace {
     // setting for light loaded system

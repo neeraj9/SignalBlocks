@@ -24,7 +24,7 @@
 #include <istream>
 #include <unistd.h>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 namespace {
     static sf_count_t SfVioGetFileLen(void *pData) {

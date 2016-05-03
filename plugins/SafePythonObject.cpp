@@ -17,7 +17,7 @@
 
 #include "SafePythonObject.h"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 // Manage the reference counting automatically even when there
 // are exceptions.

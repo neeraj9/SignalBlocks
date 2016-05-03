@@ -20,7 +20,7 @@
 
 #include "NOperator.h"
 
-namespace sigblocks {
+namespace signalblocks {
     template<int N, class T>
     class Sum
             : public NOperator<N, T> {

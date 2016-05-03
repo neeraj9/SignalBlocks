@@ -26,7 +26,7 @@ namespace SocketProgramming {
     class ISocket;
 }
 
-namespace sigblocks {
+namespace signalblocks {
     class SocketSink
             : public Port<1, 0, unsigned char> {
     public:

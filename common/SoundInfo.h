@@ -23,7 +23,7 @@
 #include <stdint.h>
 #include <string>
 
-namespace sigblocks {
+namespace signalblocks {
     class SoundInfo {
     public:
         enum OpenMode {

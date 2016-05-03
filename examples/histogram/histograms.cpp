@@ -26,7 +26,7 @@
 #include <sstream>
 
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 
 std::shared_ptr<IPort<std::string> > CreateSimpleHistogramCodeBlocks(const std::string& csvFilename) {

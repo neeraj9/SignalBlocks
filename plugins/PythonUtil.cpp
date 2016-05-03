@@ -27,7 +27,7 @@
 
 #include <string>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 std::unique_ptr<PythonBaseResult>
 PythonUtil::ExtractBasicType(PyObject* pObj) {

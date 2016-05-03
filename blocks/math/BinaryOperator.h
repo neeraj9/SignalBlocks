@@ -23,7 +23,7 @@
 #include <memory>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
     template<class T>
     class BinaryOperator
             : public Port<2, 1, T> {

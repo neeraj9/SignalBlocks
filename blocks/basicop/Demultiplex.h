@@ -22,7 +22,7 @@
 
 #include <list>
 
-namespace sigblocks {
+namespace signalblocks {
     template<int N, class T>
     class Demultiplex
             : public Port<1, N, T> {

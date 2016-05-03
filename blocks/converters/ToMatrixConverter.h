@@ -24,7 +24,7 @@
 #include <memory>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
     template<class T>
     class ToMatrixConverter
             : public Port<1, 1, T> {

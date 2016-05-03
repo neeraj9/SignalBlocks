@@ -22,7 +22,7 @@
 
 #include <cmath>
 
-namespace sigblocks {
+namespace signalblocks {
     // computes  \tan(x)
     template<class T>
     class Tan

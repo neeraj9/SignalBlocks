@@ -25,7 +25,7 @@
 #include <assert.h>
 #include <string>
 
-namespace sigblocks {
+namespace signalblocks {
     template <int M>
     class SelectiveCsvFileSource
             : public Port<0, M, std::string> {

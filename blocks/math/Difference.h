@@ -20,7 +20,7 @@
 
 #include "NOperator.h"
 
-namespace sigblocks {
+namespace signalblocks {
     // implement a(n) - b(n) - c(n) - ...
     template<int N, class T>
     class Difference

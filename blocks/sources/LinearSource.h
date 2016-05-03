@@ -25,7 +25,7 @@
 #include <assert.h>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
     /** LinearSource A sample based linear signal source.
      * This source block generate linear signal (increasing or decreasing)
      * based on samples (and not time ticks). This block generates a scalar,

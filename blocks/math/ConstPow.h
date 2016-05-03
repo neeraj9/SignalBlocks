@@ -22,7 +22,7 @@
 
 #include <gsl/gsl_math.h>
 
-namespace sigblocks {
+namespace signalblocks {
     // computes  x^P, where P is a constant
     template<class T, int P>
     class ConstPow

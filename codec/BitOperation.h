@@ -23,7 +23,7 @@
 #include <cstring>
 #include <stdint.h>
 
-namespace sigblocks {
+namespace signalblocks {
     template<typename Operation>
     class BitOperation {
     public:

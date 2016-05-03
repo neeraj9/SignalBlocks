@@ -26,7 +26,7 @@
 #include <fstream>
 #include <memory>
 
-namespace sigblocks {
+namespace signalblocks {
 
     /** ComplexStreamSource A sample based complex signal source.
      * This source block generate a complex signal

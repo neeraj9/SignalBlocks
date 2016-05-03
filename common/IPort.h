@@ -25,7 +25,7 @@
 #include <memory>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
 
     /// Matrix data is stored as shown in the example below, which is row-major order as in C 2D array.
     /// This format is intentionally choosen for compatibility with the C/C++ multidimensional arrays.

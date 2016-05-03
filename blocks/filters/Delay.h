@@ -26,7 +26,7 @@
 #include <memory>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
 
     /** Delay Delay signal by a fixed samples.
      * This block delays the input by fixed number of samples.

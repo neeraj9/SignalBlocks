@@ -20,7 +20,7 @@
 
 #include "../../common/MixedPort.h"
 
-namespace sigblocks {
+namespace signalblocks {
     template<class TFROM, class TTO>
     class BasicTypeConverter
             : public MixedPort<1, 1, TFROM, TTO> {

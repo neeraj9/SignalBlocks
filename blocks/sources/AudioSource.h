@@ -27,7 +27,7 @@
 #include <string>
 #include <stdint.h>
 
-namespace sigblocks {
+namespace signalblocks {
 
     /// This block generates matrix (2-D) output only, where the first
     /// dimension is the block size and the second dimension is the

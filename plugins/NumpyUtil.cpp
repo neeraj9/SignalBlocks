@@ -33,7 +33,7 @@
 
 #include <string>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 // see http://www.scipy.org/Cookbook/C_Extensions/NumPy_arrays
 std::unique_ptr<PythonBaseResult>

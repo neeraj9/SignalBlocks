@@ -28,7 +28,7 @@
 #include <vector>
 #include <limits>
 
-namespace sigblocks {
+namespace signalblocks {
     template <class T>
     T GetRandomNumber(unsigned int* pSeed) {
         T random_value = static_cast<T>(rand_r(pSeed));

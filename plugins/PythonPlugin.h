@@ -26,7 +26,7 @@
 #include <memory>
 #include <string>
 
-namespace sigblocks {
+namespace signalblocks {
     typedef SafePythonObject PythonRunnableCode;
 
     //

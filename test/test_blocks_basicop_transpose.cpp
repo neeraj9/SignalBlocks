@@ -25,7 +25,7 @@
 
 #include "catch.hpp"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 namespace {
     constexpr int LOOP_COUNT = 10;  // a typical loop count

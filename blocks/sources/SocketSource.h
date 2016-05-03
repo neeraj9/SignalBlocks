@@ -28,7 +28,7 @@ namespace SocketProgramming {
     class ISocket;
 }
 
-namespace sigblocks {
+namespace signalblocks {
     class SocketSource
             : public Port<0, 1, unsigned char> {
     public:

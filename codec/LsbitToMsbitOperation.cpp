@@ -21,7 +21,7 @@
 
 #include <stdint.h>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 namespace {
     /* read order is lsbit to msbit */

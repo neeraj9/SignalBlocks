@@ -27,7 +27,7 @@
 #include <stdint.h>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
     class BlockManager {
     public:
         struct BlockInfo {

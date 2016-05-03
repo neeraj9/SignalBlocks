@@ -23,7 +23,7 @@
 #include <tuple>
 #include <unordered_map>
 
-namespace sigblocks {
+namespace signalblocks {
     class OrdinalConverter
             : public MixedPort<1, 1, std::string, unsigned long> {
 

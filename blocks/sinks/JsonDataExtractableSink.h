@@ -28,7 +28,7 @@
 #include <sstream>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
 
     template <class T>
     class DataScalarInfo {

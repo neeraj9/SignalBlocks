@@ -20,7 +20,7 @@
 
 #include <stdint.h>
 
-namespace sigblocks {
+namespace signalblocks {
     class BitReadInfo {
     public:
         uint8_t* buff;

@@ -20,7 +20,7 @@
 
 #include <string>
 
-namespace sigblocks {
+namespace signalblocks {
     enum BlockType {
         BLOCK_CHAR = 0,
         BLOCK_UCHAR,

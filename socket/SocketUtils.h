@@ -19,7 +19,7 @@
 #define SIGNALBLOCKS_SOCKETUTILS_H
 
 
-namespace sigblocks {
+namespace signalblocks {
 
     class SocketUtils {
     public:

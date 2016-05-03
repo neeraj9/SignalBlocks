@@ -20,7 +20,7 @@
 
 #include "SafePythonObject.h"
 
-namespace sigblocks {
+namespace signalblocks {
     class Object
             : public SafePythonObject {
     public:

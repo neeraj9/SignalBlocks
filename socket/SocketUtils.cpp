@@ -31,7 +31,7 @@
 #include <sys/epoll.h>
 #include <unistd.h>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 
 bool SocketUtils::MakeNonBlockingSocket(int fd) {

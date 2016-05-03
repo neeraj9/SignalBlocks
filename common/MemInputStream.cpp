@@ -19,7 +19,7 @@
 
 #include <assert.h>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 MemInputStream::MemInputStream(char* data, std::size_t len)
         : mpData(data),

@@ -22,7 +22,7 @@
 
 #include "catch.hpp"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 TEST_CASE("Testing math block complex stream source for vector integer", "[complex stream source]") {
     // 10 pairs of (I,Q)

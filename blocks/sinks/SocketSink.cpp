@@ -21,7 +21,7 @@
 
 #include <iostream>
 
-using namespace sigblocks;
+using namespace signalblocks;
 using namespace std;
 
 #define DESCRIPTION "A sink which passes through the data to a sock."

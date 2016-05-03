@@ -26,7 +26,7 @@
 #include <memory>
 
 
-namespace sigblocks {
+namespace signalblocks {
     template<class T>
     class IstreamSource
             : public Port<0, 1, T> {

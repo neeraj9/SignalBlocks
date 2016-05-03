@@ -21,7 +21,7 @@
 #include <stdint.h>
 #include <limits>
 
-namespace sigblocks {
+namespace signalblocks {
     typedef uint64_t TimeTickType;
 
     class TimeTick {

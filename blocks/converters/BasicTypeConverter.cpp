@@ -20,7 +20,7 @@
 
 #include "../../common/GenericCopy.h"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 #define DESCRIPTION "A basic type converter block."
 
@@ -68,7 +68,7 @@ BasicTypeConverter<TFROM, TTO>::ProcessMatrix(int sourceIndex,
     this->GetAsSinkType()->ConsumeMatrix(nullptr, std::move(todata), dims, startTime);
 }
 
-namespace sigblocks {
+namespace signalblocks {
     template
     class BasicTypeConverter<int, float>;
 }

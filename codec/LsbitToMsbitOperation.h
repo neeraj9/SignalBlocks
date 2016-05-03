@@ -20,7 +20,7 @@
 
 #include "BitReadInfo.h"
 
-namespace sigblocks {
+namespace signalblocks {
     class LsbitToMsbitOperation {
     public:
         static uint32_t ReadBits(BitReadInfo* bri, int numBits);

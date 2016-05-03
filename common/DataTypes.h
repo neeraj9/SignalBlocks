@@ -18,7 +18,7 @@
 #ifndef SIGBLOCKS_DATATYPES_H
 #define  SIGBLOCKS_DATATYPES_H
 
-namespace sigblocks {
+namespace signalblocks {
     template<class T>
     struct ComplexType {
         ComplexType();

@@ -24,7 +24,7 @@
 #include <string.h>  // memcpy
 #include <typeinfo> 
 
-namespace sigblocks {
+namespace signalblocks {
     /**
      * Copy arbitrary data-types
      */

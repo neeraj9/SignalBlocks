@@ -23,7 +23,7 @@
 #include <ostream>
 #include <memory>
 
-namespace sigblocks {
+namespace signalblocks {
     template<class T>
     class OstreamSink
             : public Port<1, 0, T> {

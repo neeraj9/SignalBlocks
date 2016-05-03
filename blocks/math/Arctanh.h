@@ -22,7 +22,7 @@
 
 #include <gsl/gsl_math.h>
 
-namespace sigblocks {
+namespace signalblocks {
     // computes  \arctanh(x)
     template<class T>
     class Arctanh

@@ -20,7 +20,7 @@
 #include <fstream>
 #include <iostream>
 
-using namespace sigblocks;
+using namespace signalblocks;
 using namespace std;
 
 #define DESCRIPTION "An output stream sink, where the incomig data passes through to the stream."
@@ -56,7 +56,7 @@ OstreamSink<T>::Process(
     mpOstream->write(reinterpret_cast<const char*>(data.get()), len * sizeof(T));
 }
 
-namespace sigblocks {
+namespace signalblocks {
 
     template
     class OstreamSink<unsigned char>;

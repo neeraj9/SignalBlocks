@@ -22,7 +22,7 @@
 
 #include <cmath>
 
-namespace sigblocks {
+namespace signalblocks {
     // computes  \sin(x)
     template<class T>
     class Sin

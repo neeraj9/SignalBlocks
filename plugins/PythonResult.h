@@ -24,7 +24,7 @@
 #include <string>
 #include <sstream>
 
-namespace sigblocks {
+namespace signalblocks {
     class PythonBaseResult {
     public:
         enum PythonResultType {

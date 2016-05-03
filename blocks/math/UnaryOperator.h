@@ -20,7 +20,7 @@
 
 #include "../../common/Port.h"
 
-namespace sigblocks {
+namespace signalblocks {
     template<class T>
     class UnaryOperator
             : public Port<1, 1, T> {

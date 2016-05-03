@@ -17,7 +17,7 @@
 
 #include "PythonPluginExceptions.h"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 PyPluginTypeException::PyPluginTypeException(const std::string& error) throw()
         : mError(error) {

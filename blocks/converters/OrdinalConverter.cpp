@@ -17,7 +17,7 @@
 
 #include "OrdinalConverter.h"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 #define DESCRIPTION "An ordinal block which converts from string to a number."
 

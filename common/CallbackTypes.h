@@ -24,7 +24,7 @@
 #include <string>
 #include <tuple>
 
-namespace sigblocks {
+namespace signalblocks {
 
     using JsonDataCallbackFuncType =
         std::function<std::tuple<std::string, TimeTick>(bool isFirst, const TimeTick& tick)>;

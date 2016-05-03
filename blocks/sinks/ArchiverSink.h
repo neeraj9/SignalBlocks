@@ -23,7 +23,7 @@
 #include <list>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
     template<class T>
     class ArchiverSink
             : public Port<1, 0, T> {

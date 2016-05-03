@@ -20,7 +20,7 @@
 #include <cmath>
 #include <limits>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 TimeTick::TimeTick()
         : mValue(0) {

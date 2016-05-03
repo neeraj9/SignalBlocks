@@ -25,7 +25,7 @@
 #include <list>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
     template<int N, class T>
     class PythonNOperator
             : public Port<N, 1, T> {

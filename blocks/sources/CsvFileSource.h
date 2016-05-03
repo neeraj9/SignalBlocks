@@ -23,7 +23,7 @@
 
 #include <string>
 
-namespace sigblocks {
+namespace signalblocks {
     class CsvFileSource
             : public Port<0, 1, std::string> {
     public:

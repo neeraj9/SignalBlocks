@@ -21,7 +21,7 @@
 
 #include "catch.hpp"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 
 TEST_CASE("Testing block random source for scalar integer", "[random source]") {

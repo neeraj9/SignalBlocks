@@ -22,7 +22,7 @@
 #include <string>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
     class CsvParser {
     public:
         CsvParser(const std::string& filename, bool hasHeader);

@@ -22,7 +22,7 @@
 
 #include <iostream>
 
-namespace sigblocks {
+namespace signalblocks {
     template<class T>
     class StdoutSink
             : public Port<1, 0, T> {

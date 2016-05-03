@@ -20,7 +20,7 @@
 
 #include <streambuf>
 
-namespace sigblocks {
+namespace signalblocks {
 
     class MemInputStream : public std::streambuf {
     public:

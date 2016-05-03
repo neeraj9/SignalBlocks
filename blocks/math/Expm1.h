@@ -22,7 +22,7 @@
 
 #include <gsl/gsl_math.h>
 
-namespace sigblocks {
+namespace signalblocks {
     // computes  \exp(x)-1
     template<class T>
     class Expm1

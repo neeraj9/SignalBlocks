@@ -21,7 +21,7 @@
 #include <exception>
 #include <string>
 
-namespace sigblocks {
+namespace signalblocks {
     class PyPluginTypeException
             : public std::exception {
     public:

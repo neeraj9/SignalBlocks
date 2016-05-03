@@ -22,7 +22,7 @@
 
 #include <gsl/gsl_math.h>
 
-namespace sigblocks {
+namespace signalblocks {
     // computes  \log(1+x)
     template<class T>
     class Log1p

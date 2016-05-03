@@ -32,7 +32,7 @@
 #include <unistd.h>
 #include <HttpTcpWebsocketServer.h>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 using BaseDataType = short;
 

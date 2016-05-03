@@ -18,7 +18,7 @@
 #ifndef SIGBLOCKS_PORTTYPE_H
 #define SIGBLOCKS_PORTTYPE_H
 
-namespace sigblocks {
+namespace signalblocks {
     enum PortType {
         PORT_TYPE_SCALAR = 0,
         PORT_TYPE_VECTOR,

@@ -19,7 +19,7 @@
 
 #include <cmath>
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 
 template<class T>
@@ -77,22 +77,22 @@ inline bool ComplexType<T>::operator!=(const ComplexType<T>& rhs) {
 }
 
 template
-class sigblocks::ComplexType<double>;
+class signalblocks::ComplexType<double>;
 
 template
-class sigblocks::ComplexType<float>;
+class signalblocks::ComplexType<float>;
 
 template
-class sigblocks::ComplexType<long long int>;
+class signalblocks::ComplexType<long long int>;
 
 template
-class sigblocks::ComplexType<long int>;
+class signalblocks::ComplexType<long int>;
 
 template
-class sigblocks::ComplexType<int>;
+class signalblocks::ComplexType<int>;
 
 template
-class sigblocks::ComplexType<short int>;
+class signalblocks::ComplexType<short int>;
 
 template
-class sigblocks::ComplexType<char>;
+class signalblocks::ComplexType<char>;

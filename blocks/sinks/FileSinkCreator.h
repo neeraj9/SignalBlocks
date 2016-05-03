@@ -24,7 +24,7 @@
 #include <memory>
 #include <string>
 
-namespace sigblocks {
+namespace signalblocks {
     template<template<class> class B, class T>
     class FileSinkCreator {
     public:

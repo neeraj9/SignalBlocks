@@ -17,7 +17,7 @@
 
 #include "PythonNOperator.h"
 
-using namespace sigblocks;
+using namespace signalblocks;
 using namespace std;
 
 #define DESCRIPTION "An system implemented in python."
@@ -118,7 +118,7 @@ PythonNOperator<N, T>::Process(
   template class PythonNOperator<NUM, float>; \
   template class PythonNOperator<NUM, double>;
 
-namespace sigblocks {
+namespace signalblocks {
 // XXX allow max of two inputs for now.
     INSTANTIATE_TYPES_FOR_N_INPUTS(1)
 

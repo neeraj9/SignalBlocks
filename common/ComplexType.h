@@ -18,7 +18,7 @@
 #ifndef SIGBLOCKS_COMPLEXTYPE_H
 #define SIGBLOCKS_COMPLEXTYPE_H
 
-namespace sigblocks {
+namespace signalblocks {
     template<class T>
     struct ComplexType {
         ComplexType();

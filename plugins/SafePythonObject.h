@@ -21,7 +21,7 @@
 #include <Python.h> // Its present here only because of PyObject
 // because its forward declaration is not possible.
 
-namespace sigblocks {
+namespace signalblocks {
     class SafePythonObject {
     protected:
         // Dont pass pointer by using Get() of some other

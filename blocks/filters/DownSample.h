@@ -22,7 +22,7 @@
 
 #include <assert.h>
 
-namespace sigblocks {
+namespace signalblocks {
     /** DownSample Down sample the input with respect to TimeTick.
      * Down sample the input data stream with respect to TimeTick.
      *

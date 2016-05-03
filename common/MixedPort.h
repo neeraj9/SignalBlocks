@@ -24,7 +24,7 @@
 #include "TimeTick.h"
 #include "Port.h"
 
-namespace sigblocks {
+namespace signalblocks {
 
     /// Note that we are using Port<1, M, T>, but actually there is no
     /// source connected to TransparentProxy

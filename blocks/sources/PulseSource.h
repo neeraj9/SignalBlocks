@@ -25,7 +25,7 @@
 #include <assert.h>
 #include <vector>
 
-namespace sigblocks {
+namespace signalblocks {
 
     /** PulseSource A sample based pulse signal source.
      * This source block generate pulse signal (high and then low)

@@ -17,7 +17,7 @@
 
 #include "BlockManager.h"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 namespace {
     thread_local BlockManager* pBlockManager = nullptr;

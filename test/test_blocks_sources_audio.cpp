@@ -22,7 +22,7 @@
 
 #include "catch.hpp"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 
 TEST_CASE("Testing block audio source for 8KHz 16-bit signed PCM, stereo signal", "[audio source]") {

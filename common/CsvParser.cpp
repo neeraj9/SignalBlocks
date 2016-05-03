@@ -18,7 +18,7 @@
 #include "CsvParser.h"
 #include "logging.h"
 
-using namespace sigblocks;
+using namespace signalblocks;
 
 namespace {
     // split the line within CSV file, which can be quoted with double quotes (")

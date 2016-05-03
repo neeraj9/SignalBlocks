@@ -23,7 +23,7 @@
 #include <assert.h>
 #include <map>
 
-namespace sigblocks {
+namespace signalblocks {
 
     enum MultiplexPolicy {
         MULTIPLEX_SCALAR = 0,
@@ -148,7 +148,7 @@ namespace sigblocks {
                     assert(mStorage.begin()->second.mLen == len);  // all vectors must of same length
                 }
                 InternalStorage entry(std::move(data), len);
-                // const std::pair<std::map<unsigned int, sigblocks::Multiplex<N, T, MULTIPLEX_VECTOR>::InternalStorage>::iterator, bool>&
+                // const std::pair<std::map<unsigned int, signalblocks::Multiplex<N, T, MULTIPLEX_VECTOR>::InternalStorage>::iterator, bool>&
                 auto p = mStorage.insert(std::make_pair(sourceIndex, std::move(entry)));
                 assert(p.second);
             }
@@ -264,7 +264,7 @@ namespace sigblocks {
                     assert(mStorage.begin()->second.mDims == dims);  // all matrix must of same dimensions
                 }
                 InternalStorage entry(std::move(data), dims);
-                // const std::pair<std::map<unsigned int, sigblocks::Multiplex<N, T, MULTIPLEX_VECTOR>::InternalStorage>::iterator, bool>&
+                // const std::pair<std::map<unsigned int, signalblocks::Multiplex<N, T, MULTIPLEX_VECTOR>::InternalStorage>::iterator, bool>&
                 auto p = mStorage.insert(std::make_pair(sourceIndex, std::move(entry)));
                 assert(p.second);
             }

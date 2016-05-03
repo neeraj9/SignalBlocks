@@ -23,7 +23,7 @@
 #include <memory>
 #include <Python.h> // Needed for PyObject
 
-namespace sigblocks {
+namespace signalblocks {
     class NumpyUtil {
     public:
         static std::unique_ptr<PythonBaseResult> ExtractNumpyType(PyObject* pObj);
