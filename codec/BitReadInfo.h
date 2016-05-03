@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_BITREADINFO_H
-#define SIGBLOCKS_BITREADINFO_H
+#ifndef SIGNALBLOCKS_BITREADINFO_H
+#define SIGNALBLOCKS_BITREADINFO_H
 
 #include <stdint.h>
 
@@ -30,4 +30,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_BITREADINFO_H
+#endif // SIGNALBLOCKS_BITREADINFO_H

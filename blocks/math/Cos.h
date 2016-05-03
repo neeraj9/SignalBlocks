@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_COS_H
-#define SIGBLOCKS_COS_H
+#ifndef SIGNALBLOCKS_COS_H
+#define SIGNALBLOCKS_COS_H
 
 #include "UnaryOperator.h"
 
@@ -40,4 +40,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_COS_H
+#endif // SIGNALBLOCKS_COS_H

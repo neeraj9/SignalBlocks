@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_EXPM1_H
-#define SIGBLOCKS_EXPM1_H
+#ifndef SIGNALBLOCKS_EXPM1_H
+#define SIGNALBLOCKS_EXPM1_H
 
 #include "UnaryOperator.h"
 
@@ -40,4 +40,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_EXPM1_H
+#endif // SIGNALBLOCKS_EXPM1_H

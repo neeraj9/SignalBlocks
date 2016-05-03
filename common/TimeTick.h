@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_TIMETICK_H
-#define SIGBLOCKS_TIMETICK_H
+#ifndef SIGNALBLOCKS_TIMETICK_H
+#define SIGNALBLOCKS_TIMETICK_H
 
 #include <stdint.h>
 #include <limits>
@@ -64,4 +64,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_TIMETICK_H
+#endif // SIGNALBLOCKS_TIMETICK_H

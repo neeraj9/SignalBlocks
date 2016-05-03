@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_ICLIENTSOCKET_H
-#define SIGBLOCKS_ICLIENTSOCKET_H
+#ifndef SIGNALBLOCKS_ICLIENTSOCKET_H
+#define SIGNALBLOCKS_ICLIENTSOCKET_H
 
 #include <stdint.h>
 #include <sys/socket.h>
@@ -48,4 +48,4 @@ namespace SocketProgramming {
     };
 }
 
-#endif // SIGBLOCKS_ICLIENTSOCKET_H
+#endif // SIGNALBLOCKS_ICLIENTSOCKET_H

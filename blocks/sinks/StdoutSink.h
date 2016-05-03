@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_STDOUTSINK_H
-#define SIGBLOCKS_STDOUTSINK_H
+#ifndef SIGNALBLOCKS_STDOUTSINK_H
+#define SIGNALBLOCKS_STDOUTSINK_H
 
 #include "../../common/Port.h"
 
@@ -62,4 +62,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_STDOUTSINK_H
+#endif // SIGNALBLOCKS_STDOUTSINK_H

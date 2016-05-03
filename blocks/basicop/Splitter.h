@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_SPLITTER_H
-#define SIGBLOCKS_SPLITTER_H
+#ifndef SIGNALBLOCKS_SPLITTER_H
+#define SIGNALBLOCKS_SPLITTER_H
 
 #include "../../common/Port.h"
 
@@ -223,4 +223,4 @@ namespace signalblocks {
     };
 }
 
-#endif //SIGBLOCKS_SPLITTER_H
+#endif //SIGNALBLOCKS_SPLITTER_H

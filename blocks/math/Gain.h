@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_GAIN_H
-#define SIGBLOCKS_GAIN_H
+#ifndef SIGNALBLOCKS_GAIN_H
+#define SIGNALBLOCKS_GAIN_H
 
 #include "../../common/Port.h"
 
@@ -61,4 +61,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_GAIN_H
+#endif // SIGNALBLOCKS_GAIN_H

@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_ISERVERSOCKET_H
-#define SIGBLOCKS_ISERVERSOCKET_H
+#ifndef SIGNALBLOCKS_ISERVERSOCKET_H
+#define SIGNALBLOCKS_ISERVERSOCKET_H
 
 #include <stdint.h>
 #include <sys/socket.h>
@@ -67,4 +67,4 @@ namespace SocketProgramming {
     };
 }
 
-#endif // SIGBLOCKS_ISERVERSOCKET_H
+#endif // SIGNALBLOCKS_ISERVERSOCKET_H

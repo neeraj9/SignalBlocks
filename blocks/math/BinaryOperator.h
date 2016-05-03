@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_BINARYOPERATOR_H
-#define SIGBLOCKS_BINARYOPERATOR_H
+#ifndef SIGNALBLOCKS_BINARYOPERATOR_H
+#define SIGNALBLOCKS_BINARYOPERATOR_H
 
 #include "../../common/Port.h"
 
@@ -142,4 +142,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_BINARYOPERATOR_H
+#endif // SIGNALBLOCKS_BINARYOPERATOR_H

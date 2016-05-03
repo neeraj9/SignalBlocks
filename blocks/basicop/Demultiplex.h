@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_DEMULTIPLEX_H
-#define SIGBLOCKS_DEMULTIPLEX_H
+#ifndef SIGNALBLOCKS_DEMULTIPLEX_H
+#define SIGNALBLOCKS_DEMULTIPLEX_H
 
 #include "../../common/Port.h"
 
@@ -76,4 +76,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_DEMULTIPLEX_H
+#endif // SIGNALBLOCKS_DEMULTIPLEX_H

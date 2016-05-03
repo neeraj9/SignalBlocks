@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_PLUGINS_PYTHONRESULT_H
-#define SIGBLOCKS_PLUGINS_PYTHONRESULT_H
+#ifndef SIGNALBLOCKS_PLUGINS_PYTHONRESULT_H
+#define SIGNALBLOCKS_PLUGINS_PYTHONRESULT_H
 
 #include <list>
 #include <map>
@@ -199,4 +199,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_PLUGINS_PYTHONRESULT_H
+#endif // SIGNALBLOCKS_PLUGINS_PYTHONRESULT_H

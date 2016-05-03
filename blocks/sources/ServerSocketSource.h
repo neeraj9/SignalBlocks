@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_SERVERSOCKETSOURCE_H
-#define SIGBLOCKS_SERVERSOCKETSOURCE_H
+#ifndef SIGNALBLOCKS_SERVERSOCKETSOURCE_H
+#define SIGNALBLOCKS_SERVERSOCKETSOURCE_H
 
 #include "../../common/Port.h"
 #include "../../common/TimeTick.h"
@@ -54,4 +54,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_SERVERSOCKETSOURCE_H
+#endif // SIGNALBLOCKS_SERVERSOCKETSOURCE_H

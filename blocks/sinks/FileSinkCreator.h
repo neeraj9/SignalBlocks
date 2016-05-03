@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_FILESINKCREATOR_H
-#define SIGBLOCKS_FILESINKCREATOR_H
+#ifndef SIGNALBLOCKS_FILESINKCREATOR_H
+#define SIGNALBLOCKS_FILESINKCREATOR_H
 
 #include "../common/IPort.h"
 
@@ -39,4 +39,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_FILESINKCREATOR_H
+#endif // SIGNALBLOCKS_FILESINKCREATOR_H

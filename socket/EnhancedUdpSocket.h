@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_ENHANCEDUDPSOCKET_H
-#define SIGBLOCKS_ENHANCEDUDPSOCKET_H
+#ifndef SIGNALBLOCKS_ENHANCEDUDPSOCKET_H
+#define SIGNALBLOCKS_ENHANCEDUDPSOCKET_H
 
 #include "UdpSocket.h"
 
@@ -38,4 +38,4 @@ namespace SocketProgramming {
     };
 }
 
-#endif // SIGBLOCKS_ENHANCEDUDPSOCKET_H
+#endif // SIGNALBLOCKS_ENHANCEDUDPSOCKET_H

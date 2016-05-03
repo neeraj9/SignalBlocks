@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_BASICTYPECONVERTER_H
-#define SIGBLOCKS_BASICTYPECONVERTER_H
+#ifndef SIGNALBLOCKS_BASICTYPECONVERTER_H
+#define SIGNALBLOCKS_BASICTYPECONVERTER_H
 
 #include "../../common/MixedPort.h"
 
@@ -40,4 +40,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_BASICTYPECONVERTER_H
+#endif // SIGNALBLOCKS_BASICTYPECONVERTER_H

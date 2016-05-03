@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_SOCKETSOURCECREATOR_H
-#define SIGBLOCKS_SOCKETSOURCECREATOR_H
+#ifndef SIGNALBLOCKS_SOCKETSOURCECREATOR_H
+#define SIGNALBLOCKS_SOCKETSOURCECREATOR_H
 
 #include "SocketSource.h"
 
@@ -62,4 +62,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_SOCKETSOURCECREATOR_H
+#endif // SIGNALBLOCKS_SOCKETSOURCECREATOR_H

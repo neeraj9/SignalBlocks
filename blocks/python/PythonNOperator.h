@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_PYTHONNOPERATOR_H
-#define SIGBLOCKS_PYTHONNOPERATOR_H
+#ifndef SIGNALBLOCKS_PYTHONNOPERATOR_H
+#define SIGNALBLOCKS_PYTHONNOPERATOR_H
 
 #include "../plugins/PythonPlugin.h"
 #include "../common/Port.h"
@@ -64,4 +64,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_PYTHONNOPERATOR_H
+#endif // SIGNALBLOCKS_PYTHONNOPERATOR_H

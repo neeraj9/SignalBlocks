@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_DOWNSAMPLE_H
-#define SIGBLOCKS_DOWNSAMPLE_H
+#ifndef SIGNALBLOCKS_DOWNSAMPLE_H
+#define SIGNALBLOCKS_DOWNSAMPLE_H
 
 #include "../../common/Port.h"
 
@@ -82,4 +82,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_DOWNSAMPLE_H
+#endif // SIGNALBLOCKS_DOWNSAMPLE_H

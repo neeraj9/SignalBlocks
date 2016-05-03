@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_CSVPARSER_H
-#define SIGBLOCKS_CSVPARSER_H
+#ifndef SIGNALBLOCKS_CSVPARSER_H
+#define SIGNALBLOCKS_CSVPARSER_H
 
 #include <fstream>
 #include <string>
@@ -45,4 +45,4 @@ namespace signalblocks {
     };
 }
 
-#endif //SIGBLOCKS_CSVPARSER_H
+#endif //SIGNALBLOCKS_CSVPARSER_H

@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_SOCKETSINK_H
-#define SIGBLOCKS_SOCKETSINK_H
+#ifndef SIGNALBLOCKS_SOCKETSINK_H
+#define SIGNALBLOCKS_SOCKETSINK_H
 
 #include "../../common/Port.h"
 
@@ -47,4 +47,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_SOCKETSINK_H
+#endif // SIGNALBLOCKS_SOCKETSINK_H

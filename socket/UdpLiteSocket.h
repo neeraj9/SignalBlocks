@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_UDPLITESOCKET_H
-#define SIGBLOCKS_UDPLITESOCKET_H
+#ifndef SIGNALBLOCKS_UDPLITESOCKET_H
+#define SIGNALBLOCKS_UDPLITESOCKET_H
 
 #include "ISocket.h"
 
@@ -56,4 +56,4 @@ namespace SocketProgramming {
     };
 }
 
-#endif // SIGBLOCKS_UDPLITESOCKET_H
+#endif // SIGNALBLOCKS_UDPLITESOCKET_H

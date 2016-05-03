@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_GENERICCOPY_H
-#define SIGBLOCKS_GENERICCOPY_H
+#ifndef SIGNALBLOCKS_GENERICCOPY_H
+#define SIGNALBLOCKS_GENERICCOPY_H
 
 #include <algorithm>
 #include <cmath>
@@ -63,4 +63,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_GENERICCOPY_H
+#endif // SIGNALBLOCKS_GENERICCOPY_H

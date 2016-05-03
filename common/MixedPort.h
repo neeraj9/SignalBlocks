@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_MIXEDPORT_H
-#define SIGBLOCKS_MIXEDPORT_H
+#ifndef SIGNALBLOCKS_MIXEDPORT_H
+#define SIGNALBLOCKS_MIXEDPORT_H
 
 #include "BlockTypes.h"
 #include "BlockManager.h"
@@ -181,4 +181,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_MIXEDPORT_H
+#endif // SIGNALBLOCKS_MIXEDPORT_H

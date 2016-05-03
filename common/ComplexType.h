@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_COMPLEXTYPE_H
-#define SIGBLOCKS_COMPLEXTYPE_H
+#ifndef SIGNALBLOCKS_COMPLEXTYPE_H
+#define SIGNALBLOCKS_COMPLEXTYPE_H
 
 namespace signalblocks {
     template<class T>
@@ -91,5 +91,5 @@ namespace signalblocks {
 
 }
 
-#endif // SIGBLOCKS_COMPLEXTYPE_H
+#endif // SIGNALBLOCKS_COMPLEXTYPE_H
 

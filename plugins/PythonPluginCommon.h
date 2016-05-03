@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_PLUGINS_PYTHONPLUGINCOMMON_H
-#define SIGBLOCKS_PLUGINS_PYTHONPLUGINCOMMON_H
+#ifndef SIGNALBLOCKS_PLUGINS_PYTHONPLUGINCOMMON_H
+#define SIGNALBLOCKS_PLUGINS_PYTHONPLUGINCOMMON_H
 
 #include "SafePythonObject.h"
 
@@ -34,4 +34,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_PLUGINS_PYTHONPLUGINCOMMON_H
+#endif // SIGNALBLOCKS_PLUGINS_PYTHONPLUGINCOMMON_H

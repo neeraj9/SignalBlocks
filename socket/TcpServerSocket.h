@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_TCPSERVERSOCKET_H
-#define SIGBLOCKS_TCPSERVERSOCKET_H
+#ifndef SIGNALBLOCKS_TCPSERVERSOCKET_H
+#define SIGNALBLOCKS_TCPSERVERSOCKET_H
 
 #include "IServerSocket.h"
 
@@ -68,4 +68,4 @@ namespace SocketProgramming {
     };
 }
 
-#endif // SIGBLOCKS_TCPSERVERSOCKET_H
+#endif // SIGNALBLOCKS_TCPSERVERSOCKET_H

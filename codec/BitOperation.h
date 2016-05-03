@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_BITOPERATION_H
-#define SIGBLOCKS_BITOPERATION_H
+#ifndef SIGNALBLOCKS_BITOPERATION_H
+#define SIGNALBLOCKS_BITOPERATION_H
 
 #include "BitReadInfo.h"
 
@@ -106,4 +106,4 @@ namespace signalblocks {
         return 0;
     }
 }
-#endif // SIGBLOCKS_BITOPERATION_H
+#endif // SIGNALBLOCKS_BITOPERATION_H

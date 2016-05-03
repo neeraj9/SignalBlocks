@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_PLUGINS_PYTHONPLUGINEXCEPTIONS_H
-#define SIGBLOCKS_PLUGINS_PYTHONPLUGINEXCEPTIONS_H
+#ifndef SIGNALBLOCKS_PLUGINS_PYTHONPLUGINEXCEPTIONS_H
+#define SIGNALBLOCKS_PLUGINS_PYTHONPLUGINEXCEPTIONS_H
 
 #include <exception>
 #include <string>
@@ -36,4 +36,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_PLUGINS_PYTHONPLUGINEXCEPTIONS_H
+#endif // SIGNALBLOCKS_PLUGINS_PYTHONPLUGINEXCEPTIONS_H

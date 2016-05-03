@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_IPORT_H
-#define SIGBLOCKS_IPORT_H
+#ifndef SIGNALBLOCKS_IPORT_H
+#define SIGNALBLOCKS_IPORT_H
 
 #include "BlockManager.h"
 #include "TimeTick.h"
@@ -128,4 +128,4 @@ namespace signalblocks {
     }
 }
 
-#endif // SIGBLOCKS_IPORT_H
+#endif // SIGNALBLOCKS_IPORT_H

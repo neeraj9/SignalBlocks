@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_FILESOURCECREATOR_H
-#define SIGBLOCKS_FILESOURCECREATOR_H
+#ifndef SIGNALBLOCKS_FILESOURCECREATOR_H
+#define SIGNALBLOCKS_FILESOURCECREATOR_H
 
 #include "../common/IPort.h"
 #include "../common/TimeTick.h"
@@ -41,4 +41,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_FILESOURCECREATOR_H
+#endif // SIGNALBLOCKS_FILESOURCECREATOR_H

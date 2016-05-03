@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_BUFFER_H
-#define SIGBLOCKS_BUFFER_H
+#ifndef SIGNALBLOCKS_BUFFER_H
+#define SIGNALBLOCKS_BUFFER_H
 
 #include "../../common/Port.h"
 
@@ -164,4 +164,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_BUFFER_H
+#endif // SIGNALBLOCKS_BUFFER_H

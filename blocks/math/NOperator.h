@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_NOPERATOR_H
-#define SIGBLOCKS_NOPERATOR_H
+#ifndef SIGNALBLOCKS_NOPERATOR_H
+#define SIGNALBLOCKS_NOPERATOR_H
 
 #include "../../common/Port.h"
 #include "../../common/logging.h"
@@ -209,4 +209,4 @@ namespace signalblocks {
 }
 
 
-#endif // SIGBLOCKS_NOPERATOR_H
+#endif // SIGNALBLOCKS_NOPERATOR_H

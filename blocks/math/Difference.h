@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_DIFFERENCE_H
-#define SIGBLOCKS_DIFFERENCE_H
+#ifndef SIGNALBLOCKS_DIFFERENCE_H
+#define SIGNALBLOCKS_DIFFERENCE_H
 
 #include "NOperator.h"
 
@@ -49,4 +49,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_DIFFERENCE_H
+#endif // SIGNALBLOCKS_DIFFERENCE_H

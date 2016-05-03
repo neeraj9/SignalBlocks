@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_CONSTPOW_H
-#define SIGBLOCKS_CONSTPOW_H
+#ifndef SIGNALBLOCKS_CONSTPOW_H
+#define SIGNALBLOCKS_CONSTPOW_H
 
 #include "UnaryOperator.h"
 
@@ -84,4 +84,4 @@ namespace signalblocks {
 
 }
 
-#endif // SIGBLOCKS_CONSTPOW_H
+#endif // SIGNALBLOCKS_CONSTPOW_H

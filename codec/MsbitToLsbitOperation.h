@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_MSBITTOLSBITOPERATION_H
-#define SIGBLOCKS_MSBITTOLSBITOPERATION_H
+#ifndef SIGNALBLOCKS_MSBITTOLSBITOPERATION_H
+#define SIGNALBLOCKS_MSBITTOLSBITOPERATION_H
 
 #include "BitReadInfo.h"
 
@@ -26,4 +26,4 @@ namespace signalblocks {
         static uint32_t ReadBits(BitReadInfo* bri, int numBits);
     };
 }
-#endif // SIGBLOCKS_MSBITTOLSBITOPERATION_H
+#endif // SIGNALBLOCKS_MSBITTOLSBITOPERATION_H

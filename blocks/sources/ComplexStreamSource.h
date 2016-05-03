@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_COMPLEXSTREAMSOURCE_H
-#define SIGBLOCKS_COMPLEXSTREAMSOURCE_H
+#ifndef SIGNALBLOCKS_COMPLEXSTREAMSOURCE_H
+#define SIGNALBLOCKS_COMPLEXSTREAMSOURCE_H
 
 #include "../../common/PortType.h"
 #include "../../common/Port.h"
@@ -215,4 +215,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_COMPLEXSTREAMSOURCE_H
+#endif // SIGNALBLOCKS_COMPLEXSTREAMSOURCE_H

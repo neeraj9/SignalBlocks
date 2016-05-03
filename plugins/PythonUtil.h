@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_PLUGINS_PYTHONUTIL_H
-#define SIGBLOCKS_PLUGINS_PYTHONUTIL_H
+#ifndef SIGNALBLOCKS_PLUGINS_PYTHONUTIL_H
+#define SIGNALBLOCKS_PLUGINS_PYTHONUTIL_H
 
 #include "PythonResult.h"
 
@@ -32,4 +32,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_PLUGINS_PYTHONUTIL_H
+#endif // SIGNALBLOCKS_PLUGINS_PYTHONUTIL_H

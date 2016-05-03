@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_RANDOMSOURCE_H
-#define SIGBLOCKS_RANDOMSOURCE_H
+#ifndef SIGNALBLOCKS_RANDOMSOURCE_H
+#define SIGNALBLOCKS_RANDOMSOURCE_H
 
 #include "../../common/PortType.h"
 #include "../../common/Port.h"
@@ -192,4 +192,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_RANDOMSOURCE_H
+#endif // SIGNALBLOCKS_RANDOMSOURCE_H

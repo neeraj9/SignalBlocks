@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_PORTTYPE_H
-#define SIGBLOCKS_PORTTYPE_H
+#ifndef SIGNALBLOCKS_PORTTYPE_H
+#define SIGNALBLOCKS_PORTTYPE_H
 
 namespace signalblocks {
     enum PortType {
@@ -25,4 +25,4 @@ namespace signalblocks {
         PORT_TYPE_MATRIX
     };
 }
-#endif //SIGBLOCKS_PORTTYPE_H
+#endif //SIGNALBLOCKS_PORTTYPE_H

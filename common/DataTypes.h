@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_DATATYPES_H
-#define  SIGBLOCKS_DATATYPES_H
+#ifndef SIGNALBLOCKS_DATATYPES_H
+#define  SIGNALBLOCKS_DATATYPES_H
 
 namespace signalblocks {
     template<class T>
@@ -75,5 +75,5 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_DATATYPES_H
+#endif // SIGNALBLOCKS_DATATYPES_H
 

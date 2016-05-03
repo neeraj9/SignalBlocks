@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_LOGGING_H
-#define SIGBLOCKS_LOGGING_H
+#ifndef SIGNALBLOCKS_LOGGING_H
+#define SIGNALBLOCKS_LOGGING_H
 
 #include <cstdio>
 
@@ -41,4 +41,4 @@ namespace signalblocks {
 }
 
 
-#endif //SIGBLOCKS_LOGGING_H
+#endif //SIGNALBLOCKS_LOGGING_H

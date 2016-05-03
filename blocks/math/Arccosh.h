@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_ARCCOSH_H
-#define SIGBLOCKS_ARCCOSH_H
+#ifndef SIGNALBLOCKS_ARCCOSH_H
+#define SIGNALBLOCKS_ARCCOSH_H
 
 #include "UnaryOperator.h"
 
@@ -40,4 +40,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_ARCCOSH_H
+#endif // SIGNALBLOCKS_ARCCOSH_H

@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_ARCHIVERSINK_H
-#define SIGBLOCKS_ARCHIVERSINK_H
+#ifndef SIGNALBLOCKS_ARCHIVERSINK_H
+#define SIGNALBLOCKS_ARCHIVERSINK_H
 
 #include "../../common/Port.h"
 
@@ -129,4 +129,4 @@ namespace signalblocks {
     };
 }
 
-#endif //SIGBLOCKS_ARCHIVERSINK_H
+#endif //SIGNALBLOCKS_ARCHIVERSINK_H

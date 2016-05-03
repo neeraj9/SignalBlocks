@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_TERMINATOR_H
-#define SIGBLOCKS_TERMINATOR_H
+#ifndef SIGNALBLOCKS_TERMINATOR_H
+#define SIGNALBLOCKS_TERMINATOR_H
 
 #include "../../common/Port.h"
 
@@ -35,4 +35,4 @@ namespace signalblocks {
         void Process(int sourceIndex, std::unique_ptr<T[]> data, int len, const TimeTick& startTime) { }
     };
 }
-#endif // SIGBLOCKS_TERMINATOR_H
+#endif // SIGNALBLOCKS_TERMINATOR_H

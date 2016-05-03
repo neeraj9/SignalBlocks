@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_SUM_H
-#define SIGBLOCKS_SUM_H
+#ifndef SIGNALBLOCKS_SUM_H
+#define SIGNALBLOCKS_SUM_H
 
 #include "NOperator.h"
 
@@ -47,4 +47,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_SUM_H
+#endif // SIGNALBLOCKS_SUM_H

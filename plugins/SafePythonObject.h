@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_PLUGINS_SAFEPYTHONOBJECT_H
-#define SIGBLOCKS_PLUGINS_SAFEPYTHONOBJECT_H
+#ifndef SIGNALBLOCKS_PLUGINS_SAFEPYTHONOBJECT_H
+#define SIGNALBLOCKS_PLUGINS_SAFEPYTHONOBJECT_H
 
 #include <Python.h> // Its present here only because of PyObject
 // because its forward declaration is not possible.
@@ -48,4 +48,4 @@ namespace signalblocks {
     };
 }
 
-#endif // SIGBLOCKS_PLUGINS_SAFEPYTHONOBJECT_H
+#endif // SIGNALBLOCKS_PLUGINS_SAFEPYTHONOBJECT_H

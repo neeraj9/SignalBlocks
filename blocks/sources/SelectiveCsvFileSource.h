@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGBLOCKS_SELECTIVECSVFILESOURCE_H
-#define SIGBLOCKS_SELECTIVECSVFILESOURCE_H
+#ifndef SIGNALBLOCKS_SELECTIVECSVFILESOURCE_H
+#define SIGNALBLOCKS_SELECTIVECSVFILESOURCE_H
 
 #include "../../common/Port.h"
 #include "../../common/CsvParser.h"
@@ -95,4 +95,4 @@ namespace signalblocks {
     };
 }
 
-#endif //SIGBLOCKS_SELECTIVECSVFILESOURCE_H
+#endif //SIGNALBLOCKS_SELECTIVECSVFILESOURCE_H
