@@ -1,4 +1,4 @@
-# SigBlocks
+# SignalBlocks
 
 [![Build Status](https://travis-ci.org/neeraj9/SignalBlocks.svg?branch=master)](https://travis-ci.org/neeraj9/SignalBlocks)
 [![Coverage Status](https://coveralls.io/repos/github/neeraj9/SignalBlocks/badge.svg?branch=master)](https://coveralls.io/github/neeraj9/SignalBlocks?branch=master)
