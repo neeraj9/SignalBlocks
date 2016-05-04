@@ -12,6 +12,30 @@ and free (GPLv3 license). Although I initially intended this for the
 student and research community, but this tool is generic enough to
 be used elsewhere.
 
+> This framework tries to achieve standardisation in data interchange
+> and module writing, which allows plug-and-play in a unique way.
+> This framework (like others) not without shortcomings, but then
+> I hope that it finds a place like the others.
+
+
+This is a GPLv3 licensed software, so anything which links or compiles with it
+must take note of the license. This may not look attractive while
+developing proprietary or closed source implementations, but then you can
+use it with outside your application by using the IPC (socket) blocks
+to send and receive data. In that case your application just need to open
+socket interface for receiving and sending data without being linked directly.
+Since the interface is raw data, so there is no data encoding/decoding involved
+other than data representation of various types in memory.
+
+## Potential Applications
+
+> The framework has the potential to be used in multiple areas although
+> not limited to the following. Additionally, this is just a framework
+> so it basically sets way but do not show the complete path.
+
+* Data Analytics: Realtime, streaming data analytics.
+* Digital Signal Processing: Various DSP related simulations.
+
 ## Software Dependencies
 
 This framework supports *Gnu/Linux* operating system, but with little change
