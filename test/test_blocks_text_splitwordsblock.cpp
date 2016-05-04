@@ -26,7 +26,7 @@
 using namespace signalblocks;
 
 /// This test case is specific to the string "What is your name?"
-/// so beware while chaning any part of it. The idea is to
+/// so beware while changing any part of it. The idea is to
 /// test completely rather than generality, hence the approach.
 /// Change this to generic form if it gets to messy.
 TEST_CASE("Testing split words block for vector", "[split word block]") {
