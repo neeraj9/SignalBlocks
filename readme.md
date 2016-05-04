@@ -12,6 +12,8 @@ and free (GPLv3 license). Although I initially intended this for the
 student and research community, but this tool is generic enough to
 be used elsewhere.
 
+## Software Dependencies
+
 This framework supports *Gnu/Linux* operating system, but with little change
 it can be made to build on any of the POSIX compliant operating system. The
 following depencies are required to use this project; namely
@@ -30,14 +32,6 @@ following depencies are required to use this project; namely
 
 [Travis config](.travis.yml) sets up the ubuntu plaform for the build (hint:
 look at the apt-get commands).
-
-C++ code can be daunting for newbies, but I strive to make the framework API
-simple to understand and use. Having said that
-it is important to pick up any good book on c++ which covers c++11 to
-make the best use this framework. This will also allow you to avoid spending a
-lot of time debugging language usage issues. A plethora of open source
-frameworks allow an ever expanding functionality (on top of this framework)
-with practically limitless possibilities.
 
 ## Data Types
 
@@ -605,5 +599,16 @@ from time to to time.
 Thanks for evaluating this project and hope you find it useful.
 Feel free to create issues for bugs or new features.
 
-Copyright (c) 2016 Neeraj Sharma.
+C++ code can be daunting for newbies, but I strive to make the framework API
+simple to understand and use. Having said that
+it is important to pick up any good book on c++ which covers c++11 to
+make the best use this framework. This will also allow you to avoid spending a
+lot of time debugging language usage issues. A plethora of open source
+frameworks allow an ever expanding functionality (on top of this framework)
+with practically limitless possibilities.
+
+
+## Authors
+
+* Neeraj Sharma [github: neeraj9](https://github.com/neeraj9)
 
