@@ -353,6 +353,13 @@ not all of them are thoroughly tested.
                 unsigned long as output (so its a MixedPort).</td>
         </tr>
         <tr>
+            <td><a href="blocks/converters/CharOrdinalConverter.h">char ordinal converter</a></td>
+            <td>It does exactly same as "ordinal converter" but takes
+                raw character as input instead of std::string. This is
+                particularly useful when working with modules which output
+                raw character as output (for example the word splitter).</td>
+        </tr>
+        <tr>
             <td><a href="blocks/converters/BasicTypeConverter.h">basic-type converter</a></td>
             <td>convert from one base type to another</td>
         </tr>
