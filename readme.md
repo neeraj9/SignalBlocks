@@ -14,8 +14,11 @@ be used elsewhere.
 
 > This framework tries to achieve standardisation in data interchange
 > and module writing, which allows plug-and-play in a unique way.
-> This framework (like others) not without shortcomings, but then
-> I hope that it finds a place like the others.
+> The approach is simplistically raw data interface with pre-defined
+> contracts between the connected modules (or blocks) before
+> they started working on the data. There is no special encoding or
+> decoding of data although the framework is generic enough to
+> allow anything complex.
 
 
 This is a GPLv3 licensed software, so anything which links or compiles with it
