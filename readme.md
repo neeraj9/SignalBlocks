@@ -268,6 +268,8 @@ The blocks are categorized in as follows:
            at the signals.
 7. sources - These are some of the basic signal (or data) sources like audio,
              file, constant, step, linear and others.
+8. text - The blocks provide functionality to operate on text and
+          seldom care about the time tick (so take note).
 
 The following list of blocks are available within the system (as on date) although
 not all of them are thoroughly tested.
@@ -540,6 +542,32 @@ not all of them are thoroughly tested.
         </tr>
     </tbody>
 </table>
+
+
+### Text - Text Data Processing
+
+> Note that unless mentioned otherwise the following blocks deal with
+> ascii characters only (no unicode unless specifically mentioned).
+
+<table>
+    <thead>
+        <tr>
+            <th>Block</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="blocks/text/SplitWordsBlock.h">split-words</a></td>
+            <td>Take a single character (scalar) or multiple characters
+                (vector) as input and spit vector output where each
+                one is a separate ascii word.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
 
 ## Design Choices
 

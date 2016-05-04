@@ -74,7 +74,9 @@ set(BLOCKS_SOURCES
         sources/AudioSource.h
         sinks/JsonDataExtractableSink.h
         basicop/Transpose.h
-        converters/ToMatrixConverter.h)
+        converters/ToMatrixConverter.h
+        text/SplitWordsBlock.h
+        text/SplitWordsBlock.cpp)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 
