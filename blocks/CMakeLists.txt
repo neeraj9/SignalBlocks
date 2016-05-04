@@ -76,7 +76,7 @@ set(BLOCKS_SOURCES
         basicop/Transpose.h
         converters/ToMatrixConverter.h
         text/SplitWordsBlock.h
-        text/SplitWordsBlock.cpp)
+        text/SplitWordsBlock.cpp converters/CharOrdinalConverter.cpp converters/CharOrdinalConverter.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 

@@ -43,7 +43,7 @@ set(SOURCE_FILES
         test_blocks_basicop_duplicator.cpp
         test_plugins_numpy_basic.cpp
         test_blocks_sources_constant.cpp
-        test_blocks_text_splitwordsblock.cpp)
+        test_blocks_text_splitwordsblock.cpp test_blocks_converter_charordinalconverter.cpp)
 
 
 # ##################################################################################
