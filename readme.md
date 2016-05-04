@@ -16,7 +16,7 @@ be used elsewhere.
 > and module writing, which allows plug-and-play in a unique way.
 > The approach is simplistically raw data interface with pre-defined
 > contracts between the connected modules (or blocks) before
-> they started working on the data. There is no special encoding or
+> they start working on the data. There is no special encoding or
 > decoding of data although the framework is generic enough to
 > allow anything complex.
 
