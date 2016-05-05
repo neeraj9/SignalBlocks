@@ -644,5 +644,5 @@ with practically limitless possibilities.
 
 ## Authors
 
-* Neeraj Sharma [github: neeraj9](https://github.com/neeraj9)
+* Neeraj Sharma {[github: neeraj9](https://github.com/neeraj9)}
 
