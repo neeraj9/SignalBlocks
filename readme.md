@@ -407,6 +407,10 @@ not all of them are thoroughly tested.
     </thead>
     <tbody>
         <tr>
+            <td><a href="blocks/math/RunningAverage.h">running-average</a></td>
+            <td>an infinite running average of input (no over/underflow checking)</td>
+        </tr>
+        <tr>
             <td><a href="blocks/math/Gain.h">gain</a></td>
             <td>multiply input with a constant factor</td>
         </tr>
