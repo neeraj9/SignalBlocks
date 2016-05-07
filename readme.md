@@ -411,6 +411,10 @@ not all of them are thoroughly tested.
             <td>an infinite running average of input (no over/underflow checking)</td>
         </tr>
         <tr>
+            <td><a href="blocks/math/Average.h">average</a></td>
+            <td>an average of inputs (no over/underflow checking)</td>
+        </tr>
+        <tr>
             <td><a href="blocks/math/Gain.h">gain</a></td>
             <td>multiply input with a constant factor</td>
         </tr>

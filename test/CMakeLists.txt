@@ -45,7 +45,8 @@ set(SOURCE_FILES
         test_blocks_sources_constant.cpp
         test_blocks_text_splitwordsblock.cpp
         test_blocks_converter_charordinalconverter.cpp
-        test_blocks_math_runningaverage.cpp)
+        test_blocks_math_runningaverage.cpp
+        test_blocks_math_average.cpp)
 
 
 # ##################################################################################
