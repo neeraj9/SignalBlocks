@@ -33,7 +33,7 @@ namespace signalblocks {
         }
 
     protected: // UnaryOperator interface
-        virtual T Compute(const T& arg1) const {
+        virtual T Compute(const T& arg1) {
             return gsl_atanh(arg1);
         }
 

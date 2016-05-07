@@ -30,7 +30,7 @@ namespace signalblocks {
         }
 
     protected:
-        virtual T Compute(const T& arg1) const = 0;
+        virtual T Compute(const T& arg1) = 0;
 
     protected: // Port interface
         virtual void Process(int sourceIndex, const T& data, const TimeTick& startTime) {

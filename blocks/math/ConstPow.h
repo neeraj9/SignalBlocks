@@ -33,7 +33,7 @@ namespace signalblocks {
         }
 
     protected: // UnaryOperator interface
-        virtual T Compute(const T& arg1) const {
+        virtual T Compute(const T& arg1) {
             return gsl_pow_int(arg1, P);
         }
 
@@ -60,7 +60,7 @@ namespace signalblocks {
         : UnaryOperator<T>(std::move(name)) { \
     } \
   protected: \
-    virtual T Compute(const T& arg1) const \
+    virtual T Compute(const T& arg1) \
     { \
       return gsl_pow_##P(arg1); \
     } \
