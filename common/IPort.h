@@ -69,6 +69,8 @@ namespace signalblocks {
     template<class T = float>
     class IPort {
     public:
+        using type = T;
+
         virtual ~IPort() {
         }
 
