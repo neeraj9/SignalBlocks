@@ -15,6 +15,7 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+#include "../../common/SB.h"
 #include "../../common/PortType.h"
 #include "../../blocks/basicop/Splitter.h"
 #include "../../blocks/sources/AudioSource.h"
@@ -49,10 +50,11 @@ std::shared_ptr<IPort<BaseDataType> > CreateWebsocketDemoCodeBlocks(
         HttpTcpWebsocketServer* pHttpTcpWebsocketServer,
         std::unique_ptr<std::istream> audioStream) {
     int block_size = 1; // one sample at a time
-    std::shared_ptr<IPort<BaseDataType> > source(new AudioSource<BaseDataType>("audio-src-1", block_size, std::move(audioStream)));
-    std::shared_ptr<IPort<BaseDataType> > block(new Splitter<2, BaseDataType>("splitter-1", 0));
-    std::shared_ptr<IPort<BaseDataType> > nullport(new Terminator<BaseDataType>("nullport-1"));
-    std::shared_ptr<IPort<BaseDataType> > sink(new JsonDataExtractableSink<BaseDataType>("json-data-extractor-1"));
+    auto source = CreateBlock<AudioSource<BaseDataType>,
+            std::string, int&, std::unique_ptr<std::istream> >(std::string("audio-src-1"), block_size, std::move(audioStream));
+    auto block = CreateBlock<Splitter<2, BaseDataType>, std::string, int>(std::string("splitter-1"), 0);
+    auto nullport = CreateBlock<Terminator<BaseDataType>, std::string>(std::string("nullport-1"));
+    auto sink = CreateBlock<JsonDataExtractableSink<BaseDataType>, std::string>(std::string("json-data-extractor-1"));
     JsonDataExtractableSink<BaseDataType>* archive = dynamic_cast<JsonDataExtractableSink<BaseDataType>*>(sink.get());
 
     JsonDataCallbackFuncType cb = archive->GetDataCallback();
