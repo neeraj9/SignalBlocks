@@ -39,6 +39,15 @@ other than data representation of various types in memory.
 * Data Analytics: Realtime, streaming data analytics.
 * Digital Signal Processing: Various DSP related simulations.
 
+## In-The-Works
+
+The author is busy (apart from other enhancements) in finalizing a front-end
+for creating a standalone application which dynamically creates network
+and runs simulations.
+
+> There are a number of javascript frameworks to get the job done,
+> while contribution will be definitely of great help.
+
 ## Software Dependencies
 
 This framework supports *Gnu/Linux* operating system, but with little change
