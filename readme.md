@@ -614,6 +614,14 @@ not all of them are thoroughly tested.
                 one is a separate ascii word.
             </td>
         </tr>
+        <tr>
+            <td><a href="blocks/text/SplitWordsBlock.h">split-lines</a></td>
+            <td>Take a single character (scalar) or multiple characters
+                (vector) as input and spit vector output where each
+                one is a separate line (excluding \n and \r which are
+                the line terminators).
+            </td>
+        </tr>
     </tbody>
 </table>
 
