@@ -67,11 +67,6 @@ namespace {
             }
             // if open quote then it appears that a field has a newline char.
             if (has_quote) {
-                if (!std::getline(instream, line)) {
-                    LOG_ERROR("quoted field ends at the last line in file=%s\n", filename.c_str());
-                    return std::vector<std::string>();
-                }
-                std::string tmp;
                 if ((line[start_position] == quote) && (line[pos - 1] == quote)) {
                     std::string tmp(std::move(line.substr(start_position + 1, pos - start_position - 2)));
                     leftover.swap(tmp);
@@ -81,6 +76,10 @@ namespace {
                 }
                 //std::string tmp(std::move(line.substr(start_position, pos - start_position)));
                 //leftover.swap(tmp);
+                if (!std::getline(instream, line)) {
+                    LOG_ERROR("quoted field ends at the last line in file=%s\n", filename.c_str());
+                    return std::vector<std::string>();
+                }
             } else {
                 if (start_position < pos) {
                     // validate the last field because there are cases
