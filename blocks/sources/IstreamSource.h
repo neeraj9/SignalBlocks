@@ -41,11 +41,12 @@ namespace signalblocks {
 
         IstreamSource(std::string name,
                       int blockSize,
-                      std::unique_ptr<std::istream> pIns)
+                      std::unique_ptr<std::istream> pIns,
+                      bool loopOver = true)
                 : Port<0, 1, T>(std::move(name), "An input stream source block"),
                   mLastTick(),
                   mpIstream(std::move(pIns)),
-                  mLoopOver(true),
+                  mLoopOver(loopOver),
                   mBlockSize(blockSize) {
         }
 
