@@ -92,14 +92,13 @@ where assertions are to be made).
 "The proof is in the pudding ..." and the following demo should get sufficient
 information (and possibly motivation) to decide on this project.
 
+<img src="doc/signalblocks-websocket-demo.png"/>
+<p>Figure: The sample webpage (htmlapp) for websocket demo with cool oscilloscope.</p>
+
 Lets take a sneak peak at a sample c++ source which reads
 audio from a file and then stream the output to a remote
 html5 app via a websocket server. The demo can be built via the
 "websocket_demo" target in the cmake build rule. Cool huh!
-
-
-<img src="doc/signalblocks-websocket-demo.png"/>
-Figure: The sample webpage (htmlapp) for websocket demo with cool oscilloscope.
 
 
 ```c++
