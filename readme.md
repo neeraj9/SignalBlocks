@@ -98,6 +98,10 @@ html5 app via a websocket server. The demo can be built via the
 "websocket_demo" target in the cmake build rule. Cool huh!
 
 
+<img src="doc/signalblocks-websocket-demo.png"/>
+Figure: The sample webpage (htmlapp) for websocket demo with cool oscilloscope.
+
+
 ```c++
 
     using BaseDataType = short;
