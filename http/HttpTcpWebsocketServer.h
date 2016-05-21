@@ -29,6 +29,16 @@
 #include <unordered_map>
 
 namespace signalblocks {
+
+    /** HttpTcpWebsocketServer A basic websocket server for streaming output.
+     * This is a very primitive websocket server (not well designed), which works
+     * when used with Chromium and Firefox latest browsers. There are a lot of
+     * rough edges and it is no way resilient and nor well designed. Having
+     * said that it does get the basic job done for now.
+     *
+     * @todo rewrite and/or refactor parts to make it a correct implemeentation
+     *       of a websocket server.
+     */
     class HttpTcpWebsocketServer {
     public:
         HttpTcpWebsocketServer(int port);
