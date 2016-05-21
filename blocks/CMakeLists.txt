@@ -80,7 +80,13 @@ set(BLOCKS_SOURCES
         converters/CharOrdinalConverter.cpp
         converters/CharOrdinalConverter.h
         math/RunningAverage.h
-        math/Average.h)
+        math/Average.h
+        text/TextCsvParser.h
+        text/TextCsvParser.cpp
+        text/SplitLineBlock.cpp
+        text/SplitLineBlock.h
+        sources/LinuxIOSource.cpp
+        sources/LinuxIOSource.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 

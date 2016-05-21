@@ -43,7 +43,7 @@ set(COMMON_SOURCES
         BlockManager.h
         BlockTypes.h
         CallbackTypes.h
-        SB.h)
+        SB.h CsvStreamParser.cpp CsvStreamParser.h)
 
 add_library(common STATIC ${COMMON_SOURCES})
 
