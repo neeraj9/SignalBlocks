@@ -68,6 +68,47 @@ BasicTypeConverter<TFROM, TTO>::ProcessMatrix(int sourceIndex,
     this->GetAsSinkType()->ConsumeMatrix(nullptr, std::move(todata), dims, startTime);
 }
 
+
+// ----------- char -> std::string template specialization -------------------
+namespace signalblocks {
+
+    template<>
+    BasicTypeConverter<char, std::string>::BasicTypeConverter(std::string name)
+            : MixedPort<1, 1, char, std::string>(std::move(name), DESCRIPTION) {
+    }
+
+    template<>
+    void
+    BasicTypeConverter<char, std::string>::Process(
+            int sourceIndex,
+            const char& data,
+            const TimeTick& startTime) {
+        assert(sourceIndex == 0);
+        std::string todata(" ");
+        todata[0] = data;
+        this->GetAsSinkType()->ConsumeScalar(nullptr, todata, startTime);
+    }
+
+    template<>
+    void
+    BasicTypeConverter<char, std::string>::Process(
+            int sourceIndex, std::unique_ptr<char[]> data, int len, const TimeTick& startTime) {
+        assert(sourceIndex == 0);
+        std::string todata(data.get(), data.get() + len);
+        this->GetAsSinkType()->ConsumeScalar(nullptr, todata, startTime);
+    }
+
+    template<>
+    void
+    BasicTypeConverter<char, std::string>::ProcessMatrix(int sourceIndex,
+                                                         std::unique_ptr<char[]> data,
+                                                         const std::vector<int>& dims,
+                                                         const TimeTick& startTime) {
+        assert(0);  // not supported
+    }
+}
+
+// ----------- template instantiation ----------------------
 namespace signalblocks {
     template
     class BasicTypeConverter<int, float>;

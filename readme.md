@@ -622,6 +622,16 @@ not all of them are thoroughly tested.
                 the line terminators).
             </td>
         </tr>
+        <tr>
+            <td><a href="blocks/text/TextCsvParser.h">parse-csv-stream</a></td>
+            <td>Take a std::string scalar input and consider that as a stream
+                while spliting at configured field delimiter. There is
+                not validation regarding number of fields for every line. That
+                is each row of csv record may have different number of fields,
+                although this is not correct eventually but that validation
+                is not performed in this block (but passed down as-is).
+            </td>
+        </tr>
     </tbody>
 </table>
 
