@@ -92,7 +92,7 @@ where assertions are to be made).
 "The proof is in the pudding ..." and the following demo should get sufficient
 information (and possibly motivation) to decide on this project.
 
-The following figure is the websocket demo after opening the <a href="examples/websocket_demo/htmlapp/websocket.html">websocket.html</a> in browser and running websocket_demo with a sample audio file. Notice that the surrounding oscilloscope, which thanks to [Soundbeam iPhone Project](http://www.evilwindowdog.com/soundbeam/) looks cool. The surrounded signal is streaming from the websocket demo app.
+The following figure is the websocket demo after opening the <a href="examples/websocket_demo/htmlapp/websockets.html">websockets.html</a> in browser and running websocket_demo with a sample audio file. Notice that the surrounding oscilloscope, which thanks to [Soundbeam iPhone Project](http://www.evilwindowdog.com/soundbeam/) looks cool. The surrounded signal is streaming from the websocket demo app.
 
 ![websocket demo](doc/signalblocks-websocket-demo.png)
 <p>Figure: The sample webpage (htmlapp) for websocket demo with cool oscilloscope.</p>
