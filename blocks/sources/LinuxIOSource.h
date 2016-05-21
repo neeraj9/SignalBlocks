@@ -15,8 +15,8 @@
 // along with SignalBlocks.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef SIGNALBLOCKS_GPIOSOURCE_H
-#define SIGNALBLOCKS_GPIOSOURCE_H
+#ifndef SIGNALBLOCKS_LINUXIOSOURCE_H
+#define SIGNALBLOCKS_LINUXIOSOURCE_H
 
 #include "../../common/Port.h"
 #include "../../common/TimeTick.h"
@@ -43,20 +43,24 @@ namespace signalblocks {
      * @important The frequency with which the ClockCycle() is called
      *            is not under scrutiny since this is a read operation
      *            rather than a write operation.
+     *
+     * @note The internal implementation uses <sys/aio.h>, so the
+     *       code must be compiler with -O or -O2 compiler optimization
+     *       otherwise there will be compiler failures.
      */
     template <class T>
     class LinuxIOSource
             : public Port<0, 1, T> {
     public:
-        LinuxIOSource(std::string name, unsigned short gpioPort);
+        LinuxIOSource(std::string name, unsigned short ioPort);
 
     public:  // override Port interfaces
 
         virtual void ClockCycle(const TimeTick& timeTick);
 
     private:
-        const unsigned short mGpioPort;
+        const unsigned short mIoPort;
     };
 }
 
-#endif //SIGNALBLOCKS_GPIOSOURCE_H
+#endif //SIGNALBLOCKS_LINUXIOSOURCE_H

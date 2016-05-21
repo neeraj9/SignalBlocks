@@ -21,7 +21,7 @@
 #include <cerrno>
 #include <sys/io.h>
 
-#define DESCRIPTION "A GPIO source"
+#define DESCRIPTION "A Linux IO source"
 
 namespace signalblocks {
 
@@ -35,27 +35,27 @@ namespace signalblocks {
     }
 
     template<>
-    LinuxIOSource<unsigned char>::LinuxIOSource(std::string name, unsigned short gpioPort)
+    LinuxIOSource<unsigned char>::LinuxIOSource(std::string name, unsigned short ioPort)
             : Port<0, 1, unsigned char>(name, DESCRIPTION),
-              mGpioPort(gpioPort) {
+              mIoPort(ioPort) {
     }
 
     template<>
     void LinuxIOSource<unsigned char>::ClockCycle(const TimeTick& timeTick) {
-        unsigned char value = inb(mGpioPort);
+        unsigned char value = inb(mIoPort);
         this->LeakData(0, value, timeTick);
     }
 
 
     template<>
-    LinuxIOSource<unsigned short>::LinuxIOSource(std::string name, unsigned short gpioPort)
+    LinuxIOSource<unsigned short>::LinuxIOSource(std::string name, unsigned short ioPort)
             : Port<0, 1, unsigned short>(name, DESCRIPTION),
-              mGpioPort(gpioPort) {
+              mIoPort(ioPort) {
     }
 
     template<>
     void LinuxIOSource<unsigned short>::ClockCycle(const TimeTick& timeTick) {
-        unsigned short value = inw(mGpioPort);
+        unsigned short value = inw(mIoPort);
         this->LeakData(0, value, timeTick);
     }
 }
