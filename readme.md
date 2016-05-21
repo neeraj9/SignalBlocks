@@ -586,6 +586,10 @@ not all of them are thoroughly tested.
             <td>generates a function which starts with an initial value and always increase
                 by 1/td>
         </tr>
+        <tr>
+            <td><a href="blocks/sources/LinuxIOSource.h">step</a></td>
+            <td>Allows reading from Linux raw IO port.</td>
+        </tr>
     </tbody>
 </table>
 
