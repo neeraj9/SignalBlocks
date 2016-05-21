@@ -86,7 +86,9 @@ set(BLOCKS_SOURCES
         text/SplitLineBlock.cpp
         text/SplitLineBlock.h
         sources/LinuxIOSource.cpp
-        sources/LinuxIOSource.h)
+        sources/LinuxIOSource.h
+        sources/LinuxGpioSource.cpp
+        sources/LinuxGpioSource.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 

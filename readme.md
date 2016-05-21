@@ -303,7 +303,7 @@ The blocks are categorized in as follows:
 6. sinks - The blocks provide various options for archiving, storing or looking
            at the signals.
 7. sources - These are some of the basic signal (or data) sources like audio,
-             file, constant, step, linear and others.
+             file, constant, step, linear, gpio, io port, and others.
 8. text - The blocks provide functionality to operate on text and
           seldom care about the time tick (so take note).
 
@@ -594,6 +594,10 @@ not all of them are thoroughly tested.
         <tr>
             <td><a href="blocks/sources/LinuxIOSource.h">linux-raw-io</a></td>
             <td>Allows reading from Linux raw IO port.</td>
+        </tr>
+        <tr>
+            <td><a href="blocks/sources/LinuxGpioSource.h">linux-gpio</a></td>
+            <td>Allows reading from Linux GPIO port (0 or 1 value).</td>
         </tr>
     </tbody>
 </table>
