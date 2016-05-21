@@ -587,7 +587,7 @@ not all of them are thoroughly tested.
                 by 1/td>
         </tr>
         <tr>
-            <td><a href="blocks/sources/LinuxIOSource.h">step</a></td>
+            <td><a href="blocks/sources/LinuxIOSource.h">linux-raw-io</a></td>
             <td>Allows reading from Linux raw IO port.</td>
         </tr>
     </tbody>
