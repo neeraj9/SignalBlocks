@@ -59,7 +59,7 @@ namespace signalblocks {
         }
     };
 
-    // XXX specialze a case when N=1, M=1 and optimize it
+    // FIXME specialze a case when N=1, M=1 and optimize it
     template<int N, int M, class TN, class TM>
     class MixedPort
             : public IPort<TN> {
