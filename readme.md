@@ -109,6 +109,7 @@ added.
 * long, unsigned long
 * float
 * double, long double
+* complex of double (preliminary support)
 
 The framework supports scalar, vector and N-Dimensional matrix and each of
 the blocks must support any of them (unless intentionally not supported
