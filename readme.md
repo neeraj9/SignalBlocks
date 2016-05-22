@@ -717,7 +717,7 @@ projects a a few of the bigger ones.
 
 * [Gnu Radio](http://gnuradio.org/)
 * [Mathworks Simulink](http://www.mathworks.com/products/simulink/)
-  - (commercial)
+  (commercial)
 * [Gnu Octave](https://www.gnu.org/software/octave/)
 * [Scilab](http://www.scilab.org/)
 
