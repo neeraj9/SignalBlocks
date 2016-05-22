@@ -17,13 +17,9 @@
 
 set(COMMON_SOURCES
         TimeTick.h
-        ComplexType.h
-        DataTypes.h
-        ComplexType.cpp
         TimeTick.cpp
         Port.h
         GenericCopy.h
-        DataTypes.cpp
         MixedPort.h
         IPort.h
         CsvParser.cpp
@@ -43,7 +39,9 @@ set(COMMON_SOURCES
         BlockManager.h
         BlockTypes.h
         CallbackTypes.h
-        SB.h CsvStreamParser.cpp CsvStreamParser.h)
+        SB.h
+        CsvStreamParser.cpp
+        CsvStreamParser.h)
 
 add_library(common STATIC ${COMMON_SOURCES})
 

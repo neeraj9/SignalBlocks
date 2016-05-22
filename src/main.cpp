@@ -36,7 +36,6 @@
 #include "../blocks/sources/SocketSourceCreator.h"
 #include "../blocks/sources/StepSource.h"
 #include "../blocks/sources/CsvFileSource.h"
-#include "../common/ComplexType.h"
 #include "../common/IPort.h"
 #include "../common/Port.h"
 #include "../common/TimeTick.h"
