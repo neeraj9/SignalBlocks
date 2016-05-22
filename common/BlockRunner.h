@@ -21,6 +21,7 @@
 #include "BlockTypes.h"
 #include "IPort.h"
 
+#include <complex>
 #include <unordered_map>
 #include <memory>
 #include <string>
@@ -43,6 +44,7 @@ namespace signalblocks {
         bool Add(std::shared_ptr<IPort<double> > source, const std::string& name);
         bool Add(std::shared_ptr<IPort<long double> > source, const std::string& name);
         bool Add(std::shared_ptr<IPort<std::string> > source, const std::string& name);
+        bool Add(std::shared_ptr<IPort<std::complex<double> > > source, const std::string& name);
 
         bool Remove(const std::string& name);
 
@@ -71,6 +73,7 @@ namespace signalblocks {
         std::unordered_map<std::string, std::shared_ptr<IPort<double> > > mDoubleSources;
         std::unordered_map<std::string, std::shared_ptr<IPort<long double> > > mLongDoubleSources;
         std::unordered_map<std::string, std::shared_ptr<IPort<std::string> > > mStringSources;
+        std::unordered_map<std::string, std::shared_ptr<IPort<std::complex<double> > > > mComplexDoubleSources;
     };
 }
 

@@ -132,6 +132,16 @@ bool BlockRunner::Add(std::shared_ptr<IPort<std::string> > source, const std::st
     return false;
 }
 
+bool BlockRunner::Add(std::shared_ptr<IPort<std::complex<double> > > source,
+                      const std::string& name) {
+    bool success = mBlocks.insert({name, BLOCK_COMPLEX_DOUBLE}).second;
+    if (success) {
+        mComplexDoubleSources.insert({name, source});
+        return true;
+    }
+    return false;
+}
+
 bool BlockRunner::Remove(const std::string& name) {
     auto element = mBlocks.find(name);
     if (element != mBlocks.end()) {
@@ -196,6 +206,11 @@ bool BlockRunner::Remove(const std::string& name) {
                 mStringSources.erase(name);
                 break;
             }
+            case BLOCK_COMPLEX_DOUBLE:
+            {
+                mComplexDoubleSources.erase(name);
+                break;
+            }
             // no default
         }
         mBlocks.erase(name);
@@ -250,6 +265,10 @@ void BlockRunner::Iterate() {
     }
 
     for (auto&& iter : mStringSources) {
+        iter.second->ClockCycle(mTimeTick);
+    }
+
+    for (auto&& iter : mComplexDoubleSources) {
         iter.second->ClockCycle(mTimeTick);
     }
 

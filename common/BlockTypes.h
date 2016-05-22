@@ -18,6 +18,7 @@
 #ifndef SIGNALBLOCKS_BLOCKTYPES_H
 #define SIGNALBLOCKS_BLOCKTYPES_H
 
+#include <complex>
 #include <string>
 
 namespace signalblocks {
@@ -34,6 +35,7 @@ namespace signalblocks {
         BLOCK_DOUBLE,
         BLOCK_LONG_DOUBLE,
         BLOCK_STRING,
+        BLOCK_COMPLEX_DOUBLE,
 
         BLOCK_TYPE_INVALID
     };
@@ -68,6 +70,7 @@ namespace signalblocks {
     DEFINE_TEMPLATE_SPECIALIZATION_TYPE_TO_BT(double, BLOCK_DOUBLE)
     DEFINE_TEMPLATE_SPECIALIZATION_TYPE_TO_BT(long double, BLOCK_LONG_DOUBLE)
     DEFINE_TEMPLATE_SPECIALIZATION_TYPE_TO_BT(typename std::string, BLOCK_STRING)
+    DEFINE_TEMPLATE_SPECIALIZATION_TYPE_TO_BT(typename std::complex<double>, BLOCK_COMPLEX_DOUBLE)
 
 #undef DEFINE_TEMPLATE_SPECIALIZATION_TYPE_TO_BT
 
