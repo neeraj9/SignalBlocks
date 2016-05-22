@@ -4,13 +4,19 @@
 [![Coverage Status](https://coveralls.io/repos/github/neeraj9/SignalBlocks/badge.svg?branch=master)](https://coveralls.io/github/neeraj9/SignalBlocks?branch=master)
 [![Software License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square)](LICENSE)
 
-The SignalBlocks is a c++11 framework to implement blocks of
+The SignalBlocks is a C++11 framework to implement blocks of
 logic which can be tied together. The concept inspired from
 the Simulink modeling in Matlab but this framework can be used
 for multiple applications.  This framework aims to be fast, adaptable
 and free (GPLv3 license). Although I initially intended this for the
 student and research community, but this tool is generic enough to
 be used elsewhere.
+
+This project provides a clean C++11 interface which is lean and thin, while
+retaining features to be generic at the same time. There are a lot of
+opensource projects which does a lot more than this project can ever do but
+the idea is to provide a simplified approach in both data interchange
+and software design.
 
 > This framework tries to achieve standardisation in data interchange
 > and module writing, which allows plug-and-play in a unique way.
@@ -701,7 +707,20 @@ There are number of items and which are in the pipeline and mostly
 I have it documented in my personal notes. The most important of them
 is to improve the code coverage of the unit tests
 and any new feature. Having said that there will be new features available
-from time to to time.
+from time to time.
+
+## Similar Projects
+
+There are a number of projects which are similar to SignalBlocks in one way
+or another although they are much bigger and older. The following set of
+projects a a few of the bigger ones.
+
+* [Gnu Radio](http://gnuradio.org/)
+* [Mathworks Simulink](http://www.mathworks.com/products/simulink/)
+  - (commercial)
+* [Gnu Octave](https://www.gnu.org/software/octave/)
+* [Scilab](http://www.scilab.org/)
+
 
 ## Thanks
 
