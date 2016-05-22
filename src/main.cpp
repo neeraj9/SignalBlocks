@@ -197,21 +197,6 @@ void test31() {
     SocketSinkTest<SocketProgramming::TcpSocket>();
 }
 
-void test32() {
-    // wow! this works like c structure.
-    // TODO: Will this work all the time, for all optimization flag?
-    printf("sizeof(double) = %lu\n", sizeof(double));
-    printf("sizeof(ComplexType<double> = %lu\n", sizeof(ComplexType<double>));
-
-    double v[2] = {1.0, 2.0};
-    ComplexType<double>* p = reinterpret_cast<ComplexType<double>*>(&v[0]);
-    printf("real = %g, imag = %g\n", p->GetReal(), p->GetImag());
-
-    // another way to reinterpret native (double) to complex type.
-    p = ToComplex<double>(&v[0]);
-    printf("real = %g, imag = %g\n", p->GetReal(), p->GetImag());
-}
-
 void test35() {
     std::shared_ptr<IPort<std::string> > source(new CsvFileSource("csv-source-1", "test.csv", true));
     std::shared_ptr<IPort<std::string> > sink(new StdoutSink<std::string>("stdout-1"));
