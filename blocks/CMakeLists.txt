@@ -90,6 +90,13 @@ set(BLOCKS_SOURCES
         sources/LinuxGpioSource.cpp
         sources/LinuxGpioSource.h)
 
+# conditionally include blocks for rtlsdr when the libraries
+# are available, else dont build them
+if (LIBRTLSDR_FOUND)
+list(APPEND BLOCKS_SOURCES sources/RtlsdrSource.cpp sources/RtlsdrSource.h)
+endif(LIBRTLSDR_FOUND)
+
+
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 
 target_include_directories(blocks PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

@@ -112,6 +112,9 @@ endif(NOT DISABLE_PYTHON_BIN_AND_LIBCHECK)
 mark_as_advanced(PYTHON_EXECUTABLE)
 include_directories(${PYTHON_INCLUDE_PATH})
 
+# Find RTLSDR
+find_package(LibRTLSDR)
+
 # ##################################################################################
 # For Test Coverage
 # ##################################################################################

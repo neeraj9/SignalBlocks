@@ -61,6 +61,27 @@ following depencies are required to use this project; namely
 * [python-dev](http://www.python.org)
 * [numpy](http://www.numpy.org/)
 
+Optional Dependencies:
+
+The following dependencies are optional, but some of the blocks depend
+on them so they will build only when these are available.
+
+* [librtlsdr](https://github.com/neeraj9/librtlsdr) -
+  [How to build](http://sdr.osmocom.org/trac/wiki/rtl-sdr#Buildingthesoftware)
+
+> Note: use <https://github.com/neeraj9/librtlsdr> because there is an
+>       additional API (rtlsdr_read_timed_sync) added in this fork and
+>       used in this project.
+
+> Note: It is convinient to use "cmake ../ -DINSTALL_UDEV_RULES=ON" while
+> building librtlsdr (or rtl-sdr) with udev on so that non-root users
+> can also use the device. The above will ensure that appropriate udev
+> rules are installed in /etc/udev/rules.d/rtl-sdr.rules. In case you dont
+> use udev or dont care then use "cmake ../" instead inside
+> librtlsdr/build (as suggested
+> [here](http://sdr.osmocom.org/trac/wiki/rtl-sdr#Buildingthesoftware)).
+
+
 > The standard compatibility for
 > [clang cxx status](http://clang.llvm.org/cxx_status.html) and
 > [gcc cxx11 status](https://gcc.gnu.org/projects/cxx-status.html#cxx11)
@@ -303,7 +324,7 @@ The blocks are categorized in as follows:
 6. sinks - The blocks provide various options for archiving, storing or looking
            at the signals.
 7. sources - These are some of the basic signal (or data) sources like audio,
-             file, constant, step, linear, gpio, io port, and others.
+             file, constant, step, linear, rtlsdr, gpio, io port, and others.
 8. text - The blocks provide functionality to operate on text and
           seldom care about the time tick (so take note).
 
@@ -542,6 +563,12 @@ not all of them are thoroughly tested.
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td><a href="blocks/sources/RtlsdrSource.h">rtlsdr source</a></td>
+            <td>Read samples from a RTLSDR device when rtlsdr library is
+                available. This block is optional and will be available only
+                when the optional dependency of rtlsdr is satisfied.</td>
+        </tr>
         <tr>
             <td><a href="blocks/sources/CsvFileSource.h">csv file source</a></td>
             <td>source of csvfile and generates a vector output of string data
