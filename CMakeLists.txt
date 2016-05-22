@@ -56,7 +56,8 @@ endif()
 # are added. Unless you do that ctest will not be integrated correctly.
 # Doing the include is enough and you no longer need to do
 # enable_testing() here.
-include(CTest)
+#include(CTest)
+enable_testing()
 
 # ##################################################################################
 # Project Version
@@ -73,6 +74,9 @@ include(compiler)
 # ##############################################################################
 # Find third party libraries
 # ##############################################################################
+
+# enable cmake scripts to use pkg_check_modules
+include(FindPkgConfig)
 
 # any third-party libraries are to be found here
 find_package(Threads)
