@@ -19,6 +19,13 @@
 #define SIGNALBLOCKS_COMPLEXTYPE_H
 
 namespace signalblocks {
+
+    /** ComplexType Represent complex numbers.
+     *
+     * @note At present the only possible value of T is double
+     *       while others are not implemented for simplicity and
+     *       something for later.
+     */
     template<class T>
     struct ComplexType {
         ComplexType();
@@ -33,62 +40,36 @@ namespace signalblocks {
 
         T GetImag() const;
 
+        /// @return an array of size 2, where the first
+        ///         one is the real number and second is the
+        ///         imaginary part.
+        const T* GetInternalData() const;
+
         T GetArg() const;
 
         T GetAbs() const;
 
+        /// @return square of absolute value
         T GetAbs2() const;
 
+        /// @return natural logarithm of absolute value
         T GetLogAbs() const;
 
         ComplexType<T> GetSqrt() const;
 
-        ComplexType<T> GetInverse() const;
+        const ComplexType& operator+=(const ComplexType& rhs);
 
-        ComplexType<T> GetConjugate() const;
+        bool operator==(const ComplexType<T>& rhs) const;
 
-        ComplexType<T> GetExp() const;
+        bool operator!=(const ComplexType<T>& rhc) const;
 
-        ComplexType<T> GetPower(const ComplexType<T>& power) const;
+        bool operator<(const ComplexType& rhs) const;
 
-        ComplexType<T> GetPowerReal(T power) const;
+        bool operator>(const ComplexType& rhs) const;
 
-        ComplexType<T> GetLog() const;
-
-        ComplexType<T> GetLog10() const;
-
-        ComplexType<T> GetLogN(const ComplexType<T>& n) const;
-
-        ComplexType<T> GetSin() const;
-
-        ComplexType<T> GetCos() const;
-
-        ComplexType<T> GetTan() const;
-
-        ComplexType<T> GetSec() const;
-
-        ComplexType<T> GetCsc() const;
-
-        ComplexType<T> GetCot() const;
-
-        bool operator==(const ComplexType<T>& rhs);
-
-        bool operator!=(const ComplexType<T>& rhc);
-
+    private:
         T value[2]; // [0]real, [1]complex
     };
-
-    // TODO: Its easier to have the implementation inline the header
-    //       otherwise its painful to instantiate for each of the
-    //       known complex specialization.
-    template<class T>
-    ComplexType<T>* ToComplex(T* pVal) {
-        // the reinterpret cast works like a charm for -O2, but I need to test
-        // it for the other compiler optimizations as well.
-        ComplexType<T>* p = reinterpret_cast<ComplexType<T>*>(pVal);
-        return p;
-    }
-
 }
 
 #endif // SIGNALBLOCKS_COMPLEXTYPE_H
