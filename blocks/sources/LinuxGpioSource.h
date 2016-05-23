@@ -47,7 +47,7 @@ namespace signalblocks {
      * the GPIO.
      *
      * Note that internal implementation uses the Linux sysfs interface,
-     * that is reading/writing via /sys/class/gpio/* set of files.
+     * that is reading/writing via /sys/class/gpio/  set of files.
      *
      */
     class LinuxGpioSource
