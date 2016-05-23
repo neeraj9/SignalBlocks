@@ -28,7 +28,7 @@
 #include <string>
 
 namespace signalblocks {
-    // XXX specialze a case when N=1, M=1 and optimize it
+    // FIXME specialze a case when N=1, M=1 and optimize it
     template<int N, int M, class T>
     class Port
             : public IPort<T> {
@@ -64,6 +64,7 @@ namespace signalblocks {
             assert(index < N); // XXX replace assert with better error handling
             mpSource[index] = peer;
         }
+
         virtual bool IsSourceConnected(int index) const {
             return mpSource[index] != nullptr;
         }
