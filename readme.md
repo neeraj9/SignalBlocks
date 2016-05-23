@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/neeraj9/SignalBlocks/badge.svg?branch=master)](https://coveralls.io/github/neeraj9/SignalBlocks?branch=master)
 [![Software License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square)](LICENSE)
 
-The SignalBlocks is a C++11 framework to implement blocks of
+SignalBlocks is a C++11 framework to implement blocks of
 logic which can be tied together. The concept inspired from
 the Simulink modeling in Matlab but this framework can be used
 for multiple applications.  This framework aims to be fast, adaptable
