@@ -5,7 +5,7 @@
 [![Software License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square)](LICENSE)
 
 SignalBlocks is a C++11 framework to implement blocks of
-logic which can be tied together. The concept inspired from
+logic which can be tied together. The concept is inspired from
 the Simulink modeling in Matlab but this framework can be used
 for multiple applications.  This framework aims to be fast, adaptable
 and free (GPLv3 license). Although I initially intended this for the
