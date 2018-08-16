@@ -55,7 +55,7 @@ std::shared_ptr<IPort<BaseDataType> > CreateWebsocketDemoCodeBlocks(
     auto block = CreateBlock<Splitter<2, BaseDataType>, std::string, int>(std::string("splitter-1"), 0);
     auto nullport = CreateBlock<Terminator<BaseDataType>, std::string>(std::string("nullport-1"));
     auto sink = CreateBlock<JsonDataExtractableSink<BaseDataType>, std::string>(std::string("json-data-extractor-1"));
-    JsonDataExtractableSink<BaseDataType>* archive = dynamic_cast<JsonDataExtractableSink<BaseDataType>*>(sink.get());
+    auto archive = dynamic_cast<JsonDataExtractableSink<BaseDataType>*>(sink.get());
 
     auto cb = archive->GetDataCallback();
     pHttpTcpWebsocketServer->AddRoute("/1", std::move(cb));
