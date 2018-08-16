@@ -75,18 +75,20 @@ namespace signalblocks {
         ~PythonPlugin();
 
         // return new reference
+        // @throw PyPluginTypeException
         std::unique_ptr<PythonBaseResult> RunPythonCode(
                 const std::string& modulePath,
                 const std::string& pyModuleName,
-                const std::string& pyFuncName) throw(PyPluginTypeException);
+                const std::string& pyFuncName) noexcept(false);
 
         // return new reference
         std::unique_ptr<PythonRunnableCode> ParsePythonSource(
-                const std::string& source) throw();
+                const std::string& source) noexcept(false);
 
         // return new reference
+        // @throw PyPluginTypeException
         std::unique_ptr<PythonBaseResult> RunPythonRunnableCode(
-                PythonRunnableCode* pCode) throw(PyPluginTypeException);
+                PythonRunnableCode* pCode) noexcept(false);
 
     private: // no copy allowed
         PythonPlugin(const PythonPlugin&) = delete;

@@ -132,7 +132,7 @@ LinuxGpioException::LinuxGpioException(int errorNumber, const std::string& msg)
           mMsg(msg) {
 }
 
-const char* LinuxGpioException::what() const throw() {
+const char* LinuxGpioException::what() const noexcept(true) {
     return mMsg.c_str();
 }
 
@@ -140,7 +140,7 @@ int LinuxGpioException::GetErrorNumber() const {
     return mErrorNumber;
 }
 
-LinuxGpioSource::LinuxGpioSource(std::string name, int gpioPort) throw(LinuxGpioException)
+LinuxGpioSource::LinuxGpioSource(std::string name, int gpioPort)
         : Port<0, 1, char>(name, DESCRIPTION),
           mGpioPort(gpioPort) {
     bool success;

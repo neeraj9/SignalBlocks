@@ -84,7 +84,7 @@ std::unique_ptr<PythonBaseResult>
 PythonPlugin::RunPythonCode(
         const std::string& modulePath,
         const std::string& pyModuleName,
-        const std::string& pyFuncName) throw(PyPluginTypeException) {
+        const std::string& pyFuncName) {
     // Python interpreter is not fully thread safe. So for multi-threaded
     // programs we need to either use the Python GIL (global interpreter lock)
     // or have our own because its simple and independent of python version.
@@ -187,7 +187,7 @@ PythonPlugin::RunPythonCode(
 
 // Avoid object slicing
 std::unique_ptr<PythonRunnableCode>
-PythonPlugin::ParsePythonSource(const std::string& source) throw() {
+PythonPlugin::ParsePythonSource(const std::string& source) {
     // Python interpreter is not fully thread safe. So for multi-threaded
     // programs we need to either use the Python GIL (global interpreter lock)
     // or have our own because its simple and independent of python version.
@@ -213,7 +213,7 @@ PythonPlugin::ParsePythonSource(const std::string& source) throw() {
 // ref: http://www.python.org/doc/faq/extending/
 std::unique_ptr<PythonBaseResult>
 PythonPlugin::RunPythonRunnableCode(
-        PythonRunnableCode* pCode) throw(PyPluginTypeException) {
+        PythonRunnableCode* pCode) {
     // Python interpreter is not fully thread safe. So for multi-threaded
     // programs we need to either use the Python GIL (global interpreter lock)
     // or have our own because its simple and independent of python version.

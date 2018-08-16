@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/neeraj9/SignalBlocks/badge.svg?branch=master)](https://coveralls.io/github/neeraj9/SignalBlocks?branch=master)
 [![Software License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square)](LICENSE)
 
-SignalBlocks is a C++11 framework to implement blocks of
+SignalBlocks is a C++17 framework to implement blocks of
 logic which can be tied together. The concept is inspired from
 the Simulink modeling in Matlab but this framework can be used
 for multiple applications.  This framework aims to be fast, adaptable
@@ -12,7 +12,7 @@ and free (GPLv3 license). Although I initially intended this for the
 student and research community, but this tool is generic enough to
 be used elsewhere.
 
-This project provides a clean C++11 interface which is lean and thin, while
+This project provides a clean C++17 interface which is lean and thin, while
 retaining features to be generic at the same time. There are a lot of
 opensource projects which does a lot more than this project can ever do but
 the idea is to provide a simplified approach in both data interchange
@@ -279,8 +279,11 @@ pretty straight-forward (see below).
     cd SignalBlocks
     mkdir build
     cd build
-    cmake ..
+    ../cmake.sh ..
     make
+
+Note that cmake.sh is shell script to set CXX and CC for gcc-8 or g++-8,
+since gnu c++ version 8 supports C++17 standard.
 
 The tests are integrated into the ctest framework, so you can run it
 simply as follows:

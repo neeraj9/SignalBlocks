@@ -32,7 +32,7 @@ namespace signalblocks {
         LinuxGpioException(int errorNumber, const std::string& msg);
 
         // std::exception interface
-        virtual const char* what() const throw();
+        virtual const char* what() const noexcept(true);
 
         int GetErrorNumber() const;
     private:
@@ -53,7 +53,8 @@ namespace signalblocks {
     class LinuxGpioSource
             : public Port<0, 1, char> {
     public:
-        LinuxGpioSource(std::string name, int gpioPort) throw(LinuxGpioException);
+        // @throw LinuxGpioException
+        LinuxGpioSource(std::string name, int gpioPort) noexcept(false);
 
         virtual ~LinuxGpioSource();
 
