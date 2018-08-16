@@ -89,7 +89,7 @@ on them so they will build only when these are available.
 
 
 > The standard compatibility for
-> [gcc cxx11 status](https://gcc.gnu.org/projects/cxx-status.html#cxx11)
+> [gcc cxx17 status](https://gcc.gnu.org/projects/cxx-status.html#cxx17)
 > gives details of the appropriate compiler versions to use.
 
 [Travis config](.travis.yml) sets up the ubuntu plaform for the build (hint:
