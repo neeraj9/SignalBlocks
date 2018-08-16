@@ -375,14 +375,14 @@ void HttpTcpWebsocketServer::ProcessClientRequest(int clientfd) {
                     std::string sec_websocket_accept_value = base64::Base64::base64_encode(hash, 20);
                     LOG_DEBUG("sec_websocket_accept_value=[%s]\n", sec_websocket_accept_value.c_str());
 
-                    printf("buffer=[%s]\n", buffer);
+                    LOG_DEBUG("buffer=[%s]\n", buffer);
                     std::string response = "HTTP/1.1 101 Switching Protocols\r\n"
                             "Upgrade: websocket\r\n"
                             "Connection: Upgrade\r\n"
                             "Sec-WebSocket-Accept: ";
                     response += sec_websocket_accept_value;
                     response += "\r\n\r\n";
-                    printf("response=[%s]\n", response.c_str());
+                    LOG_DEBUG("response=[%s]\n", response.c_str());
                     SendData(clientfd, response);
                 }
             } else {
