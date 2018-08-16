@@ -60,7 +60,7 @@ This framework supports *Gnu/Linux* operating system, but with little change
 it can be made to build on any of the POSIX compliant operating system. The
 following depencies are required to use this project; namely
 
-* [g++](https://gcc.gnu.org/) v3.8+ or [clang](http://clang.llvm.org/) v3.3+
+* [g++](https://gcc.gnu.org/) v8.0+
 * [cmake](https://cmake.org/)
 * [GSL](http://www.gnu.org/software/gsl/)
 * [libsndfile](http://www.mega-nerd.com/libsndfile/)
@@ -89,7 +89,6 @@ on them so they will build only when these are available.
 
 
 > The standard compatibility for
-> [clang cxx status](http://clang.llvm.org/cxx_status.html) and
 > [gcc cxx11 status](https://gcc.gnu.org/projects/cxx-status.html#cxx11)
 > gives details of the appropriate compiler versions to use.
 
@@ -204,11 +203,7 @@ before installing anything else.
 
 In case you prefer the GNU GCC compler then install g++
 
-    sudo apt-get install -y g++
-
-Alternatively, you can install the clang compiler as well
-
-    sudo apt-get install -y clang-3.5
+    sudo apt-get install -y g++-8 gcc-8
 
 The following other depencies are required as mentioned before.
 
@@ -228,15 +223,11 @@ In case you prefer the GNU GCC compler then install g++
 
     sudo yum install -y gcc-c++
 
-Alternatively, you can install the clang compiler as well
-
-    sudo yum install -y clang
-
 The following other depencies are required as mentioned before.
 
     sudo yum install -y gsl-devel libsndfile-devel python-devel numpy
 
-> The versions gcc (g++) and clang which are installed in your (rpm based)
+> The versions gcc (g++) which are installed in your (rpm based)
 > operating needs to meet the previously mentioned criteria. At the time of
 > this writing CentOS 7, Fedora 23, RHEL 7 are the latest releases and works
 > well. Anything earlier may not work for you unless you are willing to
@@ -252,10 +243,6 @@ before installing anything else.
 In case you prefer the GNU GCC compler then install g++
 
     sudo pacman -Sy gcc-multilib
-
-Alternatively, you can install the clang compiler as well
-
-    sudo pacman -Sy clang
 
 The following other depencies are required as mentioned before.
 
