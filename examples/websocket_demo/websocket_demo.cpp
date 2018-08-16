@@ -57,7 +57,7 @@ std::shared_ptr<IPort<BaseDataType> > CreateWebsocketDemoCodeBlocks(
     auto sink = CreateBlock<JsonDataExtractableSink<BaseDataType>, std::string>(std::string("json-data-extractor-1"));
     JsonDataExtractableSink<BaseDataType>* archive = dynamic_cast<JsonDataExtractableSink<BaseDataType>*>(sink.get());
 
-    JsonDataCallbackFuncType cb = archive->GetDataCallback();
+    auto cb = archive->GetDataCallback();
     pHttpTcpWebsocketServer->AddRoute("/1", std::move(cb));
 
     connect(source, connect(connect(block, sink), nullport, 1, 0));
@@ -76,9 +76,9 @@ int main(int argc, char* argv[]) {
 
     std::string filename(argv[1]);
 
-    std::unique_ptr<HttpTcpWebsocketServer> httpTcpWebsocketServer(new HttpTcpWebsocketServer(http_port));
+    auto httpTcpWebsocketServer = std::make_unique<HttpTcpWebsocketServer>(http_port);
     std::unique_ptr<std::istream> audiofile(new std::ifstream(filename));
-    std::shared_ptr<IPort<BaseDataType> > source = CreateWebsocketDemoCodeBlocks(
+    auto source = CreateWebsocketDemoCodeBlocks(
                     httpTcpWebsocketServer.get(),
                     std::move(audiofile));
 
