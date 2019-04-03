@@ -31,35 +31,40 @@
 namespace signalblocks {
     template <class T>
     T GetRandomNumber(unsigned int* pSeed) {
-        T random_value = static_cast<T>(rand_r(pSeed));
+		srand(*pSeed);
+        T random_value = static_cast<T>(rand());
         return random_value;
     }
 
     template <>
     char GetRandomNumber(unsigned int* pSeed) {
         int total_values = (std::numeric_limits<char>::max() + 1);
-        char random_value = static_cast<char>(rand_r(pSeed) % total_values);
+		srand(*pSeed);
+        char random_value = static_cast<char>(rand() % total_values);
         return random_value;
     }
 
     template <>
     unsigned char GetRandomNumber(unsigned int* pSeed) {
         int total_values = (std::numeric_limits<unsigned char>::max() + 1);
-        unsigned char random_value = static_cast<unsigned char>(rand_r(pSeed) % total_values);
+		srand(*pSeed);
+        unsigned char random_value = static_cast<unsigned char>(rand() % total_values);
         return random_value;
     }
 
     template <>
     short GetRandomNumber(unsigned int* pSeed) {
         int total_values = (std::numeric_limits<short>::max() + 1);
-        short random_value = static_cast<short>(rand_r(pSeed) % total_values);
+		srand(*pSeed);
+        short random_value = static_cast<short>(rand() % total_values);
         return random_value;
     }
 
     template <>
     unsigned short GetRandomNumber(unsigned int* pSeed) {
         int total_values = (std::numeric_limits<unsigned short>::max() + 1);
-        unsigned short random_value = static_cast<unsigned short>(rand_r(pSeed) % total_values);
+		srand(*pSeed);
+        unsigned short random_value = static_cast<unsigned short>(rand() % total_values);
         return random_value;
 
     }

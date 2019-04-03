@@ -20,7 +20,7 @@
 
 #include "UnaryOperator.h"
 
-#include <gsl/gsl_math.h>
+#include <cmath>
 
 namespace signalblocks {
     // computes  x^P, where P is a constant
@@ -34,7 +34,7 @@ namespace signalblocks {
 
     protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) {
-            return gsl_pow_int(arg1, P);
+            return std::pow(arg1, P);
         }
 
     };

@@ -20,7 +20,7 @@
 
 #include "UnaryOperator.h"
 
-#include <gsl/gsl_math.h>
+#include <cmath>
 
 namespace signalblocks {
     // computes  \arcsinh(x)
@@ -34,7 +34,7 @@ namespace signalblocks {
 
     protected: // UnaryOperator interface
         virtual T Compute(const T& arg1) {
-            return gsl_asinh(arg1);
+            return std::asinh(arg1);
         }
 
     };
