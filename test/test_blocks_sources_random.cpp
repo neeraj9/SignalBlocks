@@ -49,7 +49,8 @@ TEST_CASE("Testing block random source for scalar integer", "[random source]") {
 
     REQUIRE(archive->GetScalarInfo().size() == (1 + 1));
     REQUIRE(archive->GetScalarInfo().back().mTimeTick == timeTick);
-    REQUIRE(archive->GetScalarInfo().back().mData != unexpected_result);
+    auto delta = std::abs(archive->GetScalarInfo().back().mData - unexpected_result);
+    REQUIRE(delta <= 0.0000001);
 }
 
 TEST_CASE("Testing math block random source for vector integer", "[random source]") {
@@ -81,7 +82,8 @@ TEST_CASE("Testing math block random source for vector integer", "[random source
     REQUIRE(archive->GetVectorInfo().size() == (1 + 1));
     REQUIRE(archive->GetVectorInfo().back().mTimeTick == timeTick);
     for (int i = 0; i < len; ++i) {
-        REQUIRE(archive->GetVectorInfo().back().mData.get()[i] != unexpected_result);
+        auto delta = std::abs(archive->GetVectorInfo().back().mData.get()[i] - unexpected_result);
+        REQUIRE(delta <= 0.0000001);
     }
 }
 
@@ -119,6 +121,7 @@ TEST_CASE("Testing math block random source for matrix integer", "[random source
     REQUIRE(archive->GetMatrixInfo().size() == (1 + 1));
     REQUIRE(archive->GetMatrixInfo().back().mTimeTick == timeTick);
     for (int i = 0; i < len; ++i) {
-        REQUIRE(archive->GetMatrixInfo().back().mData.get()[i] != unexpected_result);
+        auto delta = std::abs(archive->GetMatrixInfo().back().mData.get()[i] - unexpected_result);
+        REQUIRE(delta <= 0.0000001);
     }
 }

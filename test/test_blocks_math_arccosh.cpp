@@ -48,7 +48,7 @@ TEST_CASE("Testing block arccosh for scalar integer", "[arccosh]") {
     TimeTick timeTick(1);
     source->ClockCycle(timeTick);
 
-    double expected_result = gsl_acosh(input_value);
+    double expected_result = std::acosh(input_value);
 
     REQUIRE(archive->GetScalarInfo().size() == 1);
     REQUIRE(archive->GetScalarInfo().front().mTimeTick == timeTick);
@@ -84,7 +84,7 @@ TEST_CASE("Testing math block arccosh for vector integer", "[arccosh]") {
     TimeTick timeTick(1);
     source->ClockCycle(timeTick);
 
-    double expected_result = gsl_acosh(input_value);
+    double expected_result = std::acosh(input_value);
 
     REQUIRE(archive->GetScalarInfo().empty());
     REQUIRE(archive->GetVectorInfo().size() == 1);
@@ -130,7 +130,7 @@ TEST_CASE("Testing math block arccosh for matrix integer", "[arccosh]") {
     TimeTick timeTick(1);
     source->ClockCycle(timeTick);
 
-    double expected_result = gsl_acosh(input_value);
+    double expected_result = std::acosh(input_value);
 
     REQUIRE(archive->GetScalarInfo().empty());
     REQUIRE(archive->GetVectorInfo().empty());
