@@ -30,9 +30,6 @@ add_executable(signalblocks main.cpp ${SOURCE_FILES})
 
 
 target_link_libraries(signalblocks blocks)
-target_link_libraries(signalblocks plugins)
-target_link_libraries(signalblocks http)
-target_link_libraries(signalblocks socket)
 target_link_libraries(signalblocks codec)
 target_link_libraries(signalblocks common)
 

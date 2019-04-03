@@ -35,13 +35,11 @@ set(SOURCE_FILES
         test_blocks_sources_random.cpp
         test_blocks_sources_complex.cpp
         test_blocks_filters_delay.cpp
-        test_blocks_sources_audio.cpp
         test_blocks_sources_constant.cpp
         test_blocks_sinks_json_data_extractable.cpp
         test_blocks_sinks_stdout.cpp
         test_blocks_basicop_transpose.cpp
         test_blocks_basicop_duplicator.cpp
-        test_plugins_numpy_basic.cpp
         test_blocks_sources_constant.cpp
         test_blocks_text_splitwordsblock.cpp
         test_blocks_converter_charordinalconverter.cpp
@@ -61,9 +59,6 @@ add_executable(testsuite testsuite.cpp ${SOURCE_FILES})
 
 
 target_link_libraries(testsuite blocks)
-target_link_libraries(testsuite plugins)
-target_link_libraries(testsuite http)
-target_link_libraries(testsuite socket)
 target_link_libraries(testsuite codec)
 target_link_libraries(testsuite common)
 

@@ -29,8 +29,6 @@ set(COMMON_SOURCES
         BlockRunner.h
         MemInputStream.h
         MemInputStream.cpp
-        SoundInfo.cpp
-        SoundInfo.h
         sha1.cpp
         sha1.h
         base64.cpp

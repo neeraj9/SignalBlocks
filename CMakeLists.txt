@@ -81,40 +81,6 @@ include(FindPkgConfig)
 # any third-party libraries are to be found here
 find_package(Threads)
 
-if(CMAKE_MAJOR_VERSION VERSION_LESS 3.0)
-  find_package(GslForOlderCmake)
-else()
-  find_package(GSL)
-endif()
-
-find_package(LibSndFile)
-
-# ####################
-# Find Python
-# ####################
-
-find_package(PythonInterp)
-find_package(PythonLibs)
-
-# require at least python 2.7
-if(PYTHON_VERSION_STRING VERSION_LESS 2.7)
-  message(FATAL_ERROR " Python version less than 2.7: \"${PYTHON_VERSION_STRING}\".")
-endif()
-
-if (NOT DISABLE_PYTHON_BIN_AND_LIBCHECK)
-    # check for version mismatch.
-    if(PYTHONLIBS_FOUND AND PYTHONINTERP_FOUND
-        AND NOT(PYTHON_VERSION_STRING VERSION_EQUAL PYTHONLIBS_VERSION_STRING))
-        message(FATAL_ERROR " Python executable (\"${PYTHON_VERSION_STRING}\") and library (\"${PYTHONLIBS_VERSION_STRING}\") version mismatch. Clean build area and try again.")
-    endif()
-endif(NOT DISABLE_PYTHON_BIN_AND_LIBCHECK)
-
-mark_as_advanced(PYTHON_EXECUTABLE)
-include_directories(${PYTHON_INCLUDE_PATH})
-
-# Find RTLSDR
-find_package(LibRTLSDR)
-
 # ##################################################################################
 # For Test Coverage
 # ##################################################################################
@@ -156,9 +122,6 @@ endif() # NOT CMAKE_BUILD_TYPE STREQUAL "Debug"
 
 add_subdirectory(common)
 add_subdirectory(codec)
-add_subdirectory(socket)
-add_subdirectory(http)
-add_subdirectory(plugins)
 add_subdirectory(blocks)
 
 # ##################################################################################
@@ -167,7 +130,6 @@ add_subdirectory(blocks)
 
 add_subdirectory(src)
 add_subdirectory(examples/histogram)
-add_subdirectory(examples/websocket_demo)
 
 # tests
 add_subdirectory(test)

@@ -38,14 +38,9 @@ set(BLOCKS_SOURCES
         math/Sin.h
         math/Sum.h
         math/Tan.h
-        python/PythonNOperator.cpp
-        python/PythonNOperator.h
         sinks/FileSinkCreator.h
         sinks/OstreamSink.cpp
         sinks/OstreamSink.h
-        sinks/SocketSink.cpp
-        sinks/SocketSink.h
-        sinks/SocketSinkCreator.h
         sinks/StdoutSink.h
         sinks/Terminator.h
         sources/ComplexStreamSource.h
@@ -53,11 +48,6 @@ set(BLOCKS_SOURCES
         sources/FileSourceCreator.h
         sources/IstreamSource.h
         sources/RandomSource.h
-        sources/ServerSocketSource.cpp
-        sources/ServerSocketSource.h
-        sources/SocketSource.cpp
-        sources/SocketSource.h
-        sources/SocketSourceCreator.h
         sources/StepSource.h
         sources/CsvFileSource.cpp
         sources/CsvFileSource.h
@@ -71,7 +61,6 @@ set(BLOCKS_SOURCES
         sources/LinearSource.h
         sources/PulseSource.h
         filters/Delay.h
-        sources/AudioSource.h
         sinks/JsonDataExtractableSink.h
         basicop/Transpose.h
         converters/ToMatrixConverter.h
@@ -84,18 +73,7 @@ set(BLOCKS_SOURCES
         text/TextCsvParser.h
         text/TextCsvParser.cpp
         text/SplitLineBlock.cpp
-        text/SplitLineBlock.h
-        sources/LinuxIOSource.cpp
-        sources/LinuxIOSource.h
-        sources/LinuxGpioSource.cpp
-        sources/LinuxGpioSource.h)
-
-# conditionally include blocks for rtlsdr when the libraries
-# are available, else dont build them
-if (LIBRTLSDR_FOUND)
-list(APPEND BLOCKS_SOURCES sources/RtlsdrSource.cpp sources/RtlsdrSource.h)
-endif(LIBRTLSDR_FOUND)
-
+        text/SplitLineBlock.h)
 
 add_library(blocks STATIC ${BLOCKS_SOURCES})
 
