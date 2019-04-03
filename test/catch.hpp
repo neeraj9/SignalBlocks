@@ -88,7 +88,7 @@
 // CATCH_CONFIG_CPP11_TUPLE : std::tuple is supported
 // CATCH_CONFIG_CPP11_LONG_LONG : is long long supported?
 // CATCH_CONFIG_CPP11_OVERRIDE : is override supported?
-// CATCH_CONFIG_CPP11_UNIQUE_PTR : is unique_ptr supported (otherwise use auto_ptr)
+// CATCH_CONFIG_CPP11_UNIQUE_PTR : is unique_ptr supported (otherwise use unique_ptr)
 
 // CATCH_CONFIG_CPP11_OR_GREATER : Is C++11 supported?
 
@@ -304,7 +304,7 @@
 #ifdef CATCH_CONFIG_CPP11_UNIQUE_PTR
 #   define CATCH_AUTO_PTR( T ) std::unique_ptr<T>
 #else
-#   define CATCH_AUTO_PTR( T ) std::auto_ptr<T>
+#   define CATCH_AUTO_PTR( T ) std::unique_ptr<T>
 #endif
 
 namespace Catch {
@@ -558,6 +558,7 @@ namespace Catch {
 #endif
 
 #include <memory>
+#include <random>
 #include <vector>
 #include <stdlib.h>
 
@@ -2388,7 +2389,7 @@ class CompositeGenerator {
 public:
     CompositeGenerator() : m_totalSize( 0 ) {}
 
-    // *** Move semantics, similar to auto_ptr ***
+    // *** Move semantics, similar to unique_ptr ***
     CompositeGenerator( CompositeGenerator& other )
     :   m_fileInfo( other.m_fileInfo ),
         m_totalSize( 0 )
@@ -3450,7 +3451,7 @@ namespace Catch {
     };
 
     class DebugOutStream : public IStream {
-        std::auto_ptr<StreamBufBase> m_streamBuf;
+        std::unique_ptr<StreamBufBase> m_streamBuf;
         mutable std::ostream m_os;
     public:
         DebugOutStream();
@@ -3598,7 +3599,7 @@ namespace Catch {
         }
         ConfigData m_data;
 
-        std::auto_ptr<IStream const> m_stream;
+        std::unique_ptr<IStream const> m_stream;
         TestSpec m_testSpec;
     };
 
@@ -3795,7 +3796,7 @@ namespace Tbc {
 // CLARA_CONFIG_CPP11_NOEXCEPT : is noexcept supported?
 // CLARA_CONFIG_CPP11_GENERATED_METHODS : The delete and default keywords for compiler generated methods
 // CLARA_CONFIG_CPP11_OVERRIDE : is override supported?
-// CLARA_CONFIG_CPP11_UNIQUE_PTR : is unique_ptr supported (otherwise use auto_ptr)
+// CLARA_CONFIG_CPP11_UNIQUE_PTR : is unique_ptr supported (otherwise use unique_ptr)
 
 // CLARA_CONFIG_CPP11_OR_GREATER : Is C++11 supported?
 
@@ -3922,7 +3923,7 @@ namespace Tbc {
 #ifdef CLARA_CONFIG_CPP11_UNIQUE_PTR
 #   define CLARA_AUTO_PTR( T ) std::unique_ptr<T>
 #else
-#   define CLARA_AUTO_PTR( T ) std::auto_ptr<T>
+#   define CLARA_AUTO_PTR( T ) std::unique_ptr<T>
 #endif
 
 #endif // TWOBLUECUBES_CLARA_COMPILERS_H_INCLUDED
@@ -6411,9 +6412,6 @@ namespace Catch {
     struct LexSort {
         bool operator() (TestCase i,TestCase j) const { return (i<j);}
     };
-    struct RandomNumberGenerator {
-        int operator()( int n ) const { return std::rand() % n; }
-    };
 
     inline std::vector<TestCase> sortTests( IConfig const& config, std::vector<TestCase> const& unsortedTestCases ) {
 
@@ -6427,8 +6425,9 @@ namespace Catch {
                 {
                     seedRng( config );
 
-                    RandomNumberGenerator rng;
-                    std::random_shuffle( sorted.begin(), sorted.end(), rng );
+                    std::random_device rd;
+                    std::mt19937 g(rd());
+                    std::shuffle( sorted.begin(), sorted.end(), g );
                 }
                 break;
             case RunTests::InDeclarationOrder:
