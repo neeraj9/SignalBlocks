@@ -21,6 +21,7 @@
 #include "../common/base64.h"
 #include "../socket/SocketUtils.h"
 
+#include <sys/uio.h>  // writev
 #include <arpa/inet.h>
 #include <cassert>
 #include <cerrno>
